@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     FMOD_SOUND *sound,
- *     void *data,
- *     unsigned int datalen
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_SOUND_PCMREAD_CALLBACK} */
 public abstract class FMOD_SOUND_PCMREAD_CALLBACK extends Callback implements FMOD_SOUND_PCMREAD_CALLBACKI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class FMOD_SOUND_PCMREAD_CALLBACK extends Callback implements FM
     }
 
     protected FMOD_SOUND_PCMREAD_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_SOUND_PCMREAD_CALLBACK(long functionPointer) {

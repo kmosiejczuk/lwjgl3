@@ -16,18 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure containing the RC duration of a display.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link GOOGLEDisplayTiming#vkGetRefreshCycleDurationGOOGLE GetRefreshCycleDurationGOOGLE}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkRefreshCycleDurationGOOGLE {
- *     uint64_t {@link #refreshDuration};
- * }</code></pre>
+ *     uint64_t refreshDuration;
+ * }}</pre>
  */
 public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationGOOGLE> implements NativeResource {
 
@@ -74,7 +66,7 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the number of nanoseconds from the start of one refresh cycle to the next. */
+    /** @return the value of the {@code refreshDuration} field. */
     @NativeType("uint64_t")
     public long refreshDuration() { return nrefreshDuration(address()); }
 
@@ -148,25 +140,6 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
     public static VkRefreshCycleDurationGOOGLE.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRefreshCycleDurationGOOGLE.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkRefreshCycleDurationGOOGLE} instance allocated on the specified {@link MemoryStack}.
@@ -254,7 +227,7 @@ public class VkRefreshCycleDurationGOOGLE extends Struct<VkRefreshCycleDurationG
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkRefreshCycleDurationGOOGLE#refreshDuration} field. */
+        /** @return the value of the {@code refreshDuration} field. */
         @NativeType("uint64_t")
         public long refreshDuration() { return VkRefreshCycleDurationGOOGLE.nrefreshDuration(address()); }
 

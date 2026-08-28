@@ -16,18 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a two-dimensional subregion.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkBindImageMemoryDeviceGroupInfo}, {@link VkClearRect}, {@link VkCommandBufferInheritanceRenderPassTransformInfoQCOM}, {@link VkDeviceGroupRenderPassBeginInfo}, {@link VkDisplayPresentInfoKHR}, {@link VkExtent2D}, {@link VkMultiviewPerViewRenderAreasRenderPassBeginInfoQCOM}, {@link VkOffset2D}, {@link VkOpticalFlowExecuteInfoNV}, {@link VkPipelineDiscardRectangleStateCreateInfoEXT}, {@link VkPipelineViewportExclusiveScissorStateCreateInfoNV}, {@link VkPipelineViewportStateCreateInfo}, {@link VkRenderPassBeginInfo}, {@link VkRenderPassStripeInfoARM}, {@link VkRenderingInfo}, {@link EXTDiscardRectangles#vkCmdSetDiscardRectangleEXT CmdSetDiscardRectangleEXT}, {@link NVScissorExclusive#vkCmdSetExclusiveScissorNV CmdSetExclusiveScissorNV}, {@link VK10#vkCmdSetScissor CmdSetScissor}, {@link VK13#vkCmdSetScissorWithCount CmdSetScissorWithCount}, {@link EXTShaderObject#vkCmdSetScissorWithCountEXT CmdSetScissorWithCountEXT}, {@link KHRSwapchain#vkGetPhysicalDevicePresentRectanglesKHR GetPhysicalDevicePresentRectanglesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkRect2D {
- *     {@link VkOffset2D VkOffset2D} {@link #offset};
- *     {@link VkExtent2D VkExtent2D} {@link #extent};
+ *     {@link VkOffset2D VkOffset2D} offset;
+ *     {@link VkExtent2D VkExtent2D} extent;
  * }</code></pre>
  */
 public class VkRect2D extends Struct<VkRect2D> implements NativeResource {
@@ -78,18 +70,18 @@ public class VkRect2D extends Struct<VkRect2D> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@link VkOffset2D} specifying the rectangle offset. */
+    /** @return a {@link VkOffset2D} view of the {@code offset} field. */
     public VkOffset2D offset() { return noffset(address()); }
-    /** a {@link VkExtent2D} specifying the rectangle extent. */
+    /** @return a {@link VkExtent2D} view of the {@code extent} field. */
     public VkExtent2D extent() { return nextent(address()); }
 
-    /** Copies the specified {@link VkOffset2D} to the {@link #offset} field. */
+    /** Copies the specified {@link VkOffset2D} to the {@code offset} field. */
     public VkRect2D offset(VkOffset2D value) { noffset(address(), value); return this; }
-    /** Passes the {@link #offset} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code offset} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkRect2D offset(java.util.function.Consumer<VkOffset2D> consumer) { consumer.accept(offset()); return this; }
-    /** Copies the specified {@link VkExtent2D} to the {@link #extent} field. */
+    /** Copies the specified {@link VkExtent2D} to the {@code extent} field. */
     public VkRect2D extent(VkExtent2D value) { nextent(address(), value); return this; }
-    /** Passes the {@link #extent} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code extent} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkRect2D extent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(extent()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -186,25 +178,6 @@ public class VkRect2D extends Struct<VkRect2D> implements NativeResource {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRect2D mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRect2D callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkRect2D mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkRect2D callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRect2D.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRect2D.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRect2D.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkRect2D.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkRect2D} instance allocated on the specified {@link MemoryStack}.
      *
@@ -298,18 +271,18 @@ public class VkRect2D extends Struct<VkRect2D> implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VkOffset2D} view of the {@link VkRect2D#offset} field. */
+        /** @return a {@link VkOffset2D} view of the {@code offset} field. */
         public VkOffset2D offset() { return VkRect2D.noffset(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkRect2D#extent} field. */
+        /** @return a {@link VkExtent2D} view of the {@code extent} field. */
         public VkExtent2D extent() { return VkRect2D.nextent(address()); }
 
-        /** Copies the specified {@link VkOffset2D} to the {@link VkRect2D#offset} field. */
+        /** Copies the specified {@link VkOffset2D} to the {@code offset} field. */
         public VkRect2D.Buffer offset(VkOffset2D value) { VkRect2D.noffset(address(), value); return this; }
-        /** Passes the {@link VkRect2D#offset} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code offset} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkRect2D.Buffer offset(java.util.function.Consumer<VkOffset2D> consumer) { consumer.accept(offset()); return this; }
-        /** Copies the specified {@link VkExtent2D} to the {@link VkRect2D#extent} field. */
+        /** Copies the specified {@link VkExtent2D} to the {@code extent} field. */
         public VkRect2D.Buffer extent(VkExtent2D value) { VkRect2D.nextent(address(), value); return this; }
-        /** Passes the {@link VkRect2D#extent} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code extent} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkRect2D.Buffer extent(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(extent()); return this; }
 
     }

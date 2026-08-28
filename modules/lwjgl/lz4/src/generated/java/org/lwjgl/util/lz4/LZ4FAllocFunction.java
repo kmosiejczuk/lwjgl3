@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     void *opaqueState,
- *     size_t size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LZ4F_AllocFunction} */
 public abstract class LZ4FAllocFunction extends Callback implements LZ4FAllocFunctionI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class LZ4FAllocFunction extends Callback implements LZ4FAllocFun
     }
 
     protected LZ4FAllocFunction() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     LZ4FAllocFunction(long functionPointer) {

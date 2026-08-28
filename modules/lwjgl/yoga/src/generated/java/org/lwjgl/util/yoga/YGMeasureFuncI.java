@@ -6,36 +6,28 @@
 package org.lwjgl.util.yoga;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * YGSize (*{@link #invoke}) (
- *     YGNodeConstRef node,
- *     float width,
- *     YGMeasureMode widthMode,
- *     float height,
- *     YGMeasureMode heightMode
- * )</code></pre>
- */
+/** Callback function: {@link #invoke YGMeasureFunc} */
 @FunctionalInterface
 @NativeType("YGMeasureFunc")
 public interface YGMeasureFuncI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        apiCreateStruct(ffi_type_float, ffi_type_float),
-        ffi_type_pointer, ffi_type_float, ffi_type_uint32, ffi_type_float, ffi_type_uint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiCreateStruct(ffi_type_float, ffi_type_float),
+            ffi_type_pointer, ffi_type_float, ffi_type_uint32, ffi_type_float, ffi_type_uint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -49,16 +41,7 @@ public interface YGMeasureFuncI extends CallbackI {
         );
     }
 
-    /**
-     * Returns the computed dimensions of the node, following the constraints of {@code widthMode} and {@code heightMode}:
-     * 
-     * <p>{@link Yoga#YGMeasureModeUndefined MeasureModeUndefined}: The parent has not imposed any constraint on the child. It can be whatever size it wants.</p>
-     * 
-     * <p>{@link Yoga#YGMeasureModeAtMost MeasureModeAtMost}: The child can be as large as it wants up to the specified size.</p>
-     * 
-     * <p>{@link Yoga#YGMeasureModeExactly MeasureModeExactly}: The parent has determined an exact size for the child. The child is going to be given those bounds regardless of how big it wants
-     * to be.</p>
-     */
+    /** {@code YGSize (* YGMeasureFunc) (YGNodeConstRef node, float width, YGMeasureMode widthMode, float height, YGMeasureMode heightMode)} */
     void invoke(@NativeType("YGNodeConstRef") long node, float width, @NativeType("YGMeasureMode") int widthMode, float height, @NativeType("YGMeasureMode") int heightMode, YGSize __result);
 
 }

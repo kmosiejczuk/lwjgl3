@@ -16,25 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a clear depth stencil value.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>Unless the {@link EXTDepthRangeUnrestricted VK_EXT_depth_range_unrestricted} extension is enabled {@code depth} <b>must</b> be between {@code 0.0} and {@code 1.0}, inclusive</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkClearValue}, {@link VK10#vkCmdClearDepthStencilImage CmdClearDepthStencilImage}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkClearDepthStencilValue {
- *     float {@link #depth};
- *     uint32_t {@link #stencil};
- * }</code></pre>
+ *     float depth;
+ *     uint32_t stencil;
+ * }}</pre>
  */
 public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> implements NativeResource {
 
@@ -84,15 +70,15 @@ public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the clear value for the depth aspect of the depth/stencil attachment. It is a floating-point value which is automatically converted to the attachment’s format. */
+    /** @return the value of the {@code depth} field. */
     public float depth() { return ndepth(address()); }
-    /** the clear value for the stencil aspect of the depth/stencil attachment. It is a 32-bit integer value which is converted to the attachment’s format by taking the appropriate number of LSBs. */
+    /** @return the value of the {@code stencil} field. */
     @NativeType("uint32_t")
     public int stencil() { return nstencil(address()); }
 
-    /** Sets the specified value to the {@link #depth} field. */
+    /** Sets the specified value to the {@code depth} field. */
     public VkClearDepthStencilValue depth(float value) { ndepth(address(), value); return this; }
-    /** Sets the specified value to the {@link #stencil} field. */
+    /** Sets the specified value to the {@code stencil} field. */
     public VkClearDepthStencilValue stencil(@NativeType("uint32_t") int value) { nstencil(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -189,25 +175,6 @@ public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> i
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkClearDepthStencilValue.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkClearDepthStencilValue} instance allocated on the specified {@link MemoryStack}.
      *
@@ -301,15 +268,15 @@ public class VkClearDepthStencilValue extends Struct<VkClearDepthStencilValue> i
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkClearDepthStencilValue#depth} field. */
+        /** @return the value of the {@code depth} field. */
         public float depth() { return VkClearDepthStencilValue.ndepth(address()); }
-        /** @return the value of the {@link VkClearDepthStencilValue#stencil} field. */
+        /** @return the value of the {@code stencil} field. */
         @NativeType("uint32_t")
         public int stencil() { return VkClearDepthStencilValue.nstencil(address()); }
 
-        /** Sets the specified value to the {@link VkClearDepthStencilValue#depth} field. */
+        /** Sets the specified value to the {@code depth} field. */
         public VkClearDepthStencilValue.Buffer depth(float value) { VkClearDepthStencilValue.ndepth(address(), value); return this; }
-        /** Sets the specified value to the {@link VkClearDepthStencilValue#stencil} field. */
+        /** Sets the specified value to the {@code stencil} field. */
         public VkClearDepthStencilValue.Buffer stencil(@NativeType("uint32_t") int value) { VkClearDepthStencilValue.nstencil(address(), value); return this; }
 
     }

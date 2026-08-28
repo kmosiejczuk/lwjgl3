@@ -11,14 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FT_Module module
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Module_Destructor} */
 public abstract class FT_Module_Destructor extends Callback implements FT_Module_DestructorI {
 
     /**
@@ -46,7 +39,7 @@ public abstract class FT_Module_Destructor extends Callback implements FT_Module
     }
 
     protected FT_Module_Destructor() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FT_Module_Destructor(long functionPointer) {

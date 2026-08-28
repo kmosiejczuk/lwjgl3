@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Binds a anim mesh to a specific point in time.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiMeshKey {
- *     double {@link #mTime};
- *     unsigned int {@link #mValue};
- * }</code></pre>
+ *     double mTime;
+ *     unsigned int mValue;
+ * }}</pre>
  */
 @NativeType("struct aiMeshKey")
 public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
@@ -75,18 +71,15 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** The time of this key */
+    /** @return the value of the {@code mTime} field. */
     public double mTime() { return nmTime(address()); }
-    /**
-     * Index into the {@link AIMesh}{@code ::mAnimMeshes} array of the mesh coresponding to the {@link AIMeshAnim} hosting this key frame. The referenced anim mesh is
-     * evaluated according to the rules defined in the docs for {@link AIAnimMesh}.
-     */
+    /** @return the value of the {@code mValue} field. */
     @NativeType("unsigned int")
     public int mValue() { return nmValue(address()); }
 
-    /** Sets the specified value to the {@link #mTime} field. */
+    /** Sets the specified value to the {@code mTime} field. */
     public AIMeshKey mTime(double value) { nmTime(address(), value); return this; }
-    /** Sets the specified value to the {@link #mValue} field. */
+    /** Sets the specified value to the {@code mValue} field. */
     public AIMeshKey mValue(@NativeType("unsigned int") int value) { nmValue(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -183,25 +176,6 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMeshKey.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code AIMeshKey} instance allocated on the specified {@link MemoryStack}.
      *
@@ -295,15 +269,15 @@ public class AIMeshKey extends Struct<AIMeshKey> implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIMeshKey#mTime} field. */
+        /** @return the value of the {@code mTime} field. */
         public double mTime() { return AIMeshKey.nmTime(address()); }
-        /** @return the value of the {@link AIMeshKey#mValue} field. */
+        /** @return the value of the {@code mValue} field. */
         @NativeType("unsigned int")
         public int mValue() { return AIMeshKey.nmValue(address()); }
 
-        /** Sets the specified value to the {@link AIMeshKey#mTime} field. */
+        /** Sets the specified value to the {@code mTime} field. */
         public AIMeshKey.Buffer mTime(double value) { AIMeshKey.nmTime(address(), value); return this; }
-        /** Sets the specified value to the {@link AIMeshKey#mValue} field. */
+        /** Sets the specified value to the {@code mValue} field. */
         public AIMeshKey.Buffer mValue(@NativeType("unsigned int") int value) { AIMeshKey.nmValue(address(), value); return this; }
 
     }

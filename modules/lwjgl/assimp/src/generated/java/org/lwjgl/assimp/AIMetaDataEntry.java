@@ -17,13 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiMetadataEntry {
  *     aiMetadataType mType;
  *     void * mData;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct aiMetadataEntry")
 public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeResource {
@@ -77,11 +75,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     /** @return the value of the {@code mType} field. */
     @NativeType("aiMetadataType")
     public int mType() { return nmType(address()); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field. */
     @NativeType("void *")
     public ByteBuffer mData(int capacity) { return nmData(address(), capacity); }
 
@@ -183,25 +177,6 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
     public static AIMetaDataEntry.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIMetaDataEntry.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code AIMetaDataEntry} instance allocated on the specified {@link MemoryStack}.
@@ -308,11 +283,7 @@ public class AIMetaDataEntry extends Struct<AIMetaDataEntry> implements NativeRe
         /** @return the value of the {@code mType} field. */
         @NativeType("aiMetadataType")
         public int mType() { return AIMetaDataEntry.nmType(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code mData} field. */
         @NativeType("void *")
         public ByteBuffer mData(int capacity) { return AIMetaDataEntry.nmData(address(), capacity); }
 

@@ -6,38 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_CODEC_STATE *codec_state,
- *     FMOD_TAGTYPE tagtype,
- *     char *name,
- *     void *data,
- *     unsigned int datalen,
- *     FMOD_TAGDATATYPE datatype,
- *     int unique
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CODEC_METADATA_FUNC} */
 @FunctionalInterface
 @NativeType("FMOD_CODEC_METADATA_FUNC")
 public interface FMOD_CODEC_METADATA_FUNCI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_uint32, ffi_type_sint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_uint32, ffi_type_sint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -53,7 +44,7 @@ public interface FMOD_CODEC_METADATA_FUNCI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /** Codec functions */
+    /** {@code FMOD_RESULT (* FMOD_CODEC_METADATA_FUNC) (struct FMOD_CODEC_STATE * codec_state, FMOD_TAGTYPE tagtype, char * name, void * data, unsigned int datalen, FMOD_TAGDATATYPE datatype, int unique)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("struct FMOD_CODEC_STATE *") long codec_state, @NativeType("FMOD_TAGTYPE") int tagtype, @NativeType("char *") long name, @NativeType("void *") long data, @NativeType("unsigned int") int datalen, @NativeType("FMOD_TAGDATATYPE") int datatype, int unique);
 
 }

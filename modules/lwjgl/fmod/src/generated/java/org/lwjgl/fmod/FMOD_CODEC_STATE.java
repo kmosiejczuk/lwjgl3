@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FMOD_CODEC_STATE {
  *     void * plugindata;
@@ -82,11 +80,7 @@ public class FMOD_CODEC_STATE extends Struct<FMOD_CODEC_STATE> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code plugindata} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code plugindata} field. */
     @NativeType("void *")
     public ByteBuffer plugindata(int capacity) { return nplugindata(address(), capacity); }
     /** @return a {@link FMOD_CODEC_WAVEFORMAT} view of the struct pointed to by the {@code waveformat} field. */
@@ -319,11 +313,7 @@ public class FMOD_CODEC_STATE extends Struct<FMOD_CODEC_STATE> implements Native
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code plugindata} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code plugindata} field. */
         @NativeType("void *")
         public ByteBuffer plugindata(int capacity) { return FMOD_CODEC_STATE.nplugindata(address(), capacity); }
         /** @return a {@link FMOD_CODEC_WAVEFORMAT} view of the struct pointed to by the {@code waveformat} field. */

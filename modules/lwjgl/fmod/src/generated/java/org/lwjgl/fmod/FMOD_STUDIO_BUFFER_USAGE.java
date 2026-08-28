@@ -16,8 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FMOD_STUDIO_BUFFER_USAGE {
  *     {@link FMOD_STUDIO_BUFFER_INFO FMOD_STUDIO_BUFFER_INFO} studiocommandqueue;

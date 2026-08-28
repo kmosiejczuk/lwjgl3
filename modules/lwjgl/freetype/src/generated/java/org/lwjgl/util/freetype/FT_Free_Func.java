@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FT_Memory memory,
- *     void *block
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Free_Func} */
 public abstract class FT_Free_Func extends Callback implements FT_Free_FuncI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class FT_Free_Func extends Callback implements FT_Free_FuncI {
     }
 
     protected FT_Free_Func() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FT_Free_Func(long functionPointer) {

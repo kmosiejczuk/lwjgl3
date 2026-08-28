@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Output structures
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FMOD_OUTPUT_DESCRIPTION {
  *     unsigned int apiversion;

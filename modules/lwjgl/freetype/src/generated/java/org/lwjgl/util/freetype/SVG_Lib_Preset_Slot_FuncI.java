@@ -6,34 +6,28 @@
 package org.lwjgl.util.freetype;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Error (*{@link #invoke}) (
- *     FT_GlyphSlot slot,
- *     FT_Bool cache,
- *     FT_Pointer *state
- * )</code></pre>
- */
+/** Callback function: {@link #invoke SVG_Lib_Preset_Slot_Func} */
 @FunctionalInterface
 @NativeType("SVG_Lib_Preset_Slot_Func")
 public interface SVG_Lib_Preset_Slot_FuncI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_sint32,
-        ffi_type_pointer, ffi_type_uint8, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_sint32,
+            ffi_type_pointer, ffi_type_uint8, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,7 +39,7 @@ public interface SVG_Lib_Preset_Slot_FuncI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /** A callback that is called to preset the glyph slot. */
+    /** {@code FT_Error (* SVG_Lib_Preset_Slot_Func) (FT_GlyphSlot slot, FT_Bool cache, FT_Pointer * state)} */
     @NativeType("FT_Error") int invoke(@NativeType("FT_GlyphSlot") long slot, @NativeType("FT_Bool") boolean cache, @NativeType("FT_Pointer *") long state);
 
 }

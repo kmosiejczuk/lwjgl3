@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     VkBuffer buffer,
- *     uint64_t allocId
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class ktxVulkanTexture_subAllocatorBindBufferFuncPtr extends Callback implements ktxVulkanTexture_subAllocatorBindBufferFuncPtrI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class ktxVulkanTexture_subAllocatorBindBufferFuncPtr extends Cal
     }
 
     protected ktxVulkanTexture_subAllocatorBindBufferFuncPtr() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     ktxVulkanTexture_subAllocatorBindBufferFuncPtr(long functionPointer) {

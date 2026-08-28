@@ -11,21 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * KTX_error_code (*{@link #invoke}) (
- *     int miplevel,
- *     int face,
- *     int width,
- *     int height,
- *     int depth,
- *     ktx_uint64_t faceLodSize,
- *     void *pixels,
- *     void *userdata
- * )</code></pre>
- */
+/** Callback function: {@link #invoke PFNKTXITERCB} */
 public abstract class PFNKTXITERCB extends Callback implements PFNKTXITERCBI {
 
     /**
@@ -53,7 +39,7 @@ public abstract class PFNKTXITERCB extends Callback implements PFNKTXITERCBI {
     }
 
     protected PFNKTXITERCB() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     PFNKTXITERCB(long functionPointer) {

@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FMOD_DSP_STATE_DFT_FUNCTIONS {
  *     {@link FMOD_DSP_DFT_FFTREAL_FUNCI FMOD_DSP_DFT_FFTREAL_FUNC} fftreal;

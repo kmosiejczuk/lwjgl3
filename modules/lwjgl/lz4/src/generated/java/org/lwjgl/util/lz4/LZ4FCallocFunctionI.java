@@ -6,33 +6,28 @@
 package org.lwjgl.util.lz4;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     void *opaqueState,
- *     size_t size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LZ4F_CallocFunction} */
 @FunctionalInterface
 @NativeType("LZ4F_CallocFunction")
 public interface LZ4FCallocFunctionI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_pointer,
-        ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_pointer,
+            ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -43,6 +38,7 @@ public interface LZ4FCallocFunctionI extends CallbackI {
         apiClosureRetP(ret, __result);
     }
 
+    /** {@code void * (* LZ4F_CallocFunction) (void * opaqueState, size_t size)} */
     @NativeType("void *") long invoke(@NativeType("void *") long opaqueState, @NativeType("size_t") long size);
 
 }

@@ -12,38 +12,16 @@ import java.nio.*;
 import org.lwjgl.*;
 import org.lwjgl.system.*;
 
-import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Backspace key event.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrEventDataVirtualKeyboardBackspaceMETA} event <b>must</b> be sent by the runtime when the [Backspace] key is pressed. The application <b>should</b> update the text field that the keyboard is editing.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link METAVirtualKeyboard XR_META_virtual_keyboard} extension <b>must</b> be enabled prior to using {@link XrEventDataVirtualKeyboardBackspaceMETA}</li>
- * <li>{@code type} <b>must</b> be {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code keyboard} <b>must</b> be a valid {@code XrVirtualKeyboardMETA} handle</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataVirtualKeyboardBackspaceMETA {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- *     XrVirtualKeyboardMETA {@link #keyboard};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ *     XrVirtualKeyboardMETA keyboard;
+ * }}</pre>
  */
 public class XrEventDataVirtualKeyboardBackspaceMETA extends Struct<XrEventDataVirtualKeyboardBackspaceMETA> implements NativeResource {
 
@@ -96,34 +74,30 @@ public class XrEventDataVirtualKeyboardBackspaceMETA extends Struct<XrEventDataV
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
-    /** the {@code XrVirtualKeyboardMETA} this event belongs to. */
+    /** @return the value of the {@code keyboard} field. */
     @NativeType("XrVirtualKeyboardMETA")
     public long keyboard() { return nkeyboard(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataVirtualKeyboardBackspaceMETA type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META} value to the {@link #type} field. */
+    /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META} value to the {@code type} field. */
     public XrEventDataVirtualKeyboardBackspaceMETA type$Default() { return type(METAVirtualKeyboard.XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META); }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataVirtualKeyboardBackspaceMETA next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #keyboard} field. */
-    public XrEventDataVirtualKeyboardBackspaceMETA keyboard(XrVirtualKeyboardMETA value) { nkeyboard(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataVirtualKeyboardBackspaceMETA set(
         int type,
-        long next,
-        XrVirtualKeyboardMETA keyboard
+        long next
     ) {
         type(type);
         next(next);
-        keyboard(keyboard);
 
         return this;
     }
@@ -168,6 +142,11 @@ public class XrEventDataVirtualKeyboardBackspaceMETA extends Struct<XrEventDataV
         return address == NULL ? null : new XrEventDataVirtualKeyboardBackspaceMETA(address, null);
     }
 
+    /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataVirtualKeyboardBackspaceMETA}. */
+    public static XrEventDataVirtualKeyboardBackspaceMETA create(XrEventDataBaseHeader value) {
+        return new XrEventDataVirtualKeyboardBackspaceMETA(value.address(), __getContainer(value));
+    }
+
     /**
      * Returns a new {@link XrEventDataVirtualKeyboardBackspaceMETA.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
      *
@@ -209,6 +188,11 @@ public class XrEventDataVirtualKeyboardBackspaceMETA extends Struct<XrEventDataV
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     public static XrEventDataVirtualKeyboardBackspaceMETA.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
+    }
+
+    /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataVirtualKeyboardBackspaceMETA.Buffer}. */
+    public static XrEventDataVirtualKeyboardBackspaceMETA.Buffer create(XrEventDataBaseHeader.Buffer value) {
+        return new XrEventDataVirtualKeyboardBackspaceMETA.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
     /**
@@ -262,17 +246,6 @@ public class XrEventDataVirtualKeyboardBackspaceMETA extends Struct<XrEventDataV
     public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataVirtualKeyboardBackspaceMETA.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataVirtualKeyboardBackspaceMETA.NEXT, value); }
-    /** Unsafe version of {@link #keyboard(XrVirtualKeyboardMETA) keyboard}. */
-    public static void nkeyboard(long struct, XrVirtualKeyboardMETA value) { memPutAddress(struct + XrEventDataVirtualKeyboardBackspaceMETA.KEYBOARD, value.address()); }
-
-    /**
-     * Validates pointer members that should not be {@code NULL}.
-     *
-     * @param struct the struct to validate
-     */
-    public static void validate(long struct) {
-        check(memGetAddress(struct + XrEventDataVirtualKeyboardBackspaceMETA.KEYBOARD));
-    }
 
     // -----------------------------------
 
@@ -317,24 +290,22 @@ public class XrEventDataVirtualKeyboardBackspaceMETA extends Struct<XrEventDataV
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataVirtualKeyboardBackspaceMETA#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataVirtualKeyboardBackspaceMETA.ntype(address()); }
-        /** @return the value of the {@link XrEventDataVirtualKeyboardBackspaceMETA#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataVirtualKeyboardBackspaceMETA.nnext(address()); }
-        /** @return the value of the {@link XrEventDataVirtualKeyboardBackspaceMETA#keyboard} field. */
+        /** @return the value of the {@code keyboard} field. */
         @NativeType("XrVirtualKeyboardMETA")
         public long keyboard() { return XrEventDataVirtualKeyboardBackspaceMETA.nkeyboard(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataVirtualKeyboardBackspaceMETA#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataVirtualKeyboardBackspaceMETA.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataVirtualKeyboardBackspaceMETA.ntype(address(), value); return this; }
-        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META} value to the {@link XrEventDataVirtualKeyboardBackspaceMETA#type} field. */
+        /** Sets the {@link METAVirtualKeyboard#XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META} value to the {@code type} field. */
         public XrEventDataVirtualKeyboardBackspaceMETA.Buffer type$Default() { return type(METAVirtualKeyboard.XR_TYPE_EVENT_DATA_VIRTUAL_KEYBOARD_BACKSPACE_META); }
-        /** Sets the specified value to the {@link XrEventDataVirtualKeyboardBackspaceMETA#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataVirtualKeyboardBackspaceMETA.Buffer next(@NativeType("void const *") long value) { XrEventDataVirtualKeyboardBackspaceMETA.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEventDataVirtualKeyboardBackspaceMETA#keyboard} field. */
-        public XrEventDataVirtualKeyboardBackspaceMETA.Buffer keyboard(XrVirtualKeyboardMETA value) { XrEventDataVirtualKeyboardBackspaceMETA.nkeyboard(address(), value); return this; }
 
     }
 

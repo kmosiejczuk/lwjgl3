@@ -19,8 +19,6 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.video.STDVulkanVideoCodecAV1.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct StdVideoDecodeAV1ReferenceInfo {
  *     {@link StdVideoDecodeAV1ReferenceInfoFlags StdVideoDecodeAV1ReferenceInfoFlags} flags;

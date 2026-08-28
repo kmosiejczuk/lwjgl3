@@ -16,37 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing a supported swapchain format tuple.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-imageCompressionControlSwapchain">{@code imageCompressionControlSwapchain}</a> feature is supported and a {@link VkImageCompressionPropertiesEXT} structure is included in the {@code pNext} chain of this structure, then it will be filled with the compression properties that are supported for the {@code surfaceFormat}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-imageCompressionControlSwapchain">{@code imageCompressionControlSwapchain}</a> feature is not enabled, the {@code pNext} chain <b>must</b> not include an {@link VkImageCompressionPropertiesEXT} structure</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL} or a pointer to a valid instance of {@link VkImageCompressionPropertiesEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSurfaceFormatKHR}, {@link KHRGetSurfaceCapabilities2#vkGetPhysicalDeviceSurfaceFormats2KHR GetPhysicalDeviceSurfaceFormats2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkSurfaceFormat2KHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkSurfaceFormatKHR VkSurfaceFormatKHR} {@link #surfaceFormat};
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkSurfaceFormatKHR VkSurfaceFormatKHR} surfaceFormat;
  * }</code></pre>
  */
 public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements NativeResource {
@@ -100,20 +74,20 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkSurfaceFormatKHR} structure describing a format-color space pair that is compatible with the specified surface. */
+    /** @return a {@link VkSurfaceFormatKHR} view of the {@code surfaceFormat} field. */
     public VkSurfaceFormatKHR surfaceFormat() { return nsurfaceFormat(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkSurfaceFormat2KHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR} value to the {@code sType} field. */
     public VkSurfaceFormat2KHR sType$Default() { return sType(KHRGetSurfaceCapabilities2.VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkSurfaceFormat2KHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkImageCompressionPropertiesEXT} value to the {@code pNext} chain. */
     public VkSurfaceFormat2KHR pNext(VkImageCompressionPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
@@ -212,25 +186,6 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSurfaceFormat2KHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkSurfaceFormat2KHR} instance allocated on the specified {@link MemoryStack}.
      *
@@ -326,20 +281,20 @@ public class VkSurfaceFormat2KHR extends Struct<VkSurfaceFormat2KHR> implements 
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSurfaceFormat2KHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkSurfaceFormat2KHR.nsType(address()); }
-        /** @return the value of the {@link VkSurfaceFormat2KHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkSurfaceFormat2KHR.npNext(address()); }
-        /** @return a {@link VkSurfaceFormatKHR} view of the {@link VkSurfaceFormat2KHR#surfaceFormat} field. */
+        /** @return a {@link VkSurfaceFormatKHR} view of the {@code surfaceFormat} field. */
         public VkSurfaceFormatKHR surfaceFormat() { return VkSurfaceFormat2KHR.nsurfaceFormat(address()); }
 
-        /** Sets the specified value to the {@link VkSurfaceFormat2KHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkSurfaceFormat2KHR.Buffer sType(@NativeType("VkStructureType") int value) { VkSurfaceFormat2KHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR} value to the {@link VkSurfaceFormat2KHR#sType} field. */
+        /** Sets the {@link KHRGetSurfaceCapabilities2#VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR} value to the {@code sType} field. */
         public VkSurfaceFormat2KHR.Buffer sType$Default() { return sType(KHRGetSurfaceCapabilities2.VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR); }
-        /** Sets the specified value to the {@link VkSurfaceFormat2KHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkSurfaceFormat2KHR.Buffer pNext(@NativeType("void *") long value) { VkSurfaceFormat2KHR.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkImageCompressionPropertiesEXT} value to the {@code pNext} chain. */
         public VkSurfaceFormat2KHR.Buffer pNext(VkImageCompressionPropertiesEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }

@@ -6,7 +6,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../modules/samples">
       <sourceFolder url="file://$MODULE_DIR$/../../../modules/samples/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../modules/samples/src/test/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../modules/samples/src/test/resources" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -26,7 +26,6 @@
     <orderEntry type="module" module-name="lwjgl.core" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.assimp" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.bgfx" scope="TEST" />
-    <orderEntry type="module" module-name="lwjgl.cuda" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.egl" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.fmod" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.freetype" scope="TEST" />
@@ -36,11 +35,9 @@
     <orderEntry type="module" module-name="lwjgl.jawt" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.jemalloc" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.ktx" scope="TEST" />
-    <orderEntry type="module" module-name="lwjgl.libdivide" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.llvm" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.lmdb" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.lz4" scope="TEST" />
-    <orderEntry type="module" module-name="lwjgl.meow" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.meshoptimizer" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.msdfgen" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.nanovg" scope="TEST" />
@@ -51,20 +48,19 @@
     <orderEntry type="module" module-name="lwjgl.opencl" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.opengl" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.opengles" scope="TEST" />
-    <orderEntry type="module" module-name="lwjgl.openvr" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.openxr" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.opus" scope="TEST" />
-    <orderEntry type="module" module-name="lwjgl.ovr" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.par" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.remotery" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.renderdoc" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.rpmalloc" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.sdl" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.shaderc" scope="TEST" />
+    <orderEntry type="module" module-name="lwjgl.spng" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.spvc" scope="TEST" />
-    <orderEntry type="module" module-name="lwjgl.sse" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.stb" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.tinyexr" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.tinyfd" scope="TEST" />
-    <orderEntry type="module" module-name="lwjgl.tootle" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.vma" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.vulkan" scope="TEST" />
     <orderEntry type="module" module-name="lwjgl.xxhash" scope="TEST" />

@@ -6,37 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state,
- *     FMOD_DSP_PAN_3D_ROLLOFF_TYPE rolloff,
- *     float distance,
- *     float mindistance,
- *     float maxdistance,
- *     float *gain
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC} */
 @FunctionalInterface
 @NativeType("FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC")
 public interface FMOD_DSP_PAN_GETROLLOFFGAIN_FUNCI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_uint32, ffi_type_float, ffi_type_float, ffi_type_float, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_uint32, ffi_type_float, ffi_type_float, ffi_type_float, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -51,6 +43,7 @@ public interface FMOD_DSP_PAN_GETROLLOFFGAIN_FUNCI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code FMOD_RESULT (* FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC) (struct FMOD_DSP_STATE * dsp_state, FMOD_DSP_PAN_3D_ROLLOFF_TYPE rolloff, float distance, float mindistance, float maxdistance, float * gain)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("struct FMOD_DSP_STATE *") long dsp_state, @NativeType("FMOD_DSP_PAN_3D_ROLLOFF_TYPE") int rolloff, float distance, float mindistance, float maxdistance, @NativeType("float *") long gain);
 
 }

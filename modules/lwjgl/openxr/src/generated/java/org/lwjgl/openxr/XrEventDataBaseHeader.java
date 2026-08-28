@@ -16,32 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Base header for an event.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrEventDataBaseHeader} is a generic structure used to identify the common event data elements.</p>
- * 
- * <p>Upon receipt, the {@link XrEventDataBaseHeader} pointer <b>should</b> be type-cast to a pointer of the appropriate event data type based on the {@code type} parameter.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link FBDisplayRefreshRate#XR_TYPE_EVENT_DATA_DISPLAY_REFRESH_RATE_CHANGED_FB TYPE_EVENT_DATA_DISPLAY_REFRESH_RATE_CHANGED_FB}, {@link XR10#XR_TYPE_EVENT_DATA_EVENTS_LOST TYPE_EVENT_DATA_EVENTS_LOST}, {@link MLUserCalibration#XR_TYPE_EVENT_DATA_EYE_CALIBRATION_CHANGED_ML TYPE_EVENT_DATA_EYE_CALIBRATION_CHANGED_ML}, {@link MLUserCalibration#XR_TYPE_EVENT_DATA_HEADSET_FIT_CHANGED_ML TYPE_EVENT_DATA_HEADSET_FIT_CHANGED_ML}, {@link XR10#XR_TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING TYPE_EVENT_DATA_INSTANCE_LOSS_PENDING}, {@link XR10#XR_TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED TYPE_EVENT_DATA_INTERACTION_PROFILE_CHANGED}, {@link MLLocalizationMap#XR_TYPE_EVENT_DATA_LOCALIZATION_CHANGED_ML TYPE_EVENT_DATA_LOCALIZATION_CHANGED_ML}, {@link EXTXOverlay#XR_TYPE_EVENT_DATA_MAIN_SESSION_VISIBILITY_CHANGED_EXTX TYPE_EVENT_DATA_MAIN_SESSION_VISIBILITY_CHANGED_EXTX}, {@link VARJOMarkerTracking#XR_TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO TYPE_EVENT_DATA_MARKER_TRACKING_UPDATE_VARJO}, {@link METAPassthroughLayerResumedEvent#XR_TYPE_EVENT_DATA_PASSTHROUGH_LAYER_RESUMED_META TYPE_EVENT_DATA_PASSTHROUGH_LAYER_RESUMED_META}, {@link EXTPerformanceSettings#XR_TYPE_EVENT_DATA_PERF_SETTINGS_EXT TYPE_EVENT_DATA_PERF_SETTINGS_EXT}, {@link XR10#XR_TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING TYPE_EVENT_DATA_REFERENCE_SPACE_CHANGE_PENDING}, {@link XR10#XR_TYPE_EVENT_DATA_SESSION_STATE_CHANGED TYPE_EVENT_DATA_SESSION_STATE_CHANGED}, {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_ERASE_COMPLETE_FB}, {@link FBSpatialEntityStorageBatch#XR_TYPE_EVENT_DATA_SPACE_LIST_SAVE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_LIST_SAVE_COMPLETE_FB}, {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB TYPE_EVENT_DATA_SPACE_QUERY_COMPLETE_FB}, {@link FBSpatialEntityQuery#XR_TYPE_EVENT_DATA_SPACE_QUERY_RESULTS_AVAILABLE_FB TYPE_EVENT_DATA_SPACE_QUERY_RESULTS_AVAILABLE_FB}, {@link FBSpatialEntityStorage#XR_TYPE_EVENT_DATA_SPACE_SAVE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_SAVE_COMPLETE_FB}, {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPACE_SET_STATUS_COMPLETE_FB TYPE_EVENT_DATA_SPACE_SET_STATUS_COMPLETE_FB}, {@link FBSpatialEntitySharing#XR_TYPE_EVENT_DATA_SPACE_SHARE_COMPLETE_FB TYPE_EVENT_DATA_SPACE_SHARE_COMPLETE_FB}, {@link FBSpatialEntity#XR_TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB TYPE_EVENT_DATA_SPATIAL_ANCHOR_CREATE_COMPLETE_FB}, {@link KHRVisibilityMask#XR_TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR TYPE_EVENT_DATA_VISIBILITY_MASK_CHANGED_KHR}, {@link HTCXViveTrackerInteraction#XR_TYPE_EVENT_DATA_VIVE_TRACKER_CONNECTED_HTCX TYPE_EVENT_DATA_VIVE_TRACKER_CONNECTED_HTCX}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link XR10#xrPollEvent PollEvent}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataBaseHeader {
- *     XrStructureType {@link #type};
- *     void const * {@link #next};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void const * next;
+ * }}</pre>
  */
 public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> implements NativeResource {
 
@@ -91,16 +70,16 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. This base structure itself has no associated {@code XrStructureType} value. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void const *")
     public long next() { return nnext(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrEventDataBaseHeader type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrEventDataBaseHeader next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -214,6 +193,11 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrEventDataPassthroughStateChangedFB} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataPassthroughStateChangedFB value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrEventDataMarkerTrackingUpdateVARJO} instance to {@code XrEventDataBaseHeader}. */
     public static XrEventDataBaseHeader create(XrEventDataMarkerTrackingUpdateVARJO value) {
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
@@ -259,13 +243,128 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrEventDataSceneCaptureCompleteFB} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSceneCaptureCompleteFB value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardCommitTextMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataVirtualKeyboardCommitTextMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardBackspaceMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataVirtualKeyboardBackspaceMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardEnterMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataVirtualKeyboardEnterMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardShownMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataVirtualKeyboardShownMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardHiddenMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataVirtualKeyboardHiddenMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrEventDataSpaceListSaveCompleteFB} instance to {@code XrEventDataBaseHeader}. */
     public static XrEventDataBaseHeader create(XrEventDataSpaceListSaveCompleteFB value) {
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrEventDataSpaceDiscoveryResultsAvailableMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSpaceDiscoveryResultsAvailableMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpaceDiscoveryCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSpaceDiscoveryCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpacesSaveResultMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSpacesSaveResultMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpacesEraseResultMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSpacesEraseResultMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrEventDataPassthroughLayerResumedMETA} instance to {@code XrEventDataBaseHeader}. */
     public static XrEventDataBaseHeader create(XrEventDataPassthroughLayerResumedMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataShareSpacesCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataShareSpacesCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataInteractionRenderModelsChangedEXT} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataInteractionRenderModelsChangedEXT value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataProviderStateChangedBD} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSenseDataProviderStateChangedBD value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataUpdatedBD} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSenseDataUpdatedBD value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataUserPresenceChangedEXT} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataUserPresenceChangedEXT value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataStartColocationAdvertisementCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataStartColocationAdvertisementCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataStopColocationAdvertisementCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataStopColocationAdvertisementCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataColocationAdvertisementCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataColocationAdvertisementCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataStartColocationDiscoveryCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataStartColocationDiscoveryCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataColocationDiscoveryResultMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataColocationDiscoveryResultMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataColocationDiscoveryCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataColocationDiscoveryCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataStopColocationDiscoveryCompleteMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataStopColocationDiscoveryCompleteMETA value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpatialDiscoveryRecommendedEXT} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataSpatialDiscoveryRecommendedEXT value) {
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
@@ -372,6 +471,11 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrEventDataPassthroughStateChangedFB.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataPassthroughStateChangedFB.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrEventDataMarkerTrackingUpdateVARJO.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
     public static XrEventDataBaseHeader.Buffer create(XrEventDataMarkerTrackingUpdateVARJO.Buffer value) {
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
@@ -417,13 +521,128 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrEventDataSceneCaptureCompleteFB.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSceneCaptureCompleteFB.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardCommitTextMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataVirtualKeyboardCommitTextMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardBackspaceMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataVirtualKeyboardBackspaceMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardEnterMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataVirtualKeyboardEnterMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardShownMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataVirtualKeyboardShownMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataVirtualKeyboardHiddenMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataVirtualKeyboardHiddenMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrEventDataSpaceListSaveCompleteFB.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
     public static XrEventDataBaseHeader.Buffer create(XrEventDataSpaceListSaveCompleteFB.Buffer value) {
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrEventDataSpaceDiscoveryResultsAvailableMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSpaceDiscoveryResultsAvailableMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpaceDiscoveryCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSpaceDiscoveryCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpacesSaveResultMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSpacesSaveResultMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpacesEraseResultMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSpacesEraseResultMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrEventDataPassthroughLayerResumedMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
     public static XrEventDataBaseHeader.Buffer create(XrEventDataPassthroughLayerResumedMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataShareSpacesCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataShareSpacesCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataInteractionRenderModelsChangedEXT.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataInteractionRenderModelsChangedEXT.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataProviderStateChangedBD.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSenseDataProviderStateChangedBD.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSenseDataUpdatedBD.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSenseDataUpdatedBD.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataUserPresenceChangedEXT.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataUserPresenceChangedEXT.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataStartColocationAdvertisementCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataStartColocationAdvertisementCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataStopColocationAdvertisementCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataStopColocationAdvertisementCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataColocationAdvertisementCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataColocationAdvertisementCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataStartColocationDiscoveryCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataStartColocationDiscoveryCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataColocationDiscoveryResultMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataColocationDiscoveryResultMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataColocationDiscoveryCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataColocationDiscoveryCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataStopColocationDiscoveryCompleteMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataStopColocationDiscoveryCompleteMETA.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataSpatialDiscoveryRecommendedEXT.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataSpatialDiscoveryRecommendedEXT.Buffer value) {
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
@@ -520,16 +739,16 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrEventDataBaseHeader#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrEventDataBaseHeader.ntype(address()); }
-        /** @return the value of the {@link XrEventDataBaseHeader#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void const *")
         public long next() { return XrEventDataBaseHeader.nnext(address()); }
 
-        /** Sets the specified value to the {@link XrEventDataBaseHeader#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrEventDataBaseHeader.Buffer type(@NativeType("XrStructureType") int value) { XrEventDataBaseHeader.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XrEventDataBaseHeader#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrEventDataBaseHeader.Buffer next(@NativeType("void const *") long value) { XrEventDataBaseHeader.nnext(address(), value); return this; }
 
     }

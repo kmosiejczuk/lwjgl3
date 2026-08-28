@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_OUTPUT_STATE *output_state,
- *     int portId,
- *     void *buffer,
- *     unsigned int length
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_COPYPORT_FUNC} */
 public abstract class FMOD_OUTPUT_COPYPORT_FUNC extends Callback implements FMOD_OUTPUT_COPYPORT_FUNCI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class FMOD_OUTPUT_COPYPORT_FUNC extends Callback implements FMOD
     }
 
     protected FMOD_OUTPUT_COPYPORT_FUNC() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_OUTPUT_COPYPORT_FUNC(long functionPointer) {

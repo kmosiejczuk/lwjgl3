@@ -11,18 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to {@link OpusFileCallbacks}.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     void *_stream,
- *     unsigned char *_ptr,
- *     int _nbytes
- * )</code></pre>
- */
+/** Callback function: {@link #invoke op_read_func} */
 public abstract class OPReadFunc extends Callback implements OPReadFuncI {
 
     /**
@@ -50,7 +39,7 @@ public abstract class OPReadFunc extends Callback implements OPReadFuncI {
     }
 
     protected OPReadFunc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     OPReadFunc(long functionPointer) {

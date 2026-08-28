@@ -11,18 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link LLVMLLJIT#LLVMOrcLLJITBuilderSetObjectLinkingLayerCreator OrcLLJITBuilderSetObjectLinkingLayerCreator} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * LLVMOrcObjectLayerRef (*{@link #invoke}) (
- *     void *Ctx,
- *     LLVMOrcExecutionSessionRef ES,
- *     char const *Triple
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class LLVMOrcLLJITBuilderObjectLinkingLayerCreatorFunction extends Callback implements LLVMOrcLLJITBuilderObjectLinkingLayerCreatorFunctionI {
 
     /**
@@ -50,7 +39,7 @@ public abstract class LLVMOrcLLJITBuilderObjectLinkingLayerCreatorFunction exten
     }
 
     protected LLVMOrcLLJITBuilderObjectLinkingLayerCreatorFunction() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     LLVMOrcLLJITBuilderObjectLinkingLayerCreatorFunction(long functionPointer) {

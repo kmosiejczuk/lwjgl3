@@ -17,22 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A single face in a mesh, referring to multiple vertices.
- * 
- * <p>If {@code mNumIndices} is 3, we call the face 'triangle', for {@code mNumIndices > 3} it's called 'polygon' (hey, that's just a definition!).</p>
- * 
- * <p>{@link AIMesh}{@code ::mPrimitiveTypes} can be queried to quickly examine which types of primitive are actually present in a mesh. The {@link Assimp#aiProcess_SortByPType Process_SortByPType}
- * flag executes a special post-processing algorithm which splits meshes with *different* primitive types mixed up (e.g. lines and triangles) in several
- * 'clean' submeshes. Furthermore there is a configuration option ({@link Assimp#AI_CONFIG_PP_SBP_REMOVE}) to force {@link Assimp#aiProcess_SortByPType Process_SortByPType} to remove specific kinds of
- * primitives from the imported scene, completely and forever.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct aiFace {
- *     unsigned int {@link #mNumIndices};
- *     unsigned int * {@link #mIndices};
- * }</code></pre>
+ *     unsigned int mNumIndices;
+ *     unsigned int * mIndices;
+ * }}</pre>
  */
 @NativeType("struct aiFace")
 public class AIFace extends Struct<AIFace> implements NativeResource {
@@ -83,14 +72,14 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Number of indices defining this face. The maximum value for this member is {@link Assimp#AI_MAX_FACE_INDICES}. */
+    /** @return the value of the {@code mNumIndices} field. */
     @NativeType("unsigned int")
     public int mNumIndices() { return nmNumIndices(address()); }
-    /** Pointer to the indices array. Size of the array is given in {@code numIndices}. */
+    /** @return a {@link IntBuffer} view of the data pointed to by the {@code mIndices} field. */
     @NativeType("unsigned int *")
     public IntBuffer mIndices() { return nmIndices(address()); }
 
-    /** Sets the address of the specified {@link IntBuffer} to the {@link #mIndices} field. */
+    /** Sets the address of the specified {@link IntBuffer} to the {@code mIndices} field. */
     public AIFace mIndices(@NativeType("unsigned int *") IntBuffer value) { nmIndices(address(), value); return this; }
 
     /**
@@ -175,25 +164,6 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
     public static AIFace.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIFace mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIFace callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIFace mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIFace callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIFace.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIFace.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIFace.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIFace.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code AIFace} instance allocated on the specified {@link MemoryStack}.
@@ -297,14 +267,14 @@ public class AIFace extends Struct<AIFace> implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIFace#mNumIndices} field. */
+        /** @return the value of the {@code mNumIndices} field. */
         @NativeType("unsigned int")
         public int mNumIndices() { return AIFace.nmNumIndices(address()); }
-        /** @return a {@link IntBuffer} view of the data pointed to by the {@link AIFace#mIndices} field. */
+        /** @return a {@link IntBuffer} view of the data pointed to by the {@code mIndices} field. */
         @NativeType("unsigned int *")
         public IntBuffer mIndices() { return AIFace.nmIndices(address()); }
 
-        /** Sets the address of the specified {@link IntBuffer} to the {@link AIFace#mIndices} field. */
+        /** Sets the address of the specified {@link IntBuffer} to the {@code mIndices} field. */
         public AIFace.Buffer mIndices(@NativeType("unsigned int *") IntBuffer value) { AIFace.nmIndices(address(), value); return this; }
 
     }

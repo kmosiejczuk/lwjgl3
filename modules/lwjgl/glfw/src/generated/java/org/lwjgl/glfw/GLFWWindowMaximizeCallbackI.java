@@ -6,37 +6,28 @@
 package org.lwjgl.glfw;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link GLFW#glfwSetWindowMaximizeCallback SetWindowMaximizeCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWwindow *window,
- *     int maximized
- * )</code></pre>
- *
- * @since version 3.3
- */
+/** Callback function: {@link #invoke GLFWwindowmaximizefun} */
 @FunctionalInterface
 @NativeType("GLFWwindowmaximizefun")
 public interface GLFWWindowMaximizeCallbackI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_pointer, ffi_type_uint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_pointer, ffi_type_uint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -46,12 +37,7 @@ public interface GLFWWindowMaximizeCallbackI extends CallbackI {
         );
     }
 
-    /**
-     * Will be called when the specified window is maximized or restored.
-     *
-     * @param window    the window that was maximized or restored.
-     * @param maximized {@link GLFW#GLFW_TRUE TRUE} if the window was maximized, or {@link GLFW#GLFW_FALSE FALSE} if it was restored
-     */
+    /** {@code void (* GLFWwindowmaximizefun) (GLFWwindow * window, int maximized)} */
     void invoke(@NativeType("GLFWwindow *") long window, @NativeType("int") boolean maximized);
 
 }

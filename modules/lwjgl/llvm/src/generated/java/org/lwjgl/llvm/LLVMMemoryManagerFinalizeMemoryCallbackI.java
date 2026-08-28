@@ -6,35 +6,28 @@
 package org.lwjgl.llvm;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link LLVMExecutionEngine#LLVMCreateSimpleMCJITMemoryManager CreateSimpleMCJITMemoryManager} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * LLVMBool (*{@link #invoke}) (
- *     void *Opaque,
- *     char **ErrMsg
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("LLVMBool (*) (void *, char **)")
 public interface LLVMMemoryManagerFinalizeMemoryCallbackI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,6 +38,7 @@ public interface LLVMMemoryManagerFinalizeMemoryCallbackI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code LLVMBool (*) (void * Opaque, char ** ErrMsg)} */
     @NativeType("LLVMBool") int invoke(@NativeType("void *") long Opaque, @NativeType("char **") long ErrMsg);
 
 }

@@ -18,19 +18,11 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 /**
- * Structure specifying an extension properties.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkVideoCapabilitiesKHR}, {@link VkVideoSessionCreateInfoKHR}, {@link VK10#vkEnumerateDeviceExtensionProperties EnumerateDeviceExtensionProperties}, {@link VK10#vkEnumerateInstanceExtensionProperties EnumerateInstanceExtensionProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkExtensionProperties {
- *     char {@link #extensionName}[VK_MAX_EXTENSION_NAME_SIZE];
- *     uint32_t {@link #specVersion};
- * }</code></pre>
+ *     char extensionName[VK_MAX_EXTENSION_NAME_SIZE];
+ *     uint32_t specVersion;
+ * }}</pre>
  */
 public class VkExtensionProperties extends Struct<VkExtensionProperties> implements NativeResource {
 
@@ -80,13 +72,13 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an array of {@link VK10#VK_MAX_EXTENSION_NAME_SIZE MAX_EXTENSION_NAME_SIZE} {@code char} containing a null-terminated UTF-8 string which is the name of the extension. */
+    /** @return a {@link ByteBuffer} view of the {@code extensionName} field. */
     @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
     public ByteBuffer extensionName() { return nextensionName(address()); }
-    /** an array of {@link VK10#VK_MAX_EXTENSION_NAME_SIZE MAX_EXTENSION_NAME_SIZE} {@code char} containing a null-terminated UTF-8 string which is the name of the extension. */
+    /** @return the null-terminated string stored in the {@code extensionName} field. */
     @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
     public String extensionNameString() { return nextensionNameString(address()); }
-    /** the version of this extension. It is an integer, incremented with backward compatible changes. */
+    /** @return the value of the {@code specVersion} field. */
     @NativeType("uint32_t")
     public int specVersion() { return nspecVersion(address()); }
 
@@ -160,25 +152,6 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
     public static VkExtensionProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkExtensionProperties.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkExtensionProperties} instance allocated on the specified {@link MemoryStack}.
@@ -270,13 +243,13 @@ public class VkExtensionProperties extends Struct<VkExtensionProperties> impleme
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the {@link VkExtensionProperties#extensionName} field. */
+        /** @return a {@link ByteBuffer} view of the {@code extensionName} field. */
         @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
         public ByteBuffer extensionName() { return VkExtensionProperties.nextensionName(address()); }
-        /** @return the null-terminated string stored in the {@link VkExtensionProperties#extensionName} field. */
+        /** @return the null-terminated string stored in the {@code extensionName} field. */
         @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
         public String extensionNameString() { return VkExtensionProperties.nextensionNameString(address()); }
-        /** @return the value of the {@link VkExtensionProperties#specVersion} field. */
+        /** @return the value of the {@code specVersion} field. */
         @NativeType("uint32_t")
         public int specVersion() { return VkExtensionProperties.nspecVersion(address()); }
 

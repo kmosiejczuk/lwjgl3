@@ -4,6 +4,7 @@
  */
 package org.lwjgl.generator
 
+import org.lwjgl.generator.JNI.generateJavaFFM
 import java.io.*
 import java.lang.reflect.*
 import java.nio.*
@@ -94,7 +95,7 @@ fun main(args: Array<String>) {
                 fun <T : GeneratorTarget> generateRegistered(typeName: String, targets: Iterable<T>) {
                     targets.forEach {
                         try {
-                            generateSimple(it)
+                            generateSimple(it) { it.generateJava() }
                         } catch (e: Exception) {
                             throw RuntimeException("Uncaught exception while generating $typeName: ${it.packageName}.${it.className}", e)
                         }
@@ -110,7 +111,10 @@ fun main(args: Array<String>) {
                         JNI.register(it)
                 }
 
-                submit { generateSimple(JNI) }
+                submit {
+                    generateSimple(JNI) { it.generateJava() }
+                    generateSimple(JNI, version = "25", forceSkipNative = true) { it.generateJavaFFM() }
+                }
 
                 latch.await()
             }
@@ -201,6 +205,7 @@ class Generator(private val moduleRoot: String) {
             }
     }
 
+    private val KT = "Kt$".toRegex()
     internal fun generateModule(module: Module) {
         val packageKotlin = module.packageKotlin
         val pathKotlin = "$moduleRoot/${module.path}/src/templates/kotlin/${packageKotlin.replace('.', '/')}"
@@ -211,19 +216,11 @@ class Generator(private val moduleRoot: String) {
         if (!module.enabled)
             return
 
-        // Find and run configuration methods
-        //runConfiguration(packagePath, packageName)
-        apply(pathKotlin, packageKotlin) {
-            this
-                .filter { methodFilter(it, Void.TYPE) }
-                .forEach {
-                    it.invoke(null)
-                }
-        }
+        val pathKotlinTemplates = "$pathKotlin/templates"
 
         // Find the template methods
         val templates = TreeSet<Method> { o1, o2 -> o1.name.compareTo(o2.name) }
-        apply("$pathKotlin/templates", "$packageKotlin.templates") {
+        apply(pathKotlinTemplates, "$packageKotlin.templates") {
             this.filterTo(templates) {
                 methodFilter(it, NativeClass::class.java)
             }
@@ -240,7 +237,7 @@ class Generator(private val moduleRoot: String) {
         val duplicateTokens = HashSet<String>()
         val duplicateFunctions = HashSet<String>()
 
-        val classes = ArrayList<NativeClass>()
+        val classes = LinkedHashSet<NativeClass>()
         for (template in templates) {
             val nativeClass = template.invoke(null) as NativeClass? ?: continue
 
@@ -250,15 +247,28 @@ class Generator(private val moduleRoot: String) {
 
             if (nativeClass.hasBody) {
                 classes.add(nativeClass)
-
-                // Register tokens/functions for javadoc link references
-                nativeClass.registerLinks(
-                    packageTokens,
-                    duplicateTokens,
-                    packageFunctions,
-                    duplicateFunctions
-                )
+                nativeClass.lmt = max(nativeClass.lmt, nativeClass.getLastModified(pathKotlinTemplates, template.declaringClass.simpleName.replace(KT, ".kt")))
             }
+        }
+
+        // Find and run configuration methods
+        //runConfiguration(packagePath, packageName)
+        apply(pathKotlin, packageKotlin) {
+            this
+                .filter { methodFilter(it, Void.TYPE) }
+                .forEach {
+                    it.invoke(null)
+                }
+        }
+
+        for (nativeClass in classes) {
+            // Register tokens/functions for javadoc link references
+            nativeClass.registerLinks(
+                packageTokens,
+                duplicateTokens,
+                packageFunctions,
+                duplicateFunctions
+            )
         }
 
         packageTokens.keys.removeAll(duplicateTokens)
@@ -270,15 +280,15 @@ class Generator(private val moduleRoot: String) {
         // Generate the template code
         classes.forEach {
             it.registerFunctions(module.arrayOverloads)
-            generate(pathKotlin, it, max(moduleLastModified, GENERATOR_LAST_MODIFIED))
+            generate(it, max(moduleLastModified, GENERATOR_LAST_MODIFIED))
         }
     }
 
-    private fun generate(pathKotlin: String, nativeClass: NativeClass, moduleLastModified: Long) {
+    private fun generate(nativeClass: NativeClass, moduleLastModified: Long) {
         val outputJava = Paths
             .get("$moduleRoot/${nativeClass.module.path}/src/generated/java/${nativeClass.packageName.replace('.', '/')}/${nativeClass.className}.java")
 
-        val lmt = max(nativeClass.getLastModified("$pathKotlin/templates"), moduleLastModified)
+        val lmt = max(nativeClass.lmt, moduleLastModified)
         if (lmt < outputJava.lastModified) {
             //println("SKIPPED: ${nativeClass.packageName}.${nativeClass.className}")
             return
@@ -300,15 +310,20 @@ class Generator(private val moduleRoot: String) {
             nativeClass.nativeDirectivesWarning()
     }
 
-    internal fun generateSimple(target: GeneratorTarget) {
-        val modulePath = "$moduleRoot/${target.module.path}"
+    internal fun generateSimple(
+        target: GeneratorTarget,
+        forceSkipNative: Boolean = false,
+        version: String = "",
+        generate: (GeneratorTarget.(PrintWriter) -> Unit)
+    ) {
+        val modulePath = "$moduleRoot/${target.module.path}$version"
         val packageKotlin = target.module.packageKotlin
         val pathKotlin = "$modulePath/src/templates/kotlin/${packageKotlin.replace('.', '/')}"
 
         val outputJava = Paths.get("$modulePath/src/generated/java/${target.packageName.replace('.', '/')}/${target.className}.java")
 
         val lmt = if (target.sourceFile == null) null else max(
-            target.getLastModified(pathKotlin),
+            target.getLastModified(pathKotlin, target.sourceFile),
             max(moduleLastModifiedMap[target.module]!!, GENERATOR_LAST_MODIFIED)
         )
 
@@ -320,10 +335,10 @@ class Generator(private val moduleRoot: String) {
         //println("GENERATING: ${target.packageName}.${target.className}")
 
         generateOutput(target, outputJava, lmt) {
-            it.generateJava()
+            generate(it)
         }
 
-        if (target is GeneratorTargetNative && !target.skipNative) {
+        if (target is GeneratorTargetNative && !target.skipNative && !forceSkipNative) {
             generateNative(target) {
                 generateOutput(target, it) { out ->
                     out.generateNative()

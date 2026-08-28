@@ -17,17 +17,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Callback interface to implement application specific behavior.
- * 
- * <p>Cached items are currently used for OpenGL and Direct3D 12 binary shaders.</p>
- * 
- * <p>{@code fatal} and {@code trace_vargs} callbacks can be called from any thread. Other callbacks are called from the render thread.</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct bgfx_callback_interface_t {
- *     {@link BGFXCallbackVtbl bgfx_callback_vtbl_t} const * {@link #vtbl};
+ *     {@link BGFXCallbackVtbl bgfx_callback_vtbl_t} const * vtbl;
  * }</code></pre>
  */
 @NativeType("struct bgfx_callback_interface_t")
@@ -76,11 +68,11 @@ public class BGFXCallbackInterface extends Struct<BGFXCallbackInterface> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the callback virtual table */
+    /** @return a {@link BGFXCallbackVtbl} view of the struct pointed to by the {@code vtbl} field. */
     @NativeType("bgfx_callback_vtbl_t const *")
     public BGFXCallbackVtbl vtbl() { return nvtbl(address()); }
 
-    /** Sets the address of the specified {@link BGFXCallbackVtbl} to the {@link #vtbl} field. */
+    /** Sets the address of the specified {@link BGFXCallbackVtbl} to the {@code vtbl} field. */
     public BGFXCallbackInterface vtbl(@NativeType("bgfx_callback_vtbl_t const *") BGFXCallbackVtbl value) { nvtbl(address(), value); return this; }
 
     /**
@@ -122,18 +114,6 @@ public class BGFXCallbackInterface extends Struct<BGFXCallbackInterface> impleme
     public static @Nullable BGFXCallbackInterface createSafe(long address) {
         return address == NULL ? null : new BGFXCallbackInterface(address, null);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXCallbackInterface mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXCallbackInterface callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXCallbackInterface mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXCallbackInterface callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
 
     /**
      * Returns a new {@code BGFXCallbackInterface} instance allocated on the specified {@link MemoryStack}.

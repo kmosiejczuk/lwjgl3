@@ -16,18 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Describes the availability of a given entity on a particular platform, e.g., a particular class might only be available on Mac OS 10.7 or newer.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct CXPlatformAvailability {
- *     {@link CXString CXString} {@link #Platform};
- *     {@link CXVersion CXVersion} {@link #Introduced};
- *     {@link CXVersion CXVersion} {@link #Deprecated};
- *     {@link CXVersion CXVersion} {@link #Obsoleted};
- *     int {@link #Unavailable};
- *     {@link CXString CXString} {@link #Message};
+ *     {@link CXString CXString} Platform;
+ *     {@link CXVersion CXVersion} Introduced;
+ *     {@link CXVersion CXVersion} Deprecated;
+ *     {@link CXVersion CXVersion} Obsoleted;
+ *     int Unavailable;
+ *     {@link CXString CXString} Message;
  * }</code></pre>
  */
 public class CXPlatformAvailability extends Struct<CXPlatformAvailability> implements NativeResource {
@@ -90,21 +86,17 @@ public class CXPlatformAvailability extends Struct<CXPlatformAvailability> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * a string that describes the platform for which this structure provides availability information.
-     * 
-     * <p>Possible values are "ios" or "macos".</p>
-     */
+    /** @return a {@link CXString} view of the {@code Platform} field. */
     public CXString Platform() { return nPlatform(address()); }
-    /** the version number in which this entity was introduced */
+    /** @return a {@link CXVersion} view of the {@code Introduced} field. */
     public CXVersion Introduced() { return nIntroduced(address()); }
-    /** the version number in which this entity was deprecated (but is still available) */
+    /** @return a {@link CXVersion} view of the {@code Deprecated} field. */
     public CXVersion Deprecated() { return nDeprecated(address()); }
-    /** the version number in which this entity was obsoleted, and therefore is no longer available */
+    /** @return a {@link CXVersion} view of the {@code Obsoleted} field. */
     public CXVersion Obsoleted() { return nObsoleted(address()); }
-    /** whether the entity is unconditionally unavailable on this platform */
+    /** @return the value of the {@code Unavailable} field. */
     public int Unavailable() { return nUnavailable(address()); }
-    /** an optional message to provide to a user of this API, e.g., to suggest replacement APIs */
+    /** @return a {@link CXString} view of the {@code Message} field. */
     public CXString Message() { return nMessage(address()); }
 
     // -----------------------------------
@@ -177,25 +169,6 @@ public class CXPlatformAvailability extends Struct<CXPlatformAvailability> imple
     public static CXPlatformAvailability.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXPlatformAvailability.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXPlatformAvailability} instance allocated on the specified {@link MemoryStack}.
@@ -293,17 +266,17 @@ public class CXPlatformAvailability extends Struct<CXPlatformAvailability> imple
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link CXString} view of the {@link CXPlatformAvailability#Platform} field. */
+        /** @return a {@link CXString} view of the {@code Platform} field. */
         public CXString Platform() { return CXPlatformAvailability.nPlatform(address()); }
-        /** @return a {@link CXVersion} view of the {@link CXPlatformAvailability#Introduced} field. */
+        /** @return a {@link CXVersion} view of the {@code Introduced} field. */
         public CXVersion Introduced() { return CXPlatformAvailability.nIntroduced(address()); }
-        /** @return a {@link CXVersion} view of the {@link CXPlatformAvailability#Deprecated} field. */
+        /** @return a {@link CXVersion} view of the {@code Deprecated} field. */
         public CXVersion Deprecated() { return CXPlatformAvailability.nDeprecated(address()); }
-        /** @return a {@link CXVersion} view of the {@link CXPlatformAvailability#Obsoleted} field. */
+        /** @return a {@link CXVersion} view of the {@code Obsoleted} field. */
         public CXVersion Obsoleted() { return CXPlatformAvailability.nObsoleted(address()); }
-        /** @return the value of the {@link CXPlatformAvailability#Unavailable} field. */
+        /** @return the value of the {@code Unavailable} field. */
         public int Unavailable() { return CXPlatformAvailability.nUnavailable(address()); }
-        /** @return a {@link CXString} view of the {@link CXPlatformAvailability#Message} field. */
+        /** @return a {@link CXString} view of the {@code Message} field. */
         public CXString Message() { return CXPlatformAvailability.nMessage(address()); }
 
     }

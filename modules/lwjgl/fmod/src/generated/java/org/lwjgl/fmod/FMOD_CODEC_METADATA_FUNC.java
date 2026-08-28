@@ -11,20 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_CODEC_STATE *codec_state,
- *     FMOD_TAGTYPE tagtype,
- *     char *name,
- *     void *data,
- *     unsigned int datalen,
- *     FMOD_TAGDATATYPE datatype,
- *     int unique
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CODEC_METADATA_FUNC} */
 public abstract class FMOD_CODEC_METADATA_FUNC extends Callback implements FMOD_CODEC_METADATA_FUNCI {
 
     /**
@@ -52,7 +39,7 @@ public abstract class FMOD_CODEC_METADATA_FUNC extends Callback implements FMOD_
     }
 
     protected FMOD_CODEC_METADATA_FUNC() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_CODEC_METADATA_FUNC(long functionPointer) {

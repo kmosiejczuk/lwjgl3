@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     unsigned int size,
- *     unsigned int align,
- *     char const *file,
- *     int line
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CODEC_ALLOC_FUNC} */
 public abstract class FMOD_CODEC_ALLOC_FUNC extends Callback implements FMOD_CODEC_ALLOC_FUNCI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class FMOD_CODEC_ALLOC_FUNC extends Callback implements FMOD_COD
     }
 
     protected FMOD_CODEC_ALLOC_FUNC() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_CODEC_ALLOC_FUNC(long functionPointer) {

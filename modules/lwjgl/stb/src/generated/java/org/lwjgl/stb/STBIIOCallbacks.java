@@ -17,16 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Image IO callbacks, used by {@link STBImage#stbi_load_from_callbacks load_from_callbacks}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct stbi_io_callbacks {
- *     int (*{@link STBIReadCallbackI read}) (void *user, char *data, int size);
- *     void (*{@link STBISkipCallbackI skip}) (void *user, int n);
- *     int (*{@link STBIEOFCallbackI eof}) (void *user);
- * }</code></pre>
+ *     int (* read) (void * user, char * data, int size);
+ *     void (* skip) (void * user, int n);
+ *     int (* eof) (void * user);
+ * }}</pre>
  */
 @NativeType("struct stbi_io_callbacks")
 public class STBIIOCallbacks extends Struct<STBIIOCallbacks> implements NativeResource {
@@ -80,21 +76,21 @@ public class STBIIOCallbacks extends Struct<STBIIOCallbacks> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** fill {@code data} with {@code size} bytes. Return number of bytes actually read. */
+    /** @return the value of the {@code read} field. */
     @NativeType("int (*) (void *, char *, int)")
     public STBIReadCallback read() { return nread(address()); }
-    /** skip the next {@code n} bytes, or {@code unget} the last -n bytes if negative */
+    /** @return the value of the {@code skip} field. */
     @NativeType("void (*) (void *, int)")
     public STBISkipCallback skip() { return nskip(address()); }
-    /** returns nonzero if we are at end of file/data */
+    /** @return the value of the {@code eof} field. */
     @NativeType("int (*) (void *)")
     public STBIEOFCallback eof() { return neof(address()); }
 
-    /** Sets the specified value to the {@link #read} field. */
+    /** Sets the specified value to the {@code read} field. */
     public STBIIOCallbacks read(@NativeType("int (*) (void *, char *, int)") STBIReadCallbackI value) { nread(address(), value); return this; }
-    /** Sets the specified value to the {@link #skip} field. */
+    /** Sets the specified value to the {@code skip} field. */
     public STBIIOCallbacks skip(@NativeType("void (*) (void *, int)") STBISkipCallbackI value) { nskip(address(), value); return this; }
-    /** Sets the specified value to the {@link #eof} field. */
+    /** Sets the specified value to the {@code eof} field. */
     public STBIIOCallbacks eof(@NativeType("int (*) (void *)") STBIEOFCallbackI value) { neof(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -192,25 +188,6 @@ public class STBIIOCallbacks extends Struct<STBIIOCallbacks> implements NativeRe
     public static STBIIOCallbacks.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBIIOCallbacks.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code STBIIOCallbacks} instance allocated on the specified {@link MemoryStack}.
@@ -320,21 +297,21 @@ public class STBIIOCallbacks extends Struct<STBIIOCallbacks> implements NativeRe
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link STBIIOCallbacks#read} field. */
+        /** @return the value of the {@code read} field. */
         @NativeType("int (*) (void *, char *, int)")
         public STBIReadCallback read() { return STBIIOCallbacks.nread(address()); }
-        /** @return the value of the {@link STBIIOCallbacks#skip} field. */
+        /** @return the value of the {@code skip} field. */
         @NativeType("void (*) (void *, int)")
         public STBISkipCallback skip() { return STBIIOCallbacks.nskip(address()); }
-        /** @return the value of the {@link STBIIOCallbacks#eof} field. */
+        /** @return the value of the {@code eof} field. */
         @NativeType("int (*) (void *)")
         public STBIEOFCallback eof() { return STBIIOCallbacks.neof(address()); }
 
-        /** Sets the specified value to the {@link STBIIOCallbacks#read} field. */
+        /** Sets the specified value to the {@code read} field. */
         public STBIIOCallbacks.Buffer read(@NativeType("int (*) (void *, char *, int)") STBIReadCallbackI value) { STBIIOCallbacks.nread(address(), value); return this; }
-        /** Sets the specified value to the {@link STBIIOCallbacks#skip} field. */
+        /** Sets the specified value to the {@code skip} field. */
         public STBIIOCallbacks.Buffer skip(@NativeType("void (*) (void *, int)") STBISkipCallbackI value) { STBIIOCallbacks.nskip(address(), value); return this; }
-        /** Sets the specified value to the {@link STBIIOCallbacks#eof} field. */
+        /** Sets the specified value to the {@code eof} field. */
         public STBIIOCallbacks.Buffer eof(@NativeType("int (*) (void *)") STBIEOFCallbackI value) { STBIIOCallbacks.neof(address(), value); return this; }
 
     }

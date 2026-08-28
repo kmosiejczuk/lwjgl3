@@ -6,36 +6,28 @@
 package org.lwjgl.llvm;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to the {@code enteredMainFile} field of the {@link IndexerCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * CXIdxClientFile (*{@link #invoke}) (
- *     CXClientData client_data,
- *     CXFile mainFile,
- *     void *reserved
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("CXIdxClientFile (*) (CXClientData, CXFile, void *)")
 public interface IndexerEnteredMainFileI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_pointer,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_pointer,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -47,7 +39,7 @@ public interface IndexerEnteredMainFileI extends CallbackI {
         apiClosureRetP(ret, __result);
     }
 
-    /** The {@code IndexerCallbacks.enteredMainFile} callback. */
+    /** {@code CXIdxClientFile (*) (CXClientData client_data, CXFile mainFile, void * reserved)} */
     @NativeType("CXIdxClientFile") long invoke(@NativeType("CXClientData") long client_data, @NativeType("CXFile") long mainFile, @NativeType("void *") long reserved);
 
 }

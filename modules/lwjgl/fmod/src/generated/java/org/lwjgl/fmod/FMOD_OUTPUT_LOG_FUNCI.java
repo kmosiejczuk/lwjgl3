@@ -6,36 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FMOD_DEBUG_FLAGS level,
- *     char const *file,
- *     int line,
- *     char const *function,
- *     char const *string
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_LOG_FUNC} */
 @FunctionalInterface
 @NativeType("FMOD_OUTPUT_LOG_FUNC")
 public interface FMOD_OUTPUT_LOG_FUNCI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_void,
-        ffi_type_uint32, ffi_type_pointer, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_void,
+            ffi_type_uint32, ffi_type_pointer, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -48,6 +41,7 @@ public interface FMOD_OUTPUT_LOG_FUNCI extends CallbackI {
         );
     }
 
+    /** {@code void (* FMOD_OUTPUT_LOG_FUNC) (FMOD_DEBUG_FLAGS level, char const * file, int line, char const * function, char const * string)} */
     void invoke(@NativeType("FMOD_DEBUG_FLAGS") int level, @NativeType("char const *") long file, int line, @NativeType("char const *") long function, @NativeType("char const *") long string);
 
 }

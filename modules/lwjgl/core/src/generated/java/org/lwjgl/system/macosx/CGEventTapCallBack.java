@@ -11,19 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CoreGraphics#CGEventTapCreate EventTapCreate} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * CGEventRef (*{@link #invoke}) (
- *     CGEventTapProxy proxy,
- *     CGEventType type,
- *     CGEventRef event,
- *     void *userInfo
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CGEventTapCallBack extends Callback implements CGEventTapCallBackI {
 
     /**
@@ -51,7 +39,7 @@ public abstract class CGEventTapCallBack extends Callback implements CGEventTapC
     }
 
     protected CGEventTapCallBack() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     CGEventTapCallBack(long functionPointer) {

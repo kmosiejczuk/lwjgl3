@@ -17,14 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XConfigureRequestEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window parent;
  *     Window window;
  *     int x;
@@ -33,9 +31,9 @@ import static org.lwjgl.system.MemoryStack.*;
  *     int height;
  *     int border_width;
  *     Window above;
- *     int {@link #detail};
+ *     int detail;
  *     unsigned long value_mask;
- * }</code></pre>
+ * }}</pre>
  */
 public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> implements NativeResource {
 
@@ -123,13 +121,13 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code parent} field. */
@@ -151,7 +149,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
     /** @return the value of the {@code above} field. */
     @NativeType("Window")
     public long above() { return nabove(address()); }
-    /** one of:<br><table><tr><td>{@link X11#Above}</td><td>{@link X11#Below}</td><td>{@link X11#TopIf}</td><td>{@link X11#BottomIf}</td><td>{@link X11#Opposite}</td></tr></table> */
+    /** @return the value of the {@code detail} field. */
     public int detail() { return ndetail(address()); }
     /** @return the value of the {@code value_mask} field. */
     @NativeType("unsigned long")
@@ -159,11 +157,11 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
 
     /** Sets the specified value to the {@code type} field. */
     public XConfigureRequestEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XConfigureRequestEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XConfigureRequestEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XConfigureRequestEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code parent} field. */
     public XConfigureRequestEvent parent(@NativeType("Window") long value) { nparent(address(), value); return this; }
@@ -181,7 +179,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
     public XConfigureRequestEvent border_width(int value) { nborder_width(address(), value); return this; }
     /** Sets the specified value to the {@code above} field. */
     public XConfigureRequestEvent above(@NativeType("Window") long value) { nabove(address(), value); return this; }
-    /** Sets the specified value to the {@link #detail} field. */
+    /** Sets the specified value to the {@code detail} field. */
     public XConfigureRequestEvent detail(int value) { ndetail(address(), value); return this; }
     /** Sets the specified value to the {@code value_mask} field. */
     public XConfigureRequestEvent value_mask(@NativeType("unsigned long") long value) { nvalue_mask(address(), value); return this; }
@@ -303,25 +301,6 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
     public static XConfigureRequestEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XConfigureRequestEvent.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XConfigureRequestEvent} instance allocated on the specified {@link MemoryStack}.
@@ -475,13 +454,13 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
 
         /** @return the value of the {@code type} field. */
         public int type() { return XConfigureRequestEvent.ntype(address()); }
-        /** @return the value of the {@link XConfigureRequestEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XConfigureRequestEvent.nserial(address()); }
-        /** @return the value of the {@link XConfigureRequestEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XConfigureRequestEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XConfigureRequestEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XConfigureRequestEvent.ndisplay(address()); }
         /** @return the value of the {@code parent} field. */
@@ -503,7 +482,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
         /** @return the value of the {@code above} field. */
         @NativeType("Window")
         public long above() { return XConfigureRequestEvent.nabove(address()); }
-        /** @return the value of the {@link XConfigureRequestEvent#detail} field. */
+        /** @return the value of the {@code detail} field. */
         public int detail() { return XConfigureRequestEvent.ndetail(address()); }
         /** @return the value of the {@code value_mask} field. */
         @NativeType("unsigned long")
@@ -511,11 +490,11 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
 
         /** Sets the specified value to the {@code type} field. */
         public XConfigureRequestEvent.Buffer type(int value) { XConfigureRequestEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XConfigureRequestEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XConfigureRequestEvent.Buffer serial(@NativeType("unsigned long") long value) { XConfigureRequestEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XConfigureRequestEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XConfigureRequestEvent.Buffer send_event(@NativeType("Bool") boolean value) { XConfigureRequestEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XConfigureRequestEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XConfigureRequestEvent.Buffer display(@NativeType("Display *") long value) { XConfigureRequestEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code parent} field. */
         public XConfigureRequestEvent.Buffer parent(@NativeType("Window") long value) { XConfigureRequestEvent.nparent(address(), value); return this; }
@@ -533,7 +512,7 @@ public class XConfigureRequestEvent extends Struct<XConfigureRequestEvent> imple
         public XConfigureRequestEvent.Buffer border_width(int value) { XConfigureRequestEvent.nborder_width(address(), value); return this; }
         /** Sets the specified value to the {@code above} field. */
         public XConfigureRequestEvent.Buffer above(@NativeType("Window") long value) { XConfigureRequestEvent.nabove(address(), value); return this; }
-        /** Sets the specified value to the {@link XConfigureRequestEvent#detail} field. */
+        /** Sets the specified value to the {@code detail} field. */
         public XConfigureRequestEvent.Buffer detail(int value) { XConfigureRequestEvent.ndetail(address(), value); return this; }
         /** Sets the specified value to the {@code value_mask} field. */
         public XConfigureRequestEvent.Buffer value_mask(@NativeType("unsigned long") long value) { XConfigureRequestEvent.nvalue_mask(address(), value); return this; }

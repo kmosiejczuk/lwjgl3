@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * size_t (*{@link #invoke}) (
- *     struct aiFile *pFile,
- *     char *pBuffer,
- *     size_t size,
- *     size_t count
- * )</code></pre>
- */
+/** Callback function: {@link #invoke aiFileReadProc} */
 public abstract class AIFileReadProc extends Callback implements AIFileReadProcI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class AIFileReadProc extends Callback implements AIFileReadProcI
     }
 
     protected AIFileReadProc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     AIFileReadProc(long functionPointer) {

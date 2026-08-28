@@ -13,18 +13,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetWindowSizeCallback SetWindowSizeCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     GLFWwindow *window,
- *     int width,
- *     int height
- * )</code></pre>
- */
+/** Callback function: {@link #invoke GLFWwindowsizefun} */
 public abstract class GLFWWindowSizeCallback extends Callback implements GLFWWindowSizeCallbackI {
 
     /**
@@ -52,7 +41,7 @@ public abstract class GLFWWindowSizeCallback extends Callback implements GLFWWin
     }
 
     protected GLFWWindowSizeCallback() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     GLFWWindowSizeCallback(long functionPointer) {

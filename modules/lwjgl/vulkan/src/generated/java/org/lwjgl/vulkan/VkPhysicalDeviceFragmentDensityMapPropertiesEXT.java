@@ -16,31 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing fragment density map properties that can be supported by an implementation.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTFragmentDensityMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent2D}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkPhysicalDeviceFragmentDensityMapPropertiesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkExtent2D VkExtent2D} {@link #minFragmentDensityTexelSize};
- *     {@link VkExtent2D VkExtent2D} {@link #maxFragmentDensityTexelSize};
- *     VkBool32 {@link #fragmentDensityInvocations};
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkExtent2D VkExtent2D} minFragmentDensityTexelSize;
+ *     {@link VkExtent2D VkExtent2D} maxFragmentDensityTexelSize;
+ *     VkBool32 fragmentDensityInvocations;
  * }</code></pre>
  */
 public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPhysicalDeviceFragmentDensityMapPropertiesEXT> implements NativeResource {
@@ -100,25 +82,25 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** the minimum <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#glossary-fragment-density-texel-size">fragment density texel size</a>. */
+    /** @return a {@link VkExtent2D} view of the {@code minFragmentDensityTexelSize} field. */
     public VkExtent2D minFragmentDensityTexelSize() { return nminFragmentDensityTexelSize(address()); }
-    /** the maximum fragment density texel size. */
+    /** @return a {@link VkExtent2D} view of the {@code maxFragmentDensityTexelSize} field. */
     public VkExtent2D maxFragmentDensityTexelSize() { return nmaxFragmentDensityTexelSize(address()); }
-    /** specifies whether the implementation <b>may</b> invoke additional fragment shader invocations for each covered sample. */
+    /** @return the value of the {@code fragmentDensityInvocations} field. */
     @NativeType("VkBool32")
     public boolean fragmentDensityInvocations() { return nfragmentDensityInvocations(address()) != 0; }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceFragmentDensityMapPropertiesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTFragmentDensityMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTFragmentDensityMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceFragmentDensityMapPropertiesEXT sType$Default() { return sType(EXTFragmentDensityMap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceFragmentDensityMapPropertiesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -214,25 +196,6 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
     public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkPhysicalDeviceFragmentDensityMapPropertiesEXT} instance allocated on the specified {@link MemoryStack}.
@@ -333,25 +296,25 @@ public class VkPhysicalDeviceFragmentDensityMapPropertiesEXT extends Struct<VkPh
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceFragmentDensityMapPropertiesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceFragmentDensityMapPropertiesEXT.npNext(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#minFragmentDensityTexelSize} field. */
+        /** @return a {@link VkExtent2D} view of the {@code minFragmentDensityTexelSize} field. */
         public VkExtent2D minFragmentDensityTexelSize() { return VkPhysicalDeviceFragmentDensityMapPropertiesEXT.nminFragmentDensityTexelSize(address()); }
-        /** @return a {@link VkExtent2D} view of the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#maxFragmentDensityTexelSize} field. */
+        /** @return a {@link VkExtent2D} view of the {@code maxFragmentDensityTexelSize} field. */
         public VkExtent2D maxFragmentDensityTexelSize() { return VkPhysicalDeviceFragmentDensityMapPropertiesEXT.nmaxFragmentDensityTexelSize(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#fragmentDensityInvocations} field. */
+        /** @return the value of the {@code fragmentDensityInvocations} field. */
         @NativeType("VkBool32")
         public boolean fragmentDensityInvocations() { return VkPhysicalDeviceFragmentDensityMapPropertiesEXT.nfragmentDensityInvocations(address()) != 0; }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceFragmentDensityMapPropertiesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTFragmentDensityMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT} value to the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#sType} field. */
+        /** Sets the {@link EXTFragmentDensityMap#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer sType$Default() { return sType(EXTFragmentDensityMap.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_PROPERTIES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceFragmentDensityMapPropertiesEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceFragmentDensityMapPropertiesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceFragmentDensityMapPropertiesEXT.npNext(address(), value); return this; }
 
     }

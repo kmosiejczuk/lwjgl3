@@ -16,34 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify a memory allocation priority.
- * 
- * <h5>Description</h5>
- * 
- * <p>Memory allocations with higher priority <b>may</b> be more likely to stay in device-local memory when the system is under memory pressure.</p>
- * 
- * <p>If this structure is not included, it is as if the {@code priority} value were {@code 0.5}.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code priority} <b>must</b> be between 0 and 1, inclusive</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMemoryPriorityAllocateInfoEXT {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     float {@link #priority};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     float priority;
+ * }}</pre>
  */
 public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllocateInfoEXT> implements NativeResource {
 
@@ -96,22 +74,22 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** a floating-point value between 0 and 1, indicating the priority of the allocation relative to other memory allocations. Larger values are higher priority. The granularity of the priorities is implementation-dependent. */
+    /** @return the value of the {@code priority} field. */
     public float priority() { return npriority(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMemoryPriorityAllocateInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@code sType} field. */
     public VkMemoryPriorityAllocateInfoEXT sType$Default() { return sType(EXTMemoryPriority.VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMemoryPriorityAllocateInfoEXT pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #priority} field. */
+    /** Sets the specified value to the {@code priority} field. */
     public VkMemoryPriorityAllocateInfoEXT priority(float value) { npriority(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -210,25 +188,6 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMemoryPriorityAllocateInfoEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkMemoryPriorityAllocateInfoEXT} instance allocated on the specified {@link MemoryStack}.
      *
@@ -326,22 +285,22 @@ public class VkMemoryPriorityAllocateInfoEXT extends Struct<VkMemoryPriorityAllo
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMemoryPriorityAllocateInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMemoryPriorityAllocateInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkMemoryPriorityAllocateInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMemoryPriorityAllocateInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkMemoryPriorityAllocateInfoEXT#priority} field. */
+        /** @return the value of the {@code priority} field. */
         public float priority() { return VkMemoryPriorityAllocateInfoEXT.npriority(address()); }
 
-        /** Sets the specified value to the {@link VkMemoryPriorityAllocateInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkMemoryPriorityAllocateInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@link VkMemoryPriorityAllocateInfoEXT#sType} field. */
+        /** Sets the {@link EXTMemoryPriority#VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT} value to the {@code sType} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer sType$Default() { return sType(EXTMemoryPriority.VK_STRUCTURE_TYPE_MEMORY_PRIORITY_ALLOCATE_INFO_EXT); }
-        /** Sets the specified value to the {@link VkMemoryPriorityAllocateInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer pNext(@NativeType("void const *") long value) { VkMemoryPriorityAllocateInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMemoryPriorityAllocateInfoEXT#priority} field. */
+        /** Sets the specified value to the {@code priority} field. */
         public VkMemoryPriorityAllocateInfoEXT.Buffer priority(float value) { VkMemoryPriorityAllocateInfoEXT.npriority(address(), value); return this; }
 
     }

@@ -21,8 +21,6 @@ import javax.swing.event.*
 import javax.swing.plaf.basic.*
 
 fun main() {
-    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
-
     System.setProperty("line.separator", "\n")
 
     if (Configuration.LLVM_CLANG_LIBRARY_NAME.get() == null) {
@@ -30,12 +28,16 @@ fun main() {
             Library.loadNative(ClangIndex::class.java, "org.lwjgl.llvm", Configuration.LLVM_CLANG_LIBRARY_NAME, "clang", "libclang").use {
                 Configuration.LLVM_CLANG_LIBRARY_NAME.set(it.path)
             }
-        } catch (ignored: Throwable) {
+        } catch (_: Throwable) {
         }
     }
 
-    val app = Application()
-    app.frame.isVisible = true
+    SwingUtilities.invokeLater {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
+
+        val app = Application()
+        app.frame.isVisible = true
+    }
 }
 
 private fun checkModal() = Window.getWindows().none { it is Dialog && it.isModal && it.isVisible }
@@ -48,7 +50,6 @@ class Application {
             Platform.LINUX   -> "so"
             Platform.MACOSX  -> "dylib"
             Platform.WINDOWS -> "dll"
-            else             -> throw UnsupportedOperationException()
         }
     }
 
@@ -113,7 +114,7 @@ class Application {
                 mainFileOnly = true,
                 ignoreSystemHeaders = false,
                 ignoreErrors = false,
-                parseAllComments = true,
+                parseAllComments = false,
                 parseTypes = true,
                 parseStructs = true,
                 parseConstants = true,

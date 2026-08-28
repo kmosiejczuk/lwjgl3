@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XMapEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window event;
  *     Window window;
- *     int {@link #override_redirect};
- * }</code></pre>
+ *     int override_redirect;
+ * }}</pre>
  */
 public class XMapEvent extends Struct<XMapEvent> implements NativeResource {
 
@@ -95,13 +93,13 @@ public class XMapEvent extends Struct<XMapEvent> implements NativeResource {
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code event} field. */
@@ -110,22 +108,22 @@ public class XMapEvent extends Struct<XMapEvent> implements NativeResource {
     /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
-    /** boolean, is override set... */
+    /** @return the value of the {@code override_redirect} field. */
     public int override_redirect() { return noverride_redirect(address()); }
 
     /** Sets the specified value to the {@code type} field. */
     public XMapEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XMapEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XMapEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XMapEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code event} field. */
     public XMapEvent event(@NativeType("Window") long value) { nevent(address(), value); return this; }
     /** Sets the specified value to the {@code window} field. */
     public XMapEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
-    /** Sets the specified value to the {@link #override_redirect} field. */
+    /** Sets the specified value to the {@code override_redirect} field. */
     public XMapEvent override_redirect(int value) { noverride_redirect(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -231,25 +229,6 @@ public class XMapEvent extends Struct<XMapEvent> implements NativeResource {
     public static XMapEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XMapEvent mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XMapEvent callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XMapEvent mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XMapEvent callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XMapEvent.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XMapEvent.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XMapEvent.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XMapEvent.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XMapEvent} instance allocated on the specified {@link MemoryStack}.
@@ -375,13 +354,13 @@ public class XMapEvent extends Struct<XMapEvent> implements NativeResource {
 
         /** @return the value of the {@code type} field. */
         public int type() { return XMapEvent.ntype(address()); }
-        /** @return the value of the {@link XMapEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XMapEvent.nserial(address()); }
-        /** @return the value of the {@link XMapEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XMapEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XMapEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XMapEvent.ndisplay(address()); }
         /** @return the value of the {@code event} field. */
@@ -390,22 +369,22 @@ public class XMapEvent extends Struct<XMapEvent> implements NativeResource {
         /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XMapEvent.nwindow(address()); }
-        /** @return the value of the {@link XMapEvent#override_redirect} field. */
+        /** @return the value of the {@code override_redirect} field. */
         public int override_redirect() { return XMapEvent.noverride_redirect(address()); }
 
         /** Sets the specified value to the {@code type} field. */
         public XMapEvent.Buffer type(int value) { XMapEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XMapEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XMapEvent.Buffer serial(@NativeType("unsigned long") long value) { XMapEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XMapEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XMapEvent.Buffer send_event(@NativeType("Bool") boolean value) { XMapEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XMapEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XMapEvent.Buffer display(@NativeType("Display *") long value) { XMapEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code event} field. */
         public XMapEvent.Buffer event(@NativeType("Window") long value) { XMapEvent.nevent(address(), value); return this; }
         /** Sets the specified value to the {@code window} field. */
         public XMapEvent.Buffer window(@NativeType("Window") long value) { XMapEvent.nwindow(address(), value); return this; }
-        /** Sets the specified value to the {@link XMapEvent#override_redirect} field. */
+        /** Sets the specified value to the {@code override_redirect} field. */
         public XMapEvent.Buffer override_redirect(int value) { XMapEvent.noverride_redirect(address(), value); return this; }
 
     }

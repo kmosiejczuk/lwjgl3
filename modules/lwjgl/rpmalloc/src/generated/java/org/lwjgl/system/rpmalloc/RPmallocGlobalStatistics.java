@@ -16,18 +16,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct rpmalloc_global_statistics_t {
- *     size_t {@link #mapped};
- *     size_t {@link #mapped_peak};
- *     size_t {@link #cached};
- *     size_t {@link #huge_alloc};
- *     size_t {@link #huge_alloc_peak};
- *     size_t {@link #mapped_total};
- *     size_t {@link #unmapped_total};
- * }</code></pre>
+ *     size_t mapped;
+ *     size_t mapped_peak;
+ *     size_t cached;
+ *     size_t huge_alloc;
+ *     size_t huge_alloc_peak;
+ *     size_t mapped_total;
+ *     size_t unmapped_total;
+ * }}</pre>
  */
 @NativeType("struct rpmalloc_global_statistics_t")
 public class RPmallocGlobalStatistics extends Struct<RPmallocGlobalStatistics> implements NativeResource {
@@ -93,31 +91,25 @@ public class RPmallocGlobalStatistics extends Struct<RPmallocGlobalStatistics> i
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Current amount of virtual memory mapped, all of which might not have been committed (only if {@code ENABLE_STATISTICS=1}) */
+    /** @return the value of the {@code mapped} field. */
     @NativeType("size_t")
     public long mapped() { return nmapped(address()); }
-    /** Peak amount of virtual memory mapped, all of which might not have been committed (only if {@code ENABLE_STATISTICS=1}) */
+    /** @return the value of the {@code mapped_peak} field. */
     @NativeType("size_t")
     public long mapped_peak() { return nmapped_peak(address()); }
-    /** Current amount of memory in global caches for small and medium sizes (&lt;32KiB) */
+    /** @return the value of the {@code cached} field. */
     @NativeType("size_t")
     public long cached() { return ncached(address()); }
-    /**
-     * Current amount of memory allocated in huge allocations, i.e larger than {@code LARGE_SIZE_LIMIT} which is 2MiB by default (only if
-     * {@code ENABLE_STATISTICS=1})
-     */
+    /** @return the value of the {@code huge_alloc} field. */
     @NativeType("size_t")
     public long huge_alloc() { return nhuge_alloc(address()); }
-    /**
-     * Peak amount of memory allocated in huge allocations, i.e larger than {@code LARGE_SIZE_LIMIT} which is 2MiB by default (only if
-     * {@code ENABLE_STATISTICS=1})
-     */
+    /** @return the value of the {@code huge_alloc_peak} field. */
     @NativeType("size_t")
     public long huge_alloc_peak() { return nhuge_alloc_peak(address()); }
-    /** Total amount of memory mapped since initialization (only if {@code ENABLE_STATISTICS=1}) */
+    /** @return the value of the {@code mapped_total} field. */
     @NativeType("size_t")
     public long mapped_total() { return nmapped_total(address()); }
-    /** Total amount of memory unmapped since initialization  (only if {@code ENABLE_STATISTICS=1}) */
+    /** @return the value of the {@code unmapped_total} field. */
     @NativeType("size_t")
     public long unmapped_total() { return nunmapped_total(address()); }
 
@@ -191,25 +183,6 @@ public class RPmallocGlobalStatistics extends Struct<RPmallocGlobalStatistics> i
     public static RPmallocGlobalStatistics.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static RPmallocGlobalStatistics.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code RPmallocGlobalStatistics} instance allocated on the specified {@link MemoryStack}.
@@ -309,25 +282,25 @@ public class RPmallocGlobalStatistics extends Struct<RPmallocGlobalStatistics> i
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link RPmallocGlobalStatistics#mapped} field. */
+        /** @return the value of the {@code mapped} field. */
         @NativeType("size_t")
         public long mapped() { return RPmallocGlobalStatistics.nmapped(address()); }
-        /** @return the value of the {@link RPmallocGlobalStatistics#mapped_peak} field. */
+        /** @return the value of the {@code mapped_peak} field. */
         @NativeType("size_t")
         public long mapped_peak() { return RPmallocGlobalStatistics.nmapped_peak(address()); }
-        /** @return the value of the {@link RPmallocGlobalStatistics#cached} field. */
+        /** @return the value of the {@code cached} field. */
         @NativeType("size_t")
         public long cached() { return RPmallocGlobalStatistics.ncached(address()); }
-        /** @return the value of the {@link RPmallocGlobalStatistics#huge_alloc} field. */
+        /** @return the value of the {@code huge_alloc} field. */
         @NativeType("size_t")
         public long huge_alloc() { return RPmallocGlobalStatistics.nhuge_alloc(address()); }
-        /** @return the value of the {@link RPmallocGlobalStatistics#huge_alloc_peak} field. */
+        /** @return the value of the {@code huge_alloc_peak} field. */
         @NativeType("size_t")
         public long huge_alloc_peak() { return RPmallocGlobalStatistics.nhuge_alloc_peak(address()); }
-        /** @return the value of the {@link RPmallocGlobalStatistics#mapped_total} field. */
+        /** @return the value of the {@code mapped_total} field. */
         @NativeType("size_t")
         public long mapped_total() { return RPmallocGlobalStatistics.nmapped_total(address()); }
-        /** @return the value of the {@link RPmallocGlobalStatistics#unmapped_total} field. */
+        /** @return the value of the {@code unmapped_total} field. */
         @NativeType("size_t")
         public long unmapped_total() { return RPmallocGlobalStatistics.nunmapped_total(address()); }
 

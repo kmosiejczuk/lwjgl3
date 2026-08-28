@@ -5,20 +5,19 @@
  */
 package org.lwjgl.glfw;
 
+import org.lwjgl.*;
+
 import org.lwjgl.system.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.JNI.*;
+import static org.lwjgl.system.MemoryUtil.*;
 
 import org.jspecify.annotations.*;
-import org.lwjgl.egl.EGL;
-import org.lwjgl.egl.EGL10;
-import org.lwjgl.opengles.GLES;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/** Native bindings to the GLFW library's EGL native access functions. */
 public class GLFWNativeEGL {
 
     /** Contains the function pointers loaded from {@code GLFW.getLibrary()}. */
@@ -41,19 +40,7 @@ public class GLFWNativeEGL {
 
     // --- [ glfwGetEGLDisplay ] ---
 
-    /**
-     * Returns the {@code EGLDisplay} used by GLFW.
-     * 
-     * <p>Because EGL is initialized on demand, this function will return {@link EGL10#EGL_NO_DISPLAY} until the first context has been created via EGL.</p>
-     * 
-     * <p>This function may be called from any thread. Access is not synchronized.</p>
-     *
-     * @return the {@code EGLDisplay} used by GLFW, or {@link EGL10#EGL_NO_DISPLAY} if an error occured.
-     *         
-     *         <p>Possible errors include {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}.</p>
-     *
-     * @since version 3.0
-     */
+    /** {@code EGLDisplay glfwGetEGLDisplay(void)} */
     @NativeType("EGLDisplay")
     public static long glfwGetEGLDisplay() {
         long __functionAddress = Functions.GetEGLDisplay;
@@ -62,19 +49,7 @@ public class GLFWNativeEGL {
 
     // --- [ glfwGetEGLContext ] ---
 
-    /**
-     * Returns the {@code EGLContext} of the specified window.
-     * 
-     * <p>This function may be called from any thread. Access is not synchronized.</p>
-     *
-     * @param window a GLFW window
-     *
-     * @return the {@code EGLContext} of the specified window, or {@link EGL10#EGL_NO_CONTEXT} if an error occurred.
-     *         
-     *         <p>Possible errors include {@link GLFW#GLFW_NO_WINDOW_CONTEXT NO_WINDOW_CONTEXT} and {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}.</p>
-     *
-     * @since version 3.0
-     */
+    /** {@code EGLContext glfwGetEGLContext(GLFWwindow * window)} */
     @NativeType("EGLContext")
     public static long glfwGetEGLContext(@NativeType("GLFWwindow *") long window) {
         long __functionAddress = Functions.GetEGLContext;
@@ -86,17 +61,7 @@ public class GLFWNativeEGL {
 
     // --- [ glfwGetEGLSurface ] ---
 
-    /**
-     * Returns the {@code EGLSurface} of the specified window.
-     * 
-     * <p>This function may be called from any thread. Access is not synchronized.</p>
-     *
-     * @return the {@code EGLSurface} of the specified window, or {@link EGL10#EGL_NO_SURFACE} if an error occurred.
-     *         
-     *         <p>Possible errors include {@link GLFW#GLFW_NO_WINDOW_CONTEXT NO_WINDOW_CONTEXT} and {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}.</p>
-     *
-     * @since version 3.0
-     */
+    /** {@code EGLSurface glfwGetEGLSurface(GLFWwindow * window)} */
     @NativeType("EGLSurface")
     public static long glfwGetEGLSurface(@NativeType("GLFWwindow *") long window) {
         long __functionAddress = Functions.GetEGLSurface;
@@ -108,30 +73,28 @@ public class GLFWNativeEGL {
 
     // --- [ glfwGetEGLConfig ] ---
 
-    /**
-     * Returns the {@code EGLConfig} of the specified window.
-     * 
-     * <p>This function may be called from any thread. Access is not synchronized.</p>
-     *
-     * @return the {@code EGLConfig} of the specified window, or {@link EGL10#EGL_NO_SURFACE} if an error occurred.
-     *         
-     *         <p>Possible errors include {@link GLFW#GLFW_NO_WINDOW_CONTEXT NO_WINDOW_CONTEXT} and {@link GLFW#GLFW_NOT_INITIALIZED NOT_INITIALIZED}.</p>
-     *
-     * @since version 3.4
-     */
-    @NativeType("EGLConfig")
-    public static long glfwGetEGLConfig(@NativeType("GLFWwindow *") long window) {
+    /** {@code int glfwGetEGLConfig(GLFWwindow * window, EGLConfig * config)} */
+    public static int nglfwGetEGLConfig(long window, long config) {
         long __functionAddress = Functions.GetEGLConfig;
         if (CHECKS) {
             check(window);
         }
-        return invokePP(window, __functionAddress);
+        return invokePPI(window, config, __functionAddress);
+    }
+
+    /** {@code int glfwGetEGLConfig(GLFWwindow * window, EGLConfig * config)} */
+    @NativeType("int")
+    public static boolean glfwGetEGLConfig(@NativeType("GLFWwindow *") long window, @NativeType("EGLConfig *") PointerBuffer config) {
+        if (CHECKS) {
+            check(config, 1);
+        }
+        return nglfwGetEGLConfig(window, memAddress(config)) != 0;
     }
 
     /**
      * Calls {@link #setEGLPath(String)} with the path of the specified {@link SharedLibrary}.
      * 
-     * <p>Example usage: <code>GLFWNativeEGL.setEGLPath(EGL.getFunctionProvider());</code></p> 
+     * <p>Example usage: {@code GLFWNativeEGL.setEGLPath(EGL.getFunctionProvider());}</p> 
      *
      * @param sharedLibrary a {@code FunctionProvider} instance that will be cast to {@code SharedLibrary}
      */
@@ -170,7 +133,7 @@ public class GLFWNativeEGL {
     /**
      * Calls {@link #setGLESPath(String)} with the path of the specified {@link SharedLibrary}.
      * 
-     * <p>Example usage: <code>GLFWNativeEGL.setGLESPath(GLES.getFunctionProvider());</code></p> 
+     * <p>Example usage: {@code GLFWNativeEGL.setGLESPath(GLES.getFunctionProvider());}</p> 
      *
      * @param sharedLibrary a {@code FunctionProvider} instance that will be cast to {@code SharedLibrary}
      */

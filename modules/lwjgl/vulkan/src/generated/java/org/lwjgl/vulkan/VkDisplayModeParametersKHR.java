@@ -16,33 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing display parameters associated with a display mode.
- * 
- * <h5>Description</h5>
- * 
- * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><h5>Note</h5>
- * 
- * <p>For example, a 60Hz display mode would report a {@code refreshRate} of 60,000.</p>
- * </div>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>The {@code width} member of {@code visibleRegion} <b>must</b> be greater than 0</li>
- * <li>The {@code height} member of {@code visibleRegion} <b>must</b> be greater than 0</li>
- * <li>{@code refreshRate} <b>must</b> be greater than 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayModeCreateInfoKHR}, {@link VkDisplayModePropertiesKHR}, {@link VkExtent2D}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkDisplayModeParametersKHR {
- *     {@link VkExtent2D VkExtent2D} {@link #visibleRegion};
- *     uint32_t {@link #refreshRate};
+ *     {@link VkExtent2D VkExtent2D} visibleRegion;
+ *     uint32_t refreshRate;
  * }</code></pre>
  */
 public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKHR> implements NativeResource {
@@ -93,17 +70,17 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the 2D extents of the visible region. */
+    /** @return a {@link VkExtent2D} view of the {@code visibleRegion} field. */
     public VkExtent2D visibleRegion() { return nvisibleRegion(address()); }
-    /** a {@code uint32_t} that is the number of times the display is refreshed each second multiplied by 1000. */
+    /** @return the value of the {@code refreshRate} field. */
     @NativeType("uint32_t")
     public int refreshRate() { return nrefreshRate(address()); }
 
-    /** Copies the specified {@link VkExtent2D} to the {@link #visibleRegion} field. */
+    /** Copies the specified {@link VkExtent2D} to the {@code visibleRegion} field. */
     public VkDisplayModeParametersKHR visibleRegion(VkExtent2D value) { nvisibleRegion(address(), value); return this; }
-    /** Passes the {@link #visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkDisplayModeParametersKHR visibleRegion(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(visibleRegion()); return this; }
-    /** Sets the specified value to the {@link #refreshRate} field. */
+    /** Sets the specified value to the {@code refreshRate} field. */
     public VkDisplayModeParametersKHR refreshRate(@NativeType("uint32_t") int value) { nrefreshRate(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -200,25 +177,6 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModeParametersKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkDisplayModeParametersKHR} instance allocated on the specified {@link MemoryStack}.
      *
@@ -312,17 +270,17 @@ public class VkDisplayModeParametersKHR extends Struct<VkDisplayModeParametersKH
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link VkExtent2D} view of the {@link VkDisplayModeParametersKHR#visibleRegion} field. */
+        /** @return a {@link VkExtent2D} view of the {@code visibleRegion} field. */
         public VkExtent2D visibleRegion() { return VkDisplayModeParametersKHR.nvisibleRegion(address()); }
-        /** @return the value of the {@link VkDisplayModeParametersKHR#refreshRate} field. */
+        /** @return the value of the {@code refreshRate} field. */
         @NativeType("uint32_t")
         public int refreshRate() { return VkDisplayModeParametersKHR.nrefreshRate(address()); }
 
-        /** Copies the specified {@link VkExtent2D} to the {@link VkDisplayModeParametersKHR#visibleRegion} field. */
+        /** Copies the specified {@link VkExtent2D} to the {@code visibleRegion} field. */
         public VkDisplayModeParametersKHR.Buffer visibleRegion(VkExtent2D value) { VkDisplayModeParametersKHR.nvisibleRegion(address(), value); return this; }
-        /** Passes the {@link VkDisplayModeParametersKHR#visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code visibleRegion} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkDisplayModeParametersKHR.Buffer visibleRegion(java.util.function.Consumer<VkExtent2D> consumer) { consumer.accept(visibleRegion()); return this; }
-        /** Sets the specified value to the {@link VkDisplayModeParametersKHR#refreshRate} field. */
+        /** Sets the specified value to the {@code refreshRate} field. */
         public VkDisplayModeParametersKHR.Buffer refreshRate(@NativeType("uint32_t") int value) { VkDisplayModeParametersKHR.nrefreshRate(address(), value); return this; }
 
     }

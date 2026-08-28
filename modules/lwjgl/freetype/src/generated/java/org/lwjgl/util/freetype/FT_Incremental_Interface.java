@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure to be used with {@link FreeType#FT_Open_Face Open_Face} to indicate that the user wants to support incremental glyph loading.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_Incremental_InterfaceRec {
  *     {@link FT_Incremental_Funcs FT_Incremental_FuncsRec} const * funcs;

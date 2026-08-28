@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * The data exchange structure for the {@code increase-x-height} property.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_Prop_IncreaseXHeight {
  *     {@link FT_Face FT_Face} face;

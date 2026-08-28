@@ -6,35 +6,28 @@
 package org.lwjgl.llvm;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link LLVMOrc#LLVMOrcExecutionSessionSetErrorReporter OrcExecutionSessionSetErrorReporter} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *Ctx,
- *     LLVMErrorRef Err
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcErrorReporterFunction} */
 @FunctionalInterface
 @NativeType("LLVMOrcErrorReporterFunction")
 public interface LLVMOrcErrorReporterFunctionI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -44,7 +37,7 @@ public interface LLVMOrcErrorReporterFunctionI extends CallbackI {
         );
     }
 
-    /** Error reporter function. */
+    /** {@code void (* LLVMOrcErrorReporterFunction) (void * Ctx, LLVMErrorRef Err)} */
     void invoke(@NativeType("void *") long Ctx, @NativeType("LLVMErrorRef") long Err);
 
 }

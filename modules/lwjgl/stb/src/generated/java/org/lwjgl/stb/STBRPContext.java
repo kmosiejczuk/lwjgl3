@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The opaque {@code stbrp_context} struct.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct stbrp_context {
  *     int width;
@@ -31,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     int num_nodes;
  *     {@link STBRPNode stbrp_node} * active_head;
  *     {@link STBRPNode stbrp_node} * free_head;
- *     {@link STBRPNode stbrp_node} {@link #extra}[2];
+ *     {@link STBRPNode stbrp_node} extra[2];
  * }</code></pre>
  */
 @NativeType("struct stbrp_context")
@@ -122,10 +118,10 @@ public class STBRPContext extends Struct<STBRPContext> implements NativeResource
     /** @return a {@link STBRPNode} view of the struct pointed to by the {@code free_head} field. */
     @NativeType("stbrp_node *")
     public @Nullable STBRPNode free_head() { return nfree_head(address()); }
-    /** we allocate two extra nodes so optimal user-node-count is {@code width} not {@code width+2} */
+    /** @return a {@link STBRPNode}.Buffer view of the {@code extra} field. */
     @NativeType("stbrp_node[2]")
     public STBRPNode.Buffer extra() { return nextra(address()); }
-    /** we allocate two extra nodes so optimal user-node-count is {@code width} not {@code width+2} */
+    /** @return a {@link STBRPNode} view of the struct at the specified index of the {@code extra} field. */
     @NativeType("stbrp_node")
     public STBRPNode extra(int index) { return nextra(address(), index); }
 
@@ -199,25 +195,6 @@ public class STBRPContext extends Struct<STBRPContext> implements NativeResource
     public static STBRPContext.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBRPContext mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBRPContext callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBRPContext mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBRPContext callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBRPContext.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBRPContext.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBRPContext.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBRPContext.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code STBRPContext} instance allocated on the specified {@link MemoryStack}.
@@ -343,10 +320,10 @@ public class STBRPContext extends Struct<STBRPContext> implements NativeResource
         /** @return a {@link STBRPNode} view of the struct pointed to by the {@code free_head} field. */
         @NativeType("stbrp_node *")
         public @Nullable STBRPNode free_head() { return STBRPContext.nfree_head(address()); }
-        /** @return a {@link STBRPNode}.Buffer view of the {@link STBRPContext#extra} field. */
+        /** @return a {@link STBRPNode}.Buffer view of the {@code extra} field. */
         @NativeType("stbrp_node[2]")
         public STBRPNode.Buffer extra() { return STBRPContext.nextra(address()); }
-        /** @return a {@link STBRPNode} view of the struct at the specified index of the {@link STBRPContext#extra} field. */
+        /** @return a {@link STBRPNode} view of the struct at the specified index of the {@code extra} field. */
         @NativeType("stbrp_node")
         public STBRPNode extra(int index) { return STBRPContext.nextra(address(), index); }
 

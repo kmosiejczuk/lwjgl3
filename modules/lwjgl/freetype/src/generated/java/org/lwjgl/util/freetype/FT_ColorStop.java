@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure representing a {@code ColorStop} value of the 'COLR' v1 extensions.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_ColorStop {
  *     FT_Fixed stop_offset;

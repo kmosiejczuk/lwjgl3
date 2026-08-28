@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure used to describe an input stream.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_StreamRec {
  *     unsigned char * base;

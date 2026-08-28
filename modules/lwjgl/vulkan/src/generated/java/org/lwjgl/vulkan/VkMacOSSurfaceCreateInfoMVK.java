@@ -16,36 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying parameters of a newly created macOS surface object.
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>If {@code pView} is a {@code CAMetalLayer} object, it <b>must</b> be a valid {@code CAMetalLayer}</li>
- * <li>If {@code pView} is an {@code NSView} object, it <b>must</b> be a valid {@code NSView}, <b>must</b> be backed by a {@code CALayer} object of type {@code CAMetalLayer}, and {@link MVKMacosSurface#vkCreateMacOSSurfaceMVK CreateMacOSSurfaceMVK} <b>must</b> be called on the main thread</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link MVKMacosSurface#VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * <li>{@code flags} <b>must</b> be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link MVKMacosSurface#vkCreateMacOSSurfaceMVK CreateMacOSSurfaceMVK}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkMacOSSurfaceCreateInfoMVK {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkMacOSSurfaceCreateFlagsMVK {@link #flags};
- *     void const * {@link #pView};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkMacOSSurfaceCreateFlagsMVK flags;
+ *     void const * pView;
+ * }}</pre>
  */
 public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfoMVK> implements NativeResource {
 
@@ -101,28 +78,28 @@ public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfo
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** reserved for future use. */
+    /** @return the value of the {@code flags} field. */
     @NativeType("VkMacOSSurfaceCreateFlagsMVK")
     public int flags() { return nflags(address()); }
-    /** a reference to either a {@code CAMetalLayer} object or an {@code NSView} object. */
+    /** @return the value of the {@code pView} field. */
     @NativeType("void const *")
     public long pView() { return npView(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkMacOSSurfaceCreateInfoMVK sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link MVKMacosSurface#VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK} value to the {@link #sType} field. */
+    /** Sets the {@link MVKMacosSurface#VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK} value to the {@code sType} field. */
     public VkMacOSSurfaceCreateInfoMVK sType$Default() { return sType(MVKMacosSurface.VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkMacOSSurfaceCreateInfoMVK pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #flags} field. */
+    /** Sets the specified value to the {@code flags} field. */
     public VkMacOSSurfaceCreateInfoMVK flags(@NativeType("VkMacOSSurfaceCreateFlagsMVK") int value) { nflags(address(), value); return this; }
-    /** Sets the specified value to the {@link #pView} field. */
+    /** Sets the specified value to the {@code pView} field. */
     public VkMacOSSurfaceCreateInfoMVK pView(@NativeType("void const *") long value) { npView(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -222,25 +199,6 @@ public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfo
     public static VkMacOSSurfaceCreateInfoMVK.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkMacOSSurfaceCreateInfoMVK.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkMacOSSurfaceCreateInfoMVK} instance allocated on the specified {@link MemoryStack}.
@@ -343,28 +301,28 @@ public class VkMacOSSurfaceCreateInfoMVK extends Struct<VkMacOSSurfaceCreateInfo
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkMacOSSurfaceCreateInfoMVK#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkMacOSSurfaceCreateInfoMVK.nsType(address()); }
-        /** @return the value of the {@link VkMacOSSurfaceCreateInfoMVK#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkMacOSSurfaceCreateInfoMVK.npNext(address()); }
-        /** @return the value of the {@link VkMacOSSurfaceCreateInfoMVK#flags} field. */
+        /** @return the value of the {@code flags} field. */
         @NativeType("VkMacOSSurfaceCreateFlagsMVK")
         public int flags() { return VkMacOSSurfaceCreateInfoMVK.nflags(address()); }
-        /** @return the value of the {@link VkMacOSSurfaceCreateInfoMVK#pView} field. */
+        /** @return the value of the {@code pView} field. */
         @NativeType("void const *")
         public long pView() { return VkMacOSSurfaceCreateInfoMVK.npView(address()); }
 
-        /** Sets the specified value to the {@link VkMacOSSurfaceCreateInfoMVK#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkMacOSSurfaceCreateInfoMVK.Buffer sType(@NativeType("VkStructureType") int value) { VkMacOSSurfaceCreateInfoMVK.nsType(address(), value); return this; }
-        /** Sets the {@link MVKMacosSurface#VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK} value to the {@link VkMacOSSurfaceCreateInfoMVK#sType} field. */
+        /** Sets the {@link MVKMacosSurface#VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK} value to the {@code sType} field. */
         public VkMacOSSurfaceCreateInfoMVK.Buffer sType$Default() { return sType(MVKMacosSurface.VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK); }
-        /** Sets the specified value to the {@link VkMacOSSurfaceCreateInfoMVK#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkMacOSSurfaceCreateInfoMVK.Buffer pNext(@NativeType("void const *") long value) { VkMacOSSurfaceCreateInfoMVK.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMacOSSurfaceCreateInfoMVK#flags} field. */
+        /** Sets the specified value to the {@code flags} field. */
         public VkMacOSSurfaceCreateInfoMVK.Buffer flags(@NativeType("VkMacOSSurfaceCreateFlagsMVK") int value) { VkMacOSSurfaceCreateInfoMVK.nflags(address(), value); return this; }
-        /** Sets the specified value to the {@link VkMacOSSurfaceCreateInfoMVK#pView} field. */
+        /** Sets the specified value to the {@code pView} field. */
         public VkMacOSSurfaceCreateInfoMVK.Buffer pView(@NativeType("void const *") long value) { VkMacOSSurfaceCreateInfoMVK.npView(address(), value); return this; }
 
     }

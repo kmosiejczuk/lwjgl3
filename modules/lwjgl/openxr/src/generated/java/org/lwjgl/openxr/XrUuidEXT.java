@@ -16,17 +16,13 @@ import static org.lwjgl.system.Checks.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
-import static org.lwjgl.openxr.XR10.*;
+import static org.lwjgl.openxr.XR11.*;
 
 /**
- * See {@link XrUuid}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrUuidEXT {
  *     uint8_t data[XR_UUID_SIZE];
- * }</code></pre>
+ * }}</pre>
  */
 public class XrUuidEXT extends XrUuid {
 

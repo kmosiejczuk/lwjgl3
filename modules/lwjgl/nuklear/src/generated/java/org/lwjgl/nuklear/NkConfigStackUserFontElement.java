@@ -15,8 +15,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct nk_config_stack_user_font_element {
  *     {@link NkUserFont struct nk_user_font} ** pValues;
@@ -72,11 +70,7 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /**
-     * @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field. */
     @NativeType("struct nk_user_font **")
     public PointerBuffer pValues(int capacity) { return npValues(address(), capacity); }
     /** @return a {@link NkUserFont} view of the struct pointed to by the {@code old_value} field. */
@@ -160,11 +154,7 @@ class NkConfigStackUserFontElement extends Struct<NkConfigStackUserFontElement> 
             return ELEMENT_FACTORY;
         }
 
-        /**
-         * @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code pValues} field. */
         @NativeType("struct nk_user_font **")
         public PointerBuffer pValues(int capacity) { return NkConfigStackUserFontElement.npValues(address(), capacity); }
         /** @return a {@link NkUserFont} view of the struct pointed to by the {@code old_value} field. */

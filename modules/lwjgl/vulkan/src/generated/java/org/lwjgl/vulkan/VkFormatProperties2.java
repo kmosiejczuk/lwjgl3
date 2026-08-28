@@ -16,27 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying image format properties.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link VK11#VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2 STRUCTURE_TYPE_FORMAT_PROPERTIES_2}</li>
- * <li>Each {@code pNext} member of any structure (including this one) in the {@code pNext} chain <b>must</b> be either {@code NULL} or a pointer to a valid instance of {@link VkDrmFormatModifierPropertiesList2EXT}, {@link VkDrmFormatModifierPropertiesListEXT}, {@link VkFormatProperties3}, or {@link VkSubpassResolvePerformanceQueryEXT}</li>
- * <li>The {@code sType} value of each struct in the {@code pNext} chain <b>must</b> be unique</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkFormatProperties}, {@link VK11#vkGetPhysicalDeviceFormatProperties2 GetPhysicalDeviceFormatProperties2}, {@link KHRGetPhysicalDeviceProperties2#vkGetPhysicalDeviceFormatProperties2KHR GetPhysicalDeviceFormatProperties2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkFormatProperties2 {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkFormatProperties VkFormatProperties} {@link #formatProperties};
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkFormatProperties VkFormatProperties} formatProperties;
  * }</code></pre>
  */
 public class VkFormatProperties2 extends Struct<VkFormatProperties2> implements NativeResource {
@@ -90,20 +74,20 @@ public class VkFormatProperties2 extends Struct<VkFormatProperties2> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkFormatProperties} structure describing features supported by the requested format. */
+    /** @return a {@link VkFormatProperties} view of the {@code formatProperties} field. */
     public VkFormatProperties formatProperties() { return nformatProperties(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkFormatProperties2 sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2 STRUCTURE_TYPE_FORMAT_PROPERTIES_2} value to the {@link #sType} field. */
+    /** Sets the {@link VK11#VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2 STRUCTURE_TYPE_FORMAT_PROPERTIES_2} value to the {@code sType} field. */
     public VkFormatProperties2 sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkFormatProperties2 pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkDrmFormatModifierPropertiesList2EXT} value to the {@code pNext} chain. */
     public VkFormatProperties2 pNext(VkDrmFormatModifierPropertiesList2EXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
@@ -115,6 +99,8 @@ public class VkFormatProperties2 extends Struct<VkFormatProperties2> implements 
     public VkFormatProperties2 pNext(VkFormatProperties3KHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkSubpassResolvePerformanceQueryEXT} value to the {@code pNext} chain. */
     public VkFormatProperties2 pNext(VkSubpassResolvePerformanceQueryEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkTensorFormatPropertiesARM} value to the {@code pNext} chain. */
+    public VkFormatProperties2 pNext(VkTensorFormatPropertiesARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     /** Initializes this struct with the specified values. */
     public VkFormatProperties2 set(
@@ -209,25 +195,6 @@ public class VkFormatProperties2 extends Struct<VkFormatProperties2> implements 
     public static VkFormatProperties2.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2 mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2 callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2 mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2 callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkFormatProperties2.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkFormatProperties2} instance allocated on the specified {@link MemoryStack}.
@@ -324,20 +291,20 @@ public class VkFormatProperties2 extends Struct<VkFormatProperties2> implements 
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkFormatProperties2#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkFormatProperties2.nsType(address()); }
-        /** @return the value of the {@link VkFormatProperties2#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkFormatProperties2.npNext(address()); }
-        /** @return a {@link VkFormatProperties} view of the {@link VkFormatProperties2#formatProperties} field. */
+        /** @return a {@link VkFormatProperties} view of the {@code formatProperties} field. */
         public VkFormatProperties formatProperties() { return VkFormatProperties2.nformatProperties(address()); }
 
-        /** Sets the specified value to the {@link VkFormatProperties2#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkFormatProperties2.Buffer sType(@NativeType("VkStructureType") int value) { VkFormatProperties2.nsType(address(), value); return this; }
-        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2 STRUCTURE_TYPE_FORMAT_PROPERTIES_2} value to the {@link VkFormatProperties2#sType} field. */
+        /** Sets the {@link VK11#VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2 STRUCTURE_TYPE_FORMAT_PROPERTIES_2} value to the {@code sType} field. */
         public VkFormatProperties2.Buffer sType$Default() { return sType(VK11.VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_2); }
-        /** Sets the specified value to the {@link VkFormatProperties2#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkFormatProperties2.Buffer pNext(@NativeType("void *") long value) { VkFormatProperties2.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkDrmFormatModifierPropertiesList2EXT} value to the {@code pNext} chain. */
         public VkFormatProperties2.Buffer pNext(VkDrmFormatModifierPropertiesList2EXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
@@ -349,6 +316,8 @@ public class VkFormatProperties2 extends Struct<VkFormatProperties2> implements 
         public VkFormatProperties2.Buffer pNext(VkFormatProperties3KHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkSubpassResolvePerformanceQueryEXT} value to the {@code pNext} chain. */
         public VkFormatProperties2.Buffer pNext(VkSubpassResolvePerformanceQueryEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkTensorFormatPropertiesARM} value to the {@code pNext} chain. */
+        public VkFormatProperties2.Buffer pNext(VkTensorFormatPropertiesARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
 
     }
 

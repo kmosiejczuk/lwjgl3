@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Accepted by the {@code host_ptr} argument of {@link CL10#clCreateBuffer CreateBuffer}, {@link CL10#clCreateImage2D CreateImage2D} and {@link CL10#clCreateImage3D CreateImage3D}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct cl_mem_ext_host_ptr {
- *     cl_uint {@link #allocation_type};
- *     cl_uint {@link #host_cache_policy};
- * }</code></pre>
+ *     cl_uint allocation_type;
+ *     cl_uint host_cache_policy;
+ * }}</pre>
  */
 @NativeType("struct cl_mem_ext_host_ptr")
 public class CLMemEXTHostPtr extends Struct<CLMemEXTHostPtr> implements NativeResource {
@@ -75,16 +71,16 @@ public class CLMemEXTHostPtr extends Struct<CLMemEXTHostPtr> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** type of external memory allocation. Legal values will be defined in layered extensions. */
+    /** @return the value of the {@code allocation_type} field. */
     @NativeType("cl_uint")
     public int allocation_type() { return nallocation_type(address()); }
-    /** host cache policy for this external memory allocation */
+    /** @return the value of the {@code host_cache_policy} field. */
     @NativeType("cl_uint")
     public int host_cache_policy() { return nhost_cache_policy(address()); }
 
-    /** Sets the specified value to the {@link #allocation_type} field. */
+    /** Sets the specified value to the {@code allocation_type} field. */
     public CLMemEXTHostPtr allocation_type(@NativeType("cl_uint") int value) { nallocation_type(address(), value); return this; }
-    /** Sets the specified value to the {@link #host_cache_policy} field. */
+    /** Sets the specified value to the {@code host_cache_policy} field. */
     public CLMemEXTHostPtr host_cache_policy(@NativeType("cl_uint") int value) { nhost_cache_policy(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -181,25 +177,6 @@ public class CLMemEXTHostPtr extends Struct<CLMemEXTHostPtr> implements NativeRe
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLMemEXTHostPtr.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code CLMemEXTHostPtr} instance allocated on the specified {@link MemoryStack}.
      *
@@ -293,16 +270,16 @@ public class CLMemEXTHostPtr extends Struct<CLMemEXTHostPtr> implements NativeRe
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CLMemEXTHostPtr#allocation_type} field. */
+        /** @return the value of the {@code allocation_type} field. */
         @NativeType("cl_uint")
         public int allocation_type() { return CLMemEXTHostPtr.nallocation_type(address()); }
-        /** @return the value of the {@link CLMemEXTHostPtr#host_cache_policy} field. */
+        /** @return the value of the {@code host_cache_policy} field. */
         @NativeType("cl_uint")
         public int host_cache_policy() { return CLMemEXTHostPtr.nhost_cache_policy(address()); }
 
-        /** Sets the specified value to the {@link CLMemEXTHostPtr#allocation_type} field. */
+        /** Sets the specified value to the {@code allocation_type} field. */
         public CLMemEXTHostPtr.Buffer allocation_type(@NativeType("cl_uint") int value) { CLMemEXTHostPtr.nallocation_type(address(), value); return this; }
-        /** Sets the specified value to the {@link CLMemEXTHostPtr#host_cache_policy} field. */
+        /** Sets the specified value to the {@code host_cache_policy} field. */
         public CLMemEXTHostPtr.Buffer host_cache_policy(@NativeType("cl_uint") int value) { CLMemEXTHostPtr.nhost_cache_policy(address(), value); return this; }
 
     }

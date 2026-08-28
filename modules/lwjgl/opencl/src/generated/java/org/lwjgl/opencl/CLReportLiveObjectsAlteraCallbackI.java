@@ -6,37 +6,29 @@
 package org.lwjgl.opencl;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link ALTERALiveObjectTracking#clReportLiveObjectsAltera ReportLiveObjectsAltera} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *user_data,
- *     void *obj_ptr,
- *     char const *type_name,
- *     cl_uint refcount
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("void (*) (void *, void *, char const *, cl_uint)")
 public interface CLReportLiveObjectsAlteraCallbackI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_void,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_void,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -48,14 +40,7 @@ public interface CLReportLiveObjectsAlteraCallbackI extends CallbackI {
         );
     }
 
-    /**
-     * Reports a live OpenCL API object.
-     *
-     * @param user_data the {@code user_data} argument specified to {@link ALTERALiveObjectTracking#clReportLiveObjectsAltera ReportLiveObjectsAltera}
-     * @param obj_ptr   a pointer to the live object
-     * @param type_name a C string corresponding to the OpenCL API object type. For example, a leaked {@code cl_mem} object will have "cl_mem" as its type string.
-     * @param refcount  an instantaneous reference count for the object. Consider it to be immediately stale.
-     */
+    /** {@code void (*) (void * user_data, void * obj_ptr, char const * type_name, cl_uint refcount)} */
     void invoke(@NativeType("void *") long user_data, @NativeType("void *") long obj_ptr, @NativeType("char const *") long type_name, @NativeType("cl_uint") int refcount);
 
 }

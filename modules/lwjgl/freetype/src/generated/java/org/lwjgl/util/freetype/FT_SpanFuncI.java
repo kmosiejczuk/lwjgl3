@@ -6,35 +6,28 @@
 package org.lwjgl.util.freetype;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     int y,
- *     int count,
- *     FT_Span const *spans,
- *     void *user
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_SpanFunc} */
 @FunctionalInterface
 @NativeType("FT_SpanFunc")
 public interface FT_SpanFuncI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_sint32, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_sint32, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -46,7 +39,7 @@ public interface FT_SpanFuncI extends CallbackI {
         );
     }
 
-    /** A function used as a call-back by the anti-aliased renderer in order to let client applications draw themselves the pixel spans on each scan line. */
+    /** {@code void (* FT_SpanFunc) (int y, int count, FT_Span const * spans, void * user)} */
     void invoke(int y, int count, @NativeType("FT_Span const *") long spans, @NativeType("void *") long user);
 
 }

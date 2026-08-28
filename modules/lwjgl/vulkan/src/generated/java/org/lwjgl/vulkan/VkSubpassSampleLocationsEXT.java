@@ -16,34 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the sample locations state to use for layout transitions of attachments performed after a given subpass.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the image referenced by the depth/stencil attachment used in the subpass identified by {@code subpassIndex} was not created with {@link EXTSampleLocations#VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT} or if the subpass does not use a depth/stencil attachment, and {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}{@code ::variableSampleLocations} is {@link VK10#VK_TRUE TRUE} then the values specified in {@code sampleLocationsInfo} are ignored.</p>
- * 
- * <h5>Valid Usage</h5>
- * 
- * <ul>
- * <li>{@code subpassIndex} <b>must</b> be less than the {@code subpassCount} specified in {@link VkRenderPassCreateInfo} the render pass specified by {@link VkRenderPassBeginInfo}{@code ::renderPass} was created with</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sampleLocationsInfo} <b>must</b> be a valid {@link VkSampleLocationsInfoEXT} structure</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkRenderPassSampleLocationsBeginInfoEXT}, {@link VkSampleLocationsInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkSubpassSampleLocationsEXT {
- *     uint32_t {@link #subpassIndex};
- *     {@link VkSampleLocationsInfoEXT VkSampleLocationsInfoEXT} {@link #sampleLocationsInfo};
+ *     uint32_t subpassIndex;
+ *     {@link VkSampleLocationsInfoEXT VkSampleLocationsInfoEXT} sampleLocationsInfo;
  * }</code></pre>
  */
 public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocationsEXT> implements NativeResource {
@@ -94,17 +70,17 @@ public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocations
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the index of the subpass for which the sample locations state is provided. */
+    /** @return the value of the {@code subpassIndex} field. */
     @NativeType("uint32_t")
     public int subpassIndex() { return nsubpassIndex(address()); }
-    /** the sample locations state to use for the layout transition of the depth/stencil attachment away from the image layout the attachment is used with in the subpass specified in {@code subpassIndex}. */
+    /** @return a {@link VkSampleLocationsInfoEXT} view of the {@code sampleLocationsInfo} field. */
     public VkSampleLocationsInfoEXT sampleLocationsInfo() { return nsampleLocationsInfo(address()); }
 
-    /** Sets the specified value to the {@link #subpassIndex} field. */
+    /** Sets the specified value to the {@code subpassIndex} field. */
     public VkSubpassSampleLocationsEXT subpassIndex(@NativeType("uint32_t") int value) { nsubpassIndex(address(), value); return this; }
-    /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@link #sampleLocationsInfo} field. */
+    /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@code sampleLocationsInfo} field. */
     public VkSubpassSampleLocationsEXT sampleLocationsInfo(VkSampleLocationsInfoEXT value) { nsampleLocationsInfo(address(), value); return this; }
-    /** Passes the {@link #sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
     public VkSubpassSampleLocationsEXT sampleLocationsInfo(java.util.function.Consumer<VkSampleLocationsInfoEXT> consumer) { consumer.accept(sampleLocationsInfo()); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -200,25 +176,6 @@ public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocations
     public static VkSubpassSampleLocationsEXT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSubpassSampleLocationsEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkSubpassSampleLocationsEXT} instance allocated on the specified {@link MemoryStack}.
@@ -322,17 +279,17 @@ public class VkSubpassSampleLocationsEXT extends Struct<VkSubpassSampleLocations
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSubpassSampleLocationsEXT#subpassIndex} field. */
+        /** @return the value of the {@code subpassIndex} field. */
         @NativeType("uint32_t")
         public int subpassIndex() { return VkSubpassSampleLocationsEXT.nsubpassIndex(address()); }
-        /** @return a {@link VkSampleLocationsInfoEXT} view of the {@link VkSubpassSampleLocationsEXT#sampleLocationsInfo} field. */
+        /** @return a {@link VkSampleLocationsInfoEXT} view of the {@code sampleLocationsInfo} field. */
         public VkSampleLocationsInfoEXT sampleLocationsInfo() { return VkSubpassSampleLocationsEXT.nsampleLocationsInfo(address()); }
 
-        /** Sets the specified value to the {@link VkSubpassSampleLocationsEXT#subpassIndex} field. */
+        /** Sets the specified value to the {@code subpassIndex} field. */
         public VkSubpassSampleLocationsEXT.Buffer subpassIndex(@NativeType("uint32_t") int value) { VkSubpassSampleLocationsEXT.nsubpassIndex(address(), value); return this; }
-        /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@link VkSubpassSampleLocationsEXT#sampleLocationsInfo} field. */
+        /** Copies the specified {@link VkSampleLocationsInfoEXT} to the {@code sampleLocationsInfo} field. */
         public VkSubpassSampleLocationsEXT.Buffer sampleLocationsInfo(VkSampleLocationsInfoEXT value) { VkSubpassSampleLocationsEXT.nsampleLocationsInfo(address(), value); return this; }
-        /** Passes the {@link VkSubpassSampleLocationsEXT#sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code sampleLocationsInfo} field to the specified {@link java.util.function.Consumer Consumer}. */
         public VkSubpassSampleLocationsEXT.Buffer sampleLocationsInfo(java.util.function.Consumer<VkSampleLocationsInfoEXT> consumer) { consumer.accept(sampleLocationsInfo()); return this; }
 
     }

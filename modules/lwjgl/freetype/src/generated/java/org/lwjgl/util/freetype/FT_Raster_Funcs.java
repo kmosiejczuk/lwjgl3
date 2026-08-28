@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure used to describe a given raster class to the library.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_Raster_Funcs {
  *     FT_Glyph_Format glyph_format;

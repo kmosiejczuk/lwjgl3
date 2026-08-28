@@ -6,36 +6,28 @@
 package org.lwjgl.llvm;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to the {@code visit} field of the {@link CXCursorAndRangeVisitor} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * enum CXVisitorResult (*{@link #invoke}) (
- *     void *context,
- *     CXCursor cursor,
- *     CXSourceRange range
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("enum CXVisitorResult (*) (void *, CXCursor, CXSourceRange)")
 public interface CXCursorAndRangeVisitI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_uint32,
-        ffi_type_pointer, apiCreateStruct(ffi_type_uint32, ffi_type_sint32, apiCreateArray(ffi_type_pointer, 3)), apiCreateStruct(apiCreateArray(ffi_type_pointer, 2), ffi_type_uint32, ffi_type_uint32)
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_uint32,
+            ffi_type_pointer, apiCreateStruct(ffi_type_uint32, ffi_type_sint32, apiCreateArray(ffi_type_pointer, 3)), apiCreateStruct(apiCreateArray(ffi_type_pointer, 2), ffi_type_uint32, ffi_type_uint32)
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -47,6 +39,7 @@ public interface CXCursorAndRangeVisitI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code enum CXVisitorResult (*) (void * context, CXCursor cursor, CXSourceRange range)} */
     @NativeType("enum CXVisitorResult") int invoke(@NativeType("void *") long context, CXCursor cursor, CXSourceRange range);
 
 }

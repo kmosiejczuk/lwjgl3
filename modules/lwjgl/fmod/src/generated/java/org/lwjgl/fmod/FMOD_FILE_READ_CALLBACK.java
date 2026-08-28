@@ -11,18 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     void *handle,
- *     void *buffer,
- *     unsigned int sizebytes,
- *     unsigned int *bytesread,
- *     void *userdata
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_FILE_READ_CALLBACK} */
 public abstract class FMOD_FILE_READ_CALLBACK extends Callback implements FMOD_FILE_READ_CALLBACKI {
 
     /**
@@ -50,7 +39,7 @@ public abstract class FMOD_FILE_READ_CALLBACK extends Callback implements FMOD_F
     }
 
     protected FMOD_FILE_READ_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_FILE_READ_CALLBACK(long functionPointer) {

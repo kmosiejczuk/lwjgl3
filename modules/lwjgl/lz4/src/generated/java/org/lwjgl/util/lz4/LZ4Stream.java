@@ -18,8 +18,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.util.lz4.LZ4.LZ4_STREAM_MINSIZE;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * union LZ4_stream_t {
  *     void * table[LZ4_STREAM_MINSIZE];

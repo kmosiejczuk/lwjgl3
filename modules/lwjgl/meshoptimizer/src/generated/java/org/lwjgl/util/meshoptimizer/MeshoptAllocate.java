@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link MeshOptimizer#meshopt_setAllocator setAllocator} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     size_t size
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class MeshoptAllocate extends Callback implements MeshoptAllocateI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class MeshoptAllocate extends Callback implements MeshoptAllocat
     }
 
     protected MeshoptAllocate() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     MeshoptAllocate(long functionPointer) {

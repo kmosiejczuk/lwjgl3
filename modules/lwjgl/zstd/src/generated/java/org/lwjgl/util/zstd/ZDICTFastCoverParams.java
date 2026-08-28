@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * {@code k} and {@code d} are the only required parameters. For others, value 0 means default.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct ZDICT_fastCover_params_t {
- *     unsigned {@link #k};
- *     unsigned {@link #d};
- *     unsigned {@link #f};
- *     unsigned {@link #steps};
- *     unsigned {@link #nbThreads};
- *     double {@link #splitPoint};
- *     unsigned {@link #accel};
+ *     unsigned k;
+ *     unsigned d;
+ *     unsigned f;
+ *     unsigned steps;
+ *     unsigned nbThreads;
+ *     double splitPoint;
+ *     unsigned accel;
  *     {@link ZDICTParams ZDICT_params_t} zParams;
  * }</code></pre>
  */
@@ -99,50 +95,43 @@ public class ZDICTFastCoverParams extends Struct<ZDICTFastCoverParams> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** segment size : constraint: {@code 0 < k} : Reasonable range {@code [16, 2048+]} */
+    /** @return the value of the {@code k} field. */
     @NativeType("unsigned")
     public int k() { return nk(address()); }
-    /** {@code dmer} size : constraint: {@code 0 < d <= k} : Reasonable range {@code [6, 16]} */
+    /** @return the value of the {@code d} field. */
     @NativeType("unsigned")
     public int d() { return nd(address()); }
-    /** log of size of frequency array : constraint: {@code 0 < f <= 31} : 1 means default(20) */
+    /** @return the value of the {@code f} field. */
     @NativeType("unsigned")
     public int f() { return nf(address()); }
-    /** Number of steps : Only used for optimization : 0 means default (40) : Higher means more parameters checked */
+    /** @return the value of the {@code steps} field. */
     @NativeType("unsigned")
     public int steps() { return nsteps(address()); }
-    /**
-     * number of threads : constraint: {@code 0 < nbThreads} : 1 means single-threaded : Only used for optimization : Ignored if {@code ZSTD_MULTITHREAD} is
-     * not defined.
-     */
+    /** @return the value of the {@code nbThreads} field. */
     @NativeType("unsigned")
     public int nbThreads() { return nnbThreads(address()); }
-    /**
-     * percentage of samples used for training: Only used for optimization: the first {@code nbSamples * splitPoint} samples will be used to training, the
-     * last {@code nbSamples * (1 - splitPoint)} samples will be used for testing, 0 means default (0.75), 1.0 when all samples are used for both training and
-     * testing.
-     */
+    /** @return the value of the {@code splitPoint} field. */
     public double splitPoint() { return nsplitPoint(address()); }
-    /** acceleration level: constraint: {@code 0 < accel <= 10}, higher means faster and less accurate, 0 means default(1) */
+    /** @return the value of the {@code accel} field. */
     @NativeType("unsigned")
     public int accel() { return naccel(address()); }
     /** @return a {@link ZDICTParams} view of the {@code zParams} field. */
     @NativeType("ZDICT_params_t")
     public ZDICTParams zParams() { return nzParams(address()); }
 
-    /** Sets the specified value to the {@link #k} field. */
+    /** Sets the specified value to the {@code k} field. */
     public ZDICTFastCoverParams k(@NativeType("unsigned") int value) { nk(address(), value); return this; }
-    /** Sets the specified value to the {@link #d} field. */
+    /** Sets the specified value to the {@code d} field. */
     public ZDICTFastCoverParams d(@NativeType("unsigned") int value) { nd(address(), value); return this; }
-    /** Sets the specified value to the {@link #f} field. */
+    /** Sets the specified value to the {@code f} field. */
     public ZDICTFastCoverParams f(@NativeType("unsigned") int value) { nf(address(), value); return this; }
-    /** Sets the specified value to the {@link #steps} field. */
+    /** Sets the specified value to the {@code steps} field. */
     public ZDICTFastCoverParams steps(@NativeType("unsigned") int value) { nsteps(address(), value); return this; }
-    /** Sets the specified value to the {@link #nbThreads} field. */
+    /** Sets the specified value to the {@code nbThreads} field. */
     public ZDICTFastCoverParams nbThreads(@NativeType("unsigned") int value) { nnbThreads(address(), value); return this; }
-    /** Sets the specified value to the {@link #splitPoint} field. */
+    /** Sets the specified value to the {@code splitPoint} field. */
     public ZDICTFastCoverParams splitPoint(double value) { nsplitPoint(address(), value); return this; }
-    /** Sets the specified value to the {@link #accel} field. */
+    /** Sets the specified value to the {@code accel} field. */
     public ZDICTFastCoverParams accel(@NativeType("unsigned") int value) { naccel(address(), value); return this; }
     /** Copies the specified {@link ZDICTParams} to the {@code zParams} field. */
     public ZDICTFastCoverParams zParams(@NativeType("ZDICT_params_t") ZDICTParams value) { nzParams(address(), value); return this; }
@@ -254,25 +243,6 @@ public class ZDICTFastCoverParams extends Struct<ZDICTFastCoverParams> implement
     public static ZDICTFastCoverParams.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZDICTFastCoverParams.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code ZDICTFastCoverParams} instance allocated on the specified {@link MemoryStack}.
@@ -391,43 +361,43 @@ public class ZDICTFastCoverParams extends Struct<ZDICTFastCoverParams> implement
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZDICTFastCoverParams#k} field. */
+        /** @return the value of the {@code k} field. */
         @NativeType("unsigned")
         public int k() { return ZDICTFastCoverParams.nk(address()); }
-        /** @return the value of the {@link ZDICTFastCoverParams#d} field. */
+        /** @return the value of the {@code d} field. */
         @NativeType("unsigned")
         public int d() { return ZDICTFastCoverParams.nd(address()); }
-        /** @return the value of the {@link ZDICTFastCoverParams#f} field. */
+        /** @return the value of the {@code f} field. */
         @NativeType("unsigned")
         public int f() { return ZDICTFastCoverParams.nf(address()); }
-        /** @return the value of the {@link ZDICTFastCoverParams#steps} field. */
+        /** @return the value of the {@code steps} field. */
         @NativeType("unsigned")
         public int steps() { return ZDICTFastCoverParams.nsteps(address()); }
-        /** @return the value of the {@link ZDICTFastCoverParams#nbThreads} field. */
+        /** @return the value of the {@code nbThreads} field. */
         @NativeType("unsigned")
         public int nbThreads() { return ZDICTFastCoverParams.nnbThreads(address()); }
-        /** @return the value of the {@link ZDICTFastCoverParams#splitPoint} field. */
+        /** @return the value of the {@code splitPoint} field. */
         public double splitPoint() { return ZDICTFastCoverParams.nsplitPoint(address()); }
-        /** @return the value of the {@link ZDICTFastCoverParams#accel} field. */
+        /** @return the value of the {@code accel} field. */
         @NativeType("unsigned")
         public int accel() { return ZDICTFastCoverParams.naccel(address()); }
         /** @return a {@link ZDICTParams} view of the {@code zParams} field. */
         @NativeType("ZDICT_params_t")
         public ZDICTParams zParams() { return ZDICTFastCoverParams.nzParams(address()); }
 
-        /** Sets the specified value to the {@link ZDICTFastCoverParams#k} field. */
+        /** Sets the specified value to the {@code k} field. */
         public ZDICTFastCoverParams.Buffer k(@NativeType("unsigned") int value) { ZDICTFastCoverParams.nk(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTFastCoverParams#d} field. */
+        /** Sets the specified value to the {@code d} field. */
         public ZDICTFastCoverParams.Buffer d(@NativeType("unsigned") int value) { ZDICTFastCoverParams.nd(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTFastCoverParams#f} field. */
+        /** Sets the specified value to the {@code f} field. */
         public ZDICTFastCoverParams.Buffer f(@NativeType("unsigned") int value) { ZDICTFastCoverParams.nf(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTFastCoverParams#steps} field. */
+        /** Sets the specified value to the {@code steps} field. */
         public ZDICTFastCoverParams.Buffer steps(@NativeType("unsigned") int value) { ZDICTFastCoverParams.nsteps(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTFastCoverParams#nbThreads} field. */
+        /** Sets the specified value to the {@code nbThreads} field. */
         public ZDICTFastCoverParams.Buffer nbThreads(@NativeType("unsigned") int value) { ZDICTFastCoverParams.nnbThreads(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTFastCoverParams#splitPoint} field. */
+        /** Sets the specified value to the {@code splitPoint} field. */
         public ZDICTFastCoverParams.Buffer splitPoint(double value) { ZDICTFastCoverParams.nsplitPoint(address(), value); return this; }
-        /** Sets the specified value to the {@link ZDICTFastCoverParams#accel} field. */
+        /** Sets the specified value to the {@code accel} field. */
         public ZDICTFastCoverParams.Buffer accel(@NativeType("unsigned") int value) { ZDICTFastCoverParams.naccel(address(), value); return this; }
         /** Copies the specified {@link ZDICTParams} to the {@code zParams} field. */
         public ZDICTFastCoverParams.Buffer zParams(@NativeType("ZDICT_params_t") ZDICTParams value) { ZDICTFastCoverParams.nzParams(address(), value); return this; }

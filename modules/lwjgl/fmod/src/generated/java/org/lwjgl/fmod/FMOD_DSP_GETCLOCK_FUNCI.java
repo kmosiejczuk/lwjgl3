@@ -6,35 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state,
- *     unsigned long long *clock,
- *     unsigned int *offset,
- *     unsigned int *length
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_GETCLOCK_FUNC} */
 @FunctionalInterface
 @NativeType("FMOD_DSP_GETCLOCK_FUNC")
 public interface FMOD_DSP_GETCLOCK_FUNCI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -47,6 +41,7 @@ public interface FMOD_DSP_GETCLOCK_FUNCI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code FMOD_RESULT (* FMOD_DSP_GETCLOCK_FUNC) (struct FMOD_DSP_STATE * dsp_state, unsigned long long * clock, unsigned int * offset, unsigned int * length)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("struct FMOD_DSP_STATE *") long dsp_state, @NativeType("unsigned long long *") long clock, @NativeType("unsigned int *") long offset, @NativeType("unsigned int *") long length);
 
 }

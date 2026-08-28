@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines a method.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct objc_method_description {
- *     SEL {@link #name};
- *     char * {@link #types};
- * }</code></pre>
+ *     SEL name;
+ *     char * types;
+ * }}</pre>
  */
 @NativeType("struct objc_method_description")
 public class ObjCMethodDescription extends Struct<ObjCMethodDescription> implements NativeResource {
@@ -75,13 +71,13 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the name of the method at runtime */
+    /** @return the value of the {@code name} field. */
     @NativeType("SEL")
     public long name() { return nname(address()); }
-    /** the types of the method arguments */
+    /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code types} field. */
     @NativeType("char *")
     public ByteBuffer types() { return ntypes(address()); }
-    /** the types of the method arguments */
+    /** @return the null-terminated string pointed to by the {@code types} field. */
     @NativeType("char *")
     public String typesString() { return ntypesString(address()); }
 
@@ -155,25 +151,6 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
     public static ObjCMethodDescription.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ObjCMethodDescription.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code ObjCMethodDescription} instance allocated on the specified {@link MemoryStack}.
@@ -265,13 +242,13 @@ public class ObjCMethodDescription extends Struct<ObjCMethodDescription> impleme
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ObjCMethodDescription#name} field. */
+        /** @return the value of the {@code name} field. */
         @NativeType("SEL")
         public long name() { return ObjCMethodDescription.nname(address()); }
-        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@link ObjCMethodDescription#types} field. */
+        /** @return a {@link ByteBuffer} view of the null-terminated string pointed to by the {@code types} field. */
         @NativeType("char *")
         public ByteBuffer types() { return ObjCMethodDescription.ntypes(address()); }
-        /** @return the null-terminated string pointed to by the {@link ObjCMethodDescription#types} field. */
+        /** @return the null-terminated string pointed to by the {@code types} field. */
         @NativeType("char *")
         public String typesString() { return ObjCMethodDescription.ntypesString(address()); }
 

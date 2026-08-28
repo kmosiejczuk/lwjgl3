@@ -6,37 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state,
- *     float *inbuffer,
- *     float *outbuffer,
- *     unsigned int length,
- *     int inchannels,
- *     int *outchannels
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_READ_CALLBACK} */
 @FunctionalInterface
 @NativeType("FMOD_DSP_READ_CALLBACK")
 public interface FMOD_DSP_READ_CALLBACKI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_sint32, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_sint32, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -51,6 +43,7 @@ public interface FMOD_DSP_READ_CALLBACKI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code FMOD_RESULT (* FMOD_DSP_READ_CALLBACK) (struct FMOD_DSP_STATE * dsp_state, float * inbuffer, float * outbuffer, unsigned int length, int inchannels, int * outchannels)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("struct FMOD_DSP_STATE *") long dsp_state, @NativeType("float *") long inbuffer, @NativeType("float *") long outbuffer, @NativeType("unsigned int") int length, int inchannels, @NativeType("int *") long outchannels);
 
 }

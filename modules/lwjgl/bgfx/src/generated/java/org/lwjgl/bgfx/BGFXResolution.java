@@ -16,20 +16,17 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Backbuffer resolution and reset parameters.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct bgfx_resolution_t {
- *     bgfx_texture_format_t {@link #format};
- *     uint32_t {@link #width};
- *     uint32_t {@link #height};
- *     uint32_t {@link #reset};
- *     uint8_t {@link #numBackBuffers};
- *     uint8_t {@link #maxFrameLatency};
- *     uint8_t {@link #debugTextScale};
- * }</code></pre>
+ *     bgfx_texture_format_t formatColor;
+ *     bgfx_texture_format_t formatDepthStencil;
+ *     uint32_t width;
+ *     uint32_t height;
+ *     uint32_t reset;
+ *     uint8_t numBackBuffers;
+ *     uint8_t maxFrameLatency;
+ *     uint8_t debugTextScale;
+ * }}</pre>
  */
 @NativeType("struct bgfx_resolution_t")
 public class BGFXResolution extends Struct<BGFXResolution> implements NativeResource {
@@ -42,7 +39,8 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
 
     /** The struct member offsets. */
     public static final int
-        FORMAT,
+        FORMATCOLOR,
+        FORMATDEPTHSTENCIL,
         WIDTH,
         HEIGHT,
         RESET,
@@ -56,6 +54,7 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
             __member(4),
             __member(4),
             __member(4),
+            __member(4),
             __member(1),
             __member(1),
             __member(1)
@@ -64,13 +63,14 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
         SIZEOF = layout.getSize();
         ALIGNOF = layout.getAlignment();
 
-        FORMAT = layout.offsetof(0);
-        WIDTH = layout.offsetof(1);
-        HEIGHT = layout.offsetof(2);
-        RESET = layout.offsetof(3);
-        NUMBACKBUFFERS = layout.offsetof(4);
-        MAXFRAMELATENCY = layout.offsetof(5);
-        DEBUGTEXTSCALE = layout.offsetof(6);
+        FORMATCOLOR = layout.offsetof(0);
+        FORMATDEPTHSTENCIL = layout.offsetof(1);
+        WIDTH = layout.offsetof(2);
+        HEIGHT = layout.offsetof(3);
+        RESET = layout.offsetof(4);
+        NUMBACKBUFFERS = layout.offsetof(5);
+        MAXFRAMELATENCY = layout.offsetof(6);
+        DEBUGTEXTSCALE = layout.offsetof(7);
     }
 
     protected BGFXResolution(long address, @Nullable ByteBuffer container) {
@@ -95,46 +95,52 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** backbuffer format */
+    /** @return the value of the {@code formatColor} field. */
     @NativeType("bgfx_texture_format_t")
-    public int format() { return nformat(address()); }
-    /** backbuffer width */
+    public int formatColor() { return nformatColor(address()); }
+    /** @return the value of the {@code formatDepthStencil} field. */
+    @NativeType("bgfx_texture_format_t")
+    public int formatDepthStencil() { return nformatDepthStencil(address()); }
+    /** @return the value of the {@code width} field. */
     @NativeType("uint32_t")
     public int width() { return nwidth(address()); }
-    /** backbuffer height */
+    /** @return the value of the {@code height} field. */
     @NativeType("uint32_t")
     public int height() { return nheight(address()); }
-    /** reset parameters */
+    /** @return the value of the {@code reset} field. */
     @NativeType("uint32_t")
     public int reset() { return nreset(address()); }
-    /** number of back buffers */
+    /** @return the value of the {@code numBackBuffers} field. */
     @NativeType("uint8_t")
     public byte numBackBuffers() { return nnumBackBuffers(address()); }
-    /** maximum frame latency */
+    /** @return the value of the {@code maxFrameLatency} field. */
     @NativeType("uint8_t")
     public byte maxFrameLatency() { return nmaxFrameLatency(address()); }
-    /** scale factor for debug text */
+    /** @return the value of the {@code debugTextScale} field. */
     @NativeType("uint8_t")
     public byte debugTextScale() { return ndebugTextScale(address()); }
 
-    /** Sets the specified value to the {@link #format} field. */
-    public BGFXResolution format(@NativeType("bgfx_texture_format_t") int value) { nformat(address(), value); return this; }
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code formatColor} field. */
+    public BGFXResolution formatColor(@NativeType("bgfx_texture_format_t") int value) { nformatColor(address(), value); return this; }
+    /** Sets the specified value to the {@code formatDepthStencil} field. */
+    public BGFXResolution formatDepthStencil(@NativeType("bgfx_texture_format_t") int value) { nformatDepthStencil(address(), value); return this; }
+    /** Sets the specified value to the {@code width} field. */
     public BGFXResolution width(@NativeType("uint32_t") int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public BGFXResolution height(@NativeType("uint32_t") int value) { nheight(address(), value); return this; }
-    /** Sets the specified value to the {@link #reset} field. */
+    /** Sets the specified value to the {@code reset} field. */
     public BGFXResolution reset(@NativeType("uint32_t") int value) { nreset(address(), value); return this; }
-    /** Sets the specified value to the {@link #numBackBuffers} field. */
+    /** Sets the specified value to the {@code numBackBuffers} field. */
     public BGFXResolution numBackBuffers(@NativeType("uint8_t") byte value) { nnumBackBuffers(address(), value); return this; }
-    /** Sets the specified value to the {@link #maxFrameLatency} field. */
+    /** Sets the specified value to the {@code maxFrameLatency} field. */
     public BGFXResolution maxFrameLatency(@NativeType("uint8_t") byte value) { nmaxFrameLatency(address(), value); return this; }
-    /** Sets the specified value to the {@link #debugTextScale} field. */
+    /** Sets the specified value to the {@code debugTextScale} field. */
     public BGFXResolution debugTextScale(@NativeType("uint8_t") byte value) { ndebugTextScale(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public BGFXResolution set(
-        int format,
+        int formatColor,
+        int formatDepthStencil,
         int width,
         int height,
         int reset,
@@ -142,7 +148,8 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
         byte maxFrameLatency,
         byte debugTextScale
     ) {
-        format(format);
+        formatColor(formatColor);
+        formatDepthStencil(formatDepthStencil);
         width(width);
         height(height);
         reset(reset);
@@ -193,18 +200,6 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
         return address == NULL ? null : new BGFXResolution(address, null);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXResolution mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXResolution callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXResolution mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXResolution callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-
     /**
      * Returns a new {@code BGFXResolution} instance allocated on the specified {@link MemoryStack}.
      *
@@ -225,8 +220,10 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #format}. */
-    public static int nformat(long struct) { return memGetInt(struct + BGFXResolution.FORMAT); }
+    /** Unsafe version of {@link #formatColor}. */
+    public static int nformatColor(long struct) { return memGetInt(struct + BGFXResolution.FORMATCOLOR); }
+    /** Unsafe version of {@link #formatDepthStencil}. */
+    public static int nformatDepthStencil(long struct) { return memGetInt(struct + BGFXResolution.FORMATDEPTHSTENCIL); }
     /** Unsafe version of {@link #width}. */
     public static int nwidth(long struct) { return memGetInt(struct + BGFXResolution.WIDTH); }
     /** Unsafe version of {@link #height}. */
@@ -240,8 +237,10 @@ public class BGFXResolution extends Struct<BGFXResolution> implements NativeReso
     /** Unsafe version of {@link #debugTextScale}. */
     public static byte ndebugTextScale(long struct) { return memGetByte(struct + BGFXResolution.DEBUGTEXTSCALE); }
 
-    /** Unsafe version of {@link #format(int) format}. */
-    public static void nformat(long struct, int value) { memPutInt(struct + BGFXResolution.FORMAT, value); }
+    /** Unsafe version of {@link #formatColor(int) formatColor}. */
+    public static void nformatColor(long struct, int value) { memPutInt(struct + BGFXResolution.FORMATCOLOR, value); }
+    /** Unsafe version of {@link #formatDepthStencil(int) formatDepthStencil}. */
+    public static void nformatDepthStencil(long struct, int value) { memPutInt(struct + BGFXResolution.FORMATDEPTHSTENCIL, value); }
     /** Unsafe version of {@link #width(int) width}. */
     public static void nwidth(long struct, int value) { memPutInt(struct + BGFXResolution.WIDTH, value); }
     /** Unsafe version of {@link #height(int) height}. */

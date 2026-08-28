@@ -138,7 +138,13 @@
     </macrodef>
 
     <target name="compile-native-platform">
-        <echo message="${sdkroot}" taskname="SDK Root"/>
+        <sequential if:set="clang.version.print">
+            <echo message="${sdkroot}" taskname="SDK Root"/>
+            <exec executable="sh" logError="true" failonerror="false" taskname="Compiler">
+                <arg line="-o pipefail -c"/>
+                <arg value='clang --version | grep "clang version"'/>
+            </exec>
+        </sequential>
 
         <parallel threadsPerProcessor="2">
 
@@ -171,9 +177,6 @@
             </link>
         </build>
 
-        <!-- LIBDIVIDE -->
-        <build_simple module="libdivide"/>
-
         <!-- LLVM -->
         <build_simple module="llvm"/>
 
@@ -199,15 +202,6 @@
             </beforeCompile>
         </build>
 
-        <!-- Meow -->
-        <sequential if:true="${binding.meow}">
-            <local name="meow.flags"/>
-            <condition property="meow.flags" value="" else="-maes">
-                <isset property="build.arch.arm"/>
-            </condition>
-            <build module="meow" simple="true" flags="-Werror -Wfatal-errors ${meow.flags}"/>
-        </sequential>
-
         <!-- meshoptimizer -->
         <build module="meshoptimizer" simple="true" lang="c++" if:true="${binding.meshoptimizer}">
             <beforeCompile>
@@ -221,9 +215,10 @@
         <!-- msdfgen -->
         <build module="msdfgen" simple="true" linker="clang++" if:true="${binding.msdfgen}">
             <beforeCompile>
-                <compile lang="c++">
+                <compile flags="-DMSDFGEN_DYNAMIC_FREETYPE" lang="c++">
                     <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/core/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/ext/*.cpp"/>
                 </compile>
             </beforeCompile>
         </build>
@@ -261,9 +256,6 @@
         <!-- OpenGL ES -->
         <build_simple module="opengles"/>
 
-        <!-- OpenVR -->
-        <build_simple module="openvr"/>
-
         <!-- Par -->
         <build_simple module="par"/>
 
@@ -280,8 +272,14 @@
         <!-- rpmalloc -->
         <build_simple module="rpmalloc"/>
 
-        <!-- SSE -->
-        <build_simple module="sse"/>
+        <!-- spng -->
+        <build module="spng" simple="true" if:true="${binding.spng}">
+            <source>
+                <arg value="-I${module.lwjgl.rel}/core/src/main/c/dependencies/miniz"/>
+                <arg value="-msse4.1" if:set="build.arch.x64"/>
+                <fileset dir="." includes="${module.lwjgl}/core/src/main/c/dependencies/miniz/*.c"/>
+            </source>
+        </build>
 
         <!-- stb -->
         <build_simple module="stb"/>
@@ -291,12 +289,12 @@
             <beforeCompile>
                 <compile lang="c++">
                     <arg value="-I${src.main.rel}"/>
+                    <arg value="-I${module.lwjgl.rel}/core/src/main/c/dependencies/miniz"/>
                     <fileset dir="." includes="${src.main}/*.cc"/>
                     <fileset dir="." includes="${src.generated}/*.cpp"/>
                 </compile>
                 <compile>
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/miniz.c"/>
+                    <fileset dir="." includes="${module.lwjgl}/core/src/main/c/dependencies/miniz/*.c"/>
                 </compile>
             </beforeCompile>
         </build>
@@ -309,36 +307,6 @@
                     <fileset dir="." includes="${src.main}/*.c"/>
                 </compile>
             </beforeCompile>
-        </build>
-
-        <!-- AMD Tootle -->
-        <build module="tootle" lang="c++" if:true="${binding.tootle}">
-            <beforeCompile>
-                <compile flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.c"/>
-                </compile>
-                <compile lang="c++" flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <arg value="-I${src.main.rel}/include"/>
-                    <arg value="-I${src.main.rel}/RayTracer"/>
-                    <arg value="-I${src.main.rel}/RayTracer/JRT"/>
-                    <arg value="-I${src.main.rel}/RayTracer/Math"/>
-                    <fileset dir=".">
-                        <include name="${src.main}/*.cpp"/>
-                        <exclude name="${src.main}/d3d*.cpp"/>
-                        <exclude name="${src.main}/gdi*.cpp"/>
-                    </fileset>
-                    <fileset dir="." includes="${src.main}/RayTracer/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/JRT/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/Math/*.cpp"/>
-                </compile>
-            </beforeCompile>
-            <source>
-                <arg value="-D_LINUX"/>
-                <arg value="-I${src.main.rel}/include"/>
-                <fileset dir="." includes="${src.generated}/*.cpp"/>
-            </source>
         </build>
 
         <!-- Vulkan Memory Allocator -->
@@ -403,8 +371,8 @@
             <update-dependency module="jemalloc" artifact="libjemalloc.dylib"/>
             <update-dependency module="ktx" artifact="libktx.dylib"/>
             <update-dependency module="openal" artifact="libopenal.dylib"/>
-            <update-dependency module="openvr" artifact="libopenvr_api.dylib"/>
             <update-dependency module="opus" artifact="libopus.dylib"/>
+            <update-dependency module="sdl" artifact="libSDL3.dylib"/>
             <update-dependency module="shaderc" artifact="libshaderc.dylib"/>
             <update-dependency module="spvc" artifact="libspirv-cross.dylib"/>
 

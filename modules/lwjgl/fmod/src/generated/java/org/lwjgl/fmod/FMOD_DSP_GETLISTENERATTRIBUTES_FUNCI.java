@@ -6,34 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state,
- *     int *numlisteners,
- *     FMOD_3D_ATTRIBUTES *attributes
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_GETLISTENERATTRIBUTES_FUNC} */
 @FunctionalInterface
 @NativeType("FMOD_DSP_GETLISTENERATTRIBUTES_FUNC")
 public interface FMOD_DSP_GETLISTENERATTRIBUTES_FUNCI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,6 +40,7 @@ public interface FMOD_DSP_GETLISTENERATTRIBUTES_FUNCI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code FMOD_RESULT (* FMOD_DSP_GETLISTENERATTRIBUTES_FUNC) (struct FMOD_DSP_STATE * dsp_state, int * numlisteners, FMOD_3D_ATTRIBUTES * attributes)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("struct FMOD_DSP_STATE *") long dsp_state, @NativeType("int *") long numlisteners, @NativeType("FMOD_3D_ATTRIBUTES *") long attributes);
 
 }

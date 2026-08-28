@@ -6,33 +6,28 @@
 package org.lwjgl.util.freetype;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     FT_Raster raster,
- *     FT_Raster_Params const *params
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Raster_RenderFunc} */
 @FunctionalInterface
 @NativeType("FT_Raster_RenderFunc")
 public interface FT_Raster_RenderFuncI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_sint32,
-        ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_sint32,
+            ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -43,7 +38,7 @@ public interface FT_Raster_RenderFuncI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /** Invoke a given raster to scan-convert a given glyph image into a target bitmap. */
+    /** {@code int (* FT_Raster_RenderFunc) (FT_Raster raster, FT_Raster_Params const * params)} */
     int invoke(@NativeType("FT_Raster") long raster, @NativeType("FT_Raster_Params const *") long params);
 
 }

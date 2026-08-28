@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure representing a name ID in a particular language.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct hb_ot_name_entry_t {
  *     hb_ot_name_id_t name_id;

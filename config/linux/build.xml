@@ -11,8 +11,8 @@
     <condition property="linux.triplet" value="riscv64-linux-gnu"><isset property="build.arch.riscv64"/></condition>
     <condition property="linux.triplet" value="x86_64-linux-gnu"><isset property="build.arch.x64|x86"/></condition>
 
-    <condition property="gcc.prefix" value="" else="${linux.triplet}-">
-        <isset property="build.arch.x64|x86"/>
+    <condition property="gcc.prefix" value="${linux.triplet}-" else="">
+        <isset property="env.LWJGL_BUILD_ARCH"/>
     </condition>
     <condition property="gcc.suffix" value="-${gcc.version}" else="">
         <isset property="gcc.version"/>
@@ -158,12 +158,13 @@
     </macrodef>
 
     <target name="compile-native-platform">
-        <local name="gcc.version.string"/>
-        <exec executable="bash" outputproperty="gcc.version.string" logError="true" failonerror="true">
-            <arg line="-o pipefail -c"/>
-            <arg value="${gcc.prefix}gcc${gcc.suffix} --version | grep ^.*gcc"/>
-        </exec>
-        <echo message='${gcc.prefix}gcc${gcc.suffix} --version: "${gcc.version.string}"' taskname="Compiler"/>
+        <sequential if:set="gcc.version.print">
+            <echo message="GCC executable: ${gcc.prefix}gcc${gcc.suffix}"/>
+            <exec executable="bash" logError="true" failonerror="false" taskname="Compiler">
+                <arg line="-o pipefail -c"/>
+                <arg value="${gcc.prefix}gcc${gcc.suffix} --version | grep ^.*gcc"/>
+            </exec>
+        </sequential>
 
         <parallel threadsPerProcessor="2">
 
@@ -207,9 +208,6 @@
             </link>
         </build>
 
-        <!-- LIBDIVIDE -->
-        <build_simple module="libdivide"/>
-
         <!-- LLVM -->
         <build_simple module="llvm"/>
 
@@ -236,15 +234,6 @@
             </beforeCompile>
         </build>
 
-        <!-- Meow -->
-        <sequential if:true="${binding.meow}">
-            <local name="meow.flags"/>
-            <condition property="meow.flags" value="-march=armv8-a+crypto"><isset property="build.arch.arm"/></condition>
-            <condition property="meow.flags" value="-maes -msse4.2"><isset property="build.arch.x64|x86"/></condition>
-
-            <build module="meow" simple="true" flags="-Werror -Wfatal-errors ${meow.flags}"/>
-        </sequential>
-
         <!-- meshoptimizer -->
         <build module="meshoptimizer" simple="true" lang="c++" if:true="${binding.meshoptimizer}">
             <beforeCompile>
@@ -258,9 +247,10 @@
         <!-- msdfgen -->
         <build module="msdfgen" simple="true" linker="g++" if:true="${binding.msdfgen}">
             <beforeCompile>
-                <compile lang="c++">
+                <compile flags="-DMSDFGEN_DYNAMIC_FREETYPE" lang="c++">
                     <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/core/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/ext/*.cpp"/>
                 </compile>
             </beforeCompile>
             <link>
@@ -339,9 +329,6 @@
         <!-- OpenGL ES -->
         <build_simple module="opengles"/>
 
-        <!-- OpenVR -->
-        <build_simple module="openvr"/>
-
         <!-- Par -->
         <build simple="true" module="par">
             <link>
@@ -367,11 +354,15 @@
         <!-- rpmalloc -->
         <build_simple module="rpmalloc"/>
 
-        <!-- SSE -->
-        <build module="sse" simple="true" if:true="${binding.sse}">
+        <!-- spng -->
+        <build module="spng" simple="true" if:true="${binding.spng}">
             <source>
-                <arg value="-msse3"/>
+                <arg value="-I${module.lwjgl.rel}/core/src/main/c/dependencies/miniz"/>
+                <fileset dir="." includes="${module.lwjgl}/core/src/main/c/dependencies/miniz/*.c"/>
             </source>
+            <link>
+                <arg value="-lm" />
+            </link>
         </build>
 
         <!-- stb -->
@@ -390,12 +381,12 @@
             <beforeCompile>
                 <compile lang="c++">
                     <arg value="-I${src.main.rel}"/>
+                    <arg value="-I${module.lwjgl.rel}/core/src/main/c/dependencies/miniz"/>
                     <fileset dir="." includes="${src.main}/*.cc"/>
                     <fileset dir="." includes="${src.generated}/*.cpp"/>
                 </compile>
                 <compile>
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.c"/>
+                    <fileset dir="." includes="${module.lwjgl}/core/src/main/c/dependencies/miniz/*.c"/>
                 </compile>
             </beforeCompile>
         </build>
@@ -408,36 +399,6 @@
                     <fileset dir="." includes="${src.main}/*.c"/>
                 </compile>
             </beforeCompile>
-        </build>
-
-        <!-- AMD Tootle -->
-        <build module="tootle" lang="c++" if:true="${binding.tootle}">
-            <beforeCompile>
-                <compile flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <fileset dir="." includes="${src.main}/*.c"/>
-                </compile>
-                <compile lang="c++" flags="-D_SOFTWARE_ONLY_VERSION -D_LINUX">
-                    <arg value="-I${src.main.rel}"/>
-                    <arg value="-I${src.main.rel}/include"/>
-                    <arg value="-I${src.main.rel}/RayTracer"/>
-                    <arg value="-I${src.main.rel}/RayTracer/JRT"/>
-                    <arg value="-I${src.main.rel}/RayTracer/Math"/>
-                    <fileset dir=".">
-                        <include name="${src.main}/*.cpp"/>
-                        <exclude name="${src.main}/d3d*.cpp"/>
-                        <exclude name="${src.main}/gdi*.cpp"/>
-                    </fileset>
-                    <fileset dir="." includes="${src.main}/RayTracer/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/JRT/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/Math/*.cpp"/>
-                </compile>
-            </beforeCompile>
-            <source>
-                <arg value="-D_LINUX"/>
-                <arg value="-I${src.main.rel}/include"/>
-                <fileset dir="." includes="${src.generated}/*.cpp"/>
-            </source>
         </build>
 
         <!-- Vulkan Memory Allocator -->
@@ -505,9 +466,9 @@
             <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
             <update-dependency module="ktx" artifact="libktx.so"/>
             <update-dependency module="openal" artifact="libopenal.so"/>
-            <update-dependency module="openvr" artifact="libopenvr_api.so"/>
             <update-dependency module="openxr" artifact="libopenxr_loader.so"/>
             <update-dependency module="opus" artifact="libopus.so"/>
+            <update-dependency module="sdl" artifact="libSDL3.so"/>
             <update-dependency module="shaderc" artifact="libshaderc.so"/>
             <update-dependency module="spvc" artifact="libspirv-cross.so"/>
 

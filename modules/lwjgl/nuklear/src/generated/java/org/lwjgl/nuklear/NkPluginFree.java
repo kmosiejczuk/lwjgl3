@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     nk_handle handle,
- *     void *old
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_plugin_free} */
 public abstract class NkPluginFree extends Callback implements NkPluginFreeI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class NkPluginFree extends Callback implements NkPluginFreeI {
     }
 
     protected NkPluginFree() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     NkPluginFree(long functionPointer) {

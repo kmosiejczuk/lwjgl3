@@ -11,14 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FT_Stream stream
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Stream_CloseFunc} */
 public abstract class FT_Stream_CloseFunc extends Callback implements FT_Stream_CloseFuncI {
 
     /**
@@ -46,7 +39,7 @@ public abstract class FT_Stream_CloseFunc extends Callback implements FT_Stream_
     }
 
     protected FT_Stream_CloseFunc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FT_Stream_CloseFunc(long functionPointer) {

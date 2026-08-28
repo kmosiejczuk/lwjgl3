@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure to model the axes and space of an Adobe MM, TrueType GX, or OpenType variation font.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_MM_Var {
  *     FT_UInt num_axis;

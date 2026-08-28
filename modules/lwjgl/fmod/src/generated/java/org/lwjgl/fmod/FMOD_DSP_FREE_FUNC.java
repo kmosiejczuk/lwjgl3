@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *ptr,
- *     FMOD_MEMORY_TYPE type,
- *     char const *sourcestr
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_FREE_FUNC} */
 public abstract class FMOD_DSP_FREE_FUNC extends Callback implements FMOD_DSP_FREE_FUNCI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class FMOD_DSP_FREE_FUNC extends Callback implements FMOD_DSP_FR
     }
 
     protected FMOD_DSP_FREE_FUNC() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_DSP_FREE_FUNC(long functionPointer) {

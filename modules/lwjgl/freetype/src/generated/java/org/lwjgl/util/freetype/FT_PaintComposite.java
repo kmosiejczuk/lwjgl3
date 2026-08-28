@@ -14,11 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing a {@code COLR} v1 {@code PaintComposite} paint table. Used for compositing two paints in a {@code COLR} v1 directed acyclic
- * graph.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_PaintComposite {
  *     {@link FT_OpaquePaint FT_OpaquePaintRec} source_paint;

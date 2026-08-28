@@ -16,17 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct ZSTD_frameProgression {
- *     unsigned long long {@link #ingested};
- *     unsigned long long {@link #consumed};
- *     unsigned long long {@link #produced};
- *     unsigned long long {@link #flushed};
- *     unsigned int {@link #currentJobID};
- *     unsigned int {@link #nbActiveWorkers};
- * }</code></pre>
+ *     unsigned long long ingested;
+ *     unsigned long long consumed;
+ *     unsigned long long produced;
+ *     unsigned long long flushed;
+ *     unsigned int currentJobID;
+ *     unsigned int nbActiveWorkers;
+ * }}</pre>
  */
 @NativeType("struct ZSTD_frameProgression")
 public class ZSTDFrameProgression extends Struct<ZSTDFrameProgression> implements NativeResource {
@@ -89,22 +87,22 @@ public class ZSTDFrameProgression extends Struct<ZSTDFrameProgression> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** nb input bytes read and buffered */
+    /** @return the value of the {@code ingested} field. */
     @NativeType("unsigned long long")
     public long ingested() { return ningested(address()); }
-    /** nb input bytes actually compressed */
+    /** @return the value of the {@code consumed} field. */
     @NativeType("unsigned long long")
     public long consumed() { return nconsumed(address()); }
-    /** nb of compressed bytes generated and buffered */
+    /** @return the value of the {@code produced} field. */
     @NativeType("unsigned long long")
     public long produced() { return nproduced(address()); }
-    /** nb of compressed bytes flushed: not provided; can be tracked from caller side */
+    /** @return the value of the {@code flushed} field. */
     @NativeType("unsigned long long")
     public long flushed() { return nflushed(address()); }
-    /** mT only: latest started job nb */
+    /** @return the value of the {@code currentJobID} field. */
     @NativeType("unsigned int")
     public int currentJobID() { return ncurrentJobID(address()); }
-    /** mT only: nb of workers actively compressing at probe time */
+    /** @return the value of the {@code nbActiveWorkers} field. */
     @NativeType("unsigned int")
     public int nbActiveWorkers() { return nnbActiveWorkers(address()); }
 
@@ -178,25 +176,6 @@ public class ZSTDFrameProgression extends Struct<ZSTDFrameProgression> implement
     public static ZSTDFrameProgression.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameProgression.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code ZSTDFrameProgression} instance allocated on the specified {@link MemoryStack}.
@@ -294,22 +273,22 @@ public class ZSTDFrameProgression extends Struct<ZSTDFrameProgression> implement
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZSTDFrameProgression#ingested} field. */
+        /** @return the value of the {@code ingested} field. */
         @NativeType("unsigned long long")
         public long ingested() { return ZSTDFrameProgression.ningested(address()); }
-        /** @return the value of the {@link ZSTDFrameProgression#consumed} field. */
+        /** @return the value of the {@code consumed} field. */
         @NativeType("unsigned long long")
         public long consumed() { return ZSTDFrameProgression.nconsumed(address()); }
-        /** @return the value of the {@link ZSTDFrameProgression#produced} field. */
+        /** @return the value of the {@code produced} field. */
         @NativeType("unsigned long long")
         public long produced() { return ZSTDFrameProgression.nproduced(address()); }
-        /** @return the value of the {@link ZSTDFrameProgression#flushed} field. */
+        /** @return the value of the {@code flushed} field. */
         @NativeType("unsigned long long")
         public long flushed() { return ZSTDFrameProgression.nflushed(address()); }
-        /** @return the value of the {@link ZSTDFrameProgression#currentJobID} field. */
+        /** @return the value of the {@code currentJobID} field. */
         @NativeType("unsigned int")
         public int currentJobID() { return ZSTDFrameProgression.ncurrentJobID(address()); }
-        /** @return the value of the {@link ZSTDFrameProgression#nbActiveWorkers} field. */
+        /** @return the value of the {@code nbActiveWorkers} field. */
         @NativeType("unsigned int")
         public int nbActiveWorkers() { return ZSTDFrameProgression.nnbActiveWorkers(address()); }
 

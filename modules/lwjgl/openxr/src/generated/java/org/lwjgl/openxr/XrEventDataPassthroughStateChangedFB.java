@@ -16,34 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * An event for passthrough state changes.
- * 
- * <h5>Member Descriptions</h5>
- * 
- * <ul>
- * <li>{@code type} is the {@code XrStructureType} of this structure.</li>
- * <li>{@code next} is {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR or this extension.</li>
- * <li>{@code flags} {@code XrPassthroughStateChangedFlagsFB} that specify additional behavior.</li>
- * </ul>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link FBPassthrough XR_FB_passthrough} extension <b>must</b> be enabled prior to using {@link XrEventDataPassthroughStateChangedFB}</li>
- * <li>{@code type} <b>must</b> be {@link FBPassthrough#XR_TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code flags} <b>must</b> be a valid combination of {@code XrPassthroughStateChangedFlagBitsFB} values</li>
- * <li>{@code flags} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrEventDataPassthroughStateChangedFB {
  *     XrStructureType type;
  *     void const * next;
  *     XrPassthroughStateChangedFlagsFB flags;
- * }</code></pre>
+ * }}</pre>
  */
 public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPassthroughStateChangedFB> implements NativeResource {
 
@@ -112,18 +90,14 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
     public XrEventDataPassthroughStateChangedFB type$Default() { return type(FBPassthrough.XR_TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB); }
     /** Sets the specified value to the {@code next} field. */
     public XrEventDataPassthroughStateChangedFB next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@code flags} field. */
-    public XrEventDataPassthroughStateChangedFB flags(@NativeType("XrPassthroughStateChangedFlagsFB") long value) { nflags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public XrEventDataPassthroughStateChangedFB set(
         int type,
-        long next,
-        long flags
+        long next
     ) {
         type(type);
         next(next);
-        flags(flags);
 
         return this;
     }
@@ -168,6 +142,11 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
         return address == NULL ? null : new XrEventDataPassthroughStateChangedFB(address, null);
     }
 
+    /** Downcasts the specified {@code XrEventDataBaseHeader} instance to {@code XrEventDataPassthroughStateChangedFB}. */
+    public static XrEventDataPassthroughStateChangedFB create(XrEventDataBaseHeader value) {
+        return new XrEventDataPassthroughStateChangedFB(value.address(), __getContainer(value));
+    }
+
     /**
      * Returns a new {@link XrEventDataPassthroughStateChangedFB.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
      *
@@ -209,6 +188,11 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
     /** Like {@link #create(long, int) create}, but returns {@code null} if {@code address} is {@code NULL}. */
     public static XrEventDataPassthroughStateChangedFB.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
+    }
+
+    /** Downcasts the specified {@code XrEventDataBaseHeader.Buffer} instance to {@code XrEventDataPassthroughStateChangedFB.Buffer}. */
+    public static XrEventDataPassthroughStateChangedFB.Buffer create(XrEventDataBaseHeader.Buffer value) {
+        return new XrEventDataPassthroughStateChangedFB.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
     /**
@@ -262,8 +246,6 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
     public static void ntype(long struct, int value) { memPutInt(struct + XrEventDataPassthroughStateChangedFB.TYPE, value); }
     /** Unsafe version of {@link #next(long) next}. */
     public static void nnext(long struct, long value) { memPutAddress(struct + XrEventDataPassthroughStateChangedFB.NEXT, value); }
-    /** Unsafe version of {@link #flags(long) flags}. */
-    public static void nflags(long struct, long value) { memPutLong(struct + XrEventDataPassthroughStateChangedFB.FLAGS, value); }
 
     // -----------------------------------
 
@@ -324,8 +306,6 @@ public class XrEventDataPassthroughStateChangedFB extends Struct<XrEventDataPass
         public XrEventDataPassthroughStateChangedFB.Buffer type$Default() { return type(FBPassthrough.XR_TYPE_EVENT_DATA_PASSTHROUGH_STATE_CHANGED_FB); }
         /** Sets the specified value to the {@code next} field. */
         public XrEventDataPassthroughStateChangedFB.Buffer next(@NativeType("void const *") long value) { XrEventDataPassthroughStateChangedFB.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@code flags} field. */
-        public XrEventDataPassthroughStateChangedFB.Buffer flags(@NativeType("XrPassthroughStateChangedFlagsFB") long value) { XrEventDataPassthroughStateChangedFB.nflags(address(), value); return this; }
 
     }
 

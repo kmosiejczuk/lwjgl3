@@ -6,34 +6,28 @@
 package org.lwjgl.util.freetype;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     FT_Raster raster,
- *     unsigned long mode,
- *     void *args
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Raster_SetModeFunc} */
 @FunctionalInterface
 @NativeType("FT_Raster_SetModeFunc")
 public interface FT_Raster_SetModeFuncI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_sint32,
-        ffi_type_pointer, ffi_type_ulong, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_sint32,
+            ffi_type_pointer, ffi_type_ulong, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,10 +39,7 @@ public interface FT_Raster_SetModeFuncI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /**
-     * This function is a generic facility to change modes or attributes in a given raster. This can be used for debugging purposes, or simply
-     * to allow implementation-specific 'features' in a given raster module.
-     */
+    /** {@code int (* FT_Raster_SetModeFunc) (FT_Raster raster, unsigned long mode, void * args)} */
     int invoke(@NativeType("FT_Raster") long raster, @NativeType("unsigned long") long mode, @NativeType("void *") long args);
 
 }

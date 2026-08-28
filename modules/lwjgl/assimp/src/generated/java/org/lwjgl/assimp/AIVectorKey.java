@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A time-value pair specifying a certain 3D vector for the given time.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct aiVectorKey {
- *     double {@link #mTime};
- *     {@link AIVector3D struct aiVector3D} {@link #mValue};
- *     aiAnimInterpolation {@link #mInterpolation};
+ *     double mTime;
+ *     {@link AIVector3D struct aiVector3D} mValue;
+ *     aiAnimInterpolation mInterpolation;
  * }</code></pre>
  */
 @NativeType("struct aiVectorKey")
@@ -79,22 +75,22 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** The time of this key */
+    /** @return the value of the {@code mTime} field. */
     public double mTime() { return nmTime(address()); }
-    /** The value of this key */
+    /** @return a {@link AIVector3D} view of the {@code mValue} field. */
     @NativeType("struct aiVector3D")
     public AIVector3D mValue() { return nmValue(address()); }
-    /** The interpolation setting of this key */
+    /** @return the value of the {@code mInterpolation} field. */
     @NativeType("aiAnimInterpolation")
     public int mInterpolation() { return nmInterpolation(address()); }
 
-    /** Sets the specified value to the {@link #mTime} field. */
+    /** Sets the specified value to the {@code mTime} field. */
     public AIVectorKey mTime(double value) { nmTime(address(), value); return this; }
-    /** Copies the specified {@link AIVector3D} to the {@link #mValue} field. */
+    /** Copies the specified {@link AIVector3D} to the {@code mValue} field. */
     public AIVectorKey mValue(@NativeType("struct aiVector3D") AIVector3D value) { nmValue(address(), value); return this; }
-    /** Passes the {@link #mValue} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code mValue} field to the specified {@link java.util.function.Consumer Consumer}. */
     public AIVectorKey mValue(java.util.function.Consumer<AIVector3D> consumer) { consumer.accept(mValue()); return this; }
-    /** Sets the specified value to the {@link #mInterpolation} field. */
+    /** Sets the specified value to the {@code mInterpolation} field. */
     public AIVectorKey mInterpolation(@NativeType("aiAnimInterpolation") int value) { nmInterpolation(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -193,25 +189,6 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIVectorKey.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code AIVectorKey} instance allocated on the specified {@link MemoryStack}.
      *
@@ -309,22 +286,22 @@ public class AIVectorKey extends Struct<AIVectorKey> implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link AIVectorKey#mTime} field. */
+        /** @return the value of the {@code mTime} field. */
         public double mTime() { return AIVectorKey.nmTime(address()); }
-        /** @return a {@link AIVector3D} view of the {@link AIVectorKey#mValue} field. */
+        /** @return a {@link AIVector3D} view of the {@code mValue} field. */
         @NativeType("struct aiVector3D")
         public AIVector3D mValue() { return AIVectorKey.nmValue(address()); }
-        /** @return the value of the {@link AIVectorKey#mInterpolation} field. */
+        /** @return the value of the {@code mInterpolation} field. */
         @NativeType("aiAnimInterpolation")
         public int mInterpolation() { return AIVectorKey.nmInterpolation(address()); }
 
-        /** Sets the specified value to the {@link AIVectorKey#mTime} field. */
+        /** Sets the specified value to the {@code mTime} field. */
         public AIVectorKey.Buffer mTime(double value) { AIVectorKey.nmTime(address(), value); return this; }
-        /** Copies the specified {@link AIVector3D} to the {@link AIVectorKey#mValue} field. */
+        /** Copies the specified {@link AIVector3D} to the {@code mValue} field. */
         public AIVectorKey.Buffer mValue(@NativeType("struct aiVector3D") AIVector3D value) { AIVectorKey.nmValue(address(), value); return this; }
-        /** Passes the {@link AIVectorKey#mValue} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code mValue} field to the specified {@link java.util.function.Consumer Consumer}. */
         public AIVectorKey.Buffer mValue(java.util.function.Consumer<AIVector3D> consumer) { consumer.accept(mValue()); return this; }
-        /** Sets the specified value to the {@link AIVectorKey#mInterpolation} field. */
+        /** Sets the specified value to the {@code mInterpolation} field. */
         public AIVectorKey.Buffer mInterpolation(@NativeType("aiAnimInterpolation") int value) { AIVectorKey.nmInterpolation(address(), value); return this; }
 
     }

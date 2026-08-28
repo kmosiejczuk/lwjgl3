@@ -16,20 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Defines how an UV channel is transformed.
- * 
- * <p>This is just a helper structure for the {@link Assimp#_AI_MATKEY_UVTRANSFORM_BASE} key. See its documentation for more details.</p>
- * 
- * <p>Typically you'll want to build a matrix of this information. However, we keep separate scaling/translation/rotation values to make it easier to process
- * and optimize UV transformations internally.</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct aiUVTransform {
- *     {@link AIVector2D struct aiVector2D} {@link #mTranslation};
- *     {@link AIVector2D struct aiVector2D} {@link #mScaling};
- *     float {@link #mRotation};
+ *     {@link AIVector2D struct aiVector2D} mTranslation;
+ *     {@link AIVector2D struct aiVector2D} mScaling;
+ *     float mRotation;
  * }</code></pre>
  */
 @NativeType("struct aiUVTransform")
@@ -84,13 +75,13 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Translation on the u and v axes. The default value is (0|0). */
+    /** @return a {@link AIVector2D} view of the {@code mTranslation} field. */
     @NativeType("struct aiVector2D")
     public AIVector2D mTranslation() { return nmTranslation(address()); }
-    /** Scaling on the u and v axes. The default value is (1|1). */
+    /** @return a {@link AIVector2D} view of the {@code mScaling} field. */
     @NativeType("struct aiVector2D")
     public AIVector2D mScaling() { return nmScaling(address()); }
-    /** Rotation - in counter-clockwise direction. The rotation angle is specified in radians. The rotation center is 0.5f|0.5f. The default value 0.f. */
+    /** @return the value of the {@code mRotation} field. */
     public float mRotation() { return nmRotation(address()); }
 
     // -----------------------------------
@@ -163,25 +154,6 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
     public static AIUVTransform.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static AIUVTransform.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code AIUVTransform} instance allocated on the specified {@link MemoryStack}.
@@ -273,13 +245,13 @@ public class AIUVTransform extends Struct<AIUVTransform> implements NativeResour
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link AIVector2D} view of the {@link AIUVTransform#mTranslation} field. */
+        /** @return a {@link AIVector2D} view of the {@code mTranslation} field. */
         @NativeType("struct aiVector2D")
         public AIVector2D mTranslation() { return AIUVTransform.nmTranslation(address()); }
-        /** @return a {@link AIVector2D} view of the {@link AIUVTransform#mScaling} field. */
+        /** @return a {@link AIVector2D} view of the {@code mScaling} field. */
         @NativeType("struct aiVector2D")
         public AIVector2D mScaling() { return AIUVTransform.nmScaling(address()); }
-        /** @return the value of the {@link AIUVTransform#mRotation} field. */
+        /** @return the value of the {@code mRotation} field. */
         public float mRotation() { return AIUVTransform.nmRotation(address()); }
 
     }

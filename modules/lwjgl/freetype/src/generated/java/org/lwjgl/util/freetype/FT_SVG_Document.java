@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure that models one SVG document.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_SVG_DocumentRec {
  *     FT_Byte * svg_document;

@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XCirculateEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window event;
  *     Window window;
- *     int {@link #place};
- * }</code></pre>
+ *     int place;
+ * }}</pre>
  */
 public class XCirculateEvent extends Struct<XCirculateEvent> implements NativeResource {
 
@@ -95,13 +93,13 @@ public class XCirculateEvent extends Struct<XCirculateEvent> implements NativeRe
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code event} field. */
@@ -110,22 +108,22 @@ public class XCirculateEvent extends Struct<XCirculateEvent> implements NativeRe
     /** @return the value of the {@code window} field. */
     @NativeType("Window")
     public long window() { return nwindow(address()); }
-    /** one of:<br><table><tr><td>{@link X11#PlaceOnTop}</td><td>{@link X11#PlaceOnBottom}</td></tr></table> */
+    /** @return the value of the {@code place} field. */
     public int place() { return nplace(address()); }
 
     /** Sets the specified value to the {@code type} field. */
     public XCirculateEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XCirculateEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XCirculateEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XCirculateEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code event} field. */
     public XCirculateEvent event(@NativeType("Window") long value) { nevent(address(), value); return this; }
     /** Sets the specified value to the {@code window} field. */
     public XCirculateEvent window(@NativeType("Window") long value) { nwindow(address(), value); return this; }
-    /** Sets the specified value to the {@link #place} field. */
+    /** Sets the specified value to the {@code place} field. */
     public XCirculateEvent place(int value) { nplace(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -231,25 +229,6 @@ public class XCirculateEvent extends Struct<XCirculateEvent> implements NativeRe
     public static XCirculateEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XCirculateEvent.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XCirculateEvent} instance allocated on the specified {@link MemoryStack}.
@@ -375,13 +354,13 @@ public class XCirculateEvent extends Struct<XCirculateEvent> implements NativeRe
 
         /** @return the value of the {@code type} field. */
         public int type() { return XCirculateEvent.ntype(address()); }
-        /** @return the value of the {@link XCirculateEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XCirculateEvent.nserial(address()); }
-        /** @return the value of the {@link XCirculateEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XCirculateEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XCirculateEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XCirculateEvent.ndisplay(address()); }
         /** @return the value of the {@code event} field. */
@@ -390,22 +369,22 @@ public class XCirculateEvent extends Struct<XCirculateEvent> implements NativeRe
         /** @return the value of the {@code window} field. */
         @NativeType("Window")
         public long window() { return XCirculateEvent.nwindow(address()); }
-        /** @return the value of the {@link XCirculateEvent#place} field. */
+        /** @return the value of the {@code place} field. */
         public int place() { return XCirculateEvent.nplace(address()); }
 
         /** Sets the specified value to the {@code type} field. */
         public XCirculateEvent.Buffer type(int value) { XCirculateEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XCirculateEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XCirculateEvent.Buffer serial(@NativeType("unsigned long") long value) { XCirculateEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XCirculateEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XCirculateEvent.Buffer send_event(@NativeType("Bool") boolean value) { XCirculateEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XCirculateEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XCirculateEvent.Buffer display(@NativeType("Display *") long value) { XCirculateEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code event} field. */
         public XCirculateEvent.Buffer event(@NativeType("Window") long value) { XCirculateEvent.nevent(address(), value); return this; }
         /** Sets the specified value to the {@code window} field. */
         public XCirculateEvent.Buffer window(@NativeType("Window") long value) { XCirculateEvent.nwindow(address(), value); return this; }
-        /** Sets the specified value to the {@link XCirculateEvent#place} field. */
+        /** Sets the specified value to the {@code place} field. */
         public XCirculateEvent.Buffer place(int value) { XCirculateEvent.nplace(address(), value); return this; }
 
     }

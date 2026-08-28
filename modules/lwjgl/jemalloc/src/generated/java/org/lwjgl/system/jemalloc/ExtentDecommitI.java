@@ -6,39 +6,28 @@
 package org.lwjgl.system.jemalloc;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to the {@link ExtentHooks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * bool (*{@link #invoke}) (
- *     extent_hooks_t *extent_hooks,
- *     void *addr,
- *     size_t size,
- *     size_t offset,
- *     size_t length,
- *     unsigned int arena_ind
- * )</code></pre>
- */
+/** Callback function: {@link #invoke extent_decommit_t} */
 @FunctionalInterface
 @NativeType("extent_decommit_t")
 public interface ExtentDecommitI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_uint8,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_uint8,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_uint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -53,14 +42,7 @@ public interface ExtentDecommitI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /**
-     * Extent decommit hook.
-     * 
-     * <p>An extent decommit function conforms to the {@code extent_decommit_t} type and decommits any physical memory that is backing pages within an extent at
-     * given {@code addr} and {@code size} at {@code offset} bytes, extending for {@code length} on behalf of arena {@code arena_ind}, returning false upon
-     * success, in which case the pages will be committed via the extent commit function before being reused.  If the function returns true, this indicates
-     * opt-out from decommit; the memory remains committed and available for future use, in which case it will be automatically retained for later reuse.</p>
-     */
+    /** {@code bool (* extent_decommit_t) (extent_hooks_t * extent_hooks, void * addr, size_t size, size_t offset, size_t length, unsigned int arena_ind)} */
     @NativeType("bool") boolean invoke(@NativeType("extent_hooks_t *") long extent_hooks, @NativeType("void *") long addr, @NativeType("size_t") long size, @NativeType("size_t") long offset, @NativeType("size_t") long length, @NativeType("unsigned int") int arena_ind);
 
 }

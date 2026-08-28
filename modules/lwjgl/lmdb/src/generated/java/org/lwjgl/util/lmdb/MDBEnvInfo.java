@@ -16,19 +16,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Information about the environment.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct MDB_envinfo {
- *     void * {@link #me_mapaddr};
- *     size_t {@link #me_mapsize};
- *     size_t {@link #me_last_pgno};
- *     size_t {@link #me_last_txnid};
- *     unsigned int {@link #me_maxreaders};
- *     unsigned int {@link #me_numreaders};
- * }</code></pre>
+ *     void * me_mapaddr;
+ *     size_t me_mapsize;
+ *     size_t me_last_pgno;
+ *     size_t me_last_txnid;
+ *     unsigned int me_maxreaders;
+ *     unsigned int me_numreaders;
+ * }}</pre>
  */
 @NativeType("struct MDB_envinfo")
 public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
@@ -91,22 +87,22 @@ public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Address of map, if fixed. */
+    /** @return the value of the {@code me_mapaddr} field. */
     @NativeType("void *")
     public long me_mapaddr() { return nme_mapaddr(address()); }
-    /** Size of the data memory map. */
+    /** @return the value of the {@code me_mapsize} field. */
     @NativeType("size_t")
     public long me_mapsize() { return nme_mapsize(address()); }
-    /** ID of the last used page. */
+    /** @return the value of the {@code me_last_pgno} field. */
     @NativeType("size_t")
     public long me_last_pgno() { return nme_last_pgno(address()); }
-    /** ID of the last committed transaction. */
+    /** @return the value of the {@code me_last_txnid} field. */
     @NativeType("size_t")
     public long me_last_txnid() { return nme_last_txnid(address()); }
-    /** Max reader slots in the environment. */
+    /** @return the value of the {@code me_maxreaders} field. */
     @NativeType("unsigned int")
     public int me_maxreaders() { return nme_maxreaders(address()); }
-    /** Max reader slots used in the environment. */
+    /** @return the value of the {@code me_numreaders} field. */
     @NativeType("unsigned int")
     public int me_numreaders() { return nme_numreaders(address()); }
 
@@ -180,25 +176,6 @@ public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
     public static MDBEnvInfo.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static MDBEnvInfo.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code MDBEnvInfo} instance allocated on the specified {@link MemoryStack}.
@@ -296,22 +273,22 @@ public class MDBEnvInfo extends Struct<MDBEnvInfo> implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link MDBEnvInfo#me_mapaddr} field. */
+        /** @return the value of the {@code me_mapaddr} field. */
         @NativeType("void *")
         public long me_mapaddr() { return MDBEnvInfo.nme_mapaddr(address()); }
-        /** @return the value of the {@link MDBEnvInfo#me_mapsize} field. */
+        /** @return the value of the {@code me_mapsize} field. */
         @NativeType("size_t")
         public long me_mapsize() { return MDBEnvInfo.nme_mapsize(address()); }
-        /** @return the value of the {@link MDBEnvInfo#me_last_pgno} field. */
+        /** @return the value of the {@code me_last_pgno} field. */
         @NativeType("size_t")
         public long me_last_pgno() { return MDBEnvInfo.nme_last_pgno(address()); }
-        /** @return the value of the {@link MDBEnvInfo#me_last_txnid} field. */
+        /** @return the value of the {@code me_last_txnid} field. */
         @NativeType("size_t")
         public long me_last_txnid() { return MDBEnvInfo.nme_last_txnid(address()); }
-        /** @return the value of the {@link MDBEnvInfo#me_maxreaders} field. */
+        /** @return the value of the {@code me_maxreaders} field. */
         @NativeType("unsigned int")
         public int me_maxreaders() { return MDBEnvInfo.nme_maxreaders(address()); }
-        /** @return the value of the {@link MDBEnvInfo#me_numreaders} field. */
+        /** @return the value of the {@code me_numreaders} field. */
         @NativeType("unsigned int")
         public int me_numreaders() { return MDBEnvInfo.nme_numreaders(address()); }
 

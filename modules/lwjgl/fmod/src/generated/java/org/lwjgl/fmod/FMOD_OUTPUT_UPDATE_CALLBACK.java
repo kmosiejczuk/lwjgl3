@@ -11,14 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_OUTPUT_STATE *output_state
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_UPDATE_CALLBACK} */
 public abstract class FMOD_OUTPUT_UPDATE_CALLBACK extends Callback implements FMOD_OUTPUT_UPDATE_CALLBACKI {
 
     /**
@@ -46,7 +39,7 @@ public abstract class FMOD_OUTPUT_UPDATE_CALLBACK extends Callback implements FM
     }
 
     protected FMOD_OUTPUT_UPDATE_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_OUTPUT_UPDATE_CALLBACK(long functionPointer) {

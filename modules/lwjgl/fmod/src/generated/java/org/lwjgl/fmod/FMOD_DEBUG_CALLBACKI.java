@@ -6,36 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     FMOD_DEBUG_FLAGS flags,
- *     char const *file,
- *     int line,
- *     char const *func,
- *     char const *message
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DEBUG_CALLBACK} */
 @FunctionalInterface
 @NativeType("FMOD_DEBUG_CALLBACK")
 public interface FMOD_DEBUG_CALLBACKI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_uint32, ffi_type_pointer, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_uint32, ffi_type_pointer, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -49,7 +42,7 @@ public interface FMOD_DEBUG_CALLBACKI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /** FMOD callbacks */
+    /** {@code FMOD_RESULT (* FMOD_DEBUG_CALLBACK) (FMOD_DEBUG_FLAGS flags, char const * file, int line, char const * func, char const * message)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("FMOD_DEBUG_FLAGS") int flags, @NativeType("char const *") long file, int line, @NativeType("char const *") long func, @NativeType("char const *") long message);
 
 }

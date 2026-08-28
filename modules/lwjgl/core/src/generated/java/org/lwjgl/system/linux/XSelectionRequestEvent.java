@@ -17,23 +17,19 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * SelectionRequest event structure.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XSelectionRequestEvent {
  *     int type;
- *     unsigned long {@link #serial};
- *     Bool {@link #send_event};
- *     Display * {@link #display};
+ *     unsigned long serial;
+ *     Bool send_event;
+ *     Display * display;
  *     Window owner;
  *     Window requestor;
  *     Atom selection;
  *     Atom target;
  *     Atom property;
  *     Time time;
- * }</code></pre>
+ * }}</pre>
  */
 public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> implements NativeResource {
 
@@ -109,13 +105,13 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
 
     /** @return the value of the {@code type} field. */
     public int type() { return ntype(address()); }
-    /** # of last request processed by server */
+    /** @return the value of the {@code serial} field. */
     @NativeType("unsigned long")
     public long serial() { return nserial(address()); }
-    /** true if this came from an {@link X11#XSendEvent} request */
+    /** @return the value of the {@code send_event} field. */
     @NativeType("Bool")
     public boolean send_event() { return nsend_event(address()) != 0; }
-    /** {@code Display} the event was read from */
+    /** @return the value of the {@code display} field. */
     @NativeType("Display *")
     public long display() { return ndisplay(address()); }
     /** @return the value of the {@code owner} field. */
@@ -139,11 +135,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
 
     /** Sets the specified value to the {@code type} field. */
     public XSelectionRequestEvent type(int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #serial} field. */
+    /** Sets the specified value to the {@code serial} field. */
     public XSelectionRequestEvent serial(@NativeType("unsigned long") long value) { nserial(address(), value); return this; }
-    /** Sets the specified value to the {@link #send_event} field. */
+    /** Sets the specified value to the {@code send_event} field. */
     public XSelectionRequestEvent send_event(@NativeType("Bool") boolean value) { nsend_event(address(), value ? 1 : 0); return this; }
-    /** Sets the specified value to the {@link #display} field. */
+    /** Sets the specified value to the {@code display} field. */
     public XSelectionRequestEvent display(@NativeType("Display *") long value) { ndisplay(address(), value); return this; }
     /** Sets the specified value to the {@code owner} field. */
     public XSelectionRequestEvent owner(@NativeType("Window") long value) { nowner(address(), value); return this; }
@@ -267,25 +263,6 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
     public static XSelectionRequestEvent.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XSelectionRequestEvent.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XSelectionRequestEvent} instance allocated on the specified {@link MemoryStack}.
@@ -423,13 +400,13 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
 
         /** @return the value of the {@code type} field. */
         public int type() { return XSelectionRequestEvent.ntype(address()); }
-        /** @return the value of the {@link XSelectionRequestEvent#serial} field. */
+        /** @return the value of the {@code serial} field. */
         @NativeType("unsigned long")
         public long serial() { return XSelectionRequestEvent.nserial(address()); }
-        /** @return the value of the {@link XSelectionRequestEvent#send_event} field. */
+        /** @return the value of the {@code send_event} field. */
         @NativeType("Bool")
         public boolean send_event() { return XSelectionRequestEvent.nsend_event(address()) != 0; }
-        /** @return the value of the {@link XSelectionRequestEvent#display} field. */
+        /** @return the value of the {@code display} field. */
         @NativeType("Display *")
         public long display() { return XSelectionRequestEvent.ndisplay(address()); }
         /** @return the value of the {@code owner} field. */
@@ -453,11 +430,11 @@ public class XSelectionRequestEvent extends Struct<XSelectionRequestEvent> imple
 
         /** Sets the specified value to the {@code type} field. */
         public XSelectionRequestEvent.Buffer type(int value) { XSelectionRequestEvent.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XSelectionRequestEvent#serial} field. */
+        /** Sets the specified value to the {@code serial} field. */
         public XSelectionRequestEvent.Buffer serial(@NativeType("unsigned long") long value) { XSelectionRequestEvent.nserial(address(), value); return this; }
-        /** Sets the specified value to the {@link XSelectionRequestEvent#send_event} field. */
+        /** Sets the specified value to the {@code send_event} field. */
         public XSelectionRequestEvent.Buffer send_event(@NativeType("Bool") boolean value) { XSelectionRequestEvent.nsend_event(address(), value ? 1 : 0); return this; }
-        /** Sets the specified value to the {@link XSelectionRequestEvent#display} field. */
+        /** Sets the specified value to the {@code display} field. */
         public XSelectionRequestEvent.Buffer display(@NativeType("Display *") long value) { XSelectionRequestEvent.ndisplay(address(), value); return this; }
         /** Sets the specified value to the {@code owner} field. */
         public XSelectionRequestEvent.Buffer owner(@NativeType("Window") long value) { XSelectionRequestEvent.nowner(address(), value); return this; }

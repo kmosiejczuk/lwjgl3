@@ -17,13 +17,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Custom allocator. When custom allocator is not specified, library uses default CRT allocator. The library assumes custom allocator is thread safe.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct bgfx_allocator_interface_t {
- *     {@link BGFXAllocatorVtbl bgfx_allocator_vtbl_t} const * {@link #vtbl};
+ *     {@link BGFXAllocatorVtbl bgfx_allocator_vtbl_t} const * vtbl;
  * }</code></pre>
  */
 @NativeType("struct bgfx_allocator_interface_t")
@@ -72,11 +68,11 @@ public class BGFXAllocatorInterface extends Struct<BGFXAllocatorInterface> imple
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the allocator virtual table */
+    /** @return a {@link BGFXAllocatorVtbl} view of the struct pointed to by the {@code vtbl} field. */
     @NativeType("bgfx_allocator_vtbl_t const *")
     public BGFXAllocatorVtbl vtbl() { return nvtbl(address()); }
 
-    /** Sets the address of the specified {@link BGFXAllocatorVtbl} to the {@link #vtbl} field. */
+    /** Sets the address of the specified {@link BGFXAllocatorVtbl} to the {@code vtbl} field. */
     public BGFXAllocatorInterface vtbl(@NativeType("bgfx_allocator_vtbl_t const *") BGFXAllocatorVtbl value) { nvtbl(address(), value); return this; }
 
     /**
@@ -118,18 +114,6 @@ public class BGFXAllocatorInterface extends Struct<BGFXAllocatorInterface> imple
     public static @Nullable BGFXAllocatorInterface createSafe(long address) {
         return address == NULL ? null : new BGFXAllocatorInterface(address, null);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXAllocatorInterface mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXAllocatorInterface callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXAllocatorInterface mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static BGFXAllocatorInterface callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
 
     /**
      * Returns a new {@code BGFXAllocatorInterface} instance allocated on the specified {@link MemoryStack}.

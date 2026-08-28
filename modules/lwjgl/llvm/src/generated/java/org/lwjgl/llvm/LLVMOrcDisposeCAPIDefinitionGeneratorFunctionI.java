@@ -6,32 +6,28 @@
 package org.lwjgl.llvm;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *Ctx
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcDisposeCAPIDefinitionGeneratorFunction} */
 @FunctionalInterface
 @NativeType("LLVMOrcDisposeCAPIDefinitionGeneratorFunction")
 public interface LLVMOrcDisposeCAPIDefinitionGeneratorFunctionI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -40,11 +36,7 @@ public interface LLVMOrcDisposeCAPIDefinitionGeneratorFunctionI extends Callback
         );
     }
 
-    /**
-     * Disposer for a custom generator.
-     * 
-     * <p>Will be called by ORC when the {@code JITDylib} that the generator is attached to is destroyed.</p>
-     */
+    /** {@code void (* LLVMOrcDisposeCAPIDefinitionGeneratorFunction) (void * Ctx)} */
     void invoke(@NativeType("void *") long Ctx);
 
 }

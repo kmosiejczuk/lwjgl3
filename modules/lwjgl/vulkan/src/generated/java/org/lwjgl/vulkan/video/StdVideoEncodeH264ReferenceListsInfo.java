@@ -19,8 +19,6 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH264.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct StdVideoEncodeH264ReferenceListsInfo {
  *     {@link StdVideoEncodeH264ReferenceListsInfoFlags StdVideoEncodeH264ReferenceListsInfoFlags} flags;

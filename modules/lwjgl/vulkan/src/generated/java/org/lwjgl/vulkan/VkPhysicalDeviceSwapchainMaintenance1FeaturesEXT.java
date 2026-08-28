@@ -16,55 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing whether implementation supports swapchain maintenance1 functionality.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceFeatures2} structure passed to {@link VK11#vkGetPhysicalDeviceFeatures2 GetPhysicalDeviceFeatures2}, it is filled in to indicate whether each corresponding feature is supported. {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT} <b>can</b> also be used in the {@code pNext} chain of {@link VkDeviceCreateInfo} to selectively enable these features.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTSwapchainMaintenance1#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkBool32 {@link #swapchainMaintenance1};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkBool32 swapchainMaintenance1;
+ * }}</pre>
  */
-public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT> implements NativeResource {
-
-    /** The struct size in bytes. */
-    public static final int SIZEOF;
-
-    /** The struct alignment in bytes. */
-    public static final int ALIGNOF;
-
-    /** The struct member offsets. */
-    public static final int
-        STYPE,
-        PNEXT,
-        SWAPCHAINMAINTENANCE1;
-
-    static {
-        Layout layout = __struct(
-            __member(4),
-            __member(POINTER_SIZE),
-            __member(4)
-        );
-
-        SIZEOF = layout.getSize();
-        ALIGNOF = layout.getAlignment();
-
-        STYPE = layout.offsetof(0);
-        PNEXT = layout.offsetof(1);
-        SWAPCHAINMAINTENANCE1 = layout.offsetof(2);
-    }
+public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
 
     protected VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -82,42 +41,24 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
      * <p>The created instance holds a strong reference to the container object.</p>
      */
     public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT(ByteBuffer container) {
-        super(memAddress(container), __checkContainer(container, SIZEOF));
+        super(container);
     }
 
+    /** Sets the specified value to the {@code sType} field. */
     @Override
-    public int sizeof() { return SIZEOF; }
-
-    /** a {@code VkStructureType} value identifying this structure. */
-    @NativeType("VkStructureType")
-    public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void *")
-    public long pNext() { return npNext(address()); }
-    /**
-     * indicates that the implementation supports the following:
-     * 
-     * <ul>
-     * <li>{@link VkSwapchainPresentFenceInfoEXT}, specifying a fence that is signaled when the resources associated with a present operation <b>can</b> be safely destroyed.</li>
-     * <li>{@link VkSwapchainPresentModesCreateInfoEXT} and {@link VkSwapchainPresentModeInfoEXT}, allowing the swapchain to switch present modes without a need for recreation.</li>
-     * <li>{@link VkSwapchainPresentScalingCreateInfoEXT}, specifying the scaling behavior of the swapchain in presence of window resizing.</li>
-     * <li>The {@link EXTSwapchainMaintenance1#VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT} flag, allowing the implementation to defer the allocation of swapchain image memory until first acquisition.</li>
-     * <li>{@link EXTSwapchainMaintenance1#vkReleaseSwapchainImagesEXT ReleaseSwapchainImagesEXT}, allowing acquired swapchain images to be released without presenting them.</li>
-     * </ul>
-     */
-    @NativeType("VkBool32")
-    public boolean swapchainMaintenance1() { return nswapchainMaintenance1(address()) != 0; }
-
-    /** Sets the specified value to the {@link #sType} field. */
     public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTSwapchainMaintenance1#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT} value to the {@link #sType} field. */
-    public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT sType$Default() { return sType(EXTSwapchainMaintenance1.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the {@link KHRSwapchainMaintenance1#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR} value to the {@code sType} field. */
+    @Override
+    public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT sType$Default() { return sType(KHRSwapchainMaintenance1.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR); }
+    /** Sets the specified value to the {@code pNext} field. */
+    @Override
     public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #swapchainMaintenance1} field. */
+    /** Sets the specified value to the {@code swapchainMaintenance1} field. */
+    @Override
     public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT swapchainMaintenance1(@NativeType("VkBool32") boolean value) { nswapchainMaintenance1(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
+    @Override
     public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT set(
         int sType,
         long pNext,
@@ -253,24 +194,8 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.STYPE); }
-    /** Unsafe version of {@link #pNext}. */
-    public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.PNEXT); }
-    /** Unsafe version of {@link #swapchainMaintenance1}. */
-    public static int nswapchainMaintenance1(long struct) { return memGetInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.SWAPCHAINMAINTENANCE1); }
-
-    /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.STYPE, value); }
-    /** Unsafe version of {@link #pNext(long) pNext}. */
-    public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.PNEXT, value); }
-    /** Unsafe version of {@link #swapchainMaintenance1(boolean) swapchainMaintenance1}. */
-    public static void nswapchainMaintenance1(long struct, int value) { memPutInt(struct + VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.SWAPCHAINMAINTENANCE1, value); }
-
-    // -----------------------------------
-
     /** An array of {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT} structs. */
-    public static class Buffer extends StructBuffer<VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT, Buffer> implements NativeResource {
+    public static class Buffer extends VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR.Buffer {
 
         private static final VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT ELEMENT_FACTORY = VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.create(-1L);
 
@@ -284,7 +209,7 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
         public Buffer(ByteBuffer container) {
-            super(container, container.remaining() / SIZEOF);
+            super(container);
         }
 
         public Buffer(long address, int cap) {
@@ -310,23 +235,17 @@ public class VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT extends Struct<VkP
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT#sType} field. */
-        @NativeType("VkStructureType")
-        public int sType() { return VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT#pNext} field. */
-        @NativeType("void *")
-        public long pNext() { return VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT#swapchainMaintenance1} field. */
-        @NativeType("VkBool32")
-        public boolean swapchainMaintenance1() { return VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.nswapchainMaintenance1(address()) != 0; }
-
-        /** Sets the specified value to the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
+        @Override
         public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTSwapchainMaintenance1#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT} value to the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT#sType} field. */
-        public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.Buffer sType$Default() { return sType(EXTSwapchainMaintenance1.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT#pNext} field. */
+        /** Sets the {@link KHRSwapchainMaintenance1#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR} value to the {@code sType} field. */
+        @Override
+        public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.Buffer sType$Default() { return sType(KHRSwapchainMaintenance1.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR); }
+        /** Sets the specified value to the {@code pNext} field. */
+        @Override
         public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT#swapchainMaintenance1} field. */
+        /** Sets the specified value to the {@code swapchainMaintenance1} field. */
+        @Override
         public VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.Buffer swapchainMaintenance1(@NativeType("VkBool32") boolean value) { VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT.nswapchainMaintenance1(address(), value ? 1 : 0); return this; }
 
     }

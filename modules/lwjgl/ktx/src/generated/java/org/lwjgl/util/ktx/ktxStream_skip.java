@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * KTX_error_code (*{@link #invoke}) (
- *     ktxStream *str,
- *     ktx_size_t const count
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ktxStream_skip} */
 public abstract class ktxStream_skip extends Callback implements ktxStream_skipI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class ktxStream_skip extends Callback implements ktxStream_skipI
     }
 
     protected ktxStream_skip() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     ktxStream_skip(long functionPointer) {

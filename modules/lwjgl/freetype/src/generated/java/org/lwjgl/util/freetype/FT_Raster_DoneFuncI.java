@@ -6,32 +6,28 @@
 package org.lwjgl.util.freetype;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     FT_Raster raster
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Raster_DoneFunc} */
 @FunctionalInterface
 @NativeType("FT_Raster_DoneFunc")
 public interface FT_Raster_DoneFuncI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -40,7 +36,7 @@ public interface FT_Raster_DoneFuncI extends CallbackI {
         );
     }
 
-    /** A function used to destroy a given raster object. */
+    /** {@code void (* FT_Raster_DoneFunc) (FT_Raster raster)} */
     void invoke(@NativeType("FT_Raster") long raster);
 
 }

@@ -14,8 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * union struct hwloc_topology_diff_u {
  *     {@link hwloc_topology_diff_generic_s hwloc_topology_diff_generic_s} generic;

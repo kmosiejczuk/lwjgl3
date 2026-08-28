@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Represents a pair of a {@code JITDylib} and {@code LLVMOrcCSymbolsList}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct LLVMOrcCDependenceMapPair {
  *     LLVMOrcJITDylibRef JD;

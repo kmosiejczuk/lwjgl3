@@ -16,23 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify X,Y chromaticity coordinates.
- * 
- * <h5>Description</h5>
- * 
- * <p>Chromaticity coordinates are as specified in CIE 15:2004 “{@code Calculation of chromaticity coordinates}” (Section 7.3) and are limited to between 0 and 1 for real colors.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkHdrMetadataEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkXYColorEXT {
- *     float {@link #x};
- *     float {@link #y};
- * }</code></pre>
+ *     float x;
+ *     float y;
+ * }}</pre>
  */
 public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource {
 
@@ -82,14 +70,14 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the <code>x</code> chromaticity coordinate. */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the <code>y</code> chromaticity coordinate. */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public VkXYColorEXT x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public VkXYColorEXT y(float value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -186,25 +174,6 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkXYColorEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkXYColorEXT} instance allocated on the specified {@link MemoryStack}.
      *
@@ -298,14 +267,14 @@ public class VkXYColorEXT extends Struct<VkXYColorEXT> implements NativeResource
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkXYColorEXT#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return VkXYColorEXT.nx(address()); }
-        /** @return the value of the {@link VkXYColorEXT#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return VkXYColorEXT.ny(address()); }
 
-        /** Sets the specified value to the {@link VkXYColorEXT#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public VkXYColorEXT.Buffer x(float value) { VkXYColorEXT.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link VkXYColorEXT#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public VkXYColorEXT.Buffer y(float value) { VkXYColorEXT.ny(address(), value); return this; }
 
     }

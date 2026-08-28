@@ -11,21 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_OUTPUT_STATE *output_state,
- *     int id,
- *     char *name,
- *     int namelen,
- *     FMOD_GUID *guid,
- *     int *systemrate,
- *     FMOD_SPEAKERMODE *speakermode,
- *     int *speakermodechannels
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_GETDRIVERINFO_CALLBACK} */
 public abstract class FMOD_OUTPUT_GETDRIVERINFO_CALLBACK extends Callback implements FMOD_OUTPUT_GETDRIVERINFO_CALLBACKI {
 
     /**
@@ -53,7 +39,7 @@ public abstract class FMOD_OUTPUT_GETDRIVERINFO_CALLBACK extends Callback implem
     }
 
     protected FMOD_OUTPUT_GETDRIVERINFO_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_OUTPUT_GETDRIVERINFO_CALLBACK(long functionPointer) {

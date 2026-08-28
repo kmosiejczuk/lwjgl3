@@ -6,34 +6,28 @@
 package org.lwjgl.openal;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * ALsizei (*{@link #invoke}) (
- *     ALvoid *userptr,
- *     ALvoid *sampledata,
- *     ALsizei numbytes
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ALBUFFERCALLBACKTYPESOFT} */
 @FunctionalInterface
 @NativeType("ALBUFFERCALLBACKTYPESOFT")
 public interface SOFTCallbackBufferTypeI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_sint32,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_sint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_sint32,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_sint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,17 +39,7 @@ public interface SOFTCallbackBufferTypeI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /**
-     * @param userptr    the same pointer provided to {@link SOFTCallbackBuffer#alBufferCallbackSOFT BufferCallbackSOFT}
-     * @param sampledata a pointer to the sample data buffer that should be filled in by the function
-     * @param numbytes   the number of bytes needed to fill the sample data buffer for this invocation.
-     *                   
-     *                   <p>Guaranteed to be greater than 0 and a multiple of the frame size for the format.</p>
-     *
-     * @return the number of bytes actually written, which must be equal to or less than {@code numbytes}.
-     *         
-     *         <p>If the return value is less than {@code numbytes}, it's treated as the end of the buffer and the source will play any complete samples before stopping.</p>
-     */
+    /** {@code ALsizei (* ALBUFFERCALLBACKTYPESOFT) (ALvoid * userptr, ALvoid * sampledata, ALsizei numbytes)} */
     @NativeType("ALsizei") int invoke(@NativeType("ALvoid *") long userptr, @NativeType("ALvoid *") long sampledata, @NativeType("ALsizei") int numbytes);
 
 }

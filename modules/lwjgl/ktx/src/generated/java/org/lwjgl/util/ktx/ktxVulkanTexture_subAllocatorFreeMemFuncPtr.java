@@ -11,14 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     uint64_t allocId
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class ktxVulkanTexture_subAllocatorFreeMemFuncPtr extends Callback implements ktxVulkanTexture_subAllocatorFreeMemFuncPtrI {
 
     /**
@@ -46,7 +39,7 @@ public abstract class ktxVulkanTexture_subAllocatorFreeMemFuncPtr extends Callba
     }
 
     protected ktxVulkanTexture_subAllocatorFreeMemFuncPtr() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     ktxVulkanTexture_subAllocatorFreeMemFuncPtr(long functionPointer) {

@@ -15,10 +15,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * FreeType root face class structure. A face object models a typeface in a font file.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_FaceRec {
  *     FT_Long num_faces;

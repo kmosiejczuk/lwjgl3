@@ -6,36 +6,28 @@
 package org.lwjgl.util.yoga;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     YGConfigConstRef config,
- *     YGNodeConstRef node,
- *     YGLogLevel level,
- *     char const *format,
- *     va_list args
- * )</code></pre>
- */
+/** Callback function: {@link #invoke YGLogger} */
 @FunctionalInterface
 @NativeType("YGLogger")
 public interface YGLoggerI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_sint32,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_sint32,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -49,6 +41,7 @@ public interface YGLoggerI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code int (* YGLogger) (YGConfigConstRef config, YGNodeConstRef node, YGLogLevel level, char const * format, va_list args)} */
     int invoke(@NativeType("YGConfigConstRef") long config, @NativeType("YGNodeConstRef") long node, @NativeType("YGLogLevel") int level, @NativeType("char const *") long format, @NativeType("va_list") long args);
 
 }

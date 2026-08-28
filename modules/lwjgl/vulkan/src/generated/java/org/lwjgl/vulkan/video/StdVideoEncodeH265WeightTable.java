@@ -19,8 +19,6 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.video.STDVulkanVideoCodecH265.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct StdVideoEncodeH265WeightTable {
  *     {@link StdVideoEncodeH265WeightTableFlags StdVideoEncodeH265WeightTableFlags} flags;

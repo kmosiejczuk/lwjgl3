@@ -16,22 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Base structure for a read-only pointer chain.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link VkBaseInStructure} can be used to facilitate iterating through a read-only structure pointer chain.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkBaseInStructure}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkBaseInStructure {
- *     VkStructureType {@link #sType};
- *     {@link VkBaseInStructure VkBaseInStructure} const * {@link #pNext};
+ *     VkStructureType sType;
+ *     {@link VkBaseInStructure VkBaseInStructure} const * pNext;
  * }</code></pre>
  */
 public class VkBaseInStructure extends Struct<VkBaseInStructure> implements NativeResource {
@@ -82,16 +70,16 @@ public class VkBaseInStructure extends Struct<VkBaseInStructure> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the structure type of the structure being iterated through. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return a {@link VkBaseInStructure} view of the struct pointed to by the {@code pNext} field. */
     @NativeType("VkBaseInStructure const *")
     public @Nullable VkBaseInStructure pNext() { return npNext(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkBaseInStructure sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the address of the specified {@link VkBaseInStructure} to the {@link #pNext} field. */
+    /** Sets the address of the specified {@link VkBaseInStructure} to the {@code pNext} field. */
     public VkBaseInStructure pNext(@Nullable @NativeType("VkBaseInStructure const *") VkBaseInStructure value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -188,25 +176,6 @@ public class VkBaseInStructure extends Struct<VkBaseInStructure> implements Nati
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkBaseInStructure.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkBaseInStructure} instance allocated on the specified {@link MemoryStack}.
      *
@@ -300,16 +269,16 @@ public class VkBaseInStructure extends Struct<VkBaseInStructure> implements Nati
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkBaseInStructure#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkBaseInStructure.nsType(address()); }
-        /** @return a {@link VkBaseInStructure} view of the struct pointed to by the {@link VkBaseInStructure#pNext} field. */
+        /** @return a {@link VkBaseInStructure} view of the struct pointed to by the {@code pNext} field. */
         @NativeType("VkBaseInStructure const *")
         public @Nullable VkBaseInStructure pNext() { return VkBaseInStructure.npNext(address()); }
 
-        /** Sets the specified value to the {@link VkBaseInStructure#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkBaseInStructure.Buffer sType(@NativeType("VkStructureType") int value) { VkBaseInStructure.nsType(address(), value); return this; }
-        /** Sets the address of the specified {@link VkBaseInStructure} to the {@link VkBaseInStructure#pNext} field. */
+        /** Sets the address of the specified {@link VkBaseInStructure} to the {@code pNext} field. */
         public VkBaseInStructure.Buffer pNext(@Nullable @NativeType("VkBaseInStructure const *") VkBaseInStructure value) { VkBaseInStructure.npNext(address(), value); return this; }
 
     }

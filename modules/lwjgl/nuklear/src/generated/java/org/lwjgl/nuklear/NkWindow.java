@@ -16,8 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.nuklear.Nuklear.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct nk_window {
  *     unsigned int seq;

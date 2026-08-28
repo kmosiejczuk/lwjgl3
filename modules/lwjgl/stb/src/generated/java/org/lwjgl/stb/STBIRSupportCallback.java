@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     float scale,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke stbir__support_callback *} */
 public abstract class STBIRSupportCallback extends Callback implements STBIRSupportCallbackI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class STBIRSupportCallback extends Callback implements STBIRSupp
     }
 
     protected STBIRSupportCallback() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     STBIRSupportCallback(long functionPointer) {

@@ -6,34 +6,28 @@
 package org.lwjgl.util.msdfgen;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * A callback invoked for resolving FreeTypee functions at runtime.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     char const *name
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("void * (*) (char const *)")
 public interface MSDFGenFTLoadCallbackI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_pointer,
-        ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_pointer,
+            ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -43,6 +37,7 @@ public interface MSDFGenFTLoadCallbackI extends CallbackI {
         apiClosureRetP(ret, __result);
     }
 
+    /** {@code void * (*) (char const * name)} */
     @NativeType("void *") long invoke(@NativeType("char const *") long name);
 
 }

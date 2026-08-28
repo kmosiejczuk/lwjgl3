@@ -16,57 +16,14 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing supported queues for indirect copy.
- * 
- * <h5>Description</h5>
- * 
- * <p>If the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features-indirectCopy">{@code indirectCopy}</a> feature is supported, {@code supportedQueues} <b>must</b> return at least one supported queue.</p>
- * 
- * <p>If the {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV} structure is included in the {@code pNext} chain of the {@link VkPhysicalDeviceProperties2} structure passed to {@link VK11#vkGetPhysicalDeviceProperties2 GetPhysicalDeviceProperties2}, it is filled in with each corresponding implementation-dependent property.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link NVCopyMemoryIndirect#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV}</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceCopyMemoryIndirectPropertiesNV {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkQueueFlags {@link #supportedQueues};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkQueueFlags supportedQueues;
+ * }}</pre>
  */
-public class VkPhysicalDeviceCopyMemoryIndirectPropertiesNV extends Struct<VkPhysicalDeviceCopyMemoryIndirectPropertiesNV> implements NativeResource {
-
-    /** The struct size in bytes. */
-    public static final int SIZEOF;
-
-    /** The struct alignment in bytes. */
-    public static final int ALIGNOF;
-
-    /** The struct member offsets. */
-    public static final int
-        STYPE,
-        PNEXT,
-        SUPPORTEDQUEUES;
-
-    static {
-        Layout layout = __struct(
-            __member(4),
-            __member(POINTER_SIZE),
-            __member(4)
-        );
-
-        SIZEOF = layout.getSize();
-        ALIGNOF = layout.getAlignment();
-
-        STYPE = layout.offsetof(0);
-        PNEXT = layout.offsetof(1);
-        SUPPORTEDQUEUES = layout.offsetof(2);
-    }
+public class VkPhysicalDeviceCopyMemoryIndirectPropertiesNV extends VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR {
 
     protected VkPhysicalDeviceCopyMemoryIndirectPropertiesNV(long address, @Nullable ByteBuffer container) {
         super(address, container);
@@ -84,30 +41,21 @@ public class VkPhysicalDeviceCopyMemoryIndirectPropertiesNV extends Struct<VkPhy
      * <p>The created instance holds a strong reference to the container object.</p>
      */
     public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV(ByteBuffer container) {
-        super(memAddress(container), __checkContainer(container, SIZEOF));
+        super(container);
     }
 
+    /** Sets the specified value to the {@code sType} field. */
     @Override
-    public int sizeof() { return SIZEOF; }
-
-    /** a {@code VkStructureType} value identifying this structure. */
-    @NativeType("VkStructureType")
-    public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
-    @NativeType("void *")
-    public long pNext() { return npNext(address()); }
-    /** a bitmask of {@code VkQueueFlagBits} indicating the queues on which <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#indirect-copies">indirect copy commands</a> are supported. */
-    @NativeType("VkQueueFlags")
-    public int supportedQueues() { return nsupportedQueues(address()); }
-
-    /** Sets the specified value to the {@link #sType} field. */
     public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link NVCopyMemoryIndirect#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV} value to the {@link #sType} field. */
-    public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV sType$Default() { return sType(NVCopyMemoryIndirect.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the {@link KHRCopyMemoryIndirect#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR} value to the {@code sType} field. */
+    @Override
+    public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV sType$Default() { return sType(KHRCopyMemoryIndirect.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR); }
+    /** Sets the specified value to the {@code pNext} field. */
+    @Override
     public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
+    @Override
     public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV set(
         int sType,
         long pNext
@@ -241,22 +189,8 @@ public class VkPhysicalDeviceCopyMemoryIndirectPropertiesNV extends Struct<VkPhy
 
     // -----------------------------------
 
-    /** Unsafe version of {@link #sType}. */
-    public static int nsType(long struct) { return memGetInt(struct + VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.STYPE); }
-    /** Unsafe version of {@link #pNext}. */
-    public static long npNext(long struct) { return memGetAddress(struct + VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.PNEXT); }
-    /** Unsafe version of {@link #supportedQueues}. */
-    public static int nsupportedQueues(long struct) { return memGetInt(struct + VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.SUPPORTEDQUEUES); }
-
-    /** Unsafe version of {@link #sType(int) sType}. */
-    public static void nsType(long struct, int value) { memPutInt(struct + VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.STYPE, value); }
-    /** Unsafe version of {@link #pNext(long) pNext}. */
-    public static void npNext(long struct, long value) { memPutAddress(struct + VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.PNEXT, value); }
-
-    // -----------------------------------
-
     /** An array of {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV} structs. */
-    public static class Buffer extends StructBuffer<VkPhysicalDeviceCopyMemoryIndirectPropertiesNV, Buffer> implements NativeResource {
+    public static class Buffer extends VkPhysicalDeviceCopyMemoryIndirectPropertiesKHR.Buffer {
 
         private static final VkPhysicalDeviceCopyMemoryIndirectPropertiesNV ELEMENT_FACTORY = VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.create(-1L);
 
@@ -270,7 +204,7 @@ public class VkPhysicalDeviceCopyMemoryIndirectPropertiesNV extends Struct<VkPhy
          * <p>The created buffer instance holds a strong reference to the container object.</p>
          */
         public Buffer(ByteBuffer container) {
-            super(container, container.remaining() / SIZEOF);
+            super(container);
         }
 
         public Buffer(long address, int cap) {
@@ -296,21 +230,14 @@ public class VkPhysicalDeviceCopyMemoryIndirectPropertiesNV extends Struct<VkPhy
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV#sType} field. */
-        @NativeType("VkStructureType")
-        public int sType() { return VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV#pNext} field. */
-        @NativeType("void *")
-        public long pNext() { return VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV#supportedQueues} field. */
-        @NativeType("VkQueueFlags")
-        public int supportedQueues() { return VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.nsupportedQueues(address()); }
-
-        /** Sets the specified value to the {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
+        @Override
         public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.nsType(address(), value); return this; }
-        /** Sets the {@link NVCopyMemoryIndirect#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV} value to the {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV#sType} field. */
-        public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.Buffer sType$Default() { return sType(NVCopyMemoryIndirect.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_NV); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceCopyMemoryIndirectPropertiesNV#pNext} field. */
+        /** Sets the {@link KHRCopyMemoryIndirect#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR} value to the {@code sType} field. */
+        @Override
+        public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.Buffer sType$Default() { return sType(KHRCopyMemoryIndirect.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_PROPERTIES_KHR); }
+        /** Sets the specified value to the {@code pNext} field. */
+        @Override
         public VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceCopyMemoryIndirectPropertiesNV.npNext(address(), value); return this; }
 
     }

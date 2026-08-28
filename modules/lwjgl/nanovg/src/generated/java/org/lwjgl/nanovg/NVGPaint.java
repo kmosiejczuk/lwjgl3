@@ -17,19 +17,15 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A NanoVG paint.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct NVGpaint {
- *     float {@link #xform}[6];
- *     float {@link #extent}[2];
- *     float {@link #radius};
- *     float {@link #feather};
- *     {@link NVGColor NVGcolor} {@link #innerColor};
- *     {@link NVGColor NVGcolor} {@link #outerColor};
- *     int {@link #image};
+ *     float xform[6];
+ *     float extent[2];
+ *     float radius;
+ *     float feather;
+ *     {@link NVGColor NVGcolor} innerColor;
+ *     {@link NVGColor NVGcolor} outerColor;
+ *     int image;
  * }</code></pre>
  */
 @NativeType("struct NVGpaint")
@@ -96,50 +92,50 @@ public class NVGPaint extends Struct<NVGPaint> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the transformation matrix */
+    /** @return a {@link FloatBuffer} view of the {@code xform} field. */
     @NativeType("float[6]")
     public FloatBuffer xform() { return nxform(address()); }
-    /** the transformation matrix */
+    /** @return the value at the specified index of the {@code xform} field. */
     public float xform(int index) { return nxform(address(), index); }
-    /** the extent */
+    /** @return a {@link FloatBuffer} view of the {@code extent} field. */
     @NativeType("float[2]")
     public FloatBuffer extent() { return nextent(address()); }
-    /** the extent */
+    /** @return the value at the specified index of the {@code extent} field. */
     public float extent(int index) { return nextent(address(), index); }
-    /** the radius */
+    /** @return the value of the {@code radius} field. */
     public float radius() { return nradius(address()); }
-    /** the feather amount */
+    /** @return the value of the {@code feather} field. */
     public float feather() { return nfeather(address()); }
-    /** the inner color */
+    /** @return a {@link NVGColor} view of the {@code innerColor} field. */
     @NativeType("NVGcolor")
     public NVGColor innerColor() { return ninnerColor(address()); }
-    /** the outer color */
+    /** @return a {@link NVGColor} view of the {@code outerColor} field. */
     @NativeType("NVGcolor")
     public NVGColor outerColor() { return nouterColor(address()); }
-    /** the image handle */
+    /** @return the value of the {@code image} field. */
     public int image() { return nimage(address()); }
 
-    /** Copies the specified {@link FloatBuffer} to the {@link #xform} field. */
+    /** Copies the specified {@link FloatBuffer} to the {@code xform} field. */
     public NVGPaint xform(@NativeType("float[6]") FloatBuffer value) { nxform(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #xform} field. */
+    /** Sets the specified value at the specified index of the {@code xform} field. */
     public NVGPaint xform(int index, float value) { nxform(address(), index, value); return this; }
-    /** Copies the specified {@link FloatBuffer} to the {@link #extent} field. */
+    /** Copies the specified {@link FloatBuffer} to the {@code extent} field. */
     public NVGPaint extent(@NativeType("float[2]") FloatBuffer value) { nextent(address(), value); return this; }
-    /** Sets the specified value at the specified index of the {@link #extent} field. */
+    /** Sets the specified value at the specified index of the {@code extent} field. */
     public NVGPaint extent(int index, float value) { nextent(address(), index, value); return this; }
-    /** Sets the specified value to the {@link #radius} field. */
+    /** Sets the specified value to the {@code radius} field. */
     public NVGPaint radius(float value) { nradius(address(), value); return this; }
-    /** Sets the specified value to the {@link #feather} field. */
+    /** Sets the specified value to the {@code feather} field. */
     public NVGPaint feather(float value) { nfeather(address(), value); return this; }
-    /** Copies the specified {@link NVGColor} to the {@link #innerColor} field. */
+    /** Copies the specified {@link NVGColor} to the {@code innerColor} field. */
     public NVGPaint innerColor(@NativeType("NVGcolor") NVGColor value) { ninnerColor(address(), value); return this; }
-    /** Passes the {@link #innerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code innerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NVGPaint innerColor(java.util.function.Consumer<NVGColor> consumer) { consumer.accept(innerColor()); return this; }
-    /** Copies the specified {@link NVGColor} to the {@link #outerColor} field. */
+    /** Copies the specified {@link NVGColor} to the {@code outerColor} field. */
     public NVGPaint outerColor(@NativeType("NVGcolor") NVGColor value) { nouterColor(address(), value); return this; }
-    /** Passes the {@link #outerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
+    /** Passes the {@code outerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
     public NVGPaint outerColor(java.util.function.Consumer<NVGColor> consumer) { consumer.accept(outerColor()); return this; }
-    /** Sets the specified value to the {@link #image} field. */
+    /** Sets the specified value to the {@code image} field. */
     public NVGPaint image(int value) { nimage(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -245,25 +241,6 @@ public class NVGPaint extends Struct<NVGPaint> implements NativeResource {
     public static NVGPaint.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NVGPaint mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NVGPaint callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NVGPaint mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NVGPaint callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGPaint.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGPaint.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGPaint.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGPaint.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code NVGPaint} instance allocated on the specified {@link MemoryStack}.
@@ -400,50 +377,50 @@ public class NVGPaint extends Struct<NVGPaint> implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link FloatBuffer} view of the {@link NVGPaint#xform} field. */
+        /** @return a {@link FloatBuffer} view of the {@code xform} field. */
         @NativeType("float[6]")
         public FloatBuffer xform() { return NVGPaint.nxform(address()); }
-        /** @return the value at the specified index of the {@link NVGPaint#xform} field. */
+        /** @return the value at the specified index of the {@code xform} field. */
         public float xform(int index) { return NVGPaint.nxform(address(), index); }
-        /** @return a {@link FloatBuffer} view of the {@link NVGPaint#extent} field. */
+        /** @return a {@link FloatBuffer} view of the {@code extent} field. */
         @NativeType("float[2]")
         public FloatBuffer extent() { return NVGPaint.nextent(address()); }
-        /** @return the value at the specified index of the {@link NVGPaint#extent} field. */
+        /** @return the value at the specified index of the {@code extent} field. */
         public float extent(int index) { return NVGPaint.nextent(address(), index); }
-        /** @return the value of the {@link NVGPaint#radius} field. */
+        /** @return the value of the {@code radius} field. */
         public float radius() { return NVGPaint.nradius(address()); }
-        /** @return the value of the {@link NVGPaint#feather} field. */
+        /** @return the value of the {@code feather} field. */
         public float feather() { return NVGPaint.nfeather(address()); }
-        /** @return a {@link NVGColor} view of the {@link NVGPaint#innerColor} field. */
+        /** @return a {@link NVGColor} view of the {@code innerColor} field. */
         @NativeType("NVGcolor")
         public NVGColor innerColor() { return NVGPaint.ninnerColor(address()); }
-        /** @return a {@link NVGColor} view of the {@link NVGPaint#outerColor} field. */
+        /** @return a {@link NVGColor} view of the {@code outerColor} field. */
         @NativeType("NVGcolor")
         public NVGColor outerColor() { return NVGPaint.nouterColor(address()); }
-        /** @return the value of the {@link NVGPaint#image} field. */
+        /** @return the value of the {@code image} field. */
         public int image() { return NVGPaint.nimage(address()); }
 
-        /** Copies the specified {@link FloatBuffer} to the {@link NVGPaint#xform} field. */
+        /** Copies the specified {@link FloatBuffer} to the {@code xform} field. */
         public NVGPaint.Buffer xform(@NativeType("float[6]") FloatBuffer value) { NVGPaint.nxform(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link NVGPaint#xform} field. */
+        /** Sets the specified value at the specified index of the {@code xform} field. */
         public NVGPaint.Buffer xform(int index, float value) { NVGPaint.nxform(address(), index, value); return this; }
-        /** Copies the specified {@link FloatBuffer} to the {@link NVGPaint#extent} field. */
+        /** Copies the specified {@link FloatBuffer} to the {@code extent} field. */
         public NVGPaint.Buffer extent(@NativeType("float[2]") FloatBuffer value) { NVGPaint.nextent(address(), value); return this; }
-        /** Sets the specified value at the specified index of the {@link NVGPaint#extent} field. */
+        /** Sets the specified value at the specified index of the {@code extent} field. */
         public NVGPaint.Buffer extent(int index, float value) { NVGPaint.nextent(address(), index, value); return this; }
-        /** Sets the specified value to the {@link NVGPaint#radius} field. */
+        /** Sets the specified value to the {@code radius} field. */
         public NVGPaint.Buffer radius(float value) { NVGPaint.nradius(address(), value); return this; }
-        /** Sets the specified value to the {@link NVGPaint#feather} field. */
+        /** Sets the specified value to the {@code feather} field. */
         public NVGPaint.Buffer feather(float value) { NVGPaint.nfeather(address(), value); return this; }
-        /** Copies the specified {@link NVGColor} to the {@link NVGPaint#innerColor} field. */
+        /** Copies the specified {@link NVGColor} to the {@code innerColor} field. */
         public NVGPaint.Buffer innerColor(@NativeType("NVGcolor") NVGColor value) { NVGPaint.ninnerColor(address(), value); return this; }
-        /** Passes the {@link NVGPaint#innerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code innerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NVGPaint.Buffer innerColor(java.util.function.Consumer<NVGColor> consumer) { consumer.accept(innerColor()); return this; }
-        /** Copies the specified {@link NVGColor} to the {@link NVGPaint#outerColor} field. */
+        /** Copies the specified {@link NVGColor} to the {@code outerColor} field. */
         public NVGPaint.Buffer outerColor(@NativeType("NVGcolor") NVGColor value) { NVGPaint.nouterColor(address(), value); return this; }
-        /** Passes the {@link NVGPaint#outerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
+        /** Passes the {@code outerColor} field to the specified {@link java.util.function.Consumer Consumer}. */
         public NVGPaint.Buffer outerColor(java.util.function.Consumer<NVGColor> consumer) { consumer.accept(outerColor()); return this; }
-        /** Sets the specified value to the {@link NVGPaint#image} field. */
+        /** Sets the specified value to the {@code image} field. */
         public NVGPaint.Buffer image(int value) { NVGPaint.nimage(address(), value); return this; }
 
     }

@@ -6,37 +6,28 @@
 package org.lwjgl.glfw;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be passed to the {@link GLFW#glfwSetJoystickCallback SetJoystickCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     int jid,
- *     int event
- * )</code></pre>
- *
- * @since version 3.2
- */
+/** Callback function: {@link #invoke GLFWjoystickfun} */
 @FunctionalInterface
 @NativeType("GLFWjoystickfun")
 public interface GLFWJoystickCallbackI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_sint32, ffi_type_sint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_sint32, ffi_type_sint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -46,12 +37,7 @@ public interface GLFWJoystickCallbackI extends CallbackI {
         );
     }
 
-    /**
-     * Will be called when a joystick is connected to or disconnected from the system.
-     *
-     * @param jid   the joystick that was connected or disconnected
-     * @param event one of {@link GLFW#GLFW_CONNECTED CONNECTED} or {@link GLFW#GLFW_DISCONNECTED DISCONNECTED}. Remaining values reserved for future use.
-     */
+    /** {@code void (* GLFWjoystickfun) (int jid, int event)} */
     void invoke(int jid, int event);
 
 }

@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * FreeType root glyph slot class structure. A glyph slot is a container where individual glyphs can be loaded, be they in outline or bitmap format.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_GlyphSlotRec {
  *     FT_Library library;

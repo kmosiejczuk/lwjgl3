@@ -6,36 +6,28 @@
 package org.lwjgl.util.harfbuzz;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * hb_bool_t (*{@link #invoke}) (
- *     hb_unicode_funcs_t *ufuncs,
- *     hb_codepoint_t a,
- *     hb_codepoint_t b,
- *     hb_codepoint_t *ab,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_unicode_compose_func_t} */
 @FunctionalInterface
 @NativeType("hb_unicode_compose_func_t")
 public interface hb_unicode_compose_func_tI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_uint32, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_uint32, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -49,20 +41,7 @@ public interface hb_unicode_compose_func_tI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /**
-     * A virtual method for the {@code hb_unicode_funcs_t} structure.
-     * 
-     * <p>This method should compose a sequence of two input Unicode code points by canonical equivalence, returning the composed code point in a
-     * {@code hb_codepoint_t} output parameter (if successful). The method must return an {@code hb_bool_t} indicating the success of the composition.</p>
-     * 
-     * <p>Return value: {@code true} is {@code a},{@code b} composed, {@code false} otherwise</p>
-     *
-     * @param ufuncs    a Unicode-functions structure
-     * @param a         the first code point to compose
-     * @param b         the second code point to compose
-     * @param ab        the composed code point
-     * @param user_data user data pointer passed by the caller
-     */
+    /** {@code hb_bool_t (* hb_unicode_compose_func_t) (hb_unicode_funcs_t * ufuncs, hb_codepoint_t a, hb_codepoint_t b, hb_codepoint_t * ab, void * user_data)} */
     @NativeType("hb_bool_t") int invoke(@NativeType("hb_unicode_funcs_t *") long ufuncs, @NativeType("hb_codepoint_t") int a, @NativeType("hb_codepoint_t") int b, @NativeType("hb_codepoint_t *") long ab, @NativeType("void *") long user_data);
 
 }

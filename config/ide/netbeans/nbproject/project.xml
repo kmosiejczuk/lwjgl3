@@ -48,16 +48,6 @@ auxiliary.show.customizer.message=<message>
                     <location>modules/lwjgl/core/src/main/java9</location>
                 </source-folder>
                 <source-folder>
-                    <label>cuda (generated)</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/cuda/src/generated/java</location>
-                </source-folder>
-                <source-folder>
-                    <label>cuda</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/cuda/src/main/java</location>
-                </source-folder>
-                <source-folder>
                     <label>egl (generated)</label>
                     <type>java</type>
                     <location>modules/lwjgl/egl/src/generated/java</location>
@@ -88,11 +78,6 @@ auxiliary.show.customizer.message=<message>
                     <location>modules/lwjgl/jemalloc/src/generated/java</location>
                 </source-folder>
                 <source-folder>
-                    <label>libdivide</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/libdivide/src/generated/java</location>
-                </source-folder>
-                <source-folder>
                     <label>llvm</label>
                     <type>java</type>
                     <location>modules/lwjgl/llvm/src/generated/java</location>
@@ -106,11 +91,6 @@ auxiliary.show.customizer.message=<message>
                     <label>lz4</label>
                     <type>java</type>
                     <location>modules/lwjgl/lz4/src/generated/java</location>
-                </source-folder>
-                <source-folder>
-                    <label>meow</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/meow/src/generated/java</location>
                 </source-folder>
                 <source-folder>
                     <label>nanovg (generated)</label>
@@ -178,19 +158,9 @@ auxiliary.show.customizer.message=<message>
                     <location>modules/lwjgl/opengles/src/main/java</location>
                 </source-folder>
                 <source-folder>
-                    <label>openvr</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/openvr/src/generated/java</location>
-                </source-folder>
-                <source-folder>
                     <label>opus</label>
                     <type>java</type>
                     <location>modules/lwjgl/opus/src/generated/java</location>
-                </source-folder>
-                <source-folder>
-                    <label>ovr</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/ovr/src/generated/java</location>
                 </source-folder>
                 <source-folder>
                     <label>par</label>
@@ -208,11 +178,6 @@ auxiliary.show.customizer.message=<message>
                     <location>modules/lwjgl/rpmalloc/src/generated/java</location>
                 </source-folder>
                 <source-folder>
-                    <label>sse</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/sse/src/generated/java</location>
-                </source-folder>
-                <source-folder>
                     <label>stb</label>
                     <type>java</type>
                     <location>modules/lwjgl/stb/src/generated/java</location>
@@ -226,11 +191,6 @@ auxiliary.show.customizer.message=<message>
                     <label>tinyfd</label>
                     <type>java</type>
                     <location>modules/lwjgl/tinyfd/src/generated/java</location>
-                </source-folder>
-                <source-folder>
-                    <label>tootle</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/tootle/src/generated/java</location>
                 </source-folder>
                 <source-folder>
                     <label>vma</label>
@@ -268,11 +228,6 @@ auxiliary.show.customizer.message=<message>
                     <location>modules/lwjgl/core/src/test/java</location>
                 </source-folder>
                 <source-folder>
-                    <label>libdivide (test)</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/libdivide/src/test/java</location>
-                </source-folder>
-                <source-folder>
                     <label>opencl (test)</label>
                     <type>java</type>
                     <location>modules/lwjgl/opencl/src/test/java</location>
@@ -291,11 +246,6 @@ auxiliary.show.customizer.message=<message>
                     <label>rpmalloc (test)</label>
                     <type>java</type>
                     <location>modules/lwjgl/rpmalloc/src/test/java</location>
-                </source-folder>
-                <source-folder>
-                    <label>sse (test)</label>
-                    <type>java</type>
-                    <location>modules/lwjgl/sse/src/test/java</location>
                 </source-folder>
                 <source-folder>
                     <label>yoga (test)</label>
@@ -347,14 +297,6 @@ auxiliary.show.customizer.message=<message>
                         <location>modules/lwjgl/core/src/main/java9</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>cuda (generated)</label>
-                        <location>modules/lwjgl/cuda/src/generated/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>cuda</label>
-                        <location>modules/lwjgl/cuda/src/main/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>egl (generated)</label>
                         <location>modules/lwjgl/egl/src/generated/java</location>
                     </source-folder>
@@ -379,10 +321,6 @@ auxiliary.show.customizer.message=<message>
                         <location>modules/lwjgl/jemalloc/src/generated/java</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>libdivide</label>
-                        <location>modules/lwjgl/libdivide/src/generated/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>llvm</label>
                         <location>modules/lwjgl/llvm/src/generated/java</location>
                     </source-folder>
@@ -393,10 +331,6 @@ auxiliary.show.customizer.message=<message>
                     <source-folder style="packages">
                         <label>lz4</label>
                         <location>modules/lwjgl/lz4/src/generated/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>meow</label>
-                        <location>modules/lwjgl/meow/src/generated/java</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>nanovg (generated)</label>
@@ -451,16 +385,8 @@ auxiliary.show.customizer.message=<message>
                         <location>modules/lwjgl/opengles/src/main/java</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>openvr</label>
-                        <location>modules/lwjgl/openvr/src/generated/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>opus</label>
                         <location>modules/lwjgl/opus/src/generated/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>ovr</label>
-                        <location>modules/lwjgl/ovr/src/generated/java</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>par</label>
@@ -475,10 +401,6 @@ auxiliary.show.customizer.message=<message>
                         <location>modules/lwjgl/rpmalloc/src/generated/java</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>sse</label>
-                        <location>modules/lwjgl/sse/src/generated/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>stb</label>
                         <location>modules/lwjgl/stb/src/generated/java</location>
                     </source-folder>
@@ -489,10 +411,6 @@ auxiliary.show.customizer.message=<message>
                     <source-folder style="packages">
                         <label>tinyfd</label>
                         <location>modules/lwjgl/tinyfd/src/generated/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>tootle</label>
-                        <location>modules/lwjgl/tootle/src/generated/java</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>vma</label>
@@ -523,10 +441,6 @@ auxiliary.show.customizer.message=<message>
                         <location>modules/lwjgl/core/src/test/java</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>libdivide (test)</label>
-                        <location>modules/lwjgl/libdivide/src/test/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>opencl (test)</label>
                         <location>modules/lwjgl/opencl/src/test/java</location>
                     </source-folder>
@@ -541,10 +455,6 @@ auxiliary.show.customizer.message=<message>
                     <source-folder style="packages">
                         <label>rpmalloc (test)</label>
                         <location>modules/lwjgl/rpmalloc/src/test/java</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>sse (test)</label>
-                        <location>modules/lwjgl/sse/src/test/java</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>yoga (test)</label>
@@ -628,24 +538,6 @@ auxiliary.show.customizer.message=<message>
                 <source-level>17</source-level>
             </compilation-unit>
             <compilation-unit>
-                <package-root>modules/lwjgl/core21/src/main/java</package-root>
-                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:modules/lwjgl/core21/src/main/java</classpath>
-                <built-to>bin/classes/lwjgl/core/META-INF/versions/21</built-to>
-                <source-level>21</source-level>
-            </compilation-unit>
-            <compilation-unit>
-                <package-root>modules/lwjgl/cuda/src/generated/java</package-root>
-                <classpath mode="compile">modules/lwjgl/cuda/src/main/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/cuda</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
-                <package-root>modules/lwjgl/cuda/src/main/java</package-root>
-                <classpath mode="compile">modules/lwjgl/cuda/src/generated/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/cuda</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
                 <package-root>modules/lwjgl/egl/src/generated/java</package-root>
                 <classpath mode="compile">modules/lwjgl/egl/src/main/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
                 <built-to>bin/classes/lwjgl/egl</built-to>
@@ -682,12 +574,6 @@ auxiliary.show.customizer.message=<message>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
-                <package-root>modules/lwjgl/libdivide/src/generated/java</package-root>
-                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/libdivide</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
                 <package-root>modules/lwjgl/llvm/src/generated/java</package-root>
                 <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
                 <built-to>bin/classes/lwjgl/llvm</built-to>
@@ -703,12 +589,6 @@ auxiliary.show.customizer.message=<message>
                 <package-root>modules/lwjgl/lz4/src/generated/java</package-root>
                 <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
                 <built-to>bin/classes/lwjgl/lz4</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
-                <package-root>modules/lwjgl/meow/src/generated/java</package-root>
-                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/meow</built-to>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
@@ -790,21 +670,9 @@ auxiliary.show.customizer.message=<message>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
-                <package-root>modules/lwjgl/openvr/src/generated/java</package-root>
-                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/openvr</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
                 <package-root>modules/lwjgl/opus/src/generated/java</package-root>
                 <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
                 <built-to>bin/classes/lwjgl/opus</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
-                <package-root>modules/lwjgl/ovr/src/generated/java</package-root>
-                <classpath mode="compile">modules/lwjgl/vulkan/src/generated/java:modules/lwjgl/vulkan/src/main/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/ovr</built-to>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
@@ -826,12 +694,6 @@ auxiliary.show.customizer.message=<message>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
-                <package-root>modules/lwjgl/sse/src/generated/java</package-root>
-                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/sse</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
                 <package-root>modules/lwjgl/stb/src/generated/java</package-root>
                 <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
                 <built-to>bin/classes/lwjgl/stb</built-to>
@@ -847,12 +709,6 @@ auxiliary.show.customizer.message=<message>
                 <package-root>modules/lwjgl/tinyfd/src/generated/java</package-root>
                 <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
                 <built-to>bin/classes/lwjgl/tinyfd</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
-                <package-root>modules/lwjgl/tootle/src/generated/java</package-root>
-                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar</classpath>
-                <built-to>bin/classes/lwjgl/tootle</built-to>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
@@ -899,13 +755,6 @@ auxiliary.show.customizer.message=<message>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
-                <package-root>modules/lwjgl/libdivide/src/test/java</package-root>
-                <unit-tests/>
-                <classpath mode="compile">modules/lwjgl/libdivide/src/generated/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar:bin/libs/java/testng.jar</classpath>
-                <built-to>bin/classes/test</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
                 <package-root>modules/lwjgl/opencl/src/test/java</package-root>
                 <unit-tests/>
                 <classpath mode="compile">modules/lwjgl/opencl/src/generated/java:modules/lwjgl/opencl/src/main/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar:bin/libs/java/testng.jar</classpath>
@@ -934,13 +783,6 @@ auxiliary.show.customizer.message=<message>
                 <source-level>1.8</source-level>
             </compilation-unit>
             <compilation-unit>
-                <package-root>modules/lwjgl/sse/src/test/java</package-root>
-                <unit-tests/>
-                <classpath mode="compile">modules/lwjgl/sse/src/generated/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar:bin/libs/java/testng.jar</classpath>
-                <built-to>bin/classes/test</built-to>
-                <source-level>1.8</source-level>
-            </compilation-unit>
-            <compilation-unit>
                 <package-root>modules/lwjgl/yoga/src/test/java</package-root>
                 <unit-tests/>
                 <classpath mode="compile">modules/lwjgl/yoga/src/generated/java:modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:bin/libs/java/jspecify.jar:bin/libs/java/testng.jar</classpath>
@@ -950,7 +792,7 @@ auxiliary.show.customizer.message=<message>
             <compilation-unit>
                 <package-root>modules/samples/src/test/java</package-root>
                 <unit-tests/>
-                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:modules/lwjgl/assimp/src/generated/java:modules/lwjgl/bgfx/src/generated/java:modules/lwjgl/cuda/src/generated/java:modules/lwjgl/cuda/src/main/java:modules/lwjgl/egl/src/generated/java:modules/lwjgl/egl/src/main/java:modules/lwjgl/glfw/src/generated/java:modules/lwjgl/glfw/src/main/java:modules/lwjgl/jawt/src/generated/java:modules/lwjgl/jemalloc/src/generated/java:modules/lwjgl/libdivide/src/generated/java:modules/lwjgl/llvm/src/generated/java:modules/lwjgl/lmdb/src/generated/java:modules/lwjgl/lz4/src/generated/java:modules/lwjgl/meow/src/generated/java:modules/lwjgl/nanovg/src/generated/java:modules/lwjgl/nanovg/src/main/java:modules/lwjgl/nfd/src/generated/java:modules/lwjgl/nuklear/src/generated/java:modules/lwjgl/odbc/src/generated/java:modules/lwjgl/openal/src/generated/java:modules/lwjgl/openal/src/main/java:modules/lwjgl/opencl/src/generated/java:modules/lwjgl/opencl/src/main/java:modules/lwjgl/opengl/src/generated/java:modules/lwjgl/opengl/src/main/java:modules/lwjgl/opengles/src/generated/java:modules/lwjgl/opengles/src/main/java:modules/lwjgl/openvr/src/generated/java:modules/lwjgl/opus/src/generated/java:modules/lwjgl/ovr/src/generated/java:modules/lwjgl/par/src/generated/java:modules/lwjgl/remotery/src/generated/java:modules/lwjgl/rpmalloc/src/generated/java:modules/lwjgl/sse/src/generated/java:modules/lwjgl/stb/src/generated/java:modules/lwjgl/tinyexr/src/generated/java:modules/lwjgl/tinyfd/src/generated/java:modules/lwjgl/tootle/src/generated/java:modules/lwjgl/vma/src/generated/java:modules/lwjgl/vulkan/src/generated/java:modules/lwjgl/vulkan/src/main/java:modules/lwjgl/xxhash/src/generated/java:modules/lwjgl/yoga/src/generated/java:modules/lwjgl/zstd/src/generated/java:modules/lwjgl/core/src/test/java:modules/lwjgl/libdivide/src/test/java:modules/lwjgl/opencl/src/test/java:modules/lwjgl/opus/src/test/java:modules/lwjgl/par/src/test/java:modules/lwjgl/rpmalloc/src/test/java:modules/lwjgl/sse/src/test/java:modules/lwjgl/yoga/src/test/java:modules/samples/src/test/java:bin/libs/java/joml.jar:bin/libs/java/jmh-core.jar:bin/libs/java/jmh-generator-annprocess.jar:bin/libs/java/jopt-simple.jar:bin/libs/java/commons-math3.jar:bin/libs/java/jspecify.jar:bin/libs/java/testng.jar</classpath>
+                <classpath mode="compile">modules/lwjgl/core/src/generated/java:modules/lwjgl/core/src/main/java:modules/lwjgl/assimp/src/generated/java:modules/lwjgl/bgfx/src/generated/java:modules/lwjgl/egl/src/generated/java:modules/lwjgl/egl/src/main/java:modules/lwjgl/glfw/src/generated/java:modules/lwjgl/glfw/src/main/java:modules/lwjgl/jawt/src/generated/java:modules/lwjgl/jemalloc/src/generated/java:modules/lwjgl/llvm/src/generated/java:modules/lwjgl/lmdb/src/generated/java:modules/lwjgl/lz4/src/generated/java:modules/lwjgl/nanovg/src/generated/java:modules/lwjgl/nanovg/src/main/java:modules/lwjgl/nfd/src/generated/java:modules/lwjgl/nuklear/src/generated/java:modules/lwjgl/odbc/src/generated/java:modules/lwjgl/openal/src/generated/java:modules/lwjgl/openal/src/main/java:modules/lwjgl/opencl/src/generated/java:modules/lwjgl/opencl/src/main/java:modules/lwjgl/opengl/src/generated/java:modules/lwjgl/opengl/src/main/java:modules/lwjgl/opengles/src/generated/java:modules/lwjgl/opengles/src/main/java:modules/lwjgl/opus/src/generated/java:modules/lwjgl/par/src/generated/java:modules/lwjgl/remotery/src/generated/java:modules/lwjgl/rpmalloc/src/generated/java:modules/lwjgl/stb/src/generated/java:modules/lwjgl/tinyexr/src/generated/java:modules/lwjgl/tinyfd/src/generated/java:modules/lwjgl/vma/src/generated/java:modules/lwjgl/vulkan/src/generated/java:modules/lwjgl/vulkan/src/main/java:modules/lwjgl/xxhash/src/generated/java:modules/lwjgl/yoga/src/generated/java:modules/lwjgl/zstd/src/generated/java:modules/lwjgl/core/src/test/java:modules/lwjgl/opencl/src/test/java:modules/lwjgl/opus/src/test/java:modules/lwjgl/par/src/test/java:modules/lwjgl/rpmalloc/src/test/java:modules/lwjgl/yoga/src/test/java:modules/samples/src/test/java:bin/libs/java/joml.jar:bin/libs/java/jmh-core.jar:bin/libs/java/jmh-generator-annprocess.jar:bin/libs/java/jopt-simple.jar:bin/libs/java/commons-math3.jar:bin/libs/java/jspecify.jar:bin/libs/java/testng.jar</classpath>
                 <built-to>bin/classes/samples</built-to>
                 <source-level>1.8</source-level>
             </compilation-unit>

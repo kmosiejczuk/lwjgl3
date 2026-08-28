@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FMOD_CODEC_STATE_FUNCTIONS {
  *     {@link FMOD_CODEC_METADATA_FUNCI FMOD_CODEC_METADATA_FUNC} metadata;

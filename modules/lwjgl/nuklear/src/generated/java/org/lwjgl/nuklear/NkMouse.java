@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.nuklear.Nuklear.NK_BUTTON_MAX;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct nk_mouse {
  *     {@link NkMouseButton struct nk_mouse_button} buttons[NK_BUTTON_MAX];

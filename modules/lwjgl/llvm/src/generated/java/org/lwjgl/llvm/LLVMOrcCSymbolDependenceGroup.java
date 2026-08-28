@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A set of symbols that share dependencies.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct LLVMOrcCSymbolDependenceGroup {
  *     {@link LLVMOrcCSymbolsList LLVMOrcCSymbolsList} Symbols;

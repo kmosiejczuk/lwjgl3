@@ -79,16 +79,19 @@ enum class Module(
         Written in C++, it is available under a liberal BSD license. Assimp loads all input model formats into one straightforward data structure for further
         processing. This feature set is augmented by various post processing tools, including frequently-needed operations such as computing normal and tangent
         vectors.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://assimp-docs.readthedocs.io/en/latest/", "Documentation"),
+            url("https://github.com/assimp/assimp", "Source Repository")
+        )}
         """
     ),
     BGFX(
         "bgfx",
         "org.lwjgl.bgfx",
         """
-        Contains bindings to the ${url("https://github.com/bkaradzic/bgfx", "bgfx")} library.
-
-        The bgfx documentation can be found online ${url("https://bkaradzic.github.io/bgfx/", "here")}. The API reference is available
-        ${url("https://bkaradzic.github.io/bgfx/bgfx.html", "here")}.
+        Contains bindings to the ${url("https://bkaradzic.github.io/bgfx/", "bgfx")} library.
 
         Starting with LWJGL 3.2.1, builds of the bgfx tools are available for download via the LWJGL site's <a href="https://www.lwjgl.org/browse">file
         browser</a>. These tools are:
@@ -100,21 +103,13 @@ enum class Module(
         )}
         The binaries are built from source, at the corresponding commit that was used to build the bgfx library. For example, the latest Windows x64 version of
         shaderc can be found under {@code nightly/windows/x64/bgfx-tools/}.
-        """
-    ),
-    CUDA(
-        "cuda",
-        "org.lwjgl.cuda",
-        """
-        Contains bindings to <a href="https://developer.nvidia.com/cuda-zone">CUDA</a>.
 
-        <h3>UNSTABLE API</h3>
-
-        Until these bindings are sufficiently tested, this API should be considered unstable. Also, bindings to more (and eventually, all) CUDA Toolkit
-        libraries will be added in the near future.
-        """,
-        CallingConvention.STDCALL,
-        arrayOverloads = false
+        <h3>Resources</h3>
+        ${ul(
+            url("https://bkaradzic.github.io/bgfx/bgfx.html", "Documentation"),
+            url("https://github.com/bkaradzic/bgfx", "Source Repository")
+        )}
+        """
     ),
     EGL(
         "egl",
@@ -124,8 +119,12 @@ enum class Module(
         the underlying native platform window system. It handles graphics context management, surface/buffer binding and rendering synchronization and enables
         high-performance, accelerated, mixed-mode 2D and 3D rendering using other Khronos APIs.
 
-        The ${url("https://www.khronos.org/registry/EGL/", "Khronos EGL registry")} is a useful online resource that contains the EGL specification, as well
-        as specifications of EGL extensions.
+        <h3>Resources</h3>
+        ${ul(
+            url("https://registry.khronos.org/EGL/sdk/docs/man/", "Reference Pages"),
+            url("https://registry.khronos.org/EGL/", "EGL Registry"),
+            url("https://github.com/KhronosGroup/EGL-Registry", "Source Repository")
+        )}
         """,
         CallingConvention.STDCALL
     ),
@@ -159,6 +158,12 @@ enum class Module(
 
         It is written in C, designed to be small, efficient, highly customizable, and portable while capable of producing high-quality output (glyph images) of
         most vector and bitmap font formats.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://freetype.org/freetype2/docs/documentation.html", "Documentation"),
+            url("https://github.com/freetype/freetype", "Source Repository")
+        )}
         """,
         arrayOverloads = false
     ),
@@ -180,6 +185,12 @@ enum class Module(
         Applications that cannot function with the above limitation may set {@link org.lwjgl.system.Configuration\#GLFW_LIBRARY_NAME GLFW_LIBRARY_NAME} to the
         value {@code "glfw_async"}. This will instruct LWJGL to load an alternative GLFW build that dispatches Cocoa calls to the main thread in blocking mode.
         The other window toolkit must be initialized (e.g. with AWT's {@code Toolkit.getDefaultToolkit()}) before #Init() is called.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://www.glfw.org/documentation.html", "Documentation"),
+            url("https://github.com/glfw/glfw", "Source Repository")
+        )}
         """
     ),
     HARFBUZZ(
@@ -190,6 +201,12 @@ enum class Module(
 
         Using the HarfBuzz library allows programs to convert a sequence of Unicode input into properly formatted and positioned glyph output — for any writing
         system and language.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://harfbuzz.github.io/user-manual.html", "Documentation"),
+            url("https://github.com/harfbuzz/harfbuzz", "Source Repository")
+        )}
         """,
         arrayOverloads = false
     ),
@@ -209,6 +226,12 @@ enum class Module(
 
         hwloc may also help many applications just by providing a portable CPU and memory binding API and a reliable way to find out how many cores and/or
         hardware threads are available.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://www.open-mpi.org/projects/hwloc/doc/", "Documentation"),
+            url("https://github.com/open-mpi/hwloc", "Source Repository")
+        )}
         """,
         arrayOverloads = false
     ),
@@ -225,9 +248,6 @@ enum class Module(
         Contains bindings to the ${url("https://jemalloc.net/", "jemalloc")} library. jemalloc is a general purpose malloc implementation that emphasizes
         fragmentation avoidance and scalable concurrency support.
 
-        The jemalloc documentation can be found ${url("https://jemalloc.net/jemalloc.3.html", "here")}. The jemalloc
-        ${url("https://github.com/jemalloc/jemalloc/wiki", "wiki")} also contains useful information.
-
         The jemalloc shared library that comes with LWJGL is configured with:
         ${ul(
             "--with-jemalloc-prefix=je_",
@@ -243,6 +263,12 @@ enum class Module(
 
         Dynamic configuration (for enabled features) is also possible, using either the {@code MALLOC_CONF} environment variable or the
         ${url("https://jemalloc.net/jemalloc.3.html\\#mallctl_namespace", "MALLCTL NAMESPACE")} and the {@code mallctl*} functions.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://jemalloc.net/jemalloc.3.html", "Documentation"),
+            url("https://github.com/jemalloc/jemalloc", "Source Repository")
+        )}
         """
     ),
     KTX(
@@ -255,15 +281,15 @@ enum class Module(
         The LWJGL bindings support the KTX encoding functionality, but its presence is optional. Applications may choose to deploy the read-only version of the
         KTX library ({@code ktx_read}) and the bindings will work. The {@link org.lwjgl.system.Configuration\#KTX_LIBRARY_NAME KTX_LIBRARY_NAME} option can be
         used to change the loaded library.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://github.com/KhronosGroup/3D-Formats-Guidelines/blob/main/KTXDeveloperGuide.md", "Developer Guide"),
+            url("https://registry.khronos.org/KTX/specs/2.0/ktxspec.v2.html", "Specification"),
+            url("https://github.com/KhronosGroup/KTX-Software", "Source Repository")
+        )}
         """,
         CallingConvention.STDCALL,
-        arrayOverloads = false
-    ),
-    LIBDIVIDE(
-        "libdivide",
-        "org.lwjgl.util.libdivide",
-        "Contains bindings to ${url("https://libdivide.com/", "libdivide")}.",
-        library = JNILibrary.simple(),
         arrayOverloads = false
     ),
     LLVM(
@@ -272,14 +298,16 @@ enum class Module(
         """
         Contains bindings to <a href="https://llvm.org/">LLVM</a>, a collection of modular and reusable compiler and toolchain technologies.
 
-        <h3>UNSTABLE API</h3>
-
-        Until these bindings are sufficiently tested, this API should be considered unstable.
-
         <h3>BINDINGS ONLY</h3>
 
         LWJGL does not currently include pre-built LLVM/Clang binaries. The user must download or build LLVM separately and use
         {@link org.lwjgl.system.Configuration Configuration} to point LWJGL to the appropriate binaries.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://llvm.org/docs/", "Documentation"),
+            url("https://github.com/llvm/llvm-project", "Source Repository")
+        )}
         """,
         library = JNILibrary.create("LibLLVM"),
         arrayOverloads = false
@@ -296,99 +324,11 @@ enum class Module(
         fully transactional with full ACID semantics, and when the memory map is read-only, the database integrity cannot be corrupted by stray pointer writes
         from application code.
 
-        The library is fully thread-aware and supports concurrent read/write access from multiple processes and threads. Data pages use a copy-on-write
-        strategy so no active data pages are ever overwritten, which also provides resistance to corruption and eliminates the need of any special recovery
-        procedures after a system crash. Writes are fully serialized; only one write transaction may be active at a time, which guarantees that writers can
-        never deadlock. The database structure is multi-versioned so readers run with no locks; writers cannot block readers, and readers don't block writers.
-
-        Unlike other well-known database mechanisms which use either write-ahead transaction logs or append-only data writes, LMDB requires no maintenance
-        during operation. Both write-ahead loggers and append-only databases require periodic checkpointing and/or compaction of their log or database files
-        otherwise they grow without bound. LMDB tracks free pages within the database and re-uses them for new write operations, so the database size does not
-        grow without bound in normal use.
-
-        The memory map can be used as a read-only or read-write map. It is read-only by default as this provides total immunity to corruption. Using read-write
-        mode offers much higher write performance, but adds the possibility for stray application writes thru pointers to silently corrupt the database. Of
-        course if your application code is known to be bug-free (...) then this is not an issue.
-
-        <h3>Restrictions/caveats (in addition to those listed for some functions)</h3>
+        <h3>Resources</h3>
         ${ul(
-            """
-            Only the database owner should normally use the database on BSD systems or when otherwise configured with {@code MDB_USE_POSIX_SEM}. Multiple users
-            can cause startup to fail later, as noted above.
-            """,
-            """
-            There is normally no pure read-only mode, since readers need write access to locks and lock file. Exceptions: On read-only filesystems or with the
-            #NOLOCK flag described under #env_open().
-            """,
-            """
-            An LMDB configuration will often reserve considerable unused memory address space and maybe file size for future growth. This does not use actual
-            memory or disk space, but users may need to understand the difference so they won't be scared off.
-            """,
-            """
-            By default, in versions before 0.9.10, unused portions of the data file might receive garbage data from memory freed by other code. (This does not
-            happen when using the #WRITEMAP flag.) As of 0.9.10 the default behavior is to initialize such memory before writing to the data file. Since there
-            may be a slight performance cost due to this initialization, applications may disable it using the #NOMEMINIT flag. Applications handling sensitive
-            data which must not be written should not use this flag. This flag is irrelevant when using #WRITEMAP.
-            """,
-            """
-            A thread can only use one transaction at a time, plus any child transactions. Each transaction belongs to one thread. The #NOTLS flag changes this
-            for read-only transactions.
-            """,
-            "Use an {@code MDB_env*} in the process which opened it, without {@code fork()}ing.",
-            """
-            Do not have open an LMDB database twice in the same process at the same time. Not even from a plain {@code open()} call - {@code close()}ing it
-            breaks {@code flock()} advisory locking.
-            """,
-            """
-            Avoid long-lived transactions. Read transactions prevent reuse of pages freed by newer write transactions, thus the database can grow quickly.
-            Write transactions prevent other write transactions, since writes are serialized.
-            """,
-            """
-            Avoid suspending a process with active transactions. These would then be "long-lived" as above. Also read transactions suspended when writers
-            commit could sometimes see wrong data.
-            """
+            url("http://www.lmdb.tech/doc/", "Documentation"),
+            url("https://github.com/LMDB/lmdb", "Source Repository")
         )}
-
-        ...when several processes can use a database concurrently:
-        ${ul(
-            """
-            Avoid aborting a process with an active transaction. The transaction becomes "long-lived" as above until a check for stale readers is performed or
-            the lockfile is reset, since the process may not remove it from the lockfile.
-
-            This does not apply to write transactions if the system clears stale writers, see above.
-            """,
-            "If you do that anyway, do a periodic check for stale readers. Or close the environment once in a while, so the lockfile can get reset.",
-            """
-            Do not use LMDB databases on remote filesystems, even between processes on the same host. This breaks {@code flock()} on some OSes, possibly memory
-            map sync, and certainly sync between programs on different hosts.
-            """,
-            "Opening a database can fail if another process is opening or closing it at exactly the same time."
-        )}
-
-        <h3>Reader Lock Table</h3>
-
-        Readers don't acquire any locks for their data access. Instead, they simply record their transaction ID in the reader table. The reader mutex is needed
-        just to find an empty slot in the reader table. The slot's address is saved in thread-specific data so that subsequent read transactions started by the
-        same thread need no further locking to proceed.
-
-        If #NOTLS is set, the slot address is not saved in thread-specific data.
-
-        No reader table is used if the database is on a read-only filesystem, or if #NOLOCK is set.
-
-        Since the database uses multi-version concurrency control, readers don't actually need any locking. This table is used to keep track of which readers
-        are using data from which old transactions, so that we'll know when a particular old transaction is no longer in use. Old transactions that have
-        discarded any data pages can then have those pages reclaimed for use by a later write transaction.
-
-        The lock table is constructed such that reader slots are aligned with the processor's cache line size. Any slot is only ever used by one thread. This
-        alignment guarantees that there will be no contention or cache thrashing as threads update their own slot info, and also eliminates any need for
-        locking when accessing a slot.
-
-        A writer thread will scan every slot in the table to determine the oldest outstanding reader transaction. Any freed pages older than this will be
-        reclaimed by the writer. The writer doesn't use any locks when scanning this table. This means that there's no guarantee that the writer will see the
-        most up-to-date reader info, but that's not required for correct operation - all we need is to know the upper bound on the oldest reader, we don't care
-        at all about the newest reader. So the only consequence of reading stale information here is that old pages might hang around a while longer before
-        being reclaimed. That's actually good anyway, because the longer we delay reclaiming old pages, the more likely it is that a string of contiguous pages
-        can be found after coalescing old pages from many old transactions together.
         """,
         library = JNILibrary.create("LibLMDB", setupAllocator = true)
     ),
@@ -399,15 +339,13 @@ enum class Module(
         Contains bindings to ${url("https://lz4.org/", "LZ4")}, a lossless compression algorithm, providing compression speed &gt; 500 MB/s per core,
         scalable with multi-cores CPU. It features an extremely fast decoder, with speed in multiple GB/s per core, typically reaching RAM speed limits on
         multi-core systems.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://github.com/lz4/lz4", "Source Repository")
+        )}
         """,
         library = JNILibrary.create("LibLZ4", setupAllocator = true),
-        arrayOverloads = false
-    ),
-    MEOW(
-        "meow",
-        "org.lwjgl.util.meow",
-        "Contains bindings to ${url("https://github.com/cmuratori/meow_hash", "Meow hash")}, an extremely fast non-cryptographic hash.",
-        library = JNILibrary.create("LibMeow"),
         arrayOverloads = false
     ),
     MESHOPTIMIZER(
@@ -450,14 +388,17 @@ enum class Module(
         "nuklear",
         "org.lwjgl.nuklear",
         """
-        Bindings to the ${url("https://github.com/vurtun/nuklear", "Nuklear")} library.
+        Bindings to the ${url("https://immediate-mode-ui.github.io/Nuklear/", "Nuklear")} library.
 
         A minimal state immediate mode graphical user interface single header toolkit written in ANSI C and licensed under public domain. It was designed as a
         simple embeddable user interface for application and does not have any dependencies, a default renderbackend or OS window and input handling but
         instead provides a very modular library approach by using simple input state for input and draw commands describing primitive shapes as output. So
         instead of providing a layered library that tries to abstract over a number of platform and render backends it only focuses on the actual UI.
 
-        Developed by Micha Mettke.
+        <h3>Resources</h3>
+        ${ul(
+            url("https://github.com/Immediate-Mode-UI/Nuklear", "Source Repository")
+        )}
         """,
         library = JNILibrary.simple()
     ),
@@ -465,7 +406,7 @@ enum class Module(
         "odbc",
         "org.lwjgl.odbc",
         """
-        Contains bindings to ${url("https://docs.microsoft.com/en-us/sql/odbc/microsoft-open-database-connectivity-odbc", "ODBC")}.
+        Contains bindings to ${url("https://learn.microsoft.com/en-us/sql/odbc/microsoft-open-database-connectivity-odbc", "ODBC")}.
 
         The Microsoft Open Database Connectivity (ODBC) interface is a C programming language interface that makes it possible for applications to access data
         from a variety of database management systems (DBMSs). ODBC is a low-level, high-performance interface that is designed specifically for relational
@@ -474,6 +415,11 @@ enum class Module(
         The ODBC interface allows maximum interoperability — an application can access data in diverse DBMSs through a single interface. Moreover, that
         application will be independent of any DBMS from which it accesses data. Users of the application can add software components called drivers, which
         interface between an application and a specific DBMS.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://learn.microsoft.com/en-us/sql/odbc/reference/odbc-programmer-s-reference", "Documentation")
+        )}
         """,
         CallingConvention.STDCALL,
         arrayOverloads = false
@@ -492,6 +438,13 @@ enum class Module(
         In addition to standard OpenAL features, OpenAL Soft supports ${url("https://en.wikipedia.org/wiki/Head-related_transfer_function", "HRTF")},
         ${url("https://en.wikipedia.org/wiki/Ambisonics", "Ambisonics")} and ${url("https://www.codemasters.com/research/3D_sound_for_3D_games.pdf", "3D7.1")}.
         Documentation for these features is available in the OpenAL Soft ${url("https://github.com/kcat/openal-soft/tree/master/docs", "repository")}.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://www.openal.org/documentation/openal-1.1-specification.pdf", "Documentation"),
+            url("https://www.openal.org/documentation/OpenAL_Programmers_Guide.pdf", "Programmer's Guide"),
+            url("https://github.com/kcat/openal-soft", "Source Repository")
+        )}
         """
     ),
     OPENCL(
@@ -500,8 +453,13 @@ enum class Module(
         """
         Contains bindings to the ${url("https://www.khronos.org/opencl/", "OpenCL")} cross-platform parallel programming API.
 
-        The ${url("https://www.khronos.org/registry/OpenCL/", "Khronos OpenCL registry")} is a useful online resource that contains the OpenCL specification, as
-        well as the specifications of OpenCL extensions.
+        <h3>Resources</h3>
+        ${ul(
+            url("https://registry.khronos.org/OpenCL/sdk/3.0/docs/man/html/", "Reference Pages"),
+            url("https://registry.khronos.org/OpenCL/", "OpenCL Registry"),
+            url("https://github.com/KhronosGroup/OpenCL-Registry", "Source Repository"),
+            url("https://github.com/KhronosGroup/OpenCL-Headers", "Source Repository (headers)")
+        )}
         """,
         CallingConvention.STDCALL
     ),
@@ -537,6 +495,14 @@ enum class Module(
             "Should create a 3.3 Compatibility Profile context. A Core Profile context would have extra validation overhead.",
             "Should use the Core Profile hierarchy to avoid deprecated symbols. Auto-complete lists in an IDE will also be cleaner."
         )}
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://docs.gl/", "Reference Pages (docs.gl)"),
+            url("https://registry.khronos.org/OpenGL-Refpages/gl4/", "Reference Pages (Khronos)"),
+            url("https://registry.khronos.org/OpenGL/index_gl.php", "OpenGL Registry"),
+            url("https://github.com/KhronosGroup/OpenGL-Registry", "Source Repository")
+        )}
         """,
         CallingConvention.STDCALL,
         library = JNILibrary.create("GL", custom = true)
@@ -549,30 +515,16 @@ enum class Module(
         graphics on embedded systems - including consoles, phones, appliances and vehicles. It consists of well-defined subsets of desktop OpenGL, creating a
         flexible and powerful low-level interface between software and graphics acceleration.
 
-        The ${url(
-            "https://www.khronos.org/registry/OpenGL/index_es.php",
-            "Khronos OpenGL ES registry"
-        )} is a useful online resource that contains the OpenGL ES and OpenGL
-        ES Shading Language specifications, as well as specifications of OpenGL ES extensions. The ${url(
-            "https://www.khronos.org/registry/OpenGL-Refpages/",
-            "OpenGL ES Reference Pages"
-        )} is another convenient source of documentation.
+        <h3>Resources</h3>
+        ${ul(
+            url("https://docs.gl/", "Reference Pages (docs.gl)"),
+            url("https://registry.khronos.org/OpenGL-Refpages/es3/", "Reference Pages (Khronos)"),
+            url("https://registry.khronos.org/OpenGL/index_es.php", "OpenGL ES Registry"),
+            url("https://github.com/KhronosGroup/OpenGL-Registry", "Source Repository")
+        )}
         """,
         CallingConvention.STDCALL,
         library = JNILibrary.create("GLES", custom = true)
-    ),
-    OPENVR(
-        "openvr",
-        "org.lwjgl.openvr",
-        """
-        Contains bindings to ${url("https://github.com/ValveSoftware/openvr", "OpenVR")}.
-
-        OpenVR is an API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the
-        hardware they are targeting.
-        """,
-        CallingConvention.STDCALL,
-        library = JNILibrary.create("OpenVR", custom = true),
-        arrayOverloads = false
     ),
     OPENXR(
         "openxr",
@@ -582,6 +534,13 @@ enum class Module(
 
         OpenXR is a royalty-free, open standard that provides high-performance access to Augmented Reality (AR) and Virtual Reality (VR)—collectively known as
         XR—platforms and devices.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://registry.khronos.org/OpenXR/specs/1.1/man/html/openxr.html", "Reference Pages"),
+            url("https://registry.khronos.org/OpenXR/", "OpenXR Registry"),
+            url("https://github.com/KhronosGroup/OpenXR-SDK", "Source Repository (loader)"),
+        )}
         """,
         CallingConvention.STDCALL,
         arrayOverloads = false
@@ -589,18 +548,16 @@ enum class Module(
     OPUS(
         "opus",
         "org.lwjgl.util.opus",
-        "Contains bindings to the <a href=\"https://opus-codec.org\">opus-codec</a> library.",
-        arrayOverloads = false
-    ),
-    OVR(
-        "ovr",
-        "org.lwjgl.ovr",
         """
-        Contains bindings to LibOVR, the ${url("https://developer.oculus.com/", "Oculus SDK")} library.
+        Contains bindings to the ${url("https://opus-codec.org", "Opus Audio Codec")} library.
 
-        Documentation on how to get started with the Oculus SDK can be found ${url("https://developer.oculus.com/documentation/", "here")}.
+        <h3>Resources</h3>
+        ${ul(
+            url("https://opus-codec.org/docs/", "Documentation"),
+            url("https://github.com/xiph/opus", "Source Repository")
+        )}
         """,
-        library = JNILibrary.create("LibOVR")
+        arrayOverloads = false
     ),
     PAR(
         "par",
@@ -614,8 +571,41 @@ enum class Module(
         """
         Contains bindings to ${url("https://github.com/Celtoys/Remotery", "Remotery")}, a realtime CPU/GPU profiler hosted in a single C file with a viewer
         that runs in a web browser.
+        ${{
+            val COMMIT = "c3e8a2f38603c054be479bcefeaa54ad455dd4b9"
+            """
+        <b>LWJGL</b>: The current version of the Remotery bindings is compatible with commit
+        <a href="https://github.com/Celtoys/Remotery/tree/$COMMIT/vis">${COMMIT.substring(0, 7)}</a>. Run the following commands to clone the
+        Remotery repository at that commit:
+        ${codeBlock("""
+git clone --depth=1 https://github.com/Celtoys/Remotery.git
+cd Remotery
+git fetch --depth=1 origin $COMMIT
+git branch --no-track lwjgl $COMMIT
+git checkout lwjgl
+git branch -D @{-1}""")}"""}()}
+
+        Now open {@code vis/index.html} in your favorite browser to view the profiler.
         """,
         library = JNILibrary.create("LibRemotery"),
+        arrayOverloads = false
+    ),
+    RENDERDOC(
+        "renderdoc",
+        "org.lwjgl.util.renderdoc",
+        """
+        Contains bindings to the ${url("https://renderdoc.org", "RenderDoc")} in-application API. RenderDoc is a free MIT licensed stand-alone graphics
+        debugger that allows quick and easy single-frame capture and detailed introspection of any application using Vulkan, D3D11, OpenGL &amp; OpenGL ES or
+        D3D12 across Windows, Linux, Android, or Nintendo Switch™.
+
+        <h3>Resources</h3>
+        ${
+            ul(
+                url("https://renderdoc.org/docs/", "Documentation"),
+                url("https://github.com/baldurk/renderdoc/", "Source Repository"),
+            )
+        }
+        """,
         arrayOverloads = false
     ),
     RPMALLOC(
@@ -626,6 +616,80 @@ enum class Module(
         thread caching 16-byte aligned memory allocator implemented in C.
         """,
         library = JNILibrary.create("LibRPmalloc"),
+        arrayOverloads = false
+    ),
+    SDL(
+        "sdl",
+        "org.lwjgl.sdl",
+        """
+        Contains bindings to the ${url("https://www.libsdl.org/", "Simple DirectMedia Layer")}, a cross-platform development library designed to provide low
+        level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL/Direct3D/Metal/Vulkan. It is used by video playback software,
+        emulators, and popular games.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://wiki.libsdl.org/SDL3/FrontPage", "Documentation"),
+            url("https://github.com/libsdl-org/SDL", "Source Repository")
+        )}
+
+        <h3>SDL header to Java class mapping</h3>
+        <table>
+        ${mapOf(
+            "SDL_asyncio.h" to "SDLAsyncIO",
+            "SDL_audio.h" to "SDLAudio",
+            "SDL_blendmode.h" to "SDLBlendMode",
+            "SDL_camera.h" to "SDLCamera",
+            "SDL_clipboard.h" to "SDLClipboard",
+            "SDL_cpuinfo.h" to "SDLCPUInfo",
+            "SDL_dialog.h" to "SDLDialog",
+            "SDL_error.h" to "SDLError",
+            "SDL_events.h" to "SDLEvents",
+            "SDL_filesystem.h" to "SDLFileSystem",
+            "SDL_gamepad.h" to "SDLGamepad",
+            "SDL_gpu.h" to "SDLGPU",
+            "SDL_guid.h" to "SDLGUID",
+            "SDL_haptic.h" to "SDLHaptic",
+            "SDL_hidapi.h" to "SDLHIDAPI",
+            "SDL_hints.h" to "SDLHints",
+            "SDL_init.h" to "SDLInit",
+            "SDL_iostream.h" to "SDLIOStream",
+            "SDL_joystick.h" to "SDLJoystick",
+            "SDL_keyboard.h" to "SDLKeyboard",
+            "SDL_keycode.h" to "SDLKeycode",
+            "SDL_loadso.h" to "SDLLoadSO",
+            "SDL_locale.h" to "SDLLocale",
+            "SDL_log.h" to "SDLLog",
+            "SDL_messagebox.h" to "SDLMessageBox",
+            "SDL_metal.h" to "SDLMetal",
+            "SDL_misc.h" to "SDLMisc",
+            "SDL_mouse.h" to "SDLMouse",
+            "SDL_pen.h" to "SDLPen",
+            "SDL_pixels.h" to "SDLPixels",
+            "SDL_platform.h" to "SDLPlatform",
+            "SDL_power.h" to "SDLPower",
+            "SDL_properties.h" to "SDLProperties",
+            "SDL_rect.h" to "SDLRect",
+            "SDL_render.h" to "SDLRender",
+            "SDL_scancode.h" to "SDLScancode",
+            "SDL_sensor.h" to "SDLSensor",
+            "SDL_stdinc.h" to "SDLStdinc",
+            "SDL_storage.h" to "SDLStorage",
+            "SDL_surface.h" to "SDLSurface",
+            "SDL_system.h" to "SDLSystem",
+            "SDL_thread.h" to "SDLThread",
+            "SDL_time.h" to "SDLTime",
+            "SDL_timer.h" to "SDLTimer",
+            "SDL_touch.h" to "SDLTouch",
+            "SDL_tray.h" to "SDLTray",
+            "SDL_version.h" to "SDLVersion",
+            "SDL_video.h" to "SDLVideo",
+            "SDL_vulkan.h" to "SDLVulkan"
+        )
+            .map { (header, java) -> "<tr><td>{@code $header}</td><td>{@link org.lwjgl.sdl.$java $java}</td></tr>" }
+            .joinToString(separator = "\n")
+        }
+        </table>
+        """,
         arrayOverloads = false
     ),
     SHADERC(
@@ -648,6 +712,22 @@ enum class Module(
         """,
         arrayOverloads = false
     ),
+    SPNG(
+        "spng",
+        "org.lwjgl.util.spng",
+        """
+        Contains bindings to ${url("https://libspng.org/", "libspbg")} (simple png), a C library for reading and writing Portable Network Graphics (PNG) format
+        files with a focus on security and easy of use.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://libspng.org/docs/", "Documentation"),
+            url("https://github.com/randy408/libspng/", "Source Repository"),
+        )}
+        """,
+        library = JNILibrary.create("LibSPNG", setupAllocator = true),
+        arrayOverloads = false
+    ),
     SPVC(
         "spvc",
         "org.lwjgl.util.spvc",
@@ -656,12 +736,6 @@ enum class Module(
         disassembling SPIR-V back to high level languages.
         """,
         arrayOverloads = false
-    ),
-    SSE(
-        "sse",
-        "org.lwjgl.util.simd",
-        "Contains bindings to SSE macros.",
-        library = JNILibrary.create("LibSSE")
     ),
     STB(
         "stb",
@@ -704,86 +778,17 @@ enum class Module(
         }"""
         )
     ),
-    TOOTLE(
-        "tootle",
-        "org.lwjgl.util.tootle",
-        """
-        Contains bindings to ${url("https://github.com/GPUOpen-Tools/amd-tootle", "AMD Tootle")}.
-
-        AMD Tootle (Triangle Order Optimization Tool) is a 3D triangle mesh optimization library that improves on existing mesh preprocessing techniques. By
-        using AMD Tootle, developers can optimize their models for pixel overdraw as well as vertex cache performance. This can provide significant performance
-        improvements in pixel limited situations, with no penalty in vertex-limited scenarios, and no runtime cost.
-        """,
-        library = JNILibrary.simple(),
-        arrayOverloads = false
-    ),
     VMA(
         "vma",
         "org.lwjgl.util.vma",
         """
-        Contains bindings to ${url("https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator", "VMA")}, an easy to integrate Vulkan memory
-        allocation library.
+        Contains bindings to ${url("https://gpuopen.com/vulkan-memory-allocator/", "VMA")}, a simple and easy to integrate API to help you allocate memory for
+        Vulkan® buffer and image storage.
 
-        <h4>Problem</h4>
-
-        Memory allocation and resource (buffer and image) creation in Vulkan is difficult (comparing to older graphics API-s, like D3D11 or OpenGL) for several
-        reasons:
+        <h3>Resources</h3>
         ${ul(
-            "It requires a lot of boilerplate code, just like everything else in Vulkan, because it is a low-level and high-performance API.",
-            """
-            There is additional level of indirection: {@code VkDeviceMemory} is allocated separately from creating {@code VkBuffer/VkImage} and they must be
-            bound together. The binding cannot be changed later - resource must be recreated.
-            """,
-            "Driver must be queried for supported memory heaps and memory types. Different IHVs provide different types of it.",
-            "It is recommended practice to allocate bigger chunks of memory and assign parts of them to particular resources."
-        )}
-
-        <h4>Features</h4>
-
-        This library can help game developers to manage memory allocations and resource creation by offering some higher-level functions. Features of the
-        library are divided into several layers, low level to high level:
-
-        ${ol(
-            """
-            Functions that help to choose correct and optimal memory type based on intended usage of the memory.
-
-            - Required or preferred traits of the memory are expressed using higher-level description comparing to Vulkan flags.
-            """,
-            """
-            Functions that allocate memory blocks, reserve and return parts of them (`VkDeviceMemory` + offset + size) to the user.
-
-            - Library keeps track of allocated memory blocks, used and unused ranges inside them, finds best matching unused ranges for new allocations, takes
-            all the rules of alignment and buffer/image granularity into consideration.
-            """,
-            "Functions that can create an image/buffer, allocate memory for it and bind them together - all in one call."
-        )}
-
-        Additional features:
-
-        ${ul(
-            "Thread-safety: Library is designed to be used by multithreaded code.",
-            "Configuration: Fill optional members of CreateInfo structure to provide custom CPU memory allocator and other parameters.",
-            """
-            Customization: Predefine appropriate macros to provide your own implementation of all external facilities used by the library, from assert, mutex,
-            and atomic, to vector and linked list.
-            """,
-            """
-            Support memory mapping, reference-counted internally. Support for persistently mapped memory: Just allocate with appropriate flag and you get
-            access to mapped pointer.
-            """,
-            "Custom memory pools: Create a pool with desired parameters (e.g. fixed or limited maximum size) and allocate memory out of it.",
-            "Support for VK_KHR_dedicated_allocation extension: Enable it and it will be used automatically by the library.",
-            "Defragmentation: Call one function and let the library move data around to free some memory blocks and make your allocations better compacted.",
-            """
-            Lost allocations: Allocate memory with appropriate flags and let the library remove allocations that are not used for many frames to make room for
-            new ones.
-            """,
-            """
-            Statistics: Obtain detailed statistics about the amount of memory used, unused, number of allocated blocks, number of allocations etc. - globally,
-            per memory heap, and per memory type.
-            """,
-            "Debug annotations: Associate string with name or opaque pointer to your own data with every allocation.",
-            "JSON dump: Obtain a string in JSON format with detailed map of internal state, including list of allocations and gaps between them."
+            url("https://gpuopen-librariesandsdks.github.io/VulkanMemoryAllocator/html/", "Documentation"),
+            url("https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator", "Source Repository"),
         )}
         """,
         library = JNILibrary.create("LibVma", setupAllocator = true, cpp = true),
@@ -793,13 +798,22 @@ enum class Module(
         "vulkan",
         "org.lwjgl.vulkan",
         """
-        Contains bindings to ${url("https://www.khronos.org/vulkan/", "Vulkan")}, a new generation graphics and compute API that provides high-efficiency,
+        Contains bindings to ${url("https://www.vulkan.org/", "Vulkan")}, a new generation graphics and compute API that provides high-efficiency,
         cross-platform access to modern GPUs used in a wide variety of devices from PCs and consoles to mobile phones and embedded platforms.
 
         Experimental extensions (KHX, NVX, etc) is not supported API. When such an extension is promoted to stable, the corresponding experimental bindings
         will be removed.
 
         <b>macOS</b>: LWJGL bundles ${url("https://moltengl.com/moltenvk/", "MoltenVK")}, which emulates Vulkan over Metal.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://docs.vulkan.org/", "Documentation (Khronos)"),
+            url("https://vkdoc.net/", "Documentation (VulkanHub"),
+            url("https://vulkan.lunarg.com/", "Vulkan SDK"),
+            url("https://github.com/KhronosGroup/Vulkan-Docs", "Source Repository"),
+            url("https://github.com/KhronosGroup/Vulkan-Headers", "Source Repository (headers)")
+        )}
         """,
         CallingConvention.STDCALL
     ),
@@ -807,10 +821,16 @@ enum class Module(
         "xxhash",
         "org.lwjgl.util.xxhash",
         """
-        Contains bindings to ${url("https://github.com/Cyan4973/xxHash", "xxHash")}, an extremely fast non-cryptographic hash algorithm.
+        Contains bindings to ${url("https://xxhash.com/", "xxHash")}, an extremely fast non-cryptographic hash algorithm.
 
         xxHash successfully completes the ${url("https://github.com/aappleby/smhasher", "SMHasher")} test suite which evaluates collision, dispersion and
         randomness qualities of hash functions.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://xxhash.com/doc/v0.8.2/index.html/", "Documentation"),
+            url("https://github.com/Cyan4973/xxHash", "Source Repository"),
+        )}
         """,
         library = JNILibrary.create("LibXXHash", setupAllocator = true)
     ),
@@ -818,7 +838,7 @@ enum class Module(
         "yoga",
         "org.lwjgl.util.yoga",
         """
-        Contains bindings to ${url("https://facebook.github.io/yoga/", "Yoga")}.
+        Contains bindings to ${url("https://www.yogalayout.dev/", "Yoga")}.
 
         Yoga is a cross-platform layout engine enabling maximum collaboration within your team by implementing an API familiar to many designers and opening it
         up to developers across different platforms.
@@ -831,23 +851,14 @@ enum class Module(
 
         <h3>LWJGL implementation</h3>
 
-        Unlike the official Yoga Java bindings, the LWJGL bindings directly expose the native C API. {@code YGNodeRef} handles do not need to be wrapped in Java
-        instances, so there is no memory overhead. The internal Yoga structs are also exposed, which makes it very efficient to read the current tree layout
-        after a call to #NodeCalculateLayout():
-        ${codeBlock("""
-// Public API, 4x JNI call overhead
-float l = YGNodeLayoutGetLeft(node);
-float t = YGNodeLayoutGetTop(node);
-float w = YGNodeLayoutGetWidth(node);
-float h = YGNodeLayoutGetHeight(node);
+        Unlike the official Yoga Java bindings, the LWJGL bindings directly expose the native C API. {@code YGNodeRef} handles do not need to be wrapped in
+        Java instances, so there is no memory overhead.
 
-// Internal API without overhead (plain memory accesses, assuming allocations are eliminated via EA)
-YGLayout layout = YGNode.create(node).layout();
-
-float l = layout.positions(YGEdgeLeft);
-float t = layout.positions(YGEdgeTop);
-float w = layout.dimensions(YGDimensionWidth);
-float h = layout.dimensions(YGDimensionHeight);""")}
+        <h3>Resources</h3>
+        ${ul(
+            url("https://www.yogalayout.dev/docs/about-yoga", "Documentation"),
+            url("https://github.com/facebook/yoga", "Source Repository")
+        )}
         """,
         library = JNILibrary.create("LibYoga"),
         arrayOverloads = false
@@ -862,6 +873,12 @@ float h = layout.dimensions(YGDimensionHeight);""")}
         Zstandard is a real-time compression algorithm, providing high compression ratios. It offers a very wide range of compression / speed trade-off, while
         being backed by a very fast decoder. It also offers a special mode for small data, called dictionary compression, and can create dictionaries from any
         sample set.
+
+        <h3>Resources</h3>
+        ${ul(
+            url("https://raw.githack.com/facebook/zstd/release/doc/zstd_manual.html", "Documentation"),
+            url("https://github.com/facebook/zstd", "Source Repository")
+        )}
         """,
         library = JNILibrary.create("LibZstd", setupAllocator = true),
         arrayOverloads = false
@@ -945,7 +962,6 @@ private class JNILibraryWithInit constructor(
             init {
                 this.access = Access.INTERNAL
                 this.cpp = this@JNILibraryWithInit.cpp
-                this.documentation = "Initializes the ${module.key} shared library."
                 javaImport("org.lwjgl.system.*")
                 if (setupAllocator)
                     javaImport("static org.lwjgl.system.MemoryUtil.*")
@@ -957,6 +973,7 @@ private class JNILibraryWithInit constructor(
 
             override fun PrintWriter.generateJava() {
                 generateJavaPreamble()
+                println("Initializes the ${module.key} shared library.".toJavaDoc(indentation = ""))
                 println(
                     """${access.modifier}final class $className {
 

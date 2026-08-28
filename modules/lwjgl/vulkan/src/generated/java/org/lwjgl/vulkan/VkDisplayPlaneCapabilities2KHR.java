@@ -16,26 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing the capabilities of a mode and plane combination.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR}</li>
- * <li>{@code pNext} <b>must</b> be {@code NULL}</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayPlaneCapabilitiesKHR}, {@link KHRGetDisplayProperties2#vkGetDisplayPlaneCapabilities2KHR GetDisplayPlaneCapabilities2KHR}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkDisplayPlaneCapabilities2KHR {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     {@link VkDisplayPlaneCapabilitiesKHR VkDisplayPlaneCapabilitiesKHR} {@link #capabilities};
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     {@link VkDisplayPlaneCapabilitiesKHR VkDisplayPlaneCapabilitiesKHR} capabilities;
  * }</code></pre>
  */
 public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabilities2KHR> implements NativeResource {
@@ -89,20 +74,20 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@link VkDisplayPlaneCapabilitiesKHR} structure. */
+    /** @return a {@link VkDisplayPlaneCapabilitiesKHR} view of the {@code capabilities} field. */
     public VkDisplayPlaneCapabilitiesKHR capabilities() { return ncapabilities(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDisplayPlaneCapabilities2KHR sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@link #sType} field. */
+    /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@code sType} field. */
     public VkDisplayPlaneCapabilities2KHR sType$Default() { return sType(KHRGetDisplayProperties2.VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDisplayPlaneCapabilities2KHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -199,25 +184,6 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlaneCapabilities2KHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkDisplayPlaneCapabilities2KHR} instance allocated on the specified {@link MemoryStack}.
      *
@@ -313,20 +279,20 @@ public class VkDisplayPlaneCapabilities2KHR extends Struct<VkDisplayPlaneCapabil
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayPlaneCapabilities2KHR#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDisplayPlaneCapabilities2KHR.nsType(address()); }
-        /** @return the value of the {@link VkDisplayPlaneCapabilities2KHR#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkDisplayPlaneCapabilities2KHR.npNext(address()); }
-        /** @return a {@link VkDisplayPlaneCapabilitiesKHR} view of the {@link VkDisplayPlaneCapabilities2KHR#capabilities} field. */
+        /** @return a {@link VkDisplayPlaneCapabilitiesKHR} view of the {@code capabilities} field. */
         public VkDisplayPlaneCapabilitiesKHR capabilities() { return VkDisplayPlaneCapabilities2KHR.ncapabilities(address()); }
 
-        /** Sets the specified value to the {@link VkDisplayPlaneCapabilities2KHR#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDisplayPlaneCapabilities2KHR.Buffer sType(@NativeType("VkStructureType") int value) { VkDisplayPlaneCapabilities2KHR.nsType(address(), value); return this; }
-        /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@link VkDisplayPlaneCapabilities2KHR#sType} field. */
+        /** Sets the {@link KHRGetDisplayProperties2#VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR} value to the {@code sType} field. */
         public VkDisplayPlaneCapabilities2KHR.Buffer sType$Default() { return sType(KHRGetDisplayProperties2.VK_STRUCTURE_TYPE_DISPLAY_PLANE_CAPABILITIES_2_KHR); }
-        /** Sets the specified value to the {@link VkDisplayPlaneCapabilities2KHR#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDisplayPlaneCapabilities2KHR.Buffer pNext(@NativeType("void *") long value) { VkDisplayPlaneCapabilities2KHR.npNext(address(), value); return this; }
 
     }

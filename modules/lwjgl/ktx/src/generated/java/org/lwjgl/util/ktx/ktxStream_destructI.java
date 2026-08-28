@@ -6,32 +6,29 @@
 package org.lwjgl.util.ktx;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     ktxStream *str
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ktxStream_destruct} */
 @FunctionalInterface
 @NativeType("ktxStream_destruct")
 public interface ktxStream_destructI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_void,
-        ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_void,
+            ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -40,7 +37,7 @@ public interface ktxStream_destructI extends CallbackI {
         );
     }
 
-    /** Destruct a stream. */
+    /** {@code void (* ktxStream_destruct) (ktxStream * str)} */
     void invoke(@NativeType("ktxStream *") long str);
 
 }

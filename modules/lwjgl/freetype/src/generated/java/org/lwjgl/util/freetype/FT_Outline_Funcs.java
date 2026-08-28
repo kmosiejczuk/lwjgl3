@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure to hold various function pointers used during outline decomposition in order to emit segments, conic, and cubic Beziers.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_Outline_Funcs {
  *     {@link FT_Outline_MoveToFuncI FT_Outline_MoveToFunc} move_to;

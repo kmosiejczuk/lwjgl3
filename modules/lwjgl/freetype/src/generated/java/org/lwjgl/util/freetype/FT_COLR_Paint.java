@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A union object representing format and details of a paint table of a {@code COLR} v1 font.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_COLR_Paint {
  *     FT_PaintFormat format;

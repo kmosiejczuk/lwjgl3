@@ -16,15 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The memory usage of a CXTranslationUnit, broken into categories.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct CXTUResourceUsage {
- *     void * {@link #data};
- *     unsigned {@link #numEntries};
- *     {@link CXTUResourceUsageEntry CXTUResourceUsageEntry} * {@link #entries};
+ *     void * data;
+ *     unsigned numEntries;
+ *     {@link CXTUResourceUsageEntry CXTUResourceUsageEntry} * entries;
  * }</code></pre>
  */
 public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements NativeResource {
@@ -78,13 +74,13 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** private data member, used for queries */
+    /** @return the value of the {@code data} field. */
     @NativeType("void *")
     public long data() { return ndata(address()); }
-    /** the number of entries in the {@code entries} array. */
+    /** @return the value of the {@code numEntries} field. */
     @NativeType("unsigned")
     public int numEntries() { return nnumEntries(address()); }
-    /** an array of key-value pairs, representing the breakdown of memory usage */
+    /** @return a {@link CXTUResourceUsageEntry.Buffer} view of the struct array pointed to by the {@code entries} field. */
     @NativeType("CXTUResourceUsageEntry *")
     public CXTUResourceUsageEntry.Buffer entries() { return nentries(address()); }
 
@@ -158,25 +154,6 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
     public static CXTUResourceUsage.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXTUResourceUsage.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXTUResourceUsage} instance allocated on the specified {@link MemoryStack}.
@@ -268,13 +245,13 @@ public class CXTUResourceUsage extends Struct<CXTUResourceUsage> implements Nati
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link CXTUResourceUsage#data} field. */
+        /** @return the value of the {@code data} field. */
         @NativeType("void *")
         public long data() { return CXTUResourceUsage.ndata(address()); }
-        /** @return the value of the {@link CXTUResourceUsage#numEntries} field. */
+        /** @return the value of the {@code numEntries} field. */
         @NativeType("unsigned")
         public int numEntries() { return CXTUResourceUsage.nnumEntries(address()); }
-        /** @return a {@link CXTUResourceUsageEntry.Buffer} view of the struct array pointed to by the {@link CXTUResourceUsage#entries} field. */
+        /** @return a {@link CXTUResourceUsageEntry.Buffer} view of the struct array pointed to by the {@code entries} field. */
         @NativeType("CXTUResourceUsageEntry *")
         public CXTUResourceUsageEntry.Buffer entries() { return CXTUResourceUsage.nentries(address()); }
 

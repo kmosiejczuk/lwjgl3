@@ -11,22 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@link ExtentHooks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     extent_hooks_t *extent_hooks,
- *     void *new_addr,
- *     size_t size,
- *     size_t alignment,
- *     bool *zero,
- *     bool *commit,
- *     unsigned int arena_ind
- * )</code></pre>
- */
+/** Callback function: {@link #invoke extent_alloc_t} */
 public abstract class ExtentAlloc extends Callback implements ExtentAllocI {
 
     /**
@@ -54,7 +39,7 @@ public abstract class ExtentAlloc extends Callback implements ExtentAllocI {
     }
 
     protected ExtentAlloc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     ExtentAlloc(long functionPointer) {

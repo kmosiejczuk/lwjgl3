@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     unsigned int size,
- *     FMOD_MEMORY_TYPE type,
- *     char const *sourcestr
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_ALLOC_FUNC} */
 public abstract class FMOD_DSP_ALLOC_FUNC extends Callback implements FMOD_DSP_ALLOC_FUNCI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class FMOD_DSP_ALLOC_FUNC extends Callback implements FMOD_DSP_A
     }
 
     protected FMOD_DSP_ALLOC_FUNC() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_DSP_ALLOC_FUNC(long functionPointer) {

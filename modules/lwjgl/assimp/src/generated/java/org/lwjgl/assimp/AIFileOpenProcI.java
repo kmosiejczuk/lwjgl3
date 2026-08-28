@@ -6,34 +6,28 @@
 package org.lwjgl.assimp;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * struct aiFile * (*{@link #invoke}) (
- *     struct aiFileIO *pFileIO,
- *     char const *fileName,
- *     char const *openMode
- * )</code></pre>
- */
+/** Callback function: {@link #invoke aiFileOpenProc} */
 @FunctionalInterface
 @NativeType("aiFileOpenProc")
 public interface AIFileOpenProcI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_pointer,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_pointer,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,15 +39,7 @@ public interface AIFileOpenProcI extends CallbackI {
         apiClosureRetP(ret, __result);
     }
 
-    /**
-     * File open procedure
-     *
-     * @param pFileIO  {@code FileIO} pointer
-     * @param fileName name of the file to be opened
-     * @param openMode mode in which to open the file
-     *
-     * @return pointer to an {@link AIFile} structure, or {@code NULL} if the file could not be opened
-     */
+    /** {@code struct aiFile * (* aiFileOpenProc) (struct aiFileIO * pFileIO, char const * fileName, char const * openMode)} */
     @NativeType("struct aiFile *") long invoke(@NativeType("struct aiFileIO *") long pFileIO, @NativeType("char const *") long fileName, @NativeType("char const *") long openMode);
 
 }

@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying a viewport.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkPipelineViewportWScalingStateCreateInfoNV}, {@link NVClipSpaceWScaling#vkCmdSetViewportWScalingNV CmdSetViewportWScalingNV}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkViewportWScalingNV {
- *     float {@link #xcoeff};
- *     float {@link #ycoeff};
- * }</code></pre>
+ *     float xcoeff;
+ *     float ycoeff;
+ * }}</pre>
  */
 public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implements NativeResource {
 
@@ -78,14 +70,14 @@ public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implement
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** {@code xcoeff} and {@code ycoeff} are the viewport’s W scaling factor for x and y respectively. */
+    /** @return the value of the {@code xcoeff} field. */
     public float xcoeff() { return nxcoeff(address()); }
-    /** see {@code xcoeff} */
+    /** @return the value of the {@code ycoeff} field. */
     public float ycoeff() { return nycoeff(address()); }
 
-    /** Sets the specified value to the {@link #xcoeff} field. */
+    /** Sets the specified value to the {@code xcoeff} field. */
     public VkViewportWScalingNV xcoeff(float value) { nxcoeff(address(), value); return this; }
-    /** Sets the specified value to the {@link #ycoeff} field. */
+    /** Sets the specified value to the {@code ycoeff} field. */
     public VkViewportWScalingNV ycoeff(float value) { nycoeff(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -182,25 +174,6 @@ public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implement
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkViewportWScalingNV.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkViewportWScalingNV} instance allocated on the specified {@link MemoryStack}.
      *
@@ -294,14 +267,14 @@ public class VkViewportWScalingNV extends Struct<VkViewportWScalingNV> implement
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkViewportWScalingNV#xcoeff} field. */
+        /** @return the value of the {@code xcoeff} field. */
         public float xcoeff() { return VkViewportWScalingNV.nxcoeff(address()); }
-        /** @return the value of the {@link VkViewportWScalingNV#ycoeff} field. */
+        /** @return the value of the {@code ycoeff} field. */
         public float ycoeff() { return VkViewportWScalingNV.nycoeff(address()); }
 
-        /** Sets the specified value to the {@link VkViewportWScalingNV#xcoeff} field. */
+        /** Sets the specified value to the {@code xcoeff} field. */
         public VkViewportWScalingNV.Buffer xcoeff(float value) { VkViewportWScalingNV.nxcoeff(address(), value); return this; }
-        /** Sets the specified value to the {@link VkViewportWScalingNV#ycoeff} field. */
+        /** Sets the specified value to the {@code ycoeff} field. */
         public VkViewportWScalingNV.Buffer ycoeff(float value) { VkViewportWScalingNV.nycoeff(address(), value); return this; }
 
     }

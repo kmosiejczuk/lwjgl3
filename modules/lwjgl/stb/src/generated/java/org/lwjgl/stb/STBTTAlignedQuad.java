@@ -16,11 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Quad used for drawing a baked character, returned by {@link STBTruetype#stbtt_GetBakedQuad GetBakedQuad}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct stbtt_aligned_quad {
  *     float x0;
  *     float y0;
@@ -30,7 +26,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     float y1;
  *     float s1;
  *     float t1;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct stbtt_aligned_quad")
 public class STBTTAlignedQuad extends Struct<STBTTAlignedQuad> implements NativeResource {
@@ -186,25 +182,6 @@ public class STBTTAlignedQuad extends Struct<STBTTAlignedQuad> implements Native
     public static STBTTAlignedQuad.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTAlignedQuad.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code STBTTAlignedQuad} instance allocated on the specified {@link MemoryStack}.

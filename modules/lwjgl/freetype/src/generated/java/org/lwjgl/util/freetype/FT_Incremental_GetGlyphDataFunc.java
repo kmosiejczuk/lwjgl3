@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Error (*{@link #invoke}) (
- *     FT_Incremental incremental,
- *     FT_UInt glyph_index,
- *     FT_Data *adata
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Incremental_GetGlyphDataFunc} */
 public abstract class FT_Incremental_GetGlyphDataFunc extends Callback implements FT_Incremental_GetGlyphDataFuncI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class FT_Incremental_GetGlyphDataFunc extends Callback implement
     }
 
     protected FT_Incremental_GetGlyphDataFunc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FT_Incremental_GetGlyphDataFunc(long functionPointer) {

@@ -14,11 +14,7 @@ val ZstdErrors = "ZstdErrors".nativeClass(Module.ZSTD, prefix = "ZSTD", prefixMe
 ENABLE_WARNINGS()""")*/
     nativeImport("zstd_errors.h")
 
-    documentation = "Native bindings to the experimental error code API of ${url("https://facebook.github.io/zstd/", "Zstandard")} (zstd)."
-
     EnumConstant(
-        "Error code. ({@code ZSTD_ErrorCode})",
-
         "error_no_error".."0",
         "error_GENERIC".."1",
         "error_prefix_unknown".."10",
@@ -37,6 +33,7 @@ ENABLE_WARNINGS()""")*/
         "error_tableLog_tooLarge".."44",
         "error_maxSymbolValue_tooLarge".."46",
         "error_maxSymbolValue_tooSmall".."48",
+        "error_cannotProduce_uncompressedBlock".."49",
         "error_stabilityCondition_notRespected".."50",
         "error_stage_wrong".."60",
         "error_init_missing".."62",
@@ -56,17 +53,9 @@ ENABLE_WARNINGS()""")*/
         "error_externalSequences_invalid".."107"
     )
 
-    ZSTD_ErrorCode(
-        "getErrorCode",
-        "",
-
-        size_t("functionResult", "")
-    )
-
     Nonnull..charASCII.const.p(
         "getErrorString",
-        "",
 
-        ZSTD_ErrorCode("code", "")
+        ZSTD_ErrorCode("code")
     )
 }

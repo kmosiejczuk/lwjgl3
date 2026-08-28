@@ -16,27 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying an image subresource.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code aspectMask} <b>must</b> be a valid combination of {@code VkImageAspectFlagBits} values</li>
- * <li>{@code aspectMask} <b>must</b> not be 0</li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkImageSubresource2}, {@link VkSparseImageMemoryBind}, {@link VK10#vkGetImageSubresourceLayout GetImageSubresourceLayout}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkImageSubresource {
- *     VkImageAspectFlags {@link #aspectMask};
- *     uint32_t {@link #mipLevel};
- *     uint32_t {@link #arrayLayer};
- * }</code></pre>
+ *     VkImageAspectFlags aspectMask;
+ *     uint32_t mipLevel;
+ *     uint32_t arrayLayer;
+ * }}</pre>
  */
 public class VkImageSubresource extends Struct<VkImageSubresource> implements NativeResource {
 
@@ -89,21 +74,21 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkImageAspectFlags} value selecting the image <em>aspect</em>. */
+    /** @return the value of the {@code aspectMask} field. */
     @NativeType("VkImageAspectFlags")
     public int aspectMask() { return naspectMask(address()); }
-    /** selects the mipmap level. */
+    /** @return the value of the {@code mipLevel} field. */
     @NativeType("uint32_t")
     public int mipLevel() { return nmipLevel(address()); }
-    /** selects the array layer. */
+    /** @return the value of the {@code arrayLayer} field. */
     @NativeType("uint32_t")
     public int arrayLayer() { return narrayLayer(address()); }
 
-    /** Sets the specified value to the {@link #aspectMask} field. */
+    /** Sets the specified value to the {@code aspectMask} field. */
     public VkImageSubresource aspectMask(@NativeType("VkImageAspectFlags") int value) { naspectMask(address(), value); return this; }
-    /** Sets the specified value to the {@link #mipLevel} field. */
+    /** Sets the specified value to the {@code mipLevel} field. */
     public VkImageSubresource mipLevel(@NativeType("uint32_t") int value) { nmipLevel(address(), value); return this; }
-    /** Sets the specified value to the {@link #arrayLayer} field. */
+    /** Sets the specified value to the {@code arrayLayer} field. */
     public VkImageSubresource arrayLayer(@NativeType("uint32_t") int value) { narrayLayer(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -202,25 +187,6 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkImageSubresource.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkImageSubresource} instance allocated on the specified {@link MemoryStack}.
      *
@@ -318,21 +284,21 @@ public class VkImageSubresource extends Struct<VkImageSubresource> implements Na
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkImageSubresource#aspectMask} field. */
+        /** @return the value of the {@code aspectMask} field. */
         @NativeType("VkImageAspectFlags")
         public int aspectMask() { return VkImageSubresource.naspectMask(address()); }
-        /** @return the value of the {@link VkImageSubresource#mipLevel} field. */
+        /** @return the value of the {@code mipLevel} field. */
         @NativeType("uint32_t")
         public int mipLevel() { return VkImageSubresource.nmipLevel(address()); }
-        /** @return the value of the {@link VkImageSubresource#arrayLayer} field. */
+        /** @return the value of the {@code arrayLayer} field. */
         @NativeType("uint32_t")
         public int arrayLayer() { return VkImageSubresource.narrayLayer(address()); }
 
-        /** Sets the specified value to the {@link VkImageSubresource#aspectMask} field. */
+        /** Sets the specified value to the {@code aspectMask} field. */
         public VkImageSubresource.Buffer aspectMask(@NativeType("VkImageAspectFlags") int value) { VkImageSubresource.naspectMask(address(), value); return this; }
-        /** Sets the specified value to the {@link VkImageSubresource#mipLevel} field. */
+        /** Sets the specified value to the {@code mipLevel} field. */
         public VkImageSubresource.Buffer mipLevel(@NativeType("uint32_t") int value) { VkImageSubresource.nmipLevel(address(), value); return this; }
-        /** Sets the specified value to the {@link VkImageSubresource#arrayLayer} field. */
+        /** Sets the specified value to the {@code arrayLayer} field. */
         public VkImageSubresource.Buffer arrayLayer(@NativeType("uint32_t") int value) { VkImageSubresource.narrayLayer(address(), value); return this; }
 
     }

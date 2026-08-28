@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@code nk_style_*} structs.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     struct nk_command_buffer *buffer,
- *     nk_handle userdata
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_draw_begin} */
 public abstract class NkDrawBeginCallback extends Callback implements NkDrawBeginCallbackI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class NkDrawBeginCallback extends Callback implements NkDrawBegi
     }
 
     protected NkDrawBeginCallback() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     NkDrawBeginCallback(long functionPointer) {

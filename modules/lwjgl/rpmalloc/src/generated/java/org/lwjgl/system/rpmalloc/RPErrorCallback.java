@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@link RPMallocConfig} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     char const *message
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class RPErrorCallback extends Callback implements RPErrorCallbackI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class RPErrorCallback extends Callback implements RPErrorCallbac
     }
 
     protected RPErrorCallback() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     RPErrorCallback(long functionPointer) {

@@ -19,10 +19,6 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.util.freetype.FreeType.*;
 
 /**
- * A structure to model the axes and space of a Multiple Masters font.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_Multi_Master {
  *     FT_UInt num_axis;

@@ -6,34 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     unsigned int size,
- *     unsigned int type,
- *     char const *sourceStr
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FSBANK_MEMORY_ALLOC_CALLBACK} */
 @FunctionalInterface
 @NativeType("FSBANK_MEMORY_ALLOC_CALLBACK")
 public interface FSBANK_MEMORY_ALLOC_CALLBACKI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_pointer,
-        ffi_type_uint32, ffi_type_uint32, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_pointer,
+            ffi_type_uint32, ffi_type_uint32, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,6 +40,7 @@ public interface FSBANK_MEMORY_ALLOC_CALLBACKI extends CallbackI {
         apiClosureRetP(ret, __result);
     }
 
+    /** {@code void * (* FSBANK_MEMORY_ALLOC_CALLBACK) (unsigned int size, unsigned int type, char const * sourceStr)} */
     @NativeType("void *") long invoke(@NativeType("unsigned int") int size, @NativeType("unsigned int") int type, @NativeType("char const *") long sourceStr);
 
 }

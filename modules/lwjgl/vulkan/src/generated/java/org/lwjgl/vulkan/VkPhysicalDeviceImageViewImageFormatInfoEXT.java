@@ -16,23 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure for providing image view type.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link EXTFilterCubic#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT}</li>
- * <li>{@code imageViewType} <b>must</b> be a valid {@code VkImageViewType} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkPhysicalDeviceImageViewImageFormatInfoEXT {
- *     VkStructureType {@link #sType};
- *     void * {@link #pNext};
- *     VkImageViewType {@link #imageViewType};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void * pNext;
+ *     VkImageViewType imageViewType;
+ * }}</pre>
  */
 public class VkPhysicalDeviceImageViewImageFormatInfoEXT extends Struct<VkPhysicalDeviceImageViewImageFormatInfoEXT> implements NativeResource {
 
@@ -85,23 +74,23 @@ public class VkPhysicalDeviceImageViewImageFormatInfoEXT extends Struct<VkPhysic
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void *")
     public long pNext() { return npNext(address()); }
-    /** a {@code VkImageViewType} value specifying the type of the image view. */
+    /** @return the value of the {@code imageViewType} field. */
     @NativeType("VkImageViewType")
     public int imageViewType() { return nimageViewType(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkPhysicalDeviceImageViewImageFormatInfoEXT sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link EXTFilterCubic#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT} value to the {@link #sType} field. */
+    /** Sets the {@link EXTFilterCubic#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT} value to the {@code sType} field. */
     public VkPhysicalDeviceImageViewImageFormatInfoEXT sType$Default() { return sType(EXTFilterCubic.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkPhysicalDeviceImageViewImageFormatInfoEXT pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #imageViewType} field. */
+    /** Sets the specified value to the {@code imageViewType} field. */
     public VkPhysicalDeviceImageViewImageFormatInfoEXT imageViewType(@NativeType("VkImageViewType") int value) { nimageViewType(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -200,25 +189,6 @@ public class VkPhysicalDeviceImageViewImageFormatInfoEXT extends Struct<VkPhysic
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkPhysicalDeviceImageViewImageFormatInfoEXT} instance allocated on the specified {@link MemoryStack}.
      *
@@ -316,23 +286,23 @@ public class VkPhysicalDeviceImageViewImageFormatInfoEXT extends Struct<VkPhysic
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkPhysicalDeviceImageViewImageFormatInfoEXT#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkPhysicalDeviceImageViewImageFormatInfoEXT.nsType(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImageViewImageFormatInfoEXT#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void *")
         public long pNext() { return VkPhysicalDeviceImageViewImageFormatInfoEXT.npNext(address()); }
-        /** @return the value of the {@link VkPhysicalDeviceImageViewImageFormatInfoEXT#imageViewType} field. */
+        /** @return the value of the {@code imageViewType} field. */
         @NativeType("VkImageViewType")
         public int imageViewType() { return VkPhysicalDeviceImageViewImageFormatInfoEXT.nimageViewType(address()); }
 
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageViewImageFormatInfoEXT#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer sType(@NativeType("VkStructureType") int value) { VkPhysicalDeviceImageViewImageFormatInfoEXT.nsType(address(), value); return this; }
-        /** Sets the {@link EXTFilterCubic#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT} value to the {@link VkPhysicalDeviceImageViewImageFormatInfoEXT#sType} field. */
+        /** Sets the {@link EXTFilterCubic#VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT} value to the {@code sType} field. */
         public VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer sType$Default() { return sType(EXTFilterCubic.VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_IMAGE_FORMAT_INFO_EXT); }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageViewImageFormatInfoEXT#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer pNext(@NativeType("void *") long value) { VkPhysicalDeviceImageViewImageFormatInfoEXT.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkPhysicalDeviceImageViewImageFormatInfoEXT#imageViewType} field. */
+        /** Sets the specified value to the {@code imageViewType} field. */
         public VkPhysicalDeviceImageViewImageFormatInfoEXT.Buffer imageViewType(@NativeType("VkImageViewType") int value) { VkPhysicalDeviceImageViewImageFormatInfoEXT.nimageViewType(address(), value); return this; }
 
     }

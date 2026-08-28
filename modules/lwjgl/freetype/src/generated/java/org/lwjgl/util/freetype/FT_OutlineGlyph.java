@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure used for outline (vectorial) glyph images. This really is a 'sub-class' of {@link FT_Glyph}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_OutlineGlyphRec {
  *     {@link FT_Glyph FT_GlyphRec} root;

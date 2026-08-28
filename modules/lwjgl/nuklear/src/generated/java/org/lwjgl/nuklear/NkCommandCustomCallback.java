@@ -11,19 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     void *canvas,
- *     short x,
- *     short y,
- *     unsigned short w,
- *     unsigned short h,
- *     nk_handle callback_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_command_custom_callback} */
 public abstract class NkCommandCustomCallback extends Callback implements NkCommandCustomCallbackI {
 
     /**
@@ -51,7 +39,7 @@ public abstract class NkCommandCustomCallback extends Callback implements NkComm
     }
 
     protected NkCommandCustomCallback() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     NkCommandCustomCallback(long functionPointer) {

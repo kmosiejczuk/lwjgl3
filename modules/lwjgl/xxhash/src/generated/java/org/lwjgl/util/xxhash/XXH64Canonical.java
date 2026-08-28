@@ -17,14 +17,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * 64-bit canonical representation.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XXH64_canonical_t {
- *     unsigned char {@link #digest}[8];
- * }</code></pre>
+ *     unsigned char digest[8];
+ * }}</pre>
  */
 @NativeType("struct XXH64_canonical_t")
 public class XXH64Canonical extends Struct<XXH64Canonical> implements NativeResource {
@@ -72,10 +68,10 @@ public class XXH64Canonical extends Struct<XXH64Canonical> implements NativeReso
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the digest in canonical representation */
+    /** @return a {@link ByteBuffer} view of the {@code digest} field. */
     @NativeType("unsigned char[8]")
     public ByteBuffer digest() { return ndigest(address()); }
-    /** the digest in canonical representation */
+    /** @return the value at the specified index of the {@code digest} field. */
     @NativeType("unsigned char")
     public byte digest(int index) { return ndigest(address(), index); }
 
@@ -149,25 +145,6 @@ public class XXH64Canonical extends Struct<XXH64Canonical> implements NativeReso
     public static XXH64Canonical.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH64Canonical.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XXH64Canonical} instance allocated on the specified {@link MemoryStack}.
@@ -259,10 +236,10 @@ public class XXH64Canonical extends Struct<XXH64Canonical> implements NativeReso
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the {@link XXH64Canonical#digest} field. */
+        /** @return a {@link ByteBuffer} view of the {@code digest} field. */
         @NativeType("unsigned char[8]")
         public ByteBuffer digest() { return XXH64Canonical.ndigest(address()); }
-        /** @return the value at the specified index of the {@link XXH64Canonical#digest} field. */
+        /** @return the value at the specified index of the {@code digest} field. */
         @NativeType("unsigned char")
         public byte digest(int index) { return XXH64Canonical.ndigest(address(), index); }
 

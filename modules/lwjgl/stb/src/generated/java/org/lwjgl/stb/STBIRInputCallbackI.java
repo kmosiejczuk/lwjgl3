@@ -6,37 +6,28 @@
 package org.lwjgl.stb;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *optional_output,
- *     void const *input_ptr,
- *     int num_pixels,
- *     int x,
- *     int y,
- *     void *context
- * )</code></pre>
- */
+/** Callback function: {@link #invoke stbir_input_callback *} */
 @FunctionalInterface
 @NativeType("stbir_input_callback *")
 public interface STBIRInputCallbackI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_sint32, ffi_type_sint32, ffi_type_sint32, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_sint32, ffi_type_sint32, ffi_type_sint32, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -50,7 +41,7 @@ public interface STBIRInputCallbackI extends CallbackI {
         );
     }
 
-    /** Callback used for input scanlines. */
+    /** {@code void (* stbir_input_callback *) (void * optional_output, void const * input_ptr, int num_pixels, int x, int y, void * context)} */
     void invoke(@NativeType("void *") long optional_output, @NativeType("void const *") long input_ptr, int num_pixels, int x, int y, @NativeType("void *") long context);
 
 }

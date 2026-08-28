@@ -11,18 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * YGSize (*{@link #invoke}) (
- *     YGNodeConstRef node,
- *     float width,
- *     YGMeasureMode widthMode,
- *     float height,
- *     YGMeasureMode heightMode
- * )</code></pre>
- */
+/** Callback function: {@link #invoke YGMeasureFunc} */
 public abstract class YGMeasureFunc extends Callback implements YGMeasureFuncI {
 
     /**
@@ -50,7 +39,7 @@ public abstract class YGMeasureFunc extends Callback implements YGMeasureFuncI {
     }
 
     protected YGMeasureFunc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     YGMeasureFunc(long functionPointer) {

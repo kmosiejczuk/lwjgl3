@@ -17,18 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable. This structure
- * provides security settings for objects created by various functions, such as {@code CreateFile}, {@code CreatePipe}, {@code CreateProcess},
- * {@code RegCreateKeyEx}, or {@code RegSaveKeyEx}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct SECURITY_ATTRIBUTES {
- *     DWORD {@link #nLength};
- *     LPVOID {@link #lpSecurityDescriptor};
- *     BOOL {@link #bInheritHandle};
- * }</code></pre>
+ *     DWORD nLength;
+ *     LPVOID lpSecurityDescriptor;
+ *     BOOL bInheritHandle;
+ * }}</pre>
  */
 public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements NativeResource {
 
@@ -81,26 +75,21 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the size, in bytes, of this structure. Set this value to {@link #SIZEOF}. */
+    /** @return the value of the {@code nLength} field. */
     @NativeType("DWORD")
     public int nLength() { return nnLength(address()); }
-    /**
-     * a pointer to a {@code SECURITY_DESCRIPTOR} structure that controls access to the object. If the value of this member is {@code NULL}, the object is assigned
-     * the default security descriptor associated with the access token of the calling process. This is not the same as granting access to everyone by
-     * assigning a {@code NULL} discretionary access control list (DACL). By default, the default DACL in the access token of a process allows access only to the
-     * user represented by the access token.
-     */
+    /** @return the value of the {@code lpSecurityDescriptor} field. */
     @NativeType("LPVOID")
     public long lpSecurityDescriptor() { return nlpSecurityDescriptor(address()); }
-    /** specifies whether the returned handle is inherited when a new process is created. If this member is {@code TRUE}, the new process inherits the handle. */
+    /** @return the value of the {@code bInheritHandle} field. */
     @NativeType("BOOL")
     public boolean bInheritHandle() { return nbInheritHandle(address()) != 0; }
 
-    /** Sets the specified value to the {@link #nLength} field. */
+    /** Sets the specified value to the {@code nLength} field. */
     public SECURITY_ATTRIBUTES nLength(@NativeType("DWORD") int value) { nnLength(address(), value); return this; }
-    /** Sets the specified value to the {@link #lpSecurityDescriptor} field. */
+    /** Sets the specified value to the {@code lpSecurityDescriptor} field. */
     public SECURITY_ATTRIBUTES lpSecurityDescriptor(@NativeType("LPVOID") long value) { nlpSecurityDescriptor(address(), value); return this; }
-    /** Sets the specified value to the {@link #bInheritHandle} field. */
+    /** Sets the specified value to the {@code bInheritHandle} field. */
     public SECURITY_ATTRIBUTES bInheritHandle(@NativeType("BOOL") boolean value) { nbInheritHandle(address(), value ? 1 : 0); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -198,25 +187,6 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
     public static SECURITY_ATTRIBUTES.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static SECURITY_ATTRIBUTES.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code SECURITY_ATTRIBUTES} instance allocated on the specified {@link MemoryStack}.
@@ -324,21 +294,21 @@ public class SECURITY_ATTRIBUTES extends Struct<SECURITY_ATTRIBUTES> implements 
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link SECURITY_ATTRIBUTES#nLength} field. */
+        /** @return the value of the {@code nLength} field. */
         @NativeType("DWORD")
         public int nLength() { return SECURITY_ATTRIBUTES.nnLength(address()); }
-        /** @return the value of the {@link SECURITY_ATTRIBUTES#lpSecurityDescriptor} field. */
+        /** @return the value of the {@code lpSecurityDescriptor} field. */
         @NativeType("LPVOID")
         public long lpSecurityDescriptor() { return SECURITY_ATTRIBUTES.nlpSecurityDescriptor(address()); }
-        /** @return the value of the {@link SECURITY_ATTRIBUTES#bInheritHandle} field. */
+        /** @return the value of the {@code bInheritHandle} field. */
         @NativeType("BOOL")
         public boolean bInheritHandle() { return SECURITY_ATTRIBUTES.nbInheritHandle(address()) != 0; }
 
-        /** Sets the specified value to the {@link SECURITY_ATTRIBUTES#nLength} field. */
+        /** Sets the specified value to the {@code nLength} field. */
         public SECURITY_ATTRIBUTES.Buffer nLength(@NativeType("DWORD") int value) { SECURITY_ATTRIBUTES.nnLength(address(), value); return this; }
-        /** Sets the specified value to the {@link SECURITY_ATTRIBUTES#lpSecurityDescriptor} field. */
+        /** Sets the specified value to the {@code lpSecurityDescriptor} field. */
         public SECURITY_ATTRIBUTES.Buffer lpSecurityDescriptor(@NativeType("LPVOID") long value) { SECURITY_ATTRIBUTES.nlpSecurityDescriptor(address(), value); return this; }
-        /** Sets the specified value to the {@link SECURITY_ATTRIBUTES#bInheritHandle} field. */
+        /** Sets the specified value to the {@code bInheritHandle} field. */
         public SECURITY_ATTRIBUTES.Buffer bInheritHandle(@NativeType("BOOL") boolean value) { SECURITY_ATTRIBUTES.nbInheritHandle(address(), value ? 1 : 0); return this; }
 
     }

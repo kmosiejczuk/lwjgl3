@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link LLVMCore#LLVMContextSetDiagnosticHandler ContextSetDiagnosticHandler} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     LLVMDiagnosticInfoRef DiagnosticInfo,
- *     void *DiagnosticContext
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class LLVMDiagnosticHandler extends Callback implements LLVMDiagnosticHandlerI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class LLVMDiagnosticHandler extends Callback implements LLVMDiag
     }
 
     protected LLVMDiagnosticHandler() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     LLVMDiagnosticHandler(long functionPointer) {

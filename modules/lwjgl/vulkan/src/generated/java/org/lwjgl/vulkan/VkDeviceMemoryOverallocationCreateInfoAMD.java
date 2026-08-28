@@ -16,23 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Specify memory overallocation behavior for a Vulkan device.
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code sType} <b>must</b> be {@link AMDMemoryOverallocationBehavior#VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD}</li>
- * <li>{@code overallocationBehavior} <b>must</b> be a valid {@code VkMemoryOverallocationBehaviorAMD} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDeviceMemoryOverallocationCreateInfoAMD {
- *     VkStructureType {@link #sType};
- *     void const * {@link #pNext};
- *     VkMemoryOverallocationBehaviorAMD {@link #overallocationBehavior};
- * }</code></pre>
+ *     VkStructureType sType;
+ *     void const * pNext;
+ *     VkMemoryOverallocationBehaviorAMD overallocationBehavior;
+ * }}</pre>
  */
 public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMemoryOverallocationCreateInfoAMD> implements NativeResource {
 
@@ -85,23 +74,23 @@ public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a {@code VkStructureType} value identifying this structure. */
+    /** @return the value of the {@code sType} field. */
     @NativeType("VkStructureType")
     public int sType() { return nsType(address()); }
-    /** {@code NULL} or a pointer to a structure extending this structure. */
+    /** @return the value of the {@code pNext} field. */
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
-    /** the desired overallocation behavior. */
+    /** @return the value of the {@code overallocationBehavior} field. */
     @NativeType("VkMemoryOverallocationBehaviorAMD")
     public int overallocationBehavior() { return noverallocationBehavior(address()); }
 
-    /** Sets the specified value to the {@link #sType} field. */
+    /** Sets the specified value to the {@code sType} field. */
     public VkDeviceMemoryOverallocationCreateInfoAMD sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
-    /** Sets the {@link AMDMemoryOverallocationBehavior#VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD} value to the {@link #sType} field. */
+    /** Sets the {@link AMDMemoryOverallocationBehavior#VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD} value to the {@code sType} field. */
     public VkDeviceMemoryOverallocationCreateInfoAMD sType$Default() { return sType(AMDMemoryOverallocationBehavior.VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD); }
-    /** Sets the specified value to the {@link #pNext} field. */
+    /** Sets the specified value to the {@code pNext} field. */
     public VkDeviceMemoryOverallocationCreateInfoAMD pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@link #overallocationBehavior} field. */
+    /** Sets the specified value to the {@code overallocationBehavior} field. */
     public VkDeviceMemoryOverallocationCreateInfoAMD overallocationBehavior(@NativeType("VkMemoryOverallocationBehaviorAMD") int value) { noverallocationBehavior(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -200,25 +189,6 @@ public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMe
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDeviceMemoryOverallocationCreateInfoAMD.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkDeviceMemoryOverallocationCreateInfoAMD} instance allocated on the specified {@link MemoryStack}.
      *
@@ -316,23 +286,23 @@ public class VkDeviceMemoryOverallocationCreateInfoAMD extends Struct<VkDeviceMe
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDeviceMemoryOverallocationCreateInfoAMD#sType} field. */
+        /** @return the value of the {@code sType} field. */
         @NativeType("VkStructureType")
         public int sType() { return VkDeviceMemoryOverallocationCreateInfoAMD.nsType(address()); }
-        /** @return the value of the {@link VkDeviceMemoryOverallocationCreateInfoAMD#pNext} field. */
+        /** @return the value of the {@code pNext} field. */
         @NativeType("void const *")
         public long pNext() { return VkDeviceMemoryOverallocationCreateInfoAMD.npNext(address()); }
-        /** @return the value of the {@link VkDeviceMemoryOverallocationCreateInfoAMD#overallocationBehavior} field. */
+        /** @return the value of the {@code overallocationBehavior} field. */
         @NativeType("VkMemoryOverallocationBehaviorAMD")
         public int overallocationBehavior() { return VkDeviceMemoryOverallocationCreateInfoAMD.noverallocationBehavior(address()); }
 
-        /** Sets the specified value to the {@link VkDeviceMemoryOverallocationCreateInfoAMD#sType} field. */
+        /** Sets the specified value to the {@code sType} field. */
         public VkDeviceMemoryOverallocationCreateInfoAMD.Buffer sType(@NativeType("VkStructureType") int value) { VkDeviceMemoryOverallocationCreateInfoAMD.nsType(address(), value); return this; }
-        /** Sets the {@link AMDMemoryOverallocationBehavior#VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD} value to the {@link VkDeviceMemoryOverallocationCreateInfoAMD#sType} field. */
+        /** Sets the {@link AMDMemoryOverallocationBehavior#VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD} value to the {@code sType} field. */
         public VkDeviceMemoryOverallocationCreateInfoAMD.Buffer sType$Default() { return sType(AMDMemoryOverallocationBehavior.VK_STRUCTURE_TYPE_DEVICE_MEMORY_OVERALLOCATION_CREATE_INFO_AMD); }
-        /** Sets the specified value to the {@link VkDeviceMemoryOverallocationCreateInfoAMD#pNext} field. */
+        /** Sets the specified value to the {@code pNext} field. */
         public VkDeviceMemoryOverallocationCreateInfoAMD.Buffer pNext(@NativeType("void const *") long value) { VkDeviceMemoryOverallocationCreateInfoAMD.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@link VkDeviceMemoryOverallocationCreateInfoAMD#overallocationBehavior} field. */
+        /** Sets the specified value to the {@code overallocationBehavior} field. */
         public VkDeviceMemoryOverallocationCreateInfoAMD.Buffer overallocationBehavior(@NativeType("VkMemoryOverallocationBehaviorAMD") int value) { VkDeviceMemoryOverallocationCreateInfoAMD.noverallocationBehavior(address(), value); return this; }
 
     }

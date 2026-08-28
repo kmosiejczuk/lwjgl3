@@ -6,34 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_CODEC_STATE *codec_state,
- *     FMOD_MODE usermode,
- *     FMOD_CREATESOUNDEXINFO *userexinfo
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CODEC_OPEN_CALLBACK} */
 @FunctionalInterface
 @NativeType("FMOD_CODEC_OPEN_CALLBACK")
 public interface FMOD_CODEC_OPEN_CALLBACKI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_uint32, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_uint32, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -45,7 +40,7 @@ public interface FMOD_CODEC_OPEN_CALLBACKI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /** Codec callbacks */
+    /** {@code FMOD_RESULT (* FMOD_CODEC_OPEN_CALLBACK) (struct FMOD_CODEC_STATE * codec_state, FMOD_MODE usermode, FMOD_CREATESOUNDEXINFO * userexinfo)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("struct FMOD_CODEC_STATE *") long codec_state, @NativeType("FMOD_MODE") int usermode, @NativeType("FMOD_CREATESOUNDEXINFO *") long userexinfo);
 
 }

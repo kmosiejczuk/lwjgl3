@@ -19,10 +19,6 @@ import static org.lwjgl.system.MemoryStack.*;
 import org.lwjgl.system.linux.*;
 
 /**
- * Argument for {@link LibIOURing#IORING_REGISTER_SYNC_CANCEL REGISTER_SYNC_CANCEL}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct io_uring_sync_cancel_reg {
  *     __u64 addr;

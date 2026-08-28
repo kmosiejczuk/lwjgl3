@@ -16,9 +16,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct SQL_SS_TIMESTAMPOFFSET_STRUCT {
  *     SQLSMALLINT year;
  *     SQLUSMALLINT month;
@@ -29,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     SQLUINTEGER fraction;
  *     SQLSMALLINT timezone_hour;
  *     SQLSMALLINT timezone_minute;
- * }</code></pre>
+ * }}</pre>
  */
 public class SQL_SS_TIMESTAMPOFFSET_STRUCT extends Struct<SQL_SS_TIMESTAMPOFFSET_STRUCT> implements NativeResource {
 
@@ -254,25 +252,6 @@ public class SQL_SS_TIMESTAMPOFFSET_STRUCT extends Struct<SQL_SS_TIMESTAMPOFFSET
     public static SQL_SS_TIMESTAMPOFFSET_STRUCT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_SS_TIMESTAMPOFFSET_STRUCT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code SQL_SS_TIMESTAMPOFFSET_STRUCT} instance allocated on the specified {@link MemoryStack}.

@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * A mutation handler.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     id id
- * )</code></pre>
- */
+/** Callback function: {@link #invoke EnumerationMutationHandler} */
 public abstract class EnumerationMutationHandler extends Callback implements EnumerationMutationHandlerI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class EnumerationMutationHandler extends Callback implements Enu
     }
 
     protected EnumerationMutationHandler() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     EnumerationMutationHandler(long functionPointer) {

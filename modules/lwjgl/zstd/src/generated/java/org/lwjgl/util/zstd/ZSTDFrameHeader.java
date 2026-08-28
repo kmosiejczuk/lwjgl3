@@ -16,22 +16,20 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
- * struct ZSTD_frameHeader {
- *     unsigned long long {@link #frameContentSize};
- *     unsigned long long {@link #windowSize};
+ * <pre>{@code
+ * struct ZSTD_FrameHeader {
+ *     unsigned long long frameContentSize;
+ *     unsigned long long windowSize;
  *     unsigned int blockSizeMax;
- *     ZSTD_frameType_e {@link #frameType};
+ *     ZSTD_FrameType_e frameType;
  *     unsigned int headerSize;
  *     unsigned int dictID;
  *     unsigned int checksumFlag;
  *     unsigned _reserved1;
  *     unsigned _reserved2;
- * }</code></pre>
+ * }}</pre>
  */
-@NativeType("struct ZSTD_frameHeader")
+@NativeType("struct ZSTD_FrameHeader")
 public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeResource {
 
     /** The struct size in bytes. */
@@ -101,17 +99,17 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** if == {@link Zstd#ZSTD_CONTENTSIZE_UNKNOWN CONTENTSIZE_UNKNOWN}, it means this field is not available. 0 means "empty" */
+    /** @return the value of the {@code frameContentSize} field. */
     @NativeType("unsigned long long")
     public long frameContentSize() { return nframeContentSize(address()); }
-    /** can be very large, up to &le; {@code frameContentSize} */
+    /** @return the value of the {@code windowSize} field. */
     @NativeType("unsigned long long")
     public long windowSize() { return nwindowSize(address()); }
     /** @return the value of the {@code blockSizeMax} field. */
     @NativeType("unsigned int")
     public int blockSizeMax() { return nblockSizeMax(address()); }
-    /** if == {@link ZstdX#ZSTD_skippableFrame skippableFrame}, {@code frameContentSize} is the size of skippable content */
-    @NativeType("ZSTD_frameType_e")
+    /** @return the value of the {@code frameType} field. */
+    @NativeType("ZSTD_FrameType_e")
     public int frameType() { return nframeType(address()); }
     /** @return the value of the {@code headerSize} field. */
     @NativeType("unsigned int")
@@ -193,25 +191,6 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
     public static ZSTDFrameHeader.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static ZSTDFrameHeader.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code ZSTDFrameHeader} instance allocated on the specified {@link MemoryStack}.
@@ -313,17 +292,17 @@ public class ZSTDFrameHeader extends Struct<ZSTDFrameHeader> implements NativeRe
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link ZSTDFrameHeader#frameContentSize} field. */
+        /** @return the value of the {@code frameContentSize} field. */
         @NativeType("unsigned long long")
         public long frameContentSize() { return ZSTDFrameHeader.nframeContentSize(address()); }
-        /** @return the value of the {@link ZSTDFrameHeader#windowSize} field. */
+        /** @return the value of the {@code windowSize} field. */
         @NativeType("unsigned long long")
         public long windowSize() { return ZSTDFrameHeader.nwindowSize(address()); }
         /** @return the value of the {@code blockSizeMax} field. */
         @NativeType("unsigned int")
         public int blockSizeMax() { return ZSTDFrameHeader.nblockSizeMax(address()); }
-        /** @return the value of the {@link ZSTDFrameHeader#frameType} field. */
-        @NativeType("ZSTD_frameType_e")
+        /** @return the value of the {@code frameType} field. */
+        @NativeType("ZSTD_FrameType_e")
         public int frameType() { return ZSTDFrameHeader.nframeType(address()); }
         /** @return the value of the {@code headerSize} field. */
         @NativeType("unsigned int")

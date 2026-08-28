@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_CODEC_STATE *codec_state,
- *     unsigned int *length,
- *     FMOD_TIMEUNIT lengthtype
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CODEC_GETLENGTH_CALLBACK} */
 public abstract class FMOD_CODEC_GETLENGTH_CALLBACK extends Callback implements FMOD_CODEC_GETLENGTH_CALLBACKI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class FMOD_CODEC_GETLENGTH_CALLBACK extends Callback implements 
     }
 
     protected FMOD_CODEC_GETLENGTH_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_CODEC_GETLENGTH_CALLBACK(long functionPointer) {

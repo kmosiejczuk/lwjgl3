@@ -11,18 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to {@link OpusFileCallbacks}.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     void *_stream,
- *     long long _offset,
- *     int _whence
- * )</code></pre>
- */
+/** Callback function: {@link #invoke op_seek_func} */
 public abstract class OPSeekFunc extends Callback implements OPSeekFuncI {
 
     /**
@@ -50,7 +39,7 @@ public abstract class OPSeekFunc extends Callback implements OPSeekFuncI {
     }
 
     protected OPSeekFunc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     OPSeekFunc(long functionPointer) {

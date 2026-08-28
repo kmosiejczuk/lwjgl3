@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing a {@code COLR} v1 {@code PaintRotate} paint table. Used for rotating downstream paints with a given center and angle.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_PaintRotate {
  *     {@link FT_OpaquePaint FT_OpaquePaintRec} paint;

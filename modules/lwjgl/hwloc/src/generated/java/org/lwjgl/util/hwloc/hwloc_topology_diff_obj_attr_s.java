@@ -14,8 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct hwloc_topology_diff_obj_attr_s {
  *     hwloc_topology_diff_type_t type;

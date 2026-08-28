@@ -16,17 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Basic string buffer which is only used in context with the text editor to manage and manipulate dynamic or
- * fixed size string content. This is <em>NOT</em> the default string handling method. The only instance you
- * should have any contact with this API is if you interact with an {@link NkTextEdit} object inside one of the copy and
- * paste functions and even there only for more advanced cases.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct nk_str {
  *     {@link NkBuffer struct nk_buffer} buffer;
- *     int {@link #len};
+ *     int len;
  * }</code></pre>
  */
 @NativeType("struct nk_str")
@@ -81,7 +74,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     /** @return a {@link NkBuffer} view of the {@code buffer} field. */
     @NativeType("struct nk_buffer")
     public NkBuffer buffer() { return nbuffer(address()); }
-    /** in codepoints/runes/glyphs */
+    /** @return the value of the {@code len} field. */
     public int len() { return nlen(address()); }
 
     // -----------------------------------
@@ -154,25 +147,6 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
     public static NkStr.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkStr mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkStr callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NkStr mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NkStr callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkStr.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkStr.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkStr.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NkStr.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code NkStr} instance allocated on the specified {@link MemoryStack}.
@@ -265,7 +239,7 @@ public class NkStr extends Struct<NkStr> implements NativeResource {
         /** @return a {@link NkBuffer} view of the {@code buffer} field. */
         @NativeType("struct nk_buffer")
         public NkBuffer buffer() { return NkStr.nbuffer(address()); }
-        /** @return the value of the {@link NkStr#len} field. */
+        /** @return the value of the {@code len} field. */
         public int len() { return NkStr.nlen(address()); }
 
     }

@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.util.lz4.LZ4HC.LZ4_STREAMHC_MINSIZE;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * union LZ4_streamHC_t {
  *     char minStateSize[LZ4_STREAMHC_MINSIZE];

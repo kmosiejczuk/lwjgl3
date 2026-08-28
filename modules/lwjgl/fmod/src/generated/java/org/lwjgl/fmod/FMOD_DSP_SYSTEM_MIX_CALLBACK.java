@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state,
- *     int stage
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_SYSTEM_MIX_CALLBACK} */
 public abstract class FMOD_DSP_SYSTEM_MIX_CALLBACK extends Callback implements FMOD_DSP_SYSTEM_MIX_CALLBACKI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class FMOD_DSP_SYSTEM_MIX_CALLBACK extends Callback implements F
     }
 
     protected FMOD_DSP_SYSTEM_MIX_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_DSP_SYSTEM_MIX_CALLBACK(long functionPointer) {

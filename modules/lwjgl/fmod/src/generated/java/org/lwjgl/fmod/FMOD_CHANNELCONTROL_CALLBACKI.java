@@ -6,36 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     FMOD_CHANNELCONTROL *channelcontrol,
- *     FMOD_CHANNELCONTROL_TYPE controltype,
- *     FMOD_CHANNELCONTROL_CALLBACK_TYPE callbacktype,
- *     void *commanddata1,
- *     void *commanddata2
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CHANNELCONTROL_CALLBACK} */
 @FunctionalInterface
 @NativeType("FMOD_CHANNELCONTROL_CALLBACK")
 public interface FMOD_CHANNELCONTROL_CALLBACKI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_uint32, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_uint32, ffi_type_uint32, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -49,6 +42,7 @@ public interface FMOD_CHANNELCONTROL_CALLBACKI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code FMOD_RESULT (* FMOD_CHANNELCONTROL_CALLBACK) (FMOD_CHANNELCONTROL * channelcontrol, FMOD_CHANNELCONTROL_TYPE controltype, FMOD_CHANNELCONTROL_CALLBACK_TYPE callbacktype, void * commanddata1, void * commanddata2)} */
     @NativeType("FMOD_RESULT") int invoke(@NativeType("FMOD_CHANNELCONTROL *") long channelcontrol, @NativeType("FMOD_CHANNELCONTROL_TYPE") int controltype, @NativeType("FMOD_CHANNELCONTROL_CALLBACK_TYPE") int callbacktype, @NativeType("void *") long commanddata1, @NativeType("void *") long commanddata2);
 
 }

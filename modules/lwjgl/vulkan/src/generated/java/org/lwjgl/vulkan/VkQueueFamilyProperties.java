@@ -16,52 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure providing information about a queue family.
- * 
- * <h5>Description</h5>
- * 
- * <p>The value returned in {@code minImageTransferGranularity} has a unit of compressed texel blocks for images having a block-compressed format, and a unit of texels otherwise.</p>
- * 
- * <p>Possible values of {@code minImageTransferGranularity} are:</p>
- * 
- * <ul>
- * <li><code>(0,0,0)</code> specifies that only whole mip levels <b>must</b> be transferred using the image transfer operations on the corresponding queues. In this case, the following restrictions apply to all offset and extent parameters of image transfer operations:
- * 
- * <ul>
- * <li>The {@code x}, {@code y}, and {@code z} members of a {@link VkOffset3D} parameter <b>must</b> always be zero.</li>
- * <li>The {@code width}, {@code height}, and {@code depth} members of a {@link VkExtent3D} parameter <b>must</b> always match the width, height, and depth of the image subresource corresponding to the parameter, respectively.</li>
- * </ul>
- * </li>
- * <li><code>(A<sub>x</sub>, A<sub>y</sub>, A<sub>z</sub>)</code> where <code>A<sub>x</sub></code>, <code>A<sub>y</sub></code>, and <code>A<sub>z</sub></code> are all integer powers of two. In this case the following restrictions apply to all image transfer operations:
- * 
- * <ul>
- * <li>{@code x}, {@code y}, and {@code z} of a {@link VkOffset3D} parameter <b>must</b> be integer multiples of <code>A<sub>x</sub></code>, <code>A<sub>y</sub></code>, and <code>A<sub>z</sub></code>, respectively.</li>
- * <li>{@code width} of a {@link VkExtent3D} parameter <b>must</b> be an integer multiple of <code>A<sub>x</sub></code>, or else <code>x + width</code> <b>must</b> equal the width of the image subresource corresponding to the parameter.</li>
- * <li>{@code height} of a {@link VkExtent3D} parameter <b>must</b> be an integer multiple of <code>A<sub>y</sub></code>, or else <code>y + height</code> <b>must</b> equal the height of the image subresource corresponding to the parameter.</li>
- * <li>{@code depth} of a {@link VkExtent3D} parameter <b>must</b> be an integer multiple of <code>A<sub>z</sub></code>, or else <code>z + depth</code> <b>must</b> equal the depth of the image subresource corresponding to the parameter.</li>
- * <li>If the format of the image corresponding to the parameters is one of the block-compressed formats then for the purposes of the above calculations the granularity <b>must</b> be scaled up by the compressed texel block dimensions.</li>
- * </ul>
- * </li>
- * </ul>
- * 
- * <p>Queues supporting graphics and/or compute operations <b>must</b> report <code>(1,1,1)</code> in {@code minImageTransferGranularity}, meaning that there are no additional restrictions on the granularity of image transfer operations for these queues. Other queues supporting image transfer operations are only <b>required</b> to support whole mip level transfers, thus {@code minImageTransferGranularity} for queues belonging to such queue families <b>may</b> be <code>(0,0,0)</code>.</p>
- * 
- * <p>The <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#memory-device">Device Memory</a> section describes memory properties queried from the physical device.</p>
- * 
- * <p>For physical device feature queries see the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#features">Features</a> chapter.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkExtent3D}, {@link VkQueueFamilyProperties2}, {@link VK10#vkGetPhysicalDeviceQueueFamilyProperties GetPhysicalDeviceQueueFamilyProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkQueueFamilyProperties {
- *     VkQueueFlags {@link #queueFlags};
- *     uint32_t {@link #queueCount};
- *     uint32_t {@link #timestampValidBits};
- *     {@link VkExtent3D VkExtent3D} {@link #minImageTransferGranularity};
+ *     VkQueueFlags queueFlags;
+ *     uint32_t queueCount;
+ *     uint32_t timestampValidBits;
+ *     {@link VkExtent3D VkExtent3D} minImageTransferGranularity;
  * }</code></pre>
  */
 public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> implements NativeResource {
@@ -118,16 +78,16 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a bitmask of {@code VkQueueFlagBits} indicating capabilities of the queues in this queue family. */
+    /** @return the value of the {@code queueFlags} field. */
     @NativeType("VkQueueFlags")
     public int queueFlags() { return nqueueFlags(address()); }
-    /** the unsigned integer count of queues in this queue family. Each queue family <b>must</b> support at least one queue. */
+    /** @return the value of the {@code queueCount} field. */
     @NativeType("uint32_t")
     public int queueCount() { return nqueueCount(address()); }
-    /** the unsigned integer count of meaningful bits in the timestamps written via {@link VK13#vkCmdWriteTimestamp2 CmdWriteTimestamp2} or {@link VK10#vkCmdWriteTimestamp CmdWriteTimestamp}. The valid range for the count is 36 to 64 bits, or a value of 0, indicating no support for timestamps. Bits outside the valid range are guaranteed to be zeros. */
+    /** @return the value of the {@code timestampValidBits} field. */
     @NativeType("uint32_t")
     public int timestampValidBits() { return ntimestampValidBits(address()); }
-    /** the minimum granularity supported for image transfer operations on the queues in this queue family. */
+    /** @return a {@link VkExtent3D} view of the {@code minImageTransferGranularity} field. */
     public VkExtent3D minImageTransferGranularity() { return nminImageTransferGranularity(address()); }
 
     // -----------------------------------
@@ -200,25 +160,6 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
     public static VkQueueFamilyProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkQueueFamilyProperties.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkQueueFamilyProperties} instance allocated on the specified {@link MemoryStack}.
@@ -312,16 +253,16 @@ public class VkQueueFamilyProperties extends Struct<VkQueueFamilyProperties> imp
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkQueueFamilyProperties#queueFlags} field. */
+        /** @return the value of the {@code queueFlags} field. */
         @NativeType("VkQueueFlags")
         public int queueFlags() { return VkQueueFamilyProperties.nqueueFlags(address()); }
-        /** @return the value of the {@link VkQueueFamilyProperties#queueCount} field. */
+        /** @return the value of the {@code queueCount} field. */
         @NativeType("uint32_t")
         public int queueCount() { return VkQueueFamilyProperties.nqueueCount(address()); }
-        /** @return the value of the {@link VkQueueFamilyProperties#timestampValidBits} field. */
+        /** @return the value of the {@code timestampValidBits} field. */
         @NativeType("uint32_t")
         public int timestampValidBits() { return VkQueueFamilyProperties.ntimestampValidBits(address()); }
-        /** @return a {@link VkExtent3D} view of the {@link VkQueueFamilyProperties#minImageTransferGranularity} field. */
+        /** @return a {@link VkExtent3D} view of the {@code minImageTransferGranularity} field. */
         public VkExtent3D minImageTransferGranularity() { return VkQueueFamilyProperties.nminImageTransferGranularity(address()); }
 
     }

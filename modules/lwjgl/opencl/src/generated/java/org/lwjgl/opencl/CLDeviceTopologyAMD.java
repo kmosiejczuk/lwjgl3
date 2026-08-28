@@ -17,11 +17,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The struct returned by {@link CL10#clGetDeviceInfo GetDeviceInfo} with {@code param_name} set to {@link AMDDeviceTopology#CL_DEVICE_TOPOLOGY_AMD DEVICE_TOPOLOGY_AMD}.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * union cl_device_topology_amd {
  *     struct {
  *         cl_uint type;
@@ -34,7 +30,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *         cl_char device;
  *         cl_char function;
  *     } pcie;
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("union cl_device_topology_amd")
 public class CLDeviceTopologyAMD extends Struct<CLDeviceTopologyAMD> implements NativeResource {
@@ -198,25 +194,6 @@ public class CLDeviceTopologyAMD extends Struct<CLDeviceTopologyAMD> implements 
     public static CLDeviceTopologyAMD.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CLDeviceTopologyAMD.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CLDeviceTopologyAMD} instance allocated on the specified {@link MemoryStack}.

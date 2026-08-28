@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be set to the {@code indexDeclaration} field of the {@link IndexerCallbacks} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     CXClientData client_data,
- *     CXIdxDeclInfo const *info
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class IndexerIndexDeclaration extends Callback implements IndexerIndexDeclarationI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class IndexerIndexDeclaration extends Callback implements Indexe
     }
 
     protected IndexerIndexDeclaration() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     IndexerIndexDeclaration(long functionPointer) {

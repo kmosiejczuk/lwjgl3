@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state,
- *     int index,
- *     FMOD_BOOL value
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_SETPARAM_BOOL_CALLBACK} */
 public abstract class FMOD_DSP_SETPARAM_BOOL_CALLBACK extends Callback implements FMOD_DSP_SETPARAM_BOOL_CALLBACKI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class FMOD_DSP_SETPARAM_BOOL_CALLBACK extends Callback implement
     }
 
     protected FMOD_DSP_SETPARAM_BOOL_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_DSP_SETPARAM_BOOL_CALLBACK(long functionPointer) {

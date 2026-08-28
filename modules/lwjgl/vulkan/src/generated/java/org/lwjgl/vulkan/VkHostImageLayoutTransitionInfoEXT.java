@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkHostImageLayoutTransitionInfo}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkHostImageLayoutTransitionInfoEXT {
  *     VkStructureType sType;

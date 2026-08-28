@@ -18,21 +18,13 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.vulkan.VK10.*;
 
 /**
- * Structure specifying layer properties.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VK10#vkEnumerateDeviceLayerProperties EnumerateDeviceLayerProperties}, {@link VK10#vkEnumerateInstanceLayerProperties EnumerateInstanceLayerProperties}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkLayerProperties {
- *     char {@link #layerName}[VK_MAX_EXTENSION_NAME_SIZE];
- *     uint32_t {@link #specVersion};
- *     uint32_t {@link #implementationVersion};
- *     char {@link #description}[VK_MAX_DESCRIPTION_SIZE];
- * }</code></pre>
+ *     char layerName[VK_MAX_EXTENSION_NAME_SIZE];
+ *     uint32_t specVersion;
+ *     uint32_t implementationVersion;
+ *     char description[VK_MAX_DESCRIPTION_SIZE];
+ * }}</pre>
  */
 public class VkLayerProperties extends Struct<VkLayerProperties> implements NativeResource {
 
@@ -88,22 +80,22 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** an array of {@link VK10#VK_MAX_EXTENSION_NAME_SIZE MAX_EXTENSION_NAME_SIZE} {@code char} containing a null-terminated UTF-8 string which is the name of the layer. Use this name in the {@code ppEnabledLayerNames} array passed in the {@link VkInstanceCreateInfo} structure to enable this layer for an instance. */
+    /** @return a {@link ByteBuffer} view of the {@code layerName} field. */
     @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
     public ByteBuffer layerName() { return nlayerName(address()); }
-    /** an array of {@link VK10#VK_MAX_EXTENSION_NAME_SIZE MAX_EXTENSION_NAME_SIZE} {@code char} containing a null-terminated UTF-8 string which is the name of the layer. Use this name in the {@code ppEnabledLayerNames} array passed in the {@link VkInstanceCreateInfo} structure to enable this layer for an instance. */
+    /** @return the null-terminated string stored in the {@code layerName} field. */
     @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
     public String layerNameString() { return nlayerNameString(address()); }
-    /** the Vulkan version the layer was written to, encoded as described in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-coreversions-versionnumbers">Version Numbers</a>. */
+    /** @return the value of the {@code specVersion} field. */
     @NativeType("uint32_t")
     public int specVersion() { return nspecVersion(address()); }
-    /** the version of this layer. It is an integer, increasing with backward compatible changes. */
+    /** @return the value of the {@code implementationVersion} field. */
     @NativeType("uint32_t")
     public int implementationVersion() { return nimplementationVersion(address()); }
-    /** an array of {@link VK10#VK_MAX_DESCRIPTION_SIZE MAX_DESCRIPTION_SIZE} {@code char} containing a null-terminated UTF-8 string which provides additional details that <b>can</b> be used by the application to identify the layer. */
+    /** @return a {@link ByteBuffer} view of the {@code description} field. */
     @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
     public ByteBuffer description() { return ndescription(address()); }
-    /** an array of {@link VK10#VK_MAX_DESCRIPTION_SIZE MAX_DESCRIPTION_SIZE} {@code char} containing a null-terminated UTF-8 string which provides additional details that <b>can</b> be used by the application to identify the layer. */
+    /** @return the null-terminated string stored in the {@code description} field. */
     @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
     public String descriptionString() { return ndescriptionString(address()); }
 
@@ -177,25 +169,6 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
     public static VkLayerProperties.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkLayerProperties.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkLayerProperties} instance allocated on the specified {@link MemoryStack}.
@@ -293,22 +266,22 @@ public class VkLayerProperties extends Struct<VkLayerProperties> implements Nati
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link ByteBuffer} view of the {@link VkLayerProperties#layerName} field. */
+        /** @return a {@link ByteBuffer} view of the {@code layerName} field. */
         @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
         public ByteBuffer layerName() { return VkLayerProperties.nlayerName(address()); }
-        /** @return the null-terminated string stored in the {@link VkLayerProperties#layerName} field. */
+        /** @return the null-terminated string stored in the {@code layerName} field. */
         @NativeType("char[VK_MAX_EXTENSION_NAME_SIZE]")
         public String layerNameString() { return VkLayerProperties.nlayerNameString(address()); }
-        /** @return the value of the {@link VkLayerProperties#specVersion} field. */
+        /** @return the value of the {@code specVersion} field. */
         @NativeType("uint32_t")
         public int specVersion() { return VkLayerProperties.nspecVersion(address()); }
-        /** @return the value of the {@link VkLayerProperties#implementationVersion} field. */
+        /** @return the value of the {@code implementationVersion} field. */
         @NativeType("uint32_t")
         public int implementationVersion() { return VkLayerProperties.nimplementationVersion(address()); }
-        /** @return a {@link ByteBuffer} view of the {@link VkLayerProperties#description} field. */
+        /** @return a {@link ByteBuffer} view of the {@code description} field. */
         @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
         public ByteBuffer description() { return VkLayerProperties.ndescription(address()); }
-        /** @return the null-terminated string stored in the {@link VkLayerProperties#description} field. */
+        /** @return the null-terminated string stored in the {@code description} field. */
         @NativeType("char[VK_MAX_DESCRIPTION_SIZE]")
         public String descriptionString() { return VkLayerProperties.ndescriptionString(address()); }
 

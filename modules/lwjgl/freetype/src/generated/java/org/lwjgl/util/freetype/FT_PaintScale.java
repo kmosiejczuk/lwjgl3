@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing all of the {@code COLR} v1 {@code PaintScale*} paint tables.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_PaintScale {
  *     {@link FT_OpaquePaint FT_OpaquePaintRec} paint;

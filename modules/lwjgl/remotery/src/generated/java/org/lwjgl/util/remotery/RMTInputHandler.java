@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     char const *text,
- *     void *context
- * )</code></pre>
- */
+/** Callback function: {@link #invoke rmtInputHandlerPtr} */
 public abstract class RMTInputHandler extends Callback implements RMTInputHandlerI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class RMTInputHandler extends Callback implements RMTInputHandle
     }
 
     protected RMTInputHandler() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     RMTInputHandler(long functionPointer) {

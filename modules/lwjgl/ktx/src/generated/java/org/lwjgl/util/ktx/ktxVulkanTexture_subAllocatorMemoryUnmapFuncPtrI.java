@@ -6,33 +6,29 @@
 package org.lwjgl.util.ktx;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void * (*{@link #invoke}) (
- *     uint64_t allocId,
- *     uint64_t pageNumber
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 @FunctionalInterface
 @NativeType("void * (*) (uint64_t, uint64_t)")
 public interface ktxVulkanTexture_subAllocatorMemoryUnmapFuncPtrI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_pointer,
-        ffi_type_uint64, ffi_type_uint64
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_pointer,
+            ffi_type_uint64, ffi_type_uint64
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -43,7 +39,7 @@ public interface ktxVulkanTexture_subAllocatorMemoryUnmapFuncPtrI extends Callba
         apiClosureRetP(ret, __result);
     }
 
-    /** Function for unmapping the memory of a specific page. */
+    /** {@code void * (*) (uint64_t allocId, uint64_t pageNumber)} */
     @NativeType("void *") long invoke(@NativeType("uint64_t") long allocId, @NativeType("uint64_t") long pageNumber);
 
 }

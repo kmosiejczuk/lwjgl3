@@ -6,35 +6,29 @@
 package org.lwjgl.util.ktx;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * KTX_error_code (*{@link #invoke}) (
- *     ktxStream *str,
- *     void const *src,
- *     ktx_size_t const size,
- *     ktx_size_t const count
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ktxStream_write} */
 @FunctionalInterface
 @NativeType("ktxStream_write")
 public interface ktxStream_writeI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_uint32,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_uint32,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -47,7 +41,7 @@ public interface ktxStream_writeI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
-    /** Type for a pointer to a stream writing function. */
+    /** {@code KTX_error_code (* ktxStream_write) (ktxStream * str, void const * src, ktx_size_t const size, ktx_size_t const count)} */
     @NativeType("KTX_error_code") int invoke(@NativeType("ktxStream *") long str, @NativeType("void const *") long src, @NativeType("ktx_size_t const") long size, @NativeType("ktx_size_t const") long count);
 
 }

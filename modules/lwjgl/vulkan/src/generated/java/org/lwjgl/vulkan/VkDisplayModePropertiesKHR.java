@@ -16,18 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing display mode properties.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayModeParametersKHR}, {@link VkDisplayModeProperties2KHR}, {@link KHRDisplay#vkGetDisplayModePropertiesKHR GetDisplayModePropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkDisplayModePropertiesKHR {
- *     VkDisplayModeKHR {@link #displayMode};
- *     {@link VkDisplayModeParametersKHR VkDisplayModeParametersKHR} {@link #parameters};
+ *     VkDisplayModeKHR displayMode;
+ *     {@link VkDisplayModeParametersKHR VkDisplayModeParametersKHR} parameters;
  * }</code></pre>
  */
 public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKHR> implements NativeResource {
@@ -78,10 +70,10 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** a handle to the display mode described in this structure. This handle will be valid for the lifetime of the Vulkan instance. */
+    /** @return the value of the {@code displayMode} field. */
     @NativeType("VkDisplayModeKHR")
     public long displayMode() { return ndisplayMode(address()); }
-    /** a {@link VkDisplayModeParametersKHR} structure describing the display parameters associated with {@code displayMode}. */
+    /** @return a {@link VkDisplayModeParametersKHR} view of the {@code parameters} field. */
     public VkDisplayModeParametersKHR parameters() { return nparameters(address()); }
 
     // -----------------------------------
@@ -154,25 +146,6 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
     public static VkDisplayModePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayModePropertiesKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkDisplayModePropertiesKHR} instance allocated on the specified {@link MemoryStack}.
@@ -262,10 +235,10 @@ public class VkDisplayModePropertiesKHR extends Struct<VkDisplayModePropertiesKH
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayModePropertiesKHR#displayMode} field. */
+        /** @return the value of the {@code displayMode} field. */
         @NativeType("VkDisplayModeKHR")
         public long displayMode() { return VkDisplayModePropertiesKHR.ndisplayMode(address()); }
-        /** @return a {@link VkDisplayModeParametersKHR} view of the {@link VkDisplayModePropertiesKHR#parameters} field. */
+        /** @return a {@link VkDisplayModeParametersKHR} view of the {@code parameters} field. */
         public VkDisplayModeParametersKHR parameters() { return VkDisplayModePropertiesKHR.nparameters(address()); }
 
     }

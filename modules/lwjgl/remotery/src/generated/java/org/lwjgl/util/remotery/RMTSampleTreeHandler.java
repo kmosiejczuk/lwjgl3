@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *cbk_context,
- *     rmtSampleTree *sample_tree
- * )</code></pre>
- */
+/** Callback function: {@link #invoke rmtSampleTreeHandlerPtr} */
 public abstract class RMTSampleTreeHandler extends Callback implements RMTSampleTreeHandlerI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class RMTSampleTreeHandler extends Callback implements RMTSample
     }
 
     protected RMTSampleTreeHandler() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     RMTSampleTreeHandler(long functionPointer) {

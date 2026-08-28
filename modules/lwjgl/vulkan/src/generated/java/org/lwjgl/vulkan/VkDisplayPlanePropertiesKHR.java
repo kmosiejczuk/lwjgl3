@@ -16,19 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure describing display plane properties.
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkDisplayPlaneProperties2KHR}, {@link KHRDisplay#vkGetPhysicalDeviceDisplayPlanePropertiesKHR GetPhysicalDeviceDisplayPlanePropertiesKHR}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkDisplayPlanePropertiesKHR {
- *     VkDisplayKHR {@link #currentDisplay};
- *     uint32_t {@link #currentStackIndex};
- * }</code></pre>
+ *     VkDisplayKHR currentDisplay;
+ *     uint32_t currentStackIndex;
+ * }}</pre>
  */
 public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlanePropertiesKHR> implements NativeResource {
 
@@ -78,10 +70,10 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the handle of the display the plane is currently associated with. If the plane is not currently attached to any displays, this will be {@link VK10#VK_NULL_HANDLE NULL_HANDLE}. */
+    /** @return the value of the {@code currentDisplay} field. */
     @NativeType("VkDisplayKHR")
     public long currentDisplay() { return ncurrentDisplay(address()); }
-    /** the current z-order of the plane. This will be between 0 and the value returned by {@code vkGetPhysicalDeviceDisplayPlanePropertiesKHR} in {@code pPropertyCount}. */
+    /** @return the value of the {@code currentStackIndex} field. */
     @NativeType("uint32_t")
     public int currentStackIndex() { return ncurrentStackIndex(address()); }
 
@@ -155,25 +147,6 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
     public static VkDisplayPlanePropertiesKHR.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkDisplayPlanePropertiesKHR.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code VkDisplayPlanePropertiesKHR} instance allocated on the specified {@link MemoryStack}.
@@ -263,10 +236,10 @@ public class VkDisplayPlanePropertiesKHR extends Struct<VkDisplayPlaneProperties
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkDisplayPlanePropertiesKHR#currentDisplay} field. */
+        /** @return the value of the {@code currentDisplay} field. */
         @NativeType("VkDisplayKHR")
         public long currentDisplay() { return VkDisplayPlanePropertiesKHR.ncurrentDisplay(address()); }
-        /** @return the value of the {@link VkDisplayPlanePropertiesKHR#currentStackIndex} field. */
+        /** @return the value of the {@code currentStackIndex} field. */
         @NativeType("uint32_t")
         public int currentStackIndex() { return VkDisplayPlanePropertiesKHR.ncurrentStackIndex(address()); }
 

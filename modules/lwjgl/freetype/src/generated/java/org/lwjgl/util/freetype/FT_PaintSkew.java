@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure representing a {@code COLR} v1 {@code PaintSkew} paint table. Used for skewing or shearing downstream paints by a given center and angle.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_PaintSkew {
  *     {@link FT_OpaquePaint FT_OpaquePaintRec} paint;

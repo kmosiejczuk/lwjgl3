@@ -17,11 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure to indicate how to open a new font file or stream. A pointer to such a structure can be used as a parameter for the functions
- * {@link FreeType#FT_Open_Face Open_Face} and {@link FreeType#FT_Attach_Stream Attach_Stream}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_Open_Args {
  *     FT_UInt flags;

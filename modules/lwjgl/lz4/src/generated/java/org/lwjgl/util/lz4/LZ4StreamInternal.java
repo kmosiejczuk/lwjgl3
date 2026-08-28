@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.util.lz4.LZ4.LZ4_HASH_SIZE_U32;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct LZ4_stream_t_internal {
  *     LZ4_u32 hashTable[LZ4_HASH_SIZE_U32];
@@ -96,11 +94,7 @@ public class LZ4StreamInternal extends Struct<LZ4StreamInternal> {
     /** @return the value at the specified index of the {@code hashTable} field. */
     @NativeType("LZ4_u32")
     public int hashTable(int index) { return nhashTable(address(), index); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code dictionary} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code dictionary} field. */
     @NativeType("LZ4_byte const *")
     public ByteBuffer dictionary(int capacity) { return ndictionary(address(), capacity); }
     /** @return a {@link LZ4StreamInternal} view of the struct pointed to by the {@code dictCtx} field. */
@@ -211,11 +205,7 @@ public class LZ4StreamInternal extends Struct<LZ4StreamInternal> {
         /** @return the value at the specified index of the {@code hashTable} field. */
         @NativeType("LZ4_u32")
         public int hashTable(int index) { return LZ4StreamInternal.nhashTable(address(), index); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code dictionary} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code dictionary} field. */
         @NativeType("LZ4_byte const *")
         public ByteBuffer dictionary(int capacity) { return LZ4StreamInternal.ndictionary(address(), capacity); }
         /** @return a {@link LZ4StreamInternal} view of the struct pointed to by the {@code dictCtx} field. */

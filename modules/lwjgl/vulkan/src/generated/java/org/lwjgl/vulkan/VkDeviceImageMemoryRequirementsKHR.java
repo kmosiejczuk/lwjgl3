@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * See {@link VkDeviceImageMemoryRequirements}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct VkDeviceImageMemoryRequirementsKHR {
  *     VkStructureType sType;

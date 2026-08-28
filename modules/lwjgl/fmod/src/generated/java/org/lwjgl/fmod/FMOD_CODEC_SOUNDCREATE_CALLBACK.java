@@ -11,16 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_CODEC_STATE *codec_state,
- *     int subsound,
- *     FMOD_SOUND *sound
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_CODEC_SOUNDCREATE_CALLBACK} */
 public abstract class FMOD_CODEC_SOUNDCREATE_CALLBACK extends Callback implements FMOD_CODEC_SOUNDCREATE_CALLBACKI {
 
     /**
@@ -48,7 +39,7 @@ public abstract class FMOD_CODEC_SOUNDCREATE_CALLBACK extends Callback implement
     }
 
     protected FMOD_CODEC_SOUNDCREATE_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_CODEC_SOUNDCREATE_CALLBACK(long functionPointer) {

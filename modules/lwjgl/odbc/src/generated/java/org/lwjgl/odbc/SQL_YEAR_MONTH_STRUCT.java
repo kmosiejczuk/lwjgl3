@@ -16,13 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct SQL_YEAR_MONTH_STRUCT {
  *     SQLUINTEGER year;
  *     SQLUINTEGER month;
- * }</code></pre>
+ * }}</pre>
  */
 public class SQL_YEAR_MONTH_STRUCT extends Struct<SQL_YEAR_MONTH_STRUCT> implements NativeResource {
 
@@ -177,25 +175,6 @@ public class SQL_YEAR_MONTH_STRUCT extends Struct<SQL_YEAR_MONTH_STRUCT> impleme
     public static SQL_YEAR_MONTH_STRUCT.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static SQL_YEAR_MONTH_STRUCT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code SQL_YEAR_MONTH_STRUCT} instance allocated on the specified {@link MemoryStack}.

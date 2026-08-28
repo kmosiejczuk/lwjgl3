@@ -21,7 +21,6 @@ This script is included in /config/build-definitions.xml.
             <isset property="build.arch.arm"/>
         </and>
     </condition>
-    <property name="binding.cuda" value="true"/>
     <property name="binding.egl" value="true"/>
     <property name="binding.fmod" value="true"/>
     <property name="binding.freetype" value="true"/>
@@ -31,16 +30,9 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.jawt" value="true"/>
     <property name="binding.jemalloc" value="true"/>
     <property name="binding.ktx" value="true"/>
-    <property name="binding.libdivide" value="true"/>
     <property name="binding.llvm" value="true"/>
     <property name="binding.lmdb" value="true"/>
     <property name="binding.lz4" value="true"/>
-    <condition property="binding.meow" value="true" else="false">
-        <or>
-            <isset property="build.arch.x64|x86"/>
-            <isset property="build.arch.arm64"/>
-        </or>
-    </condition>
     <property name="binding.meshoptimizer" value="true"/>
     <property name="binding.msdfgen" value="true"/>
     <property name="binding.nanovg" value="true"/>
@@ -51,15 +43,6 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.opencl" value="true"/>
     <property name="binding.opengl" value="true"/>
     <property name="binding.opengles" value="true"/>
-    <condition property="binding.openvr" value="true" else="false">
-        <or>
-            <isset property="build.arch.x64|x86"/>
-            <and>
-                <isset property="platform.linux"/>
-                <isset property="build.arch.arm64"/>
-            </and>
-        </or>
-    </condition>
     <property name="binding.openxr" value="true"/>
     <property name="binding.opus" value="true"/>
     <property name="binding.par" value="true"/>
@@ -69,14 +52,15 @@ This script is included in /config/build-definitions.xml.
             <isset property="build.arch.arm"/>
         </and>
     </condition>
+    <property name="binding.renderdoc" value="true"/>
     <property name="binding.rpmalloc" value="true"/>
+    <property name="binding.sdl" value="true"/>
     <property name="binding.shaderc" value="true"/>
+    <property name="binding.spng" value="true"/>
     <property name="binding.spvc" value="true"/>
-    <condition property="binding.sse" value="true" else="false"><isset property="build.arch.x64|x86"/></condition>
     <property name="binding.stb" value="true"/>
     <property name="binding.tinyexr" value="false"/>
     <property name="binding.tinyfd" value="true"/>
-    <condition property="binding.tootle" value="true" else="false"><isset property="build.arch.x64|x86"/></condition>
     <property name="binding.vulkan" value="true"/>
     <condition property="binding.vma" value="true" else="false"><istrue value="${binding.vulkan}"/></condition>
     <property name="binding.xxhash" value="true"/>
@@ -84,23 +68,12 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.zstd" value="false"/>
 
     <!-- TODO: automate -->
-    <property name="java-only.binding.cuda" value="true"/>
     <property name="java-only.binding.egl" value="true"/>
     <property name="java-only.binding.fmod" value="true"/>
     <property name="java-only.binding.jawt" value="true"/>
     <property name="java-only.binding.odbc" value="true"/>
     <property name="java-only.binding.opencl" value="true"/>
-
-    <!-- Set the path to the Oculus SDK to enable. -->
-    <!-- TODO: add headers in here -->
-    <property name="OCULUS_SDK_PATH" location="../OculusSDK" relative="false"/>
-    <condition property="binding.ovr" value="true" else="false">
-        <and>
-            <isset property="OCULUS_SDK_PATH"/>
-            <available file="${OCULUS_SDK_PATH}/LibOVR/Include/OVR_CAPI.h"/>
-            <isset property="build.arch.x64|x86"/>
-        </and>
-    </condition>
+    <property name="java-only.binding.renderdoc" value="true"/>
 
     <!-- // ================================ // -->
 
@@ -110,7 +83,6 @@ This script is included in /config/build-definitions.xml.
             <parallel threadsPerProcessor="1">
                 <sequential if:true="${binding.assimp}"><local name="module"/><property name="module" value="assimp"/><body/></sequential>
                 <sequential if:true="${binding.bgfx}"><local name="module"/><property name="module" value="bgfx"/><body/></sequential>
-                <sequential if:true="${binding.cuda}"><local name="module"/><property name="module" value="cuda"/><body/></sequential>
                 <sequential if:true="${binding.egl}"><local name="module"/><property name="module" value="egl"/><body/></sequential>
                 <sequential if:true="${binding.fmod}"><local name="module"/><property name="module" value="fmod"/><body/></sequential>
                 <sequential if:true="${binding.freetype}"><local name="module"/><property name="module" value="freetype"/><body/></sequential>
@@ -120,11 +92,9 @@ This script is included in /config/build-definitions.xml.
                 <sequential if:true="${binding.jawt}"><local name="module"/><property name="module" value="jawt"/><body/></sequential>
                 <sequential if:true="${binding.jemalloc}"><local name="module"/><property name="module" value="jemalloc"/><body/></sequential>
                 <sequential if:true="${binding.ktx}"><local name="module"/><property name="module" value="ktx"/><body/></sequential>
-                <sequential if:true="${binding.libdivide}"><local name="module"/><property name="module" value="libdivide"/><body/></sequential>
                 <sequential if:true="${binding.llvm}"><local name="module"/><property name="module" value="llvm"/><body/></sequential>
                 <sequential if:true="${binding.lmdb}"><local name="module"/><property name="module" value="lmdb"/><body/></sequential>
                 <sequential if:true="${binding.lz4}"><local name="module"/><property name="module" value="lz4"/><body/></sequential>
-                <sequential if:true="${binding.meow}"><local name="module"/><property name="module" value="meow"/><body/></sequential>
                 <sequential if:true="${binding.meshoptimizer}"><local name="module"/><property name="module" value="meshoptimizer"/><body/></sequential>
                 <sequential if:true="${binding.msdfgen}"><local name="module"/><property name="module" value="msdfgen"/><body/></sequential>
                 <sequential if:true="${binding.nanovg}"><local name="module"/><property name="module" value="nanovg"/><body/></sequential>
@@ -135,20 +105,19 @@ This script is included in /config/build-definitions.xml.
                 <sequential if:true="${binding.opencl}"><local name="module"/><property name="module" value="opencl"/><body/></sequential>
                 <sequential if:true="${binding.opengl}"><local name="module"/><property name="module" value="opengl"/><body/></sequential>
                 <sequential if:true="${binding.opengles}"><local name="module"/><property name="module" value="opengles"/><body/></sequential>
-                <sequential if:true="${binding.openvr}"><local name="module"/><property name="module" value="openvr"/><body/></sequential>
                 <sequential if:true="${binding.openxr}"><local name="module"/><property name="module" value="openxr"/><body/></sequential>
                 <sequential if:true="${binding.opus}"><local name="module"/><property name="module" value="opus"/><body/></sequential>
-                <sequential if:true="${binding.ovr}"><local name="module"/><property name="module" value="ovr"/><body/></sequential>
                 <sequential if:true="${binding.par}"><local name="module"/><property name="module" value="par"/><body/></sequential>
                 <sequential if:true="${binding.remotery}"><local name="module"/><property name="module" value="remotery"/><body/></sequential>
+                <sequential if:true="${binding.renderdoc}"><local name="module"/><property name="module" value="renderdoc"/><body/></sequential>
                 <sequential if:true="${binding.rpmalloc}"><local name="module"/><property name="module" value="rpmalloc"/><body/></sequential>
+                <sequential if:true="${binding.sdl}"><local name="module"/><property name="module" value="sdl"/><body/></sequential>
                 <sequential if:true="${binding.shaderc}"><local name="module"/><property name="module" value="shaderc"/><body/></sequential>
+                <sequential if:true="${binding.spng}"><local name="module"/><property name="module" value="spng"/><body/></sequential>
                 <sequential if:true="${binding.spvc}"><local name="module"/><property name="module" value="spvc"/><body/></sequential>
-                <sequential if:true="${binding.sse}"><local name="module"/><property name="module" value="sse"/><body/></sequential>
                 <sequential if:true="${binding.stb}"><local name="module"/><property name="module" value="stb"/><body/></sequential>
                 <sequential if:true="${binding.tinyexr}"><local name="module"/><property name="module" value="tinyexr"/><body/></sequential>
                 <sequential if:true="${binding.tinyfd}"><local name="module"/><property name="module" value="tinyfd"/><body/></sequential>
-                <sequential if:true="${binding.tootle}"><local name="module"/><property name="module" value="tootle"/><body/></sequential>
                 <sequential if:true="${binding.vma}"><local name="module"/><property name="module" value="vma"/><body/></sequential>
                 <sequential if:true="${binding.vulkan}"><local name="module"/><property name="module" value="vulkan"/><body/></sequential>
                 <sequential if:true="${binding.xxhash}"><local name="module"/><property name="module" value="xxhash"/><body/></sequential>
@@ -159,10 +128,23 @@ This script is included in /config/build-definitions.xml.
     </macrodef>
 
     <macrodef name="forEachModule">
+        <attribute name="core8" default="false"/>
         <element name="body" implicit="yes"/>
         <sequential>
             <sequential>
                 <local name="module"/><property name="module" value="core"/>
+                <body/>
+            </sequential>
+            <sequential unless:true="@{core8}" if:set="jdk11">
+                <local name="module"/><property name="module" value="core11"/>
+                <body/>
+            </sequential>
+            <sequential unless:true="@{core8}" if:set="jdk17">
+                <local name="module"/><property name="module" value="core17"/>
+                <body/>
+            </sequential>
+            <sequential unless:true="@{core8}" if:set="jdk25">
+                <local name="module"/><property name="module" value="core25"/>
                 <body/>
             </sequential>
             <forEachBinding>

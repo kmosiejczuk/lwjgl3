@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * unsigned long (*{@link #invoke}) (
- *     FT_Stream stream,
- *     unsigned long offset,
- *     unsigned char *buffer,
- *     unsigned long count
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Stream_IoFunc} */
 public abstract class FT_Stream_IoFunc extends Callback implements FT_Stream_IoFuncI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class FT_Stream_IoFunc extends Callback implements FT_Stream_IoF
     }
 
     protected FT_Stream_IoFunc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FT_Stream_IoFunc(long functionPointer) {

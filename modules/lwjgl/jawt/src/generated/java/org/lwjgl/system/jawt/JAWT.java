@@ -16,13 +16,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure for containing native AWT functions.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct JAWT {
- *     jint {@link #version};
+ *     jint version;
  *     void * GetDrawingSurface;
  *     void * FreeDrawingSurface;
  *     void * Lock;
@@ -31,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     void * CreateEmbeddedFrame;
  *     void * SetBounds;
  *     void * SynthesizeWindowActivation;
- * }</code></pre>
+ * }}</pre>
  */
 public class JAWT extends Struct<JAWT> implements NativeResource {
 
@@ -102,7 +98,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** Version of this structure. This must always be set before calling JAWT_GetAWT() */
+    /** @return the value of the {@code version} field. */
     @NativeType("jint")
     public int version() { return nversion(address()); }
     /** @return the value of the {@code GetDrawingSurface} field. */
@@ -130,7 +126,7 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     @NativeType("void *")
     public long SynthesizeWindowActivation() { return nSynthesizeWindowActivation(address()); }
 
-    /** Sets the specified value to the {@link #version} field. */
+    /** Sets the specified value to the {@code version} field. */
     public JAWT version(@NativeType("jint") int value) { nversion(address(), value); return this; }
 
     /**
@@ -172,18 +168,6 @@ public class JAWT extends Struct<JAWT> implements NativeResource {
     public static @Nullable JAWT createSafe(long address) {
         return address == NULL ? null : new JAWT(address, null);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static JAWT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static JAWT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static JAWT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static JAWT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
 
     /**
      * Returns a new {@code JAWT} instance allocated on the specified {@link MemoryStack}.

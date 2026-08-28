@@ -158,6 +158,14 @@ EXPORTS
 
     <target name="compile-native-platform">
         <mkdir dir="${bin.native}/build"/>
+        <sequential if:set="cl.version.print">
+            <exec executable="cmd" logError="true" failonerror="false">
+                <arg line="/c cl.exe 2>&amp;1 | findstr Version"/>
+            </exec>
+            <exec executable="cmd" logError="true" failonerror="false" >
+                <arg line='/c clang --version | findstr "clang version"'/>
+            </exec>
+        </sequential>
 
         <parallel threadsPerProcessor="1">
 
@@ -193,9 +201,6 @@ EXPORTS
             </link>
         </build>
 
-        <!-- LIBDIVIDE -->
-        <build_simple module="libdivide"/>
-
         <!-- LLVM -->
         <build_simple module="llvm"/>
 
@@ -229,9 +234,6 @@ EXPORTS
             </beforeCompile>
         </build>
 
-        <!-- Meow -->
-        <build_simple module="meow" useClang="false"/>
-
         <!-- meshoptimizer -->
         <sequential if:true="${binding.meshoptimizer}">
             <local name="meshoptimizer.useClang"/>
@@ -250,9 +252,10 @@ EXPORTS
         <!-- msdfgen -->
         <build module="msdfgen" simple="true" if:true="${binding.msdfgen}">
             <beforeCompile>
-                <compile>
+                <compile flags="/DMSDFGEN_DYNAMIC_FREETYPE">
                     <arg value="/I${src.main}"/>
-                    <fileset dir="." includes="${src.main}/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/core/*.cpp"/>
+                    <fileset dir="." includes="${src.main}/ext/*.cpp"/>
                 </compile>
             </beforeCompile>
         </build>
@@ -284,30 +287,11 @@ EXPORTS
         <!-- Nuklear -->
         <build_simple module="nuklear"/>
 
-        <!-- LibOVR -->
-        <build module="ovr" if:true="${binding.ovr}">
-            <beforeCompile>
-                <compile relative="false">
-                    <arg value="/I${OCULUS_SDK_PATH}\LibOVR\Include"/>
-                    <fileset dir="${OCULUS_SDK_PATH}/LibOVR/Shim" includes="*.c*"/>
-                </compile>
-            </beforeCompile>
-            <compileargs>
-                <arg value="/I${OCULUS_SDK_PATH}\LibOVR\Include"/>
-            </compileargs>
-            <source>
-                <fileset dir="." includes="${src.generated}/*.c"/>
-            </source>
-        </build>
-
         <!-- OpenGL -->
         <build_simple module="opengl"/>
 
         <!-- OpenGL ES -->
         <build_simple module="opengles"/>
-
-        <!-- OpenVR -->
-        <build_simple module="openvr"/>
 
         <!-- Par -->
         <build_simple module="par"/>
@@ -335,8 +319,14 @@ EXPORTS
             </linkargs>
         </build>
 
-        <!-- SSE -->
-        <build_simple module="sse"/>
+        <build module="spng" simple="true" if:true="${binding.spng}">
+            <compileargs>
+                <arg value="/I${module.lwjgl}\core\src\main\c\dependencies\miniz"/>
+            </compileargs>
+            <source>
+                <fileset dir="." includes="${module.lwjgl}\core\src\main\c\dependencies\miniz\*.c"/>
+            </source>
+        </build>
 
         <!-- stb -->
         <build_simple module="stb"/>
@@ -346,7 +336,10 @@ EXPORTS
             <beforeCompile>
                 <compile>
                     <arg value="/I${src.main}"/>
+                    <arg value="/I${module.lwjgl}\core\src\main\c\dependencies\miniz"/>
+
                     <fileset dir="." includes="${src.main}/*"/>
+                    <fileset dir="." includes="${module.lwjgl}\core\src\main\c\dependencies\miniz\*.c"/>
                 </compile>
             </beforeCompile>
         </build>
@@ -364,39 +357,6 @@ EXPORTS
                 <arg value="Ole32.lib"/>
                 <arg value="Shell32.lib"/>
                 <arg value="User32.lib"/>
-            </linkargs>
-        </build>
-
-        <!-- AMD Tootle -->
-        <build module="tootle" if:true="${binding.tootle}">
-            <beforeCompile>
-                <compile>
-                    <fileset dir="." includes="${src.main}/DirectXMesh/*.cpp"/>
-                </compile>
-
-                <compile flags="/TP /D_DX11_1_">
-                    <arg value="/I${src.main}"/>
-                    <arg value="/I${src.main}\include"/>
-                    <arg value="/I${src.main}\RayTracer"/>
-                    <arg value="/I${src.main}\RayTracer\JRT"/>
-                    <arg value="/I${src.main}\RayTracer\Math"/>
-                    <arg value="/I${src.main}\DirectXMesh"/>
-                    <fileset dir="." includes="${src.main}/*.c"/>
-                    <fileset dir="." includes="${src.main}/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/JRT/*.cpp"/>
-                    <fileset dir="." includes="${src.main}/RayTracer/Math/*.cpp"/>
-                </compile>
-            </beforeCompile>
-            <compileargs>
-                <arg value="/I${src.main}\include"/>
-            </compileargs>
-            <source>
-                <fileset dir="." includes="${src.generated}/*.cpp"/>
-            </source>
-            <linkargs>
-                <arg value="User32.lib"/>
-                <arg value="D3d9.lib"/>
             </linkargs>
         </build>
 
@@ -465,9 +425,9 @@ EXPORTS
             <update-dependency module="jemalloc" artifact="jemalloc.dll"/>
             <update-dependency module="ktx" artifact="ktx.dll" unless:set="build.arch.x86"/>
             <update-dependency module="openal" artifact="OpenAL.dll"/>
-            <update-dependency module="openvr" artifact="openvr_api.dll"/>
             <update-dependency module="openxr" artifact="openxr-loader.dll"/>
             <update-dependency module="opus" artifact="opus.dll"/>
+            <update-dependency module="sdl" artifact="SDL3.dll"/>
             <update-dependency module="shaderc" artifact="shaderc.dll"/>
             <update-dependency module="spvc" artifact="spirv-cross.dll"/>
 

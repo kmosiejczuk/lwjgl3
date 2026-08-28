@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure that stores the four hooks needed to render OT-SVG glyphs properly.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct SVG_RendererHooks {
  *     {@link SVG_Lib_Init_FuncI SVG_Lib_Init_Func} init_svg;

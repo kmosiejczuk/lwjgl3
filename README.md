@@ -40,6 +40,8 @@ configuration options.
 
 ### Getting Started
 
+As of version `3.4.0` and JDK 25, LWJGL supports the FFM API and is fully functional when running with `--sun-misc-unsafe-memory-access=deny`. See the [FFM documentation](https://github.com/LWJGL/lwjgl3/blob/master/doc/FFM.md) for details.
+
 As of version `3.1.0`, LWJGL is distributed as a set of modules. Only the
 core module is required and all bindings are optional (but some bindings
 depend on other bindings). The easiest way to download LWJGL is to use the
@@ -124,6 +126,7 @@ improve the chances of a quick and useful response.
 | Library| Description|
 |--------|------------|
 | [GLFW](https://www.glfw.org/)| Create multiple windows, handle user input (keyboard, mouse, gaming peripherals) and manage contexts. Also features multi-monitor support, clipboard access, file drag-n-drop, and [much more](http://www.glfw.org/docs/latest/news.html).|
+| [SDL](https://libsdl.org/)| Simple DirectMedia Layer is a cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL/Direct3D/Metal/Vulkan.|
 | [JAWT](http://docs.oracle.com/javase/8/docs/technotes/guides/awt/AWT_Native_Interface.html)| The AWT native interface.|
 | [Native File Dialog Extended](https://github.com/btzy/nativefiledialog-extended)| A small C library that portably invokes native file open, folder select and file save dialogs.|
 | [tinyfd](https://sourceforge.net/projects/tinyfiledialogs/)| A native dialog library.|
@@ -156,16 +159,8 @@ improve the chances of a quick and useful response.
 | [Shaderc](https://github.com/google/shaderc)| A collection of libraries for shader compilation.|
 | [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross)| A library for performing reflection on SPIR-V and disassembling SPIR-V back to high level languages.|
 | [Tiny OpenEXR](https://github.com/syoyo/tinyexr)| A small, single header-only library to load and save OpenEXR(.exr) images.|
-| [Tootle (AMD)](https://github.com/GPUOpen-Tools/amd-tootle)| A 3D triangle mesh optimization library that improves on existing mesh preprocessing techniques.|
 | [Vulkan Memory Allocator](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator)| An easy to integrate Vulkan memory allocation library.|
 | [Yoga](https://facebook.github.io/yoga/)| An open-source, cross-platform layout library that implements Flexbox.|
-
-#### AR/VR
-
-| Library| Description|
-|--------|------------|
-| [LibOVR](https://developer.oculus.com/documentation/)| The API of the Oculus SDK.|
-| [OpenVR](https://github.com/ValveSoftware/openvr)| An API and runtime that allows access to VR hardware from multiple vendors without requiring that applications have specific knowledge of the hardware they are targeting.|
 
 #### [stb](https://github.com/nothings/stb) - single-file public domain libraries for C/C++
 
@@ -184,17 +179,16 @@ improve the chances of a quick and useful response.
 
 | Library| Description|
 |--------|------------|
-| [CUDA](https://developer.nvidia.com/cuda-zone/)| A parallel computing platform and programming model developed by NVIDIA for general computing on GPUs.|
 | [hwloc](https://www.open-mpi.org/projects/hwloc/)| A portable abstraction of the hierarchical topology of modern architectures, including NUMA memory nodes, sockets, shared caches, cores and simultaneous multithreading.|
 | [jemalloc](https://jemalloc.net/)| A general purpose malloc implementation that emphasizes fragmentation avoidance and scalable concurrency support.|
 | [libffi](https://sourceware.org)| A portable, high level programming interface to various calling conventions.|
-| [libdivide](https://libdivide.com/)| A library that replaces expensive integer divides with comparatively cheap multiplication and bitshifts.|
+| [libspng](https://libspng.org/)| libspng (simple png) is a C library for reading and writing Portable Network Graphics (PNG) format files with a focus on security and ease of use.|
 | [LLVM](https://llvm.org/)| A collection of modular and reusable compiler and toolchain technologies.|
 | [LMDB](https://www.symas.com/lmdb)| An extraordinarily fast, memory-efficient database. With memory-mapped files, it has the read performance of a pure in-memory database while retaining the persistence of standard disk-based databases.|
 | [LZ4](https://lz4.org/)| A lossless data compression algorithm that is focused on compression and decompression speed.|
-| [Meow hash](https://github.com/cmuratori/meow_hash)| An extremely fast non-cryptographic hash.|
 | [ODBC](https://docs.microsoft.com/en-us/sql/odbc/microsoft-open-database-connectivity-odbc)| A C programming language interface that makes it possible for applications to access data from a variety of database management systems (DBMSs).|
 | [Remotery](https://github.com/Celtoys/Remotery)| A realtime CPU/GPU profiler hosted in a single C file with a viewer that runs in a web browser.|
+| [RenderDoc](https://renderdoc.org)| An API to control the RenderDoc GPU debugger.|
 | [rpmalloc](https://github.com/mjansson/rpmalloc)| A public domain cross platform lock free thread caching 16-byte aligned memory allocator implemented in C.|
 | [xxHash](https://github.com/Cyan4973/xxHash)| An Extremely fast Hash algorithm, running at RAM speed limits.|
 | [Zstandard](http://facebook.github.io/zstd/) (zstd)| A fast lossless compression algorithm, targeting real-time compression scenarios at zlib-level and better compression ratios.|

@@ -16,19 +16,7 @@ import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-/**
- * Instances of this class may be passed to the {@link GLFW#glfwSetErrorCallback SetErrorCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     int error,
- *     char *description
- * )</code></pre>
- *
- * @since version 3.0
- */
+/** Callback function: {@link #invoke GLFWerrorfun} */
 public abstract class GLFWErrorCallback extends Callback implements GLFWErrorCallbackI {
 
     /**
@@ -56,7 +44,7 @@ public abstract class GLFWErrorCallback extends Callback implements GLFWErrorCal
     }
 
     protected GLFWErrorCallback() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     GLFWErrorCallback(long functionPointer) {

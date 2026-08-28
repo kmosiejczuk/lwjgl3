@@ -17,13 +17,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct LZ4F_compressOptions_t {
- *     unsigned {@link #stableSrc};
+ *     unsigned stableSrc;
  *     unsigned reserved[3];
- * }</code></pre>
+ * }}</pre>
  */
 @NativeType("struct LZ4F_compressOptions_t")
 public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements NativeResource {
@@ -74,7 +72,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** {@code 1 == src} content will remain present on future calls to {@code LZ4F_compress()}; skip copying {@code src} content within {@code tmp} buffer */
+    /** @return the value of the {@code stableSrc} field. */
     @NativeType("unsigned")
     public int stableSrc() { return nstableSrc(address()); }
     /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -84,7 +82,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     @NativeType("unsigned")
     public int reserved(int index) { return nreserved(address(), index); }
 
-    /** Sets the specified value to the {@link #stableSrc} field. */
+    /** Sets the specified value to the {@code stableSrc} field. */
     public LZ4FCompressOptions stableSrc(@NativeType("unsigned") int value) { nstableSrc(address(), value); return this; }
     /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
     public LZ4FCompressOptions reserved(@NativeType("unsigned[3]") IntBuffer value) { nreserved(address(), value); return this; }
@@ -184,25 +182,6 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
     public static LZ4FCompressOptions.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static LZ4FCompressOptions.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code LZ4FCompressOptions} instance allocated on the specified {@link MemoryStack}.
@@ -308,7 +287,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link LZ4FCompressOptions#stableSrc} field. */
+        /** @return the value of the {@code stableSrc} field. */
         @NativeType("unsigned")
         public int stableSrc() { return LZ4FCompressOptions.nstableSrc(address()); }
         /** @return a {@link IntBuffer} view of the {@code reserved} field. */
@@ -318,7 +297,7 @@ public class LZ4FCompressOptions extends Struct<LZ4FCompressOptions> implements 
         @NativeType("unsigned")
         public int reserved(int index) { return LZ4FCompressOptions.nreserved(address(), index); }
 
-        /** Sets the specified value to the {@link LZ4FCompressOptions#stableSrc} field. */
+        /** Sets the specified value to the {@code stableSrc} field. */
         public LZ4FCompressOptions.Buffer stableSrc(@NativeType("unsigned") int value) { LZ4FCompressOptions.nstableSrc(address(), value); return this; }
         /** Copies the specified {@link IntBuffer} to the {@code reserved} field. */
         public LZ4FCompressOptions.Buffer reserved(@NativeType("unsigned[3]") IntBuffer value) { LZ4FCompressOptions.nreserved(address(), value); return this; }

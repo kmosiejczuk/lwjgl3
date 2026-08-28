@@ -17,24 +17,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A cursor representing some element in the abstract syntax tree for a translation unit.
- * 
- * <p>The cursor abstraction unifies the different kinds of entities in a program --declaration, statements, expressions, references to declarations, etc.--
- * under a single "cursor" abstraction with a common set of operations. Common operation for a cursor include: getting the physical location in a source
- * file where the cursor points, getting the name associated with a cursor, and retrieving cursors for any child nodes of a particular cursor.</p>
- * 
- * <p>Cursors can be produced in two specific ways. {@link ClangIndex#clang_getTranslationUnitCursor getTranslationUnitCursor} produces a cursor for a translation unit, from which one can use
- * {@link ClangIndex#clang_visitChildren visitChildren} to explore the rest of the translation unit. {@link ClangIndex#clang_getCursor getCursor} maps from a physical source location to the entity that resides at that
- * location, allowing one to map from the source code into the AST.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct CXCursor {
  *     enum CXCursorKind kind;
  *     int xdata;
  *     void const * data[3];
- * }</code></pre>
+ * }}</pre>
  */
 public class CXCursor extends Struct<CXCursor> implements NativeResource {
 
@@ -169,25 +157,6 @@ public class CXCursor extends Struct<CXCursor> implements NativeResource {
     public static CXCursor.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXCursor mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXCursor callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXCursor mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXCursor callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCursor.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCursor.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCursor.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCursor.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXCursor} instance allocated on the specified {@link MemoryStack}.

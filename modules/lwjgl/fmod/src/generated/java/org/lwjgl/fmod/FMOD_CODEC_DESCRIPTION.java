@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Codec structures
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FMOD_CODEC_DESCRIPTION {
  *     unsigned int apiversion;

@@ -6,33 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     FMOD_CHANNELCONTROL *channelcontrol,
- *     float distance
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_3D_ROLLOFF_CALLBACK} */
 @FunctionalInterface
 @NativeType("FMOD_3D_ROLLOFF_CALLBACK")
 public interface FMOD_3D_ROLLOFF_CALLBACKI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_float,
-        ffi_type_pointer, ffi_type_float
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_float,
+            ffi_type_pointer, ffi_type_float
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -43,6 +39,7 @@ public interface FMOD_3D_ROLLOFF_CALLBACKI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code float (* FMOD_3D_ROLLOFF_CALLBACK) (FMOD_CHANNELCONTROL * channelcontrol, float distance)} */
     float invoke(@NativeType("FMOD_CHANNELCONTROL *") long channelcontrol, float distance);
 
 }

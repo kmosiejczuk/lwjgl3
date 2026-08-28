@@ -11,18 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * hb_bool_t (*{@link #invoke}) (
- *     hb_unicode_funcs_t *ufuncs,
- *     hb_codepoint_t ab,
- *     hb_codepoint_t *a,
- *     hb_codepoint_t *b,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke hb_unicode_decompose_func_t} */
 public abstract class hb_unicode_decompose_func_t extends Callback implements hb_unicode_decompose_func_tI {
 
     /**
@@ -50,7 +39,7 @@ public abstract class hb_unicode_decompose_func_t extends Callback implements hb
     }
 
     protected hb_unicode_decompose_func_t() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     hb_unicode_decompose_func_t(long functionPointer) {

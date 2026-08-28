@@ -16,8 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * union struct hwloc_obj_attr_u {
  *     {@link hwloc_numanode_attr_s hwloc_numanode_attr_s} numanode;

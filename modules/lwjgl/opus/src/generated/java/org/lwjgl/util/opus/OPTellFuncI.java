@@ -6,34 +6,28 @@
 package org.lwjgl.util.opus;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to {@link OpusFileCallbacks}.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * long long (*{@link #invoke}) (
- *     void *_stream
- * )</code></pre>
- */
+/** Callback function: {@link #invoke op_tell_func} */
 @FunctionalInterface
 @NativeType("op_tell_func")
 public interface OPTellFuncI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_sint64,
-        ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_sint64,
+            ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -43,11 +37,7 @@ public interface OPTellFuncI extends CallbackI {
         apiClosureRetL(ret, __result);
     }
 
-    /**
-     * Obtains the current value of the position indicator for {@code _stream}.
-     *
-     * @return the current position indicator
-     */
+    /** {@code long long (* op_tell_func) (void * _stream)} */
     @NativeType("long long") long invoke(@NativeType("void *") long _stream);
 
 }

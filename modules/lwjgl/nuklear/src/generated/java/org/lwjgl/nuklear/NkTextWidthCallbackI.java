@@ -6,37 +6,28 @@
 package org.lwjgl.nuklear;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * Instances of this interface may be set to the {@link NkUserFont} struct.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * float (*{@link #invoke}) (
- *     nk_handle handle,
- *     float h,
- *     char const *text,
- *     int len
- * )</code></pre>
- */
+/** Callback function: {@link #invoke nk_text_width_f} */
 @FunctionalInterface
 @NativeType("nk_text_width_f")
 public interface NkTextWidthCallbackI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_float,
-        ffi_type_pointer, ffi_type_float, ffi_type_pointer, ffi_type_sint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_float,
+            ffi_type_pointer, ffi_type_float, ffi_type_pointer, ffi_type_sint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -49,6 +40,7 @@ public interface NkTextWidthCallbackI extends CallbackI {
         apiClosureRet(ret, __result);
     }
 
+    /** {@code float (* nk_text_width_f) (nk_handle handle, float h, char const * text, int len)} */
     float invoke(@NativeType("nk_handle") long handle, float h, @NativeType("char const *") long text, int len);
 
 }

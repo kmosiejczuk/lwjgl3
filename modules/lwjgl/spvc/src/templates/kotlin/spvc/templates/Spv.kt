@@ -7,20 +7,18 @@ package spvc.templates
 import org.lwjgl.generator.*
 
 val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv", prefixMethod = "Spv") {
-    documentation = "Enumeration tokens for SPIR-V."
+    IntConstant(
+        "SPV_VERSION".."0x10600",
+        "SPV_REVISION".."1"
+    ).noPrefix()
 
-    IntConstant("", "SPV_VERSION".."0x10600").noPrefix()
-    IntConstant("", "SPV_REVISION".."1").noPrefix()
-
-    IntConstant("", "MagicNumber".."0x07230203")
-    IntConstant("", "Version".."0x00010600")
-    IntConstant("", "Revision".."1")
-    IntConstant("", "OpCodeMask".."0xffff")
-    IntConstant("", "WordCountShift".."16")
+    IntConstant("MagicNumber".."0x07230203")
+    IntConstant("Version".."0x00010600")
+    IntConstant("Revision".."1")
+    IntConstant("OpCodeMask".."0xffff")
+    IntConstant("WordCountShift".."16")
 
     EnumConstant(
-        "{@code SpvSourceLanguage}",
-
         "SourceLanguageUnknown".."0",
         "SourceLanguageESSL".."1",
         "SourceLanguageGLSL".."2",
@@ -29,12 +27,16 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "SourceLanguageHLSL".."5",
         "SourceLanguageCPP_for_OpenCL".."6",
         "SourceLanguageSYCL".."7",
+        "SourceLanguageHERO_C".."8",
+        "SourceLanguageNZSL".."9",
+        "SourceLanguageWGSL".."10",
+        "SourceLanguageSlang".."11",
+        "SourceLanguageZig".."12",
+        "SourceLanguageRust".."13",
         "SourceLanguageMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvExecutionModel}",
-
         "ExecutionModelVertex".."0",
         "ExecutionModelTessellationControl".."1",
         "ExecutionModelTessellationEvaluation".."2",
@@ -62,8 +64,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvAddressingModel}",
-
         "AddressingModelLogical".."0",
         "AddressingModelPhysical32".."1",
         "AddressingModelPhysical64".."2",
@@ -73,8 +73,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvMemoryModel}",
-
         "MemoryModelSimple".."0",
         "MemoryModelGLSL450".."1",
         "MemoryModelOpenCL".."2",
@@ -84,8 +82,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvExecutionMode}",
-
         "ExecutionModeInvocations".."0",
         "ExecutionModeSpacingEqual".."1",
         "ExecutionModeSpacingFractionalEven".."2",
@@ -124,6 +120,9 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "ExecutionModeSubgroupsPerWorkgroupId".."37",
         "ExecutionModeLocalSizeId".."38",
         "ExecutionModeLocalSizeHintId".."39",
+        "ExecutionModeNonCoherentColorAttachmentReadEXT".."4169",
+        "ExecutionModeNonCoherentDepthAttachmentReadEXT".."4170",
+        "ExecutionModeNonCoherentStencilAttachmentReadEXT".."4171",
         "ExecutionModeSubgroupUniformControlFlowKHR".."4421",
         "ExecutionModePostDepthCoverage".."4446",
         "ExecutionModeDenormPreserve".."4459",
@@ -131,19 +130,32 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "ExecutionModeSignedZeroInfNanPreserve".."4461",
         "ExecutionModeRoundingModeRTE".."4462",
         "ExecutionModeRoundingModeRTZ".."4463",
+        "ExecutionModeNonCoherentTileAttachmentReadQCOM".."4489",
+        "ExecutionModeTileShadingRateQCOM".."4490",
         "ExecutionModeEarlyAndLateFragmentTestsAMD".."5017",
         "ExecutionModeStencilRefReplacingEXT".."5027",
+        "ExecutionModeCoalescingAMDX".."5069",
+        "ExecutionModeIsApiEntryAMDX".."5070",
+        "ExecutionModeMaxNodeRecursionAMDX".."5071",
+        "ExecutionModeStaticNumWorkgroupsAMDX".."5072",
+        "ExecutionModeShaderIndexAMDX".."5073",
+        "ExecutionModeMaxNumWorkgroupsAMDX".."5077",
         "ExecutionModeStencilRefUnchangedFrontAMD".."5079",
         "ExecutionModeStencilRefGreaterFrontAMD".."5080",
         "ExecutionModeStencilRefLessFrontAMD".."5081",
         "ExecutionModeStencilRefUnchangedBackAMD".."5082",
         "ExecutionModeStencilRefGreaterBackAMD".."5083",
         "ExecutionModeStencilRefLessBackAMD".."5084",
+        "ExecutionModeQuadDerivativesKHR".."5088",
+        "ExecutionModeRequireFullQuadsKHR".."5089",
+        "ExecutionModeSharesInputWithAMDX".."5102",
         "ExecutionModeOutputLinesEXT".."5269",
         "ExecutionModeOutputLinesNV".."5269",
         "ExecutionModeOutputPrimitivesEXT".."5270",
         "ExecutionModeOutputPrimitivesNV".."5270",
+        "ExecutionModeDerivativeGroupQuadsKHR".."5289",
         "ExecutionModeDerivativeGroupQuadsNV".."5289",
+        "ExecutionModeDerivativeGroupLinearKHR".."5290",
         "ExecutionModeDerivativeGroupLinearNV".."5290",
         "ExecutionModeOutputTrianglesEXT".."5298",
         "ExecutionModeOutputTrianglesNV".."5298",
@@ -163,13 +175,18 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "ExecutionModeNoGlobalOffsetINTEL".."5895",
         "ExecutionModeNumSIMDWorkitemsINTEL".."5896",
         "ExecutionModeSchedulerTargetFmaxMhzINTEL".."5903",
+        "ExecutionModeMaximallyReconvergesKHR".."6023",
+        "ExecutionModeFPFastMathDefault".."6028",
+        "ExecutionModeStreamingInterfaceINTEL".."6154",
+        "ExecutionModeRegisterMapInterfaceINTEL".."6160",
         "ExecutionModeNamedBarrierCountINTEL".."6417",
+        "ExecutionModeMaximumRegistersINTEL".."6461",
+        "ExecutionModeMaximumRegistersIdINTEL".."6462",
+        "ExecutionModeNamedMaximumRegistersINTEL".."6463",
         "ExecutionModeMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvStorageClass}",
-
         "StorageClassUniformConstant".."0",
         "StorageClassInput".."1",
         "StorageClassUniform".."2",
@@ -183,6 +200,9 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "StorageClassAtomicCounter".."10",
         "StorageClassImage".."11",
         "StorageClassStorageBuffer".."12",
+        "StorageClassTileImageEXT".."4172",
+        "StorageClassTileAttachmentQCOM".."4491",
+        "StorageClassNodePayloadAMDX".."5068",
         "StorageClassCallableDataKHR".."5328",
         "StorageClassCallableDataNV".."5328",
         "StorageClassIncomingCallableDataKHR".."5329",
@@ -196,6 +216,7 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "StorageClassShaderRecordBufferKHR".."5343",
         "StorageClassShaderRecordBufferNV".."5343",
         "StorageClassPhysicalStorageBuffer".."5349",
+        "StorageClassHitObjectAttributeNV".."5385",
         "StorageClassPhysicalStorageBufferEXT".."5349",
         "StorageClassTaskPayloadWorkgroupEXT".."5402",
         "StorageClassCodeSectionINTEL".."5605",
@@ -205,8 +226,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvDim}",
-
         "Dim1D".."0",
         "Dim2D".."1",
         "Dim3D".."2",
@@ -214,12 +233,11 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "DimRect".."4",
         "DimBuffer".."5",
         "DimSubpassData".."6",
+        "DimTileImageDataEXT".."4173",
         "DimMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvSamplerAddressingMode}",
-
         "SamplerAddressingModeNone".."0",
         "SamplerAddressingModeClampToEdge".."1",
         "SamplerAddressingModeClamp".."2",
@@ -229,16 +247,12 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvSamplerFilterMode}",
-
         "SamplerFilterModeNearest".."0",
         "SamplerFilterModeLinear".."1",
         "SamplerFilterModeMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvImageFormat}",
-
         "ImageFormatUnknown".."0",
         "ImageFormatRgba32f".."1",
         "ImageFormatRgba16f".."2",
@@ -285,8 +299,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvImageChannelOrder}",
-
         "ImageChannelOrderR".."0",
         "ImageChannelOrderA".."1",
         "ImageChannelOrderRG".."2",
@@ -311,8 +323,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvImageChannelDataType}",
-
         "ImageChannelDataTypeSnormInt8".."0",
         "ImageChannelDataTypeSnormInt16".."1",
         "ImageChannelDataTypeUnormInt8".."2",
@@ -330,12 +340,19 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "ImageChannelDataTypeFloat".."14",
         "ImageChannelDataTypeUnormInt24".."15",
         "ImageChannelDataTypeUnormInt101010_2".."16",
+        "ImageChannelDataTypeUnormInt10X6EXT".."17",
+        "ImageChannelDataTypeUnsignedIntRaw10EXT".."19",
+        "ImageChannelDataTypeUnsignedIntRaw12EXT".."20",
+        "ImageChannelDataTypeUnormInt2_101010EXT".."21",
+        "ImageChannelDataTypeUnsignedInt10X6EXT".."22",
+        "ImageChannelDataTypeUnsignedInt12X4EXT".."23",
+        "ImageChannelDataTypeUnsignedInt14X2EXT".."24",
+        "ImageChannelDataTypeUnormInt12X4EXT".."25",
+        "ImageChannelDataTypeUnormInt14X2EXT".."26",
         "ImageChannelDataTypeMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvImageOperandsShift}",
-
         "ImageOperandsBiasShift".."0",
         "ImageOperandsLodShift".."1",
         "ImageOperandsGradShift".."2",
@@ -360,8 +377,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvImageOperandsMask}",
-
         "ImageOperandsMaskNone".."0",
         "ImageOperandsBiasMask".."0x00000001",
         "ImageOperandsLodMask".."0x00000002",
@@ -386,34 +401,34 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvFPFastMathModeShift}",
-
         "FPFastMathModeNotNaNShift".."0",
         "FPFastMathModeNotInfShift".."1",
         "FPFastMathModeNSZShift".."2",
         "FPFastMathModeAllowRecipShift".."3",
         "FPFastMathModeFastShift".."4",
+        "FPFastMathModeAllowContractShift".."16",
         "FPFastMathModeAllowContractFastINTELShift".."16",
+        "FPFastMathModeAllowReassocShift".."17",
         "FPFastMathModeAllowReassocINTELShift".."17",
+        "FPFastMathModeAllowTransformShift".."18",
         "FPFastMathModeMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvFPFastMathModeMask}",
-
         "FPFastMathModeMaskNone".."0",
         "FPFastMathModeNotNaNMask".."0x00000001",
         "FPFastMathModeNotInfMask".."0x00000002",
         "FPFastMathModeNSZMask".."0x00000004",
         "FPFastMathModeAllowRecipMask".."0x00000008",
         "FPFastMathModeFastMask".."0x00000010",
+        "FPFastMathModeAllowContractMask".."0x00010000",
         "FPFastMathModeAllowContractFastINTELMask".."0x00010000",
-        "FPFastMathModeAllowReassocINTELMask".."0x00020000"
+        "FPFastMathModeAllowReassocMask".."0x00020000",
+        "FPFastMathModeAllowReassocINTELMask".."0x00020000",
+        "FPFastMathModeAllowTransformMask".."0x00040000",
     )
 
     EnumConstant(
-        "{@code SpvFPRoundingMode}",
-
         "FPRoundingModeRTE".."0",
         "FPRoundingModeRTZ".."1",
         "FPRoundingModeRTP".."2",
@@ -422,8 +437,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvLinkageType}",
-
         "LinkageTypeExport".."0",
         "LinkageTypeImport".."1",
         "LinkageTypeLinkOnceODR".."2",
@@ -431,8 +444,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvAccessQualifier}",
-
         "AccessQualifierReadOnly".."0",
         "AccessQualifierWriteOnly".."1",
         "AccessQualifierReadWrite".."2",
@@ -440,8 +451,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvFunctionParameterAttribute}",
-
         "FunctionParameterAttributeZext".."0",
         "FunctionParameterAttributeSext".."1",
         "FunctionParameterAttributeByVal".."2",
@@ -450,12 +459,11 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "FunctionParameterAttributeNoCapture".."5",
         "FunctionParameterAttributeNoWrite".."6",
         "FunctionParameterAttributeNoReadWrite".."7",
+        "FunctionParameterAttributeRuntimeAlignedINTEL".."5940",
         "FunctionParameterAttributeMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvDecoration}",
-
         "DecorationRelaxedPrecision".."0",
         "DecorationSpecId".."1",
         "DecorationBlock".."2",
@@ -503,12 +511,21 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "DecorationMaxByteOffset".."45",
         "DecorationAlignmentId".."46",
         "DecorationMaxByteOffsetId".."47",
+        "DecorationSaturatedToLargestFloat8NormalConversionEXT".."4216",
         "DecorationNoSignedWrap".."4469",
         "DecorationNoUnsignedWrap".."4470",
         "DecorationWeightTextureQCOM".."4487",
         "DecorationBlockMatchTextureQCOM".."4488",
         "DecorationBlockMatchSamplerQCOM".."4499",
         "DecorationExplicitInterpAMD".."4999",
+        "DecorationNodeSharesPayloadLimitsWithAMDX".."5019",
+        "DecorationNodeMaxPayloadsAMDX".."5020",
+        "DecorationTrackFinishWritingAMDX".."5078",
+        "DecorationPayloadNodeNameAMDX".."5091",
+        "DecorationPayloadNodeBaseIndexAMDX".."5098",
+        "DecorationPayloadNodeSparseArrayAMDX".."5099",
+        "DecorationPayloadNodeArraySizeAMDX".."5100",
+        "DecorationPayloadDispatchIndirectAMDX".."5105",
         "DecorationOverrideCoverageNV".."5248",
         "DecorationPassthroughNV".."5250",
         "DecorationViewportRelativeNV".."5252",
@@ -525,6 +542,7 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "DecorationRestrictPointerEXT".."5355",
         "DecorationAliasedPointer".."5356",
         "DecorationAliasedPointerEXT".."5356",
+        "DecorationHitObjectShaderRecordBufferNV".."5386",
         "DecorationBindlessSamplerNV".."5398",
         "DecorationBindlessImageNV".."5399",
         "DecorationBoundSamplerNV".."5400",
@@ -557,26 +575,50 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "DecorationMergeINTEL".."5834",
         "DecorationBankBitsINTEL".."5835",
         "DecorationForcePow2DepthINTEL".."5836",
+        "DecorationStridesizeINTEL".."5883",
+        "DecorationWordsizeINTEL".."5884",
+        "DecorationTrueDualPortINTEL".."5885",
         "DecorationBurstCoalesceINTEL".."5899",
         "DecorationCacheSizeINTEL".."5900",
         "DecorationDontStaticallyCoalesceINTEL".."5901",
         "DecorationPrefetchINTEL".."5902",
         "DecorationStallEnableINTEL".."5905",
         "DecorationFuseLoopsInFunctionINTEL".."5907",
+        "DecorationMathOpDSPModeINTEL".."5909",
         "DecorationAliasScopeINTEL".."5914",
         "DecorationNoAliasINTEL".."5915",
+        "DecorationInitiationIntervalINTEL".."5917",
+        "DecorationMaxConcurrencyINTEL".."5918",
+        "DecorationPipelineEnableINTEL".."5919",
         "DecorationBufferLocationINTEL".."5921",
         "DecorationIOPipeStorageINTEL".."5944",
         "DecorationFunctionFloatingPointModeINTEL".."6080",
         "DecorationSingleElementVectorINTEL".."6085",
         "DecorationVectorComputeCallableFunctionINTEL".."6087",
         "DecorationMediaBlockIOINTEL".."6140",
+        "DecorationStallFreeINTEL".."6151",
+        "DecorationFPMaxErrorDecorationINTEL".."6170",
+        "DecorationLatencyControlLabelINTEL".."6172",
+        "DecorationLatencyControlConstraintINTEL".."6173",
+        "DecorationConduitKernelArgumentINTEL".."6175",
+        "DecorationRegisterMapKernelArgumentINTEL".."6176",
+        "DecorationMMHostInterfaceAddressWidthINTEL".."6177",
+        "DecorationMMHostInterfaceDataWidthINTEL".."6178",
+        "DecorationMMHostInterfaceLatencyINTEL".."6179",
+        "DecorationMMHostInterfaceReadWriteModeINTEL".."6180",
+        "DecorationMMHostInterfaceMaxBurstINTEL".."6181",
+        "DecorationMMHostInterfaceWaitRequestINTEL".."6182",
+        "DecorationStableKernelArgumentINTEL".."6183",
+        "DecorationHostAccessINTEL".."6188",
+        "DecorationInitModeINTEL".."6190",
+        "DecorationImplementInRegisterMapINTEL".."6191",
+        "DecorationConditionalINTEL".."6247",
+        "DecorationCacheControlLoadINTEL".."6442",
+        "DecorationCacheControlStoreINTEL".."6443",
         "DecorationMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvBuiltIn}",
-
         "BuiltInPosition".."0",
         "BuiltInPointSize".."1",
         "BuiltInClipDistance".."3",
@@ -618,6 +660,11 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "BuiltInSubgroupLocalInvocationId".."41",
         "BuiltInVertexIndex".."42",
         "BuiltInInstanceIndex".."43",
+        "BuiltInCoreIDARM".."4160",
+        "BuiltInCoreCountARM".."4161",
+        "BuiltInCoreMaxIDARM".."4162",
+        "BuiltInWarpIDARM".."4163",
+        "BuiltInWarpMaxIDARM".."4164",
         "BuiltInSubgroupEqMask".."4416",
         "BuiltInSubgroupEqMaskKHR".."4416",
         "BuiltInSubgroupGeMask".."4417",
@@ -635,6 +682,9 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "BuiltInDeviceIndex".."4438",
         "BuiltInViewIndex".."4440",
         "BuiltInShadingRateKHR".."4444",
+        "BuiltInTileOffsetQCOM".."4492",
+        "BuiltInTileDimensionQCOM".."4493",
+        "BuiltInTileApronSizeQCOM".."4494",
         "BuiltInBaryCoordNoPerspAMD".."4992",
         "BuiltInBaryCoordNoPerspCentroidAMD".."4993",
         "BuiltInBaryCoordNoPerspSampleAMD".."4994",
@@ -643,6 +693,8 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "BuiltInBaryCoordSmoothSampleAMD".."4997",
         "BuiltInBaryCoordPullModelAMD".."4998",
         "BuiltInFragStencilRefEXT".."5014",
+        "BuiltInRemainingRecursionLevelsAMDX".."5021",
+        "BuiltInShaderIndexAMDX".."5073",
         "BuiltInViewportMaskNV".."5253",
         "BuiltInSecondaryPositionNV".."5257",
         "BuiltInSecondaryViewportMaskNV".."5258",
@@ -695,36 +747,42 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "BuiltInHitKindKHR".."5333",
         "BuiltInHitKindNV".."5333",
         "BuiltInCurrentRayTimeNV".."5334",
+        "BuiltInHitTriangleVertexPositionsKHR".."5335",
+        "BuiltInHitMicroTriangleVertexPositionsNV".."5337",
+        "BuiltInHitMicroTriangleVertexBarycentricsNV".."5344",
         "BuiltInIncomingRayFlagsKHR".."5351",
         "BuiltInIncomingRayFlagsNV".."5351",
         "BuiltInRayGeometryIndexKHR".."5352",
+        "BuiltInHitIsSphereNV".."5359",
+        "BuiltInHitIsLSSNV".."5360",
+        "BuiltInHitSpherePositionNV".."5361",
         "BuiltInWarpsPerSMNV".."5374",
         "BuiltInSMCountNV".."5375",
         "BuiltInWarpIDNV".."5376",
         "BuiltInSMIDNV".."5377",
+        "BuiltInHitLSSPositionsNV".."5396",
+        "BuiltInHitKindFrontFacingMicroTriangleNV".."5405",
+        "BuiltInHitKindBackFacingMicroTriangleNV".."5406",
+        "BuiltInHitSphereRadiusNV".."5420",
+        "BuiltInHitLSSRadiiNV".."5421",
+        "BuiltInClusterIDNV".."5436",
         "BuiltInCullMaskKHR".."6021",
         "BuiltInMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvSelectionControlShift}",
-
         "SelectionControlFlattenShift".."0",
         "SelectionControlDontFlattenShift".."1",
         "SelectionControlMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvSelectionControlMask}",
-
         "SelectionControlMaskNone".."0",
         "SelectionControlFlattenMask".."0x00000001",
         "SelectionControlDontFlattenMask".."0x00000002"
     )
 
     EnumConstant(
-        "{@code SpvLoopControlShift}",
-
         "LoopControlUnrollShift".."0",
         "LoopControlDontUnrollShift".."1",
         "LoopControlDependencyInfiniteShift".."2",
@@ -742,12 +800,12 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "LoopControlMaxInterleavingINTELShift".."21",
         "LoopControlSpeculatedIterationsINTELShift".."22",
         "LoopControlNoFusionINTELShift".."23",
+        "LoopControlLoopCountINTELShift".."24",
+        "LoopControlMaxReinvocationDelayINTELShift".."25",
         "LoopControlMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvLoopControlMask}",
-
         "LoopControlMaskNone".."0",
         "LoopControlUnrollMask".."0x00000001",
         "LoopControlDontUnrollMask".."0x00000002",
@@ -765,34 +823,32 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "LoopControlLoopCoalesceINTELMask".."0x00100000",
         "LoopControlMaxInterleavingINTELMask".."0x00200000",
         "LoopControlSpeculatedIterationsINTELMask".."0x00400000",
-        "LoopControlNoFusionINTELMask".."0x00800000"
+        "LoopControlNoFusionINTELMask".."0x00800000",
+        "LoopControlLoopCountINTELMask".."0x01000000",
+        "LoopControlMaxReinvocationDelayINTELMask".."0x02000000",
     )
 
     EnumConstant(
-        "{@code SpvFunctionControlShift}",
-
         "FunctionControlInlineShift".."0",
         "FunctionControlDontInlineShift".."1",
         "FunctionControlPureShift".."2",
         "FunctionControlConstShift".."3",
+        "FunctionControlOptNoneEXTShift".."16",
         "FunctionControlOptNoneINTELShift".."16",
         "FunctionControlMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvFunctionControlMask}",
-
         "FunctionControlMaskNone".."0",
         "FunctionControlInlineMask".."0x00000001",
         "FunctionControlDontInlineMask".."0x00000002",
         "FunctionControlPureMask".."0x00000004",
         "FunctionControlConstMask".."0x00000008",
+        "FunctionControlOptNoneEXTMask".."0x00010000",
         "FunctionControlOptNoneINTELMask".."0x00010000"
     )
 
     EnumConstant(
-        "{@code SpvMemorySemanticsShift}",
-
         "MemorySemanticsAcquireShift".."1",
         "MemorySemanticsReleaseShift".."2",
         "MemorySemanticsAcquireReleaseShift".."3",
@@ -814,8 +870,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvMemorySemanticsMask}",
-
         "MemorySemanticsMaskNone".."0",
         "MemorySemanticsAcquireMask".."0x00000002",
         "MemorySemanticsReleaseMask".."0x00000004",
@@ -837,8 +891,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvMemoryAccessShift}",
-
         "MemoryAccessVolatileShift".."0",
         "MemoryAccessAlignedShift".."1",
         "MemoryAccessNontemporalShift".."2",
@@ -854,8 +906,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvMemoryAccessMask}",
-
         "MemoryAccessMaskNone".."0",
         "MemoryAccessVolatileMask".."0x00000001",
         "MemoryAccessAlignedMask".."0x00000002",
@@ -871,8 +921,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvScope}",
-
         "ScopeCrossDevice".."0",
         "ScopeDevice".."1",
         "ScopeWorkgroup".."2",
@@ -885,8 +933,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvGroupOperation}",
-
         "GroupOperationReduce".."0",
         "GroupOperationInclusiveScan".."1",
         "GroupOperationExclusiveScan".."2",
@@ -898,8 +944,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvKernelEnqueueFlags}",
-
         "KernelEnqueueFlagsNoWait".."0",
         "KernelEnqueueFlagsWaitKernel".."1",
         "KernelEnqueueFlagsWaitWorkGroup".."2",
@@ -907,22 +951,16 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvKernelProfilingInfoShift}",
-
         "KernelProfilingInfoCmdExecTimeShift".."0",
         "KernelProfilingInfoMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvKernelProfilingInfoMask}",
-
         "KernelProfilingInfoMaskNone".."0",
         "KernelProfilingInfoCmdExecTimeMask".."0x00000001"
     )
 
     EnumConstant(
-        "{@code SpvCapability}",
-
         "CapabilityMatrix".."0",
         "CapabilityShader".."1",
         "CapabilityGeometry".."2",
@@ -993,6 +1031,17 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityShaderLayer".."69",
         "CapabilityShaderViewportIndex".."70",
         "CapabilityUniformDecoration".."71",
+        "CapabilityCoreBuiltinsARM".."4165",
+        "CapabilityTileImageColorReadAccessEXT".."4166",
+        "CapabilityTileImageDepthReadAccessEXT".."4167",
+        "CapabilityTileImageStencilReadAccessEXT".."4168",
+        "CapabilityTensorsARM".."4174",
+        "CapabilityStorageTensorArrayDynamicIndexingARM".."4175",
+        "CapabilityStorageTensorArrayNonUniformIndexingARM".."4176",
+        "CapabilityGraphARM".."4191",
+        "CapabilityCooperativeMatrixLayoutsARM".."4201",
+        "CapabilityFloat8EXT".."4212",
+        "CapabilityFloat8CooperativeMatrixEXT".."4213",
         "CapabilityFragmentShadingRateKHR".."4422",
         "CapabilitySubgroupBallotKHR".."4423",
         "CapabilityDrawParameters".."4427",
@@ -1022,11 +1071,14 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityRoundingModeRTZ".."4468",
         "CapabilityRayQueryProvisionalKHR".."4471",
         "CapabilityRayQueryKHR".."4472",
+        "CapabilityUntypedPointersKHR".."4473",
         "CapabilityRayTraversalPrimitiveCullingKHR".."4478",
         "CapabilityRayTracingKHR".."4479",
         "CapabilityTextureSampleWeightedQCOM".."4484",
         "CapabilityTextureBoxFilterQCOM".."4485",
         "CapabilityTextureBlockMatchQCOM".."4486",
+        "CapabilityTileShadingQCOM".."4495",
+        "CapabilityCooperativeMatrixConversionQCOM".."4496",
         "CapabilityTextureBlockMatch2QCOM".."4498",
         "CapabilityFloat16ImageAMD".."5008",
         "CapabilityImageGatherBiasLodAMD".."5009",
@@ -1035,6 +1087,13 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityImageReadWriteLodAMD".."5015",
         "CapabilityInt64ImageEXT".."5016",
         "CapabilityShaderClockKHR".."5055",
+        "CapabilityShaderEnqueueAMDX".."5067",
+        "CapabilityQuadControlKHR".."5087",
+        "CapabilityInt4VectorTypeINTEL".."5112",
+        "CapabilityInt4CooperativeMatrixINTEL".."5114",
+        "CapabilityBFloat16TypeKHR".."5116",
+        "CapabilityBFloat16DotProductKHR".."5117",
+        "CapabilityBFloat16CooperativeMatrixKHR".."5118",
         "CapabilitySampleMaskOverrideCoverageNV".."5249",
         "CapabilityGeometryShaderPassthroughNV".."5251",
         "CapabilityShaderViewportIndexLayerEXT".."5254",
@@ -1048,6 +1107,7 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityMeshShadingEXT".."5283",
         "CapabilityFragmentBarycentricKHR".."5284",
         "CapabilityFragmentBarycentricNV".."5284",
+        "CapabilityComputeDerivativeGroupQuadsKHR".."5288",
         "CapabilityComputeDerivativeGroupQuadsNV".."5288",
         "CapabilityFragmentDensityEXT".."5291",
         "CapabilityShadingRateNV".."5291",
@@ -1076,6 +1136,7 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityUniformTexelBufferArrayNonUniformIndexingEXT".."5311",
         "CapabilityStorageTexelBufferArrayNonUniformIndexing".."5312",
         "CapabilityStorageTexelBufferArrayNonUniformIndexingEXT".."5312",
+        "CapabilityRayTracingPositionFetchKHR".."5336",
         "CapabilityRayTracingNV".."5340",
         "CapabilityRayTracingMotionBlurNV".."5341",
         "CapabilityVulkanMemoryModel".."5345",
@@ -1084,6 +1145,7 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityVulkanMemoryModelDeviceScopeKHR".."5346",
         "CapabilityPhysicalStorageBufferAddresses".."5347",
         "CapabilityPhysicalStorageBufferAddressesEXT".."5347",
+        "CapabilityComputeDerivativeGroupLinearKHR".."5350",
         "CapabilityComputeDerivativeGroupLinearNV".."5350",
         "CapabilityRayTracingProvisionalKHR".."5353",
         "CapabilityCooperativeMatrixNV".."5357",
@@ -1093,7 +1155,25 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityFragmentShaderPixelInterlockEXT".."5378",
         "CapabilityDemoteToHelperInvocation".."5379",
         "CapabilityDemoteToHelperInvocationEXT".."5379",
+        "CapabilityDisplacementMicromapNV".."5380",
+        "CapabilityRayTracingOpacityMicromapEXT".."5381",
+        "CapabilityShaderInvocationReorderNV".."5383",
         "CapabilityBindlessTextureNV".."5390",
+        "CapabilityRayQueryPositionFetchKHR".."5391",
+        "CapabilityCooperativeVectorNV".."5394",
+        "CapabilityAtomicFloat16VectorNV".."5404",
+        "CapabilityRayTracingDisplacementMicromapNV".."5409",
+        "CapabilityRawAccessChainsNV".."5414",
+        "CapabilityRayTracingSpheresGeometryNV".."5418",
+        "CapabilityRayTracingLinearSweptSpheresGeometryNV".."5419",
+        "CapabilityCooperativeMatrixReductionsNV".."5430",
+        "CapabilityCooperativeMatrixConversionsNV".."5431",
+        "CapabilityCooperativeMatrixPerElementOperationsNV".."5432",
+        "CapabilityCooperativeMatrixTensorAddressingNV".."5433",
+        "CapabilityCooperativeMatrixBlockLoadsNV".."5434",
+        "CapabilityCooperativeVectorTrainingNV".."5435",
+        "CapabilityRayTracingClusterAccelerationStructureNV".."5437",
+        "CapabilityTensorAddressingNV".."5439",
         "CapabilitySubgroupShuffleINTEL".."5568",
         "CapabilitySubgroupBufferBlockIOINTEL".."5569",
         "CapabilitySubgroupImageBlockIOINTEL".."5570",
@@ -1126,10 +1206,13 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityFPGAMemoryAccessesINTEL".."5898",
         "CapabilityFPGAClusterAttributesINTEL".."5904",
         "CapabilityLoopFuseINTEL".."5906",
+        "CapabilityFPGADSPControlINTEL".."5908",
         "CapabilityMemoryAccessAliasingINTEL".."5910",
+        "CapabilityFPGAInvocationPipeliningAttributesINTEL".."5916",
         "CapabilityFPGABufferLocationINTEL".."5920",
         "CapabilityArbitraryPrecisionFixedPointINTEL".."5922",
         "CapabilityUSMStorageClassesINTEL".."5935",
+        "CapabilityRuntimeAlignedAttributeINTEL".."5939",
         "CapabilityIOPipesINTEL".."5943",
         "CapabilityBlockingPipesINTEL".."5945",
         "CapabilityFPGARegINTEL".."5948",
@@ -1142,22 +1225,50 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "CapabilityDotProduct".."6019",
         "CapabilityDotProductKHR".."6019",
         "CapabilityRayCullMaskKHR".."6020",
+        "CapabilityCooperativeMatrixKHR".."6022",
+        "CapabilityReplicatedCompositesEXT".."6024",
         "CapabilityBitInstructions".."6025",
         "CapabilityGroupNonUniformRotateKHR".."6026",
+        "CapabilityFloatControls2".."6029",
+        "CapabilityFMAKHR".."6030",
         "CapabilityAtomicFloat32AddEXT".."6033",
         "CapabilityAtomicFloat64AddEXT".."6034",
+        "CapabilityLongCompositesINTEL".."6089",
+        "CapabilityOptNoneEXT".."6094",
         "CapabilityLongConstantCompositeINTEL".."6089",
         "CapabilityOptNoneINTEL".."6094",
         "CapabilityAtomicFloat16AddEXT".."6095",
         "CapabilityDebugInfoModuleINTEL".."6114",
+        "CapabilityBFloat16ConversionINTEL".."6115",
         "CapabilitySplitBarrierINTEL".."6141",
+        "CapabilityArithmeticFenceEXT".."6144",
+        "CapabilityFPGAClusterAttributesV2INTEL".."6150",
+        "CapabilityFPGAKernelAttributesv2INTEL".."6161",
+        "CapabilityTaskSequenceINTEL".."6162",
+        "CapabilityFPMaxErrorINTEL".."6169",
+        "CapabilityFPGALatencyControlINTEL".."6171",
+        "CapabilityFPGAArgumentInterfacesINTEL".."6174",
+        "CapabilityGlobalVariableHostAccessINTEL".."6187",
+        "CapabilityGlobalVariableFPGADecorationsINTEL".."6189",
+        "CapabilitySubgroupBufferPrefetchINTEL".."6220",
+        "CapabilitySubgroup2DBlockIOINTEL".."6228",
+        "CapabilitySubgroup2DBlockTransformINTEL".."6229",
+        "CapabilitySubgroup2DBlockTransposeINTEL".."6230",
+        "CapabilitySubgroupMatrixMultiplyAccumulateINTEL".."6236",
+        "CapabilityTernaryBitwiseFunctionINTEL".."6241",
+        "CapabilityUntypedVariableLengthArrayINTEL".."6243",
+        "CapabilitySpecConditionalINTEL".."6245",
+        "CapabilityFunctionVariantsINTEL".."6246",
         "CapabilityGroupUniformArithmeticKHR".."6400",
+        "CapabilityTensorFloat32RoundingINTEL".."6425",
+        "CapabilityMaskedGatherScatterINTEL".."6427",
+        "CapabilityCacheControlsINTEL".."6441",
+        "CapabilityRegisterLimitsINTEL".."6460",
+        "CapabilityBindlessImagesINTEL".."6528",
         "CapabilityMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvRayFlagsShift}",
-
         "RayFlagsOpaqueKHRShift".."0",
         "RayFlagsNoOpaqueKHRShift".."1",
         "RayFlagsTerminateOnFirstHitKHRShift".."2",
@@ -1166,14 +1277,14 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "RayFlagsCullFrontFacingTrianglesKHRShift".."5",
         "RayFlagsCullOpaqueKHRShift".."6",
         "RayFlagsCullNoOpaqueKHRShift".."7",
+        "RayFlagsSkipBuiltinPrimitivesNVShift".."8",
         "RayFlagsSkipTrianglesKHRShift".."8",
         "RayFlagsSkipAABBsKHRShift".."9",
+        "RayFlagsForceOpacityMicromap2StateEXTShift".."10",
         "RayFlagsMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvRayFlagsMask}",
-
         "RayFlagsMaskNone".."0",
         "RayFlagsOpaqueKHRMask".."0x00000001",
         "RayFlagsNoOpaqueKHRMask".."0x00000002",
@@ -1183,21 +1294,19 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "RayFlagsCullFrontFacingTrianglesKHRMask".."0x00000020",
         "RayFlagsCullOpaqueKHRMask".."0x00000040",
         "RayFlagsCullNoOpaqueKHRMask".."0x00000080",
+        "RayFlagsSkipBuiltinPrimitivesNVMask".."0x00000100",
         "RayFlagsSkipTrianglesKHRMask".."0x00000100",
-        "RayFlagsSkipAABBsKHRMask".."0x00000200"
+        "RayFlagsSkipAABBsKHRMask".."0x00000200",
+        "RayFlagsForceOpacityMicromap2StateEXTMask".."0x00000400",
     )
 
     EnumConstant(
-        "{@code SpvRayQueryIntersection}",
-
         "RayQueryIntersectionRayQueryCandidateIntersectionKHR".."0",
         "RayQueryIntersectionRayQueryCommittedIntersectionKHR".."1",
         "RayQueryIntersectionMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvRayQueryCommittedIntersectionType}",
-
         "RayQueryCommittedIntersectionTypeRayQueryCommittedIntersectionNoneKHR".."0",
         "RayQueryCommittedIntersectionTypeRayQueryCommittedIntersectionTriangleKHR".."1",
         "RayQueryCommittedIntersectionTypeRayQueryCommittedIntersectionGeneratedKHR".."2",
@@ -1205,16 +1314,12 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvRayQueryCandidateIntersectionType}",
-
         "RayQueryCandidateIntersectionTypeRayQueryCandidateIntersectionTriangleKHR".."0",
         "RayQueryCandidateIntersectionTypeRayQueryCandidateIntersectionAABBKHR".."1",
         "RayQueryCandidateIntersectionTypeMax".."0x7fffffff",
     )
 
     EnumConstant(
-        "{@code SpvFragmentShadingRateShift}",
-
         "FragmentShadingRateVertical2PixelsShift".."0",
         "FragmentShadingRateVertical4PixelsShift".."1",
         "FragmentShadingRateHorizontal2PixelsShift".."2",
@@ -1223,8 +1328,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvFragmentShadingRateMask}",
-
         "FragmentShadingRateMaskNone".."0",
         "FragmentShadingRateVertical2PixelsMask".."0x00000001",
         "FragmentShadingRateVertical4PixelsMask".."0x00000002",
@@ -1233,24 +1336,18 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvFPDenormMode}",
-
         "FPDenormModePreserve".."0",
         "FPDenormModeFlushToZero".."1",
         "FPDenormModeMax".."0x7fffffff"
     )
 
     EnumConstant(
-        "{@code SpvFPOperationMode}",
-
         "FPOperationModeIEEE".."0",
         "FPOperationModeALT".."1",
         "FPOperationModeMax".."0x7fffffff"
     )
 
     EnumConstant(
-        "{@code SpvQuantizationModes}",
-
         "QuantizationModesTRN".."0",
         "QuantizationModesTRN_ZERO".."1",
         "QuantizationModesRND".."2",
@@ -1263,8 +1360,6 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvOverflowModes}",
-
         "OverflowModesWRAP".."0",
         "OverflowModesSAT".."1",
         "OverflowModesSAT_ZERO".."2",
@@ -1273,16 +1368,216 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
     )
 
     EnumConstant(
-        "{@code SpvPackedVectorFormat}",
-
         "PackedVectorFormatPackedVectorFormat4x8Bit".."0",
         "PackedVectorFormatPackedVectorFormat4x8BitKHR".."0",
         "PackedVectorFormatMax".."0x7fffffff"
     )
 
     EnumConstant(
-        "{@code SpvOp}",
+        "CooperativeMatrixOperandsMatrixASignedComponentsKHRShift".."0",
+        "CooperativeMatrixOperandsMatrixBSignedComponentsKHRShift".."1",
+        "CooperativeMatrixOperandsMatrixCSignedComponentsKHRShift".."2",
+        "CooperativeMatrixOperandsMatrixResultSignedComponentsKHRShift".."3",
+        "CooperativeMatrixOperandsSaturatingAccumulationKHRShift".."4",
+        "CooperativeMatrixOperandsMax".."0x7fffffff",
+    )
 
+    EnumConstant(
+        "CooperativeMatrixOperandsMaskNone".."0",
+        "CooperativeMatrixOperandsMatrixASignedComponentsKHRMask".."0x00000001",
+        "CooperativeMatrixOperandsMatrixBSignedComponentsKHRMask".."0x00000002",
+        "CooperativeMatrixOperandsMatrixCSignedComponentsKHRMask".."0x00000004",
+        "CooperativeMatrixOperandsMatrixResultSignedComponentsKHRMask".."0x00000008",
+        "CooperativeMatrixOperandsSaturatingAccumulationKHRMask".."0x00000010",
+    )
+
+    EnumConstant(
+        "CooperativeMatrixLayoutRowMajorKHR".."0",
+        "CooperativeMatrixLayoutColumnMajorKHR".."1",
+        "CooperativeMatrixLayoutRowBlockedInterleavedARM".."4202",
+        "CooperativeMatrixLayoutColumnBlockedInterleavedARM".."4203",
+        "CooperativeMatrixLayoutMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "CooperativeMatrixUseMatrixAKHR".."0",
+        "CooperativeMatrixUseMatrixBKHR".."1",
+        "CooperativeMatrixUseMatrixAccumulatorKHR".."2",
+        "CooperativeMatrixUseMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "CooperativeMatrixReduceRowShift".."0",
+        "CooperativeMatrixReduceColumnShift".."1",
+        "CooperativeMatrixReduce2x2Shift".."2",
+        "CooperativeMatrixReduceMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "CooperativeMatrixReduceMaskNone".."0",
+        "CooperativeMatrixReduceRowMask".."0x00000001",
+        "CooperativeMatrixReduceColumnMask".."0x00000002",
+        "CooperativeMatrixReduce2x2Mask".."0x00000004",
+    )
+
+    EnumConstant(
+        "TensorClampModeUndefined".."0",
+        "TensorClampModeConstant".."1",
+        "TensorClampModeClampToEdge".."2",
+        "TensorClampModeRepeat".."3",
+        "TensorClampModeRepeatMirrored".."4",
+        "TensorClampModeMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "TensorAddressingOperandsTensorViewShift".."0",
+        "TensorAddressingOperandsDecodeFuncShift".."1",
+        "TensorAddressingOperandsMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "TensorAddressingOperandsMaskNone".."0",
+        "TensorAddressingOperandsTensorViewMask".."0x00000001",
+        "TensorAddressingOperandsDecodeFuncMask".."0x00000002",
+    )
+
+    EnumConstant(
+        "TensorOperandsNontemporalARMShift".."0",
+        "TensorOperandsOutOfBoundsValueARMShift".."1",
+        "TensorOperandsMakeElementAvailableARMShift".."2",
+        "TensorOperandsMakeElementVisibleARMShift".."3",
+        "TensorOperandsNonPrivateElementARMShift".."4",
+        "TensorOperandsMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "TensorOperandsMaskNone".."0",
+        "TensorOperandsNontemporalARMMask".."0x00000001",
+        "TensorOperandsOutOfBoundsValueARMMask".."0x00000002",
+        "TensorOperandsMakeElementAvailableARMMask".."0x00000004",
+        "TensorOperandsMakeElementVisibleARMMask".."0x00000008",
+        "TensorOperandsNonPrivateElementARMMask".."0x00000010"
+    )
+
+    EnumConstant(
+        "InitializationModeQualifierInitOnDeviceReprogramINTEL".."0",
+        "InitializationModeQualifierInitOnDeviceResetINTEL".."1",
+        "InitializationModeQualifierMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "HostAccessQualifierNoneINTEL".."0",
+        "HostAccessQualifierReadINTEL".."1",
+        "HostAccessQualifierWriteINTEL".."2",
+        "HostAccessQualifierReadWriteINTEL".."3",
+        "HostAccessQualifierMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "LoadCacheControlUncachedINTEL".."0",
+        "LoadCacheControlCachedINTEL".."1",
+        "LoadCacheControlStreamingINTEL".."2",
+        "LoadCacheControlInvalidateAfterReadINTEL".."3",
+        "LoadCacheControlConstCachedINTEL".."4",
+        "LoadCacheControlMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "StoreCacheControlUncachedINTEL".."0",
+        "StoreCacheControlWriteThroughINTEL".."1",
+        "StoreCacheControlWriteBackINTEL".."2",
+        "StoreCacheControlStreamingINTEL".."3",
+        "StoreCacheControlMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "NamedMaximumNumberOfRegistersAutoINTEL".."0",
+        "NamedMaximumNumberOfRegistersMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "MatrixMultiplyAccumulateOperandsMatrixASignedComponentsINTELShift".."0",
+        "MatrixMultiplyAccumulateOperandsMatrixBSignedComponentsINTELShift".."1",
+        "MatrixMultiplyAccumulateOperandsMatrixCBFloat16INTELShift".."2",
+        "MatrixMultiplyAccumulateOperandsMatrixResultBFloat16INTELShift".."3",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedInt8INTELShift".."4",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedInt8INTELShift".."5",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedInt4INTELShift".."6",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedInt4INTELShift".."7",
+        "MatrixMultiplyAccumulateOperandsMatrixATF32INTELShift".."8",
+        "MatrixMultiplyAccumulateOperandsMatrixBTF32INTELShift".."9",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedFloat16INTELShift".."10",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedFloat16INTELShift".."11",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedBFloat16INTELShift".."12",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedBFloat16INTELShift".."13",
+        "MatrixMultiplyAccumulateOperandsMax".."0x7fffffff"
+    )
+
+    EnumConstant(
+        "MatrixMultiplyAccumulateOperandsMaskNone".."0",
+        "MatrixMultiplyAccumulateOperandsMatrixASignedComponentsINTELMask".."0x00000001",
+        "MatrixMultiplyAccumulateOperandsMatrixBSignedComponentsINTELMask".."0x00000002",
+        "MatrixMultiplyAccumulateOperandsMatrixCBFloat16INTELMask".."0x00000004",
+        "MatrixMultiplyAccumulateOperandsMatrixResultBFloat16INTELMask".."0x00000008",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedInt8INTELMask".."0x00000010",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedInt8INTELMask".."0x00000020",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedInt4INTELMask".."0x00000040",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedInt4INTELMask".."0x00000080",
+        "MatrixMultiplyAccumulateOperandsMatrixATF32INTELMask".."0x00000100",
+        "MatrixMultiplyAccumulateOperandsMatrixBTF32INTELMask".."0x00000200",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedFloat16INTELMask".."0x00000400",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedFloat16INTELMask".."0x00000800",
+        "MatrixMultiplyAccumulateOperandsMatrixAPackedBFloat16INTELMask".."0x00001000",
+        "MatrixMultiplyAccumulateOperandsMatrixBPackedBFloat16INTELMask".."0x00002000"
+    )
+
+    EnumConstant(
+        "RawAccessChainOperandsRobustnessPerComponentNVShift".."0",
+        "RawAccessChainOperandsRobustnessPerElementNVShift".."1",
+        "RawAccessChainOperandsMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "RawAccessChainOperandsMaskNone".."0",
+        "RawAccessChainOperandsRobustnessPerComponentNVMask".."0x00000001",
+        "RawAccessChainOperandsRobustnessPerElementNVMask".."0x00000002",
+    )
+
+    EnumConstant(
+        "FPEncodingBFloat16KHR".."0",
+        "FPEncodingFloat8E4M3EXT".."4214",
+        "FPEncodingFloat8E5M2EXT".."4215",
+        "FPEncodingMax".."0x7fffffff",
+    )
+
+    EnumConstant(
+        "CooperativeVectorMatrixLayoutRowMajorNV".."0",
+        "CooperativeVectorMatrixLayoutColumnMajorNV".."1",
+        "CooperativeVectorMatrixLayoutInferencingOptimalNV".."2",
+        "CooperativeVectorMatrixLayoutTrainingOptimalNV".."3",
+        "CooperativeVectorMatrixLayoutMax".."0x7fffffff"
+    )
+
+    EnumConstant(
+        "ComponentTypeFloat16NV".."0",
+        "ComponentTypeFloat32NV".."1",
+        "ComponentTypeFloat64NV".."2",
+        "ComponentTypeSignedInt8NV".."3",
+        "ComponentTypeSignedInt16NV".."4",
+        "ComponentTypeSignedInt32NV".."5",
+        "ComponentTypeSignedInt64NV".."6",
+        "ComponentTypeUnsignedInt8NV".."7",
+        "ComponentTypeUnsignedInt16NV".."8",
+        "ComponentTypeUnsignedInt32NV".."9",
+        "ComponentTypeUnsignedInt64NV".."10",
+        "ComponentTypeSignedInt8PackedNV".."1000491000",
+        "ComponentTypeUnsignedInt8PackedNV".."1000491001",
+        "ComponentTypeFloatE4M3NV".."1000491002",
+        "ComponentTypeFloatE5M2NV".."1000491003",
+        "ComponentTypeMax".."0x7fffffff"
+    )
+
+    EnumConstant(
         "OpNop".."0",
         "OpUndef".."1",
         "OpSourceContinued".."2",
@@ -1627,14 +1922,39 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpPtrEqual".."401",
         "OpPtrNotEqual".."402",
         "OpPtrDiff".."403",
+        "OpColorAttachmentReadEXT".."4160",
+        "OpDepthAttachmentReadEXT".."4161",
+        "OpStencilAttachmentReadEXT".."4162",
+        "SpvOpTypeTensorARM".."4163",
+        "SpvOpTensorReadARM".."4164",
+        "SpvOpTensorWriteARM".."4165",
+        "SpvOpTensorQuerySizeARM".."4166",
+        "SpvOpGraphConstantARM".."4181",
+        "SpvOpGraphEntryPointARM".."4182",
+        "SpvOpGraphARM".."4183",
+        "SpvOpGraphInputARM".."4184",
+        "SpvOpGraphSetOutputARM".."4185",
+        "SpvOpGraphEndARM".."4186",
+        "SpvOpTypeGraphARM".."4190",
         "OpTerminateInvocation".."4416",
+        "OpTypeUntypedPointerKHR".."4417",
+        "OpUntypedVariableKHR".."4418",
+        "OpUntypedAccessChainKHR".."4419",
+        "OpUntypedInBoundsAccessChainKHR".."4420",
         "OpSubgroupBallotKHR".."4421",
         "OpSubgroupFirstInvocationKHR".."4422",
+        "OpUntypedPtrAccessChainKHR".."4423",
+        "OpUntypedInBoundsPtrAccessChainKHR".."4424",
+        "OpUntypedArrayLengthKHR".."4425",
+        "OpUntypedPrefetchKHR".."4426",
+        "OpFmaKHR".."4427",
         "OpSubgroupAllKHR".."4428",
         "OpSubgroupAnyKHR".."4429",
         "OpSubgroupAllEqualKHR".."4430",
         "OpGroupNonUniformRotateKHR".."4431",
         "OpSubgroupReadInvocationKHR".."4432",
+        "OpExtInstWithForwardRefsKHR".."4433",
+        "OpUntypedGroupAsyncCopyKHR".."4434",
         "OpTraceRayKHR".."4445",
         "OpExecuteCallableKHR".."4446",
         "OpConvertUToAccelerationStructureKHR".."4447",
@@ -1652,6 +1972,14 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpUDotAccSatKHR".."4454",
         "OpSUDotAccSat".."4455",
         "OpSUDotAccSatKHR".."4455",
+        "OpTypeCooperativeMatrixKHR".."4456",
+        "OpCooperativeMatrixLoadKHR".."4457",
+        "OpCooperativeMatrixStoreKHR".."4458",
+        "OpCooperativeMatrixMulAddKHR".."4459",
+        "OpCooperativeMatrixLengthKHR".."4460",
+        "OpConstantCompositeReplicateEXT".."4461",
+        "OpSpecConstantCompositeReplicateEXT".."4462",
+        "OpCompositeConstructReplicateEXT".."4463",
         "OpTypeRayQueryKHR".."4472",
         "OpRayQueryInitializeKHR".."4473",
         "OpRayQueryTerminateKHR".."4474",
@@ -1663,10 +1991,14 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpImageBoxFilterQCOM".."4481",
         "OpImageBlockMatchSSDQCOM".."4482",
         "OpImageBlockMatchSADQCOM".."4483",
+        "OpBitCastArrayQCOM".."4497",
         "OpImageBlockMatchWindowSSDQCOM".."4500",
         "OpImageBlockMatchWindowSADQCOM".."4501",
         "OpImageBlockMatchGatherSSDQCOM".."4502",
         "OpImageBlockMatchGatherSADQCOM".."4503",
+        "OpCompositeConstructCoopMatQCOM".."4540",
+        "OpCompositeExtractCoopMatQCOM".."4541",
+        "OpExtractSubArrayQCOM".."4542",
         "OpGroupIAddNonUniformAMD".."5000",
         "OpGroupFAddNonUniformAMD".."5001",
         "OpGroupFMinNonUniformAMD".."5002",
@@ -1678,11 +2010,64 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpFragmentMaskFetchAMD".."5011",
         "OpFragmentFetchAMD".."5012",
         "OpReadClockKHR".."5056",
+        "OpAllocateNodePayloadsAMDX".."5074",
+        "OpEnqueueNodePayloadsAMDX".."5075",
+        "OpTypeNodePayloadArrayAMDX".."5076",
+        "OpFinishWritingNodePayloadAMDX".."5078",
+        "OpNodePayloadArrayLengthAMDX".."5090",
+        "OpIsNodePayloadValidAMDX".."5101",
+        "OpConstantStringAMDX".."5103",
+        "OpSpecConstantStringAMDX".."5104",
+        "OpGroupNonUniformQuadAllKHR".."5110",
+        "OpGroupNonUniformQuadAnyKHR".."5111",
+        "OpHitObjectRecordHitMotionNV".."5249",
+        "OpHitObjectRecordHitWithIndexMotionNV".."5250",
+        "OpHitObjectRecordMissMotionNV".."5251",
+        "OpHitObjectGetWorldToObjectNV".."5252",
+        "OpHitObjectGetObjectToWorldNV".."5253",
+        "OpHitObjectGetObjectRayDirectionNV".."5254",
+        "OpHitObjectGetObjectRayOriginNV".."5255",
+        "OpHitObjectTraceRayMotionNV".."5256",
+        "OpHitObjectGetShaderRecordBufferHandleNV".."5257",
+        "OpHitObjectGetShaderBindingTableRecordIndexNV".."5258",
+        "OpHitObjectRecordEmptyNV".."5259",
+        "OpHitObjectTraceRayNV".."5260",
+        "OpHitObjectRecordHitNV".."5261",
+        "OpHitObjectRecordHitWithIndexNV".."5262",
+        "OpHitObjectRecordMissNV".."5263",
+        "OpHitObjectExecuteShaderNV".."5264",
+        "OpHitObjectGetCurrentTimeNV".."5265",
+        "OpHitObjectGetAttributesNV".."5266",
+        "OpHitObjectGetHitKindNV".."5267",
+        "OpHitObjectGetPrimitiveIndexNV".."5268",
+        "OpHitObjectGetGeometryIndexNV".."5269",
+        "OpHitObjectGetInstanceIdNV".."5270",
+        "OpHitObjectGetInstanceCustomIndexNV".."5271",
+        "OpHitObjectGetWorldRayDirectionNV".."5272",
+        "OpHitObjectGetWorldRayOriginNV".."5273",
+        "OpHitObjectGetRayTMaxNV".."5274",
+        "OpHitObjectGetRayTMinNV".."5275",
+        "OpHitObjectIsEmptyNV".."5276",
+        "OpHitObjectIsHitNV".."5277",
+        "OpHitObjectIsMissNV".."5278",
+        "OpReorderThreadWithHitObjectNV".."5279",
+        "OpReorderThreadWithHintNV".."5280",
+        "OpTypeHitObjectNV".."5281",
         "OpImageSampleFootprintNV".."5283",
+        "OpTypeCooperativeVectorNV".."5288",
+        "OpCooperativeVectorMatrixMulNV".."5289",
+        "OpCooperativeVectorOuterProductAccumulateNV".."5290",
+        "OpCooperativeVectorReduceSumAccumulateNV".."5291",
+        "OpCooperativeVectorMatrixMulAddNV".."5292",
+        "OpCooperativeMatrixConvertNV".."5293",
         "OpEmitMeshTasksEXT".."5294",
         "OpSetMeshOutputsEXT".."5295",
         "OpGroupNonUniformPartitionNV".."5296",
         "OpWritePackedPrimitiveIndices4x8NV".."5299",
+        "OpFetchMicroTriangleVertexPositionNV".."5300",
+        "OpFetchMicroTriangleVertexBarycentricNV".."5301",
+        "OpCooperativeVectorLoadNV".."5302",
+        "OpCooperativeVectorStoreNV".."5303",
         "OpReportIntersectionKHR".."5334",
         "OpReportIntersectionNV".."5334",
         "OpIgnoreIntersectionNV".."5335",
@@ -1690,9 +2075,13 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpTraceNV".."5337",
         "OpTraceMotionNV".."5338",
         "OpTraceRayMotionNV".."5339",
+        "OpRayQueryGetIntersectionTriangleVertexPositionsKHR".."5340",
         "OpTypeAccelerationStructureKHR".."5341",
         "OpTypeAccelerationStructureNV".."5341",
         "OpExecuteCallableNV".."5344",
+        "OpRayQueryGetClusterIdNV".."5345",
+        "OpRayQueryGetIntersectionClusterIdNV".."5345",
+        "OpHitObjectGetClusterIdNV".."5346",
         "OpTypeCooperativeMatrixNV".."5358",
         "OpCooperativeMatrixLoadNV".."5359",
         "OpCooperativeMatrixStoreNV".."5360",
@@ -1700,9 +2089,26 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpCooperativeMatrixLengthNV".."5362",
         "OpBeginInvocationInterlockEXT".."5364",
         "OpEndInvocationInterlockEXT".."5365",
+        "OpCooperativeMatrixReduceNV".."5366",
+        "OpCooperativeMatrixLoadTensorNV".."5367",
+        "OpCooperativeMatrixStoreTensorNV".."5368",
+        "OpCooperativeMatrixPerElementOpNV".."5369",
+        "OpTypeTensorLayoutNV".."5370",
+        "OpTypeTensorViewNV".."5371",
+        "OpCreateTensorLayoutNV".."5372",
+        "OpTensorLayoutSetDimensionNV".."5373",
+        "OpTensorLayoutSetStrideNV".."5374",
+        "OpTensorLayoutSliceNV".."5375",
+        "OpTensorLayoutSetClampValueNV".."5376",
+        "OpCreateTensorViewNV".."5377",
+        "OpTensorViewSetDimensionNV".."5378",
+        "OpTensorViewSetStrideNV".."5379",
         "OpDemoteToHelperInvocation".."5380",
         "OpDemoteToHelperInvocationEXT".."5380",
         "OpIsHelperInvocationEXT".."5381",
+        "OpTensorViewSetClipNV".."5382",
+        "OpTensorLayoutSetBlockSizeNV".."5384",
+        "OpCooperativeMatrixTransposeNV".."5390",
         "OpConvertUToImageNV".."5391",
         "OpConvertUToSamplerNV".."5392",
         "OpConvertImageToUNV".."5393",
@@ -1710,6 +2116,20 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpConvertUToSampledImageNV".."5395",
         "OpConvertSampledImageToUNV".."5396",
         "OpSamplerImageAddressingModeNV".."5397",
+        "OpRawAccessChainNV".."5398",
+        "OpRayQueryGetIntersectionSpherePositionNV".."5427",
+        "OpRayQueryGetIntersectionSphereRadiusNV".."5428",
+        "OpRayQueryGetIntersectionLSSPositionsNV".."5429",
+        "OpRayQueryGetIntersectionLSSRadiiNV".."5430",
+        "OpRayQueryGetIntersectionLSSHitValueNV".."5431",
+        "OpHitObjectGetSpherePositionNV".."5432",
+        "OpHitObjectGetSphereRadiusNV".."5433",
+        "OpHitObjectGetLSSPositionsNV".."5434",
+        "OpHitObjectGetLSSRadiiNV".."5435",
+        "OpHitObjectIsSphereHitNV".."5436",
+        "OpHitObjectIsLSSHitNV".."5437",
+        "OpRayQueryIsSphereHitNV".."5438",
+        "OpRayQueryIsLSSHitNV".."5439",
         "OpSubgroupShuffleINTEL".."5571",
         "OpSubgroupShuffleDownINTEL".."5572",
         "OpSubgroupShuffleUpINTEL".."5573",
@@ -1951,8 +2371,33 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpTypeStructContinuedINTEL".."6090",
         "OpConstantCompositeContinuedINTEL".."6091",
         "OpSpecConstantCompositeContinuedINTEL".."6092",
+        "OpCompositeConstructContinuedINTEL".."6096",
+        "OpConvertFToBF16INTEL".."6116",
+        "OpConvertBF16ToFINTEL".."6117",
         "OpControlBarrierArriveINTEL".."6142",
         "OpControlBarrierWaitINTEL".."6143",
+        "OpArithmeticFenceEXT".."6145",
+        "OpTaskSequenceCreateINTEL".."6163",
+        "OpTaskSequenceAsyncINTEL".."6164",
+        "OpTaskSequenceGetINTEL".."6165",
+        "OpTaskSequenceReleaseINTEL".."6166",
+        "OpTypeTaskSequenceINTEL".."6199",
+        "OpSubgroupBlockPrefetchINTEL".."6221",
+        "OpSubgroup2DBlockLoadINTEL".."6231",
+        "OpSubgroup2DBlockLoadTransformINTEL".."6232",
+        "OpSubgroup2DBlockLoadTransposeINTEL".."6233",
+        "OpSubgroup2DBlockPrefetchINTEL".."6234",
+        "OpSubgroup2DBlockStoreINTEL".."6235",
+        "OpSubgroupMatrixMultiplyAccumulateINTEL".."6237",
+        "OpBitwiseFunctionINTEL".."6242",
+        "OpUntypedVariableLengthArrayINTEL".."6244",
+        "OpConditionalExtensionINTEL".."6248",
+        "OpConditionalEntryPointINTEL".."6249",
+        "OpConditionalCapabilityINTEL".."6250",
+        "OpSpecConstantTargetINTEL".."6251",
+        "OpSpecConstantArchitectureINTEL".."6252",
+        "OpSpecConstantCapabilitiesINTEL".."6253",
+        "OpConditionalCopyObjectINTEL".."6254",
         "OpGroupIMulKHR".."6401",
         "OpGroupFMulKHR".."6402",
         "OpGroupBitwiseAndKHR".."6403",
@@ -1961,6 +2406,11 @@ val Spv = "Spv".nativeClass(Module.SPVC, prefix = "Spv", prefixConstant = "Spv",
         "OpGroupLogicalAndKHR".."6406",
         "OpGroupLogicalOrKHR".."6407",
         "OpGroupLogicalXorKHR".."6408",
+        "OpMaskedGatherINTEL".."6428",
+        "OpMaskedScatterINTEL".."6429",
+        "OpConvertHandleToImageINTEL".."6529",
+        "OpConvertHandleToSamplerINTEL".."6530",
+        "OpConvertHandleToSampledImageINTEL".."6531",
         "OpMax".."0x7fffffff",
     )
 }

@@ -16,30 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Image base header for a swapchain image.
- * 
- * <h5>Description</h5>
- * 
- * <p>The {@link XrSwapchainImageBaseHeader} is a base structure that is extended by graphics API-specific stext:XrSwapchainImage* child structures.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link KHROpenGLEnable#XR_TYPE_SWAPCHAIN_IMAGE_OPENGL_KHR TYPE_SWAPCHAIN_IMAGE_OPENGL_KHR}, {@link KHRVulkanEnable#XR_TYPE_SWAPCHAIN_IMAGE_VULKAN_KHR TYPE_SWAPCHAIN_IMAGE_VULKAN_KHR}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * </ul>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link METAEnvironmentDepth#xrEnumerateEnvironmentDepthSwapchainImagesMETA EnumerateEnvironmentDepthSwapchainImagesMETA}, {@link XR10#xrEnumerateSwapchainImages EnumerateSwapchainImages}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrSwapchainImageBaseHeader {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ * }}</pre>
  */
 public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeader> implements NativeResource {
 
@@ -89,16 +70,16 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. This base structure itself has no associated {@code XrStructureType} value. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. No such structures are defined in core OpenXR. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrSwapchainImageBaseHeader type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrSwapchainImageBaseHeader next(@NativeType("void *") long value) { nnext(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -162,6 +143,11 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
         return new XrSwapchainImageBaseHeader(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrSwapchainImageVulkan2KHR} instance to {@code XrSwapchainImageBaseHeader}. */
+    public static XrSwapchainImageBaseHeader create(XrSwapchainImageVulkan2KHR value) {
+        return new XrSwapchainImageBaseHeader(value.address(), __getContainer(value));
+    }
+
     /**
      * Returns a new {@link XrSwapchainImageBaseHeader.Buffer} instance allocated with {@link MemoryUtil#memAlloc memAlloc}. The instance must be explicitly freed.
      *
@@ -212,6 +198,11 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
 
     /** Upcasts the specified {@code XrSwapchainImageVulkanKHR.Buffer} instance to {@code XrSwapchainImageBaseHeader.Buffer}. */
     public static XrSwapchainImageBaseHeader.Buffer create(XrSwapchainImageVulkanKHR.Buffer value) {
+        return new XrSwapchainImageBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrSwapchainImageVulkan2KHR.Buffer} instance to {@code XrSwapchainImageBaseHeader.Buffer}. */
+    public static XrSwapchainImageBaseHeader.Buffer create(XrSwapchainImageVulkan2KHR.Buffer value) {
         return new XrSwapchainImageBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
@@ -308,16 +299,16 @@ public class XrSwapchainImageBaseHeader extends Struct<XrSwapchainImageBaseHeade
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrSwapchainImageBaseHeader#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrSwapchainImageBaseHeader.ntype(address()); }
-        /** @return the value of the {@link XrSwapchainImageBaseHeader#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrSwapchainImageBaseHeader.nnext(address()); }
 
-        /** Sets the specified value to the {@link XrSwapchainImageBaseHeader#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrSwapchainImageBaseHeader.Buffer type(@NativeType("XrStructureType") int value) { XrSwapchainImageBaseHeader.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XrSwapchainImageBaseHeader#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrSwapchainImageBaseHeader.Buffer next(@NativeType("void *") long value) { XrSwapchainImageBaseHeader.nnext(address(), value); return this; }
 
     }

@@ -16,17 +16,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Contains the results of code-completion.
- * 
- * <p>This data structure contains the results of code completion, as produced by {@link ClangIndex#clang_codeCompleteAt codeCompleteAt}. Its contents must be freed by
- * {@link ClangIndex#clang_disposeCodeCompleteResults disposeCodeCompleteResults}.</p>
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct CXCodeCompleteResults {
- *     {@link CXCompletionResult CXCompletionResult} * {@link #Results};
- *     unsigned {@link #NumResults};
+ *     {@link CXCompletionResult CXCompletionResult} * Results;
+ *     unsigned NumResults;
  * }</code></pre>
  */
 public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> implements NativeResource {
@@ -77,10 +70,10 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the code-completion results */
+    /** @return a {@link CXCompletionResult.Buffer} view of the struct array pointed to by the {@code Results} field. */
     @NativeType("CXCompletionResult *")
     public CXCompletionResult.Buffer Results() { return nResults(address()); }
-    /** the number of code-completion results stored in the {@code Results} array */
+    /** @return the value of the {@code NumResults} field. */
     @NativeType("unsigned")
     public int NumResults() { return nNumResults(address()); }
 
@@ -154,25 +147,6 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
     public static CXCodeCompleteResults.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static CXCodeCompleteResults.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code CXCodeCompleteResults} instance allocated on the specified {@link MemoryStack}.
@@ -262,10 +236,10 @@ public class CXCodeCompleteResults extends Struct<CXCodeCompleteResults> impleme
             return ELEMENT_FACTORY;
         }
 
-        /** @return a {@link CXCompletionResult.Buffer} view of the struct array pointed to by the {@link CXCodeCompleteResults#Results} field. */
+        /** @return a {@link CXCompletionResult.Buffer} view of the struct array pointed to by the {@code Results} field. */
         @NativeType("CXCompletionResult *")
         public CXCompletionResult.Buffer Results() { return CXCodeCompleteResults.nResults(address()); }
-        /** @return the value of the {@link CXCodeCompleteResults#NumResults} field. */
+        /** @return the value of the {@code NumResults} field. */
         @NativeType("unsigned")
         public int NumResults() { return CXCodeCompleteResults.nNumResults(address()); }
 

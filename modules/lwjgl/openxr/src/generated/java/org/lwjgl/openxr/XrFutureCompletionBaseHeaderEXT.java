@@ -16,29 +16,12 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Base header for the result of an a future, returned by a future completion function.
- * 
- * <h5>Description</h5>
- * 
- * <p>{@link XrFutureCompletionBaseHeaderEXT} is a base header for the result of a future completion function.</p>
- * 
- * <h5>Valid Usage (Implicit)</h5>
- * 
- * <ul>
- * <li>The {@link EXTFuture XR_EXT_future} extension <b>must</b> be enabled prior to using {@link XrFutureCompletionBaseHeaderEXT}</li>
- * <li>{@code type} <b>must</b> be one of the following XrStructureType values: {@link MLSpatialAnchors#XR_TYPE_CREATE_SPATIAL_ANCHORS_COMPLETION_ML TYPE_CREATE_SPATIAL_ANCHORS_COMPLETION_ML}, {@link EXTFuture#XR_TYPE_FUTURE_COMPLETION_EXT TYPE_FUTURE_COMPLETION_EXT}, {@link MLSpatialAnchorsStorage#XR_TYPE_SPATIAL_ANCHORS_DELETE_COMPLETION_ML TYPE_SPATIAL_ANCHORS_DELETE_COMPLETION_ML}, {@link MLSpatialAnchorsStorage#XR_TYPE_SPATIAL_ANCHORS_PUBLISH_COMPLETION_ML TYPE_SPATIAL_ANCHORS_PUBLISH_COMPLETION_ML}, {@link MLSpatialAnchorsStorage#XR_TYPE_SPATIAL_ANCHORS_QUERY_COMPLETION_ML TYPE_SPATIAL_ANCHORS_QUERY_COMPLETION_ML}, {@link MLSpatialAnchorsStorage#XR_TYPE_SPATIAL_ANCHORS_UPDATE_EXPIRATION_COMPLETION_ML TYPE_SPATIAL_ANCHORS_UPDATE_EXPIRATION_COMPLETION_ML}, {@link MLWorldMeshDetection#XR_TYPE_WORLD_MESH_REQUEST_COMPLETION_ML TYPE_WORLD_MESH_REQUEST_COMPLETION_ML}, {@link MLWorldMeshDetection#XR_TYPE_WORLD_MESH_STATE_REQUEST_COMPLETION_ML TYPE_WORLD_MESH_STATE_REQUEST_COMPLETION_ML}</li>
- * <li>{@code next} <b>must</b> be {@code NULL} or a valid pointer to the <a href="https://registry.khronos.org/OpenXR/specs/1.0/html/xrspec.html#valid-usage-for-structure-pointer-chains">next structure in a structure chain</a></li>
- * <li>{@code futureResult} <b>must</b> be a valid {@code XrResult} value</li>
- * </ul>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XrFutureCompletionBaseHeaderEXT {
- *     XrStructureType {@link #type};
- *     void * {@link #next};
- *     XrResult {@link #futureResult};
- * }</code></pre>
+ *     XrStructureType type;
+ *     void * next;
+ *     XrResult futureResult;
+ * }}</pre>
  */
 public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBaseHeaderEXT> implements NativeResource {
 
@@ -91,21 +74,21 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the {@code XrStructureType} of this structure. */
+    /** @return the value of the {@code type} field. */
     @NativeType("XrStructureType")
     public int type() { return ntype(address()); }
-    /** {@code NULL} or a pointer to the next structure in a structure chain. */
+    /** @return the value of the {@code next} field. */
     @NativeType("void *")
     public long next() { return nnext(address()); }
-    /** {@code XrResult} of the async operation associated with future passed to the completion function. */
+    /** @return the value of the {@code futureResult} field. */
     @NativeType("XrResult")
     public int futureResult() { return nfutureResult(address()); }
 
-    /** Sets the specified value to the {@link #type} field. */
+    /** Sets the specified value to the {@code type} field. */
     public XrFutureCompletionBaseHeaderEXT type(@NativeType("XrStructureType") int value) { ntype(address(), value); return this; }
-    /** Sets the specified value to the {@link #next} field. */
+    /** Sets the specified value to the {@code next} field. */
     public XrFutureCompletionBaseHeaderEXT next(@NativeType("void *") long value) { nnext(address(), value); return this; }
-    /** Sets the specified value to the {@link #futureResult} field. */
+    /** Sets the specified value to the {@code futureResult} field. */
     public XrFutureCompletionBaseHeaderEXT futureResult(@NativeType("XrResult") int value) { nfutureResult(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -186,8 +169,18 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
         return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrSenseDataQueryCompletionBD} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrSenseDataQueryCompletionBD value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrFutureCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
     public static XrFutureCompletionBaseHeaderEXT create(XrFutureCompletionEXT value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrSpatialAnchorCreateCompletionBD} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrSpatialAnchorCreateCompletionBD value) {
         return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
     }
 
@@ -198,6 +191,31 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
 
     /** Upcasts the specified {@code XrWorldMeshRequestCompletionML} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
     public static XrFutureCompletionBaseHeaderEXT create(XrWorldMeshRequestCompletionML value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrCreateSpatialContextCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrCreateSpatialContextCompletionEXT value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrCreateSpatialDiscoverySnapshotCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrCreateSpatialDiscoverySnapshotCompletionEXT value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrCreateSpatialPersistenceContextCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrCreateSpatialPersistenceContextCompletionEXT value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrPersistSpatialEntityCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrPersistSpatialEntityCompletionEXT value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrUnpersistSpatialEntityCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrUnpersistSpatialEntityCompletionEXT value) {
         return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
     }
 
@@ -269,8 +287,18 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
         return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrSenseDataQueryCompletionBD.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrSenseDataQueryCompletionBD.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrFutureCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
     public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrFutureCompletionEXT.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrSpatialAnchorCreateCompletionBD.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrSpatialAnchorCreateCompletionBD.Buffer value) {
         return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
@@ -281,6 +309,31 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
 
     /** Upcasts the specified {@code XrWorldMeshRequestCompletionML.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
     public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrWorldMeshRequestCompletionML.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrCreateSpatialContextCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrCreateSpatialContextCompletionEXT.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrCreateSpatialDiscoverySnapshotCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrCreateSpatialDiscoverySnapshotCompletionEXT.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrCreateSpatialPersistenceContextCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrCreateSpatialPersistenceContextCompletionEXT.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrPersistSpatialEntityCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrPersistSpatialEntityCompletionEXT.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrUnpersistSpatialEntityCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrUnpersistSpatialEntityCompletionEXT.Buffer value) {
         return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
@@ -381,21 +434,21 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XrFutureCompletionBaseHeaderEXT#type} field. */
+        /** @return the value of the {@code type} field. */
         @NativeType("XrStructureType")
         public int type() { return XrFutureCompletionBaseHeaderEXT.ntype(address()); }
-        /** @return the value of the {@link XrFutureCompletionBaseHeaderEXT#next} field. */
+        /** @return the value of the {@code next} field. */
         @NativeType("void *")
         public long next() { return XrFutureCompletionBaseHeaderEXT.nnext(address()); }
-        /** @return the value of the {@link XrFutureCompletionBaseHeaderEXT#futureResult} field. */
+        /** @return the value of the {@code futureResult} field. */
         @NativeType("XrResult")
         public int futureResult() { return XrFutureCompletionBaseHeaderEXT.nfutureResult(address()); }
 
-        /** Sets the specified value to the {@link XrFutureCompletionBaseHeaderEXT#type} field. */
+        /** Sets the specified value to the {@code type} field. */
         public XrFutureCompletionBaseHeaderEXT.Buffer type(@NativeType("XrStructureType") int value) { XrFutureCompletionBaseHeaderEXT.ntype(address(), value); return this; }
-        /** Sets the specified value to the {@link XrFutureCompletionBaseHeaderEXT#next} field. */
+        /** Sets the specified value to the {@code next} field. */
         public XrFutureCompletionBaseHeaderEXT.Buffer next(@NativeType("void *") long value) { XrFutureCompletionBaseHeaderEXT.nnext(address(), value); return this; }
-        /** Sets the specified value to the {@link XrFutureCompletionBaseHeaderEXT#futureResult} field. */
+        /** Sets the specified value to the {@code futureResult} field. */
         public XrFutureCompletionBaseHeaderEXT.Buffer futureResult(@NativeType("XrResult") int value) { XrFutureCompletionBaseHeaderEXT.nfutureResult(address(), value); return this; }
 
     }

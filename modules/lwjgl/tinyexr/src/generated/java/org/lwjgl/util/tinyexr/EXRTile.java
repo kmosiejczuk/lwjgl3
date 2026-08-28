@@ -17,18 +17,16 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct EXRTile {
  *     int offset_x;
  *     int offset_y;
  *     int level_x;
  *     int level_y;
- *     int {@link #width};
- *     int {@link #height};
- *     unsigned char ** {@link #images};
- * }</code></pre>
+ *     int width;
+ *     int height;
+ *     unsigned char ** images;
+ * }}</pre>
  */
 public class EXRTile extends Struct<EXRTile> implements NativeResource {
 
@@ -101,15 +99,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     public int level_x() { return nlevel_x(address()); }
     /** @return the value of the {@code level_y} field. */
     public int level_y() { return nlevel_y(address()); }
-    /** actual width in a tile */
+    /** @return the value of the {@code width} field. */
     public int width() { return nwidth(address()); }
-    /** actual height in a tile */
+    /** @return the value of the {@code height} field. */
     public int height() { return nheight(address()); }
-    /**
-     * @param capacity the number of elements in the returned buffer
-     *
-     * @return image[channels][pixels]
-     */
+    /** @return a {@link PointerBuffer} view of the data pointed to by the {@code images} field. */
     @NativeType("unsigned char **")
     public PointerBuffer images(int capacity) { return nimages(address(), capacity); }
 
@@ -121,11 +115,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     public EXRTile level_x(int value) { nlevel_x(address(), value); return this; }
     /** Sets the specified value to the {@code level_y} field. */
     public EXRTile level_y(int value) { nlevel_y(address(), value); return this; }
-    /** Sets the specified value to the {@link #width} field. */
+    /** Sets the specified value to the {@code width} field. */
     public EXRTile width(int value) { nwidth(address(), value); return this; }
-    /** Sets the specified value to the {@link #height} field. */
+    /** Sets the specified value to the {@code height} field. */
     public EXRTile height(int value) { nheight(address(), value); return this; }
-    /** Sets the address of the specified {@link PointerBuffer} to the {@link #images} field. */
+    /** Sets the address of the specified {@link PointerBuffer} to the {@code images} field. */
     public EXRTile images(@NativeType("unsigned char **") PointerBuffer value) { nimages(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -231,25 +225,6 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
     public static EXRTile.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static EXRTile mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static EXRTile callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static EXRTile mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static EXRTile callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static EXRTile.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static EXRTile.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static EXRTile.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static EXRTile.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code EXRTile} instance allocated on the specified {@link MemoryStack}.
@@ -381,15 +356,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
         public int level_x() { return EXRTile.nlevel_x(address()); }
         /** @return the value of the {@code level_y} field. */
         public int level_y() { return EXRTile.nlevel_y(address()); }
-        /** @return the value of the {@link EXRTile#width} field. */
+        /** @return the value of the {@code width} field. */
         public int width() { return EXRTile.nwidth(address()); }
-        /** @return the value of the {@link EXRTile#height} field. */
+        /** @return the value of the {@code height} field. */
         public int height() { return EXRTile.nheight(address()); }
-        /**
-         * @return a {@link PointerBuffer} view of the data pointed to by the {@link EXRTile#images} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link PointerBuffer} view of the data pointed to by the {@code images} field. */
         @NativeType("unsigned char **")
         public PointerBuffer images(int capacity) { return EXRTile.nimages(address(), capacity); }
 
@@ -401,11 +372,11 @@ public class EXRTile extends Struct<EXRTile> implements NativeResource {
         public EXRTile.Buffer level_x(int value) { EXRTile.nlevel_x(address(), value); return this; }
         /** Sets the specified value to the {@code level_y} field. */
         public EXRTile.Buffer level_y(int value) { EXRTile.nlevel_y(address(), value); return this; }
-        /** Sets the specified value to the {@link EXRTile#width} field. */
+        /** Sets the specified value to the {@code width} field. */
         public EXRTile.Buffer width(int value) { EXRTile.nwidth(address(), value); return this; }
-        /** Sets the specified value to the {@link EXRTile#height} field. */
+        /** Sets the specified value to the {@code height} field. */
         public EXRTile.Buffer height(int value) { EXRTile.nheight(address(), value); return this; }
-        /** Sets the address of the specified {@link PointerBuffer} to the {@link EXRTile#images} field. */
+        /** Sets the address of the specified {@link PointerBuffer} to the {@code images} field. */
         public EXRTile.Buffer images(@NativeType("unsigned char **") PointerBuffer value) { EXRTile.nimages(address(), value); return this; }
 
     }

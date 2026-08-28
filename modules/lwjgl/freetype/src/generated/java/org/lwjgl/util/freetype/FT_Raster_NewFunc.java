@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * int (*{@link #invoke}) (
- *     void *memory,
- *     FT_Raster *raster
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Raster_NewFunc} */
 public abstract class FT_Raster_NewFunc extends Callback implements FT_Raster_NewFuncI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class FT_Raster_NewFunc extends Callback implements FT_Raster_Ne
     }
 
     protected FT_Raster_NewFunc() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FT_Raster_NewFunc(long functionPointer) {

@@ -16,17 +16,13 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A glyph position.
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct NVGglyphPosition {
- *     char * {@link #str};
- *     float {@link #x};
- *     float {@link #minx};
- *     float {@link #maxx};
- * }</code></pre>
+ *     char * str;
+ *     float x;
+ *     float minx;
+ *     float maxx;
+ * }}</pre>
  */
 @NativeType("struct NVGglyphPosition")
 public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements NativeResource {
@@ -83,14 +79,14 @@ public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements Native
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** position of the glyph in the input string */
+    /** @return the value of the {@code str} field. */
     @NativeType("char *")
     public long str() { return nstr(address()); }
-    /** the x-coordinate of the logical glyph position */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the left bound of the glyph shape */
+    /** @return the value of the {@code minx} field. */
     public float minx() { return nminx(address()); }
-    /** the right bound of the glyph shape */
+    /** @return the value of the {@code maxx} field. */
     public float maxx() { return nmaxx(address()); }
 
     // -----------------------------------
@@ -163,25 +159,6 @@ public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements Native
     public static NVGGlyphPosition.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static NVGGlyphPosition.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code NVGGlyphPosition} instance allocated on the specified {@link MemoryStack}.
@@ -275,14 +252,14 @@ public class NVGGlyphPosition extends Struct<NVGGlyphPosition> implements Native
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link NVGGlyphPosition#str} field. */
+        /** @return the value of the {@code str} field. */
         @NativeType("char *")
         public long str() { return NVGGlyphPosition.nstr(address()); }
-        /** @return the value of the {@link NVGGlyphPosition#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return NVGGlyphPosition.nx(address()); }
-        /** @return the value of the {@link NVGGlyphPosition#minx} field. */
+        /** @return the value of the {@code minx} field. */
         public float minx() { return NVGGlyphPosition.nminx(address()); }
-        /** @return the value of the {@link NVGGlyphPosition#maxx} field. */
+        /** @return the value of the {@code maxx} field. */
         public float maxx() { return NVGGlyphPosition.nmaxx(address()); }
 
     }

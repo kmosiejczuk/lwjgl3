@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A structure used to describe a given memory manager to FreeType~2.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_MemoryRec_ {
  *     void * user;

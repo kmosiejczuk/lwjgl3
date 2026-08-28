@@ -6,33 +6,28 @@
 package org.lwjgl.util.freetype;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FT_Module_Interface (*{@link #invoke}) (
- *     FT_Module module,
- *     char const *name
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FT_Module_Requester} */
 @FunctionalInterface
 @NativeType("FT_Module_Requester")
 public interface FT_Module_RequesterI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_pointer,
-        ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_pointer,
+            ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -43,7 +38,7 @@ public interface FT_Module_RequesterI extends CallbackI {
         apiClosureRetP(ret, __result);
     }
 
-    /** A function used to query a given module for a specific interface. */
+    /** {@code FT_Module_Interface (* FT_Module_Requester) (FT_Module module, char const * name)} */
     @NativeType("FT_Module_Interface") long invoke(@NativeType("FT_Module") long module, @NativeType("char const *") long name);
 
 }

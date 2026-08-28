@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * An opaque structure which holds all the context needed from {@link STBTruetype#stbtt_PackBegin PackBegin} to {@link STBTruetype#stbtt_PackEnd PackEnd}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct stbtt_pack_context {
  *     void * user_allocator_context;
@@ -134,18 +130,10 @@ public class STBTTPackContext extends Struct<STBTTPackContext> implements Native
     /** @return the value of the {@code v_oversample} field. */
     @NativeType("unsigned int")
     public int v_oversample() { return nv_oversample(address()); }
-    /**
-     * @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field. */
     @NativeType("unsigned char *")
     public ByteBuffer pixels(int capacity) { return npixels(address(), capacity); }
-    /**
-     * @return a {@link STBRPNode.Buffer} view of the struct array pointed to by the {@code nodes} field.
-     *
-     * @param capacity the number of elements in the returned buffer
-     */
+    /** @return a {@link STBRPNode.Buffer} view of the struct array pointed to by the {@code nodes} field. */
     @NativeType("stbrp_node *")
     public STBRPNode.Buffer nodes(int capacity) { return nnodes(address(), capacity); }
 
@@ -219,25 +207,6 @@ public class STBTTPackContext extends Struct<STBTTPackContext> implements Native
     public static STBTTPackContext.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static STBTTPackContext.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code STBTTPackContext} instance allocated on the specified {@link MemoryStack}.
@@ -368,18 +337,10 @@ public class STBTTPackContext extends Struct<STBTTPackContext> implements Native
         /** @return the value of the {@code v_oversample} field. */
         @NativeType("unsigned int")
         public int v_oversample() { return STBTTPackContext.nv_oversample(address()); }
-        /**
-         * @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link ByteBuffer} view of the data pointed to by the {@code pixels} field. */
         @NativeType("unsigned char *")
         public ByteBuffer pixels(int capacity) { return STBTTPackContext.npixels(address(), capacity); }
-        /**
-         * @return a {@link STBRPNode.Buffer} view of the struct array pointed to by the {@code nodes} field.
-         *
-         * @param capacity the number of elements in the returned buffer
-         */
+        /** @return a {@link STBRPNode.Buffer} view of the struct array pointed to by the {@code nodes} field. */
         @NativeType("stbrp_node *")
         public STBRPNode.Buffer nodes(int capacity) { return STBTTPackContext.nnodes(address(), capacity); }
 

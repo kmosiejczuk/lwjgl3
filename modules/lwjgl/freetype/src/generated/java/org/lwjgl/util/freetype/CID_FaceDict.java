@@ -14,10 +14,6 @@ import org.lwjgl.system.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * A structure used to represent data in a CID top-level dictionary.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct CID_FaceDictRec {
  *     {@link PS_Private PS_PrivateRec} private_dict;

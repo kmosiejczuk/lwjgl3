@@ -11,14 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *Ctx
- * )</code></pre>
- */
+/** Callback function: {@link #invoke LLVMOrcDisposeCAPIDefinitionGeneratorFunction} */
 public abstract class LLVMOrcDisposeCAPIDefinitionGeneratorFunction extends Callback implements LLVMOrcDisposeCAPIDefinitionGeneratorFunctionI {
 
     /**
@@ -46,7 +39,7 @@ public abstract class LLVMOrcDisposeCAPIDefinitionGeneratorFunction extends Call
     }
 
     protected LLVMOrcDisposeCAPIDefinitionGeneratorFunction() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     LLVMOrcDisposeCAPIDefinitionGeneratorFunction(long functionPointer) {

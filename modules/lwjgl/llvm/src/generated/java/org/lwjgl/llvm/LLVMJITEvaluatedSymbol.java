@@ -16,10 +16,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Represents an evaluated symbol address and flags.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct LLVMJITEvaluatedSymbol {
  *     LLVMOrcExecutorAddress Address;

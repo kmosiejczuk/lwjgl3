@@ -6,34 +6,29 @@
 package org.lwjgl.fmod;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     void *ptr,
- *     char const *file,
- *     int line
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_FREE_FUNC} */
 @FunctionalInterface
 @NativeType("FMOD_OUTPUT_FREE_FUNC")
 public interface FMOD_OUTPUT_FREE_FUNCI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        apiStdcall(),
-        ffi_type_void,
-        ffi_type_pointer, ffi_type_pointer, ffi_type_sint32
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            apiStdcall(),
+            ffi_type_void,
+            ffi_type_pointer, ffi_type_pointer, ffi_type_sint32
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -44,6 +39,7 @@ public interface FMOD_OUTPUT_FREE_FUNCI extends CallbackI {
         );
     }
 
+    /** {@code void (* FMOD_OUTPUT_FREE_FUNC) (void * ptr, char const * file, int line)} */
     void invoke(@NativeType("void *") long ptr, @NativeType("char const *") long file, int line);
 
 }

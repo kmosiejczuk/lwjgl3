@@ -17,8 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct StdVideoH265VideoParameterSet {
  *     {@link StdVideoH265VpsFlags StdVideoH265VpsFlags} flags;

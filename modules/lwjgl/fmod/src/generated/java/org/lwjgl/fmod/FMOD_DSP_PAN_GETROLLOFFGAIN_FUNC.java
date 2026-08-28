@@ -11,19 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_DSP_STATE *dsp_state,
- *     FMOD_DSP_PAN_3D_ROLLOFF_TYPE rolloff,
- *     float distance,
- *     float mindistance,
- *     float maxdistance,
- *     float *gain
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC} */
 public abstract class FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC extends Callback implements FMOD_DSP_PAN_GETROLLOFFGAIN_FUNCI {
 
     /**
@@ -51,7 +39,7 @@ public abstract class FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC extends Callback implemen
     }
 
     protected FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_DSP_PAN_GETROLLOFFGAIN_FUNC(long functionPointer) {

@@ -16,17 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * The return value from 128-bit hashes.
- * 
- * <p>Stored in little endian order, although the fields themselves are in native endianness.</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct XXH128_hash_t {
- *     XXH64_hash_t {@link #low64};
- *     XXH64_hash_t {@link #high64};
- * }</code></pre>
+ *     XXH64_hash_t low64;
+ *     XXH64_hash_t high64;
+ * }}</pre>
  */
 @NativeType("struct XXH128_hash_t")
 public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
@@ -77,10 +71,10 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** {@code value & 0xFFFFFFFFFFFFFFFF} */
+    /** @return the value of the {@code low64} field. */
     @NativeType("XXH64_hash_t")
     public long low64() { return nlow64(address()); }
-    /** {@code value >> 64} */
+    /** @return the value of the {@code high64} field. */
     @NativeType("XXH64_hash_t")
     public long high64() { return nhigh64(address()); }
 
@@ -154,25 +148,6 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
     public static XXH128Hash.@Nullable Buffer createSafe(long address, int capacity) {
         return address == NULL ? null : new Buffer(address, capacity);
     }
-
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static XXH128Hash.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
 
     /**
      * Returns a new {@code XXH128Hash} instance allocated on the specified {@link MemoryStack}.
@@ -262,10 +237,10 @@ public class XXH128Hash extends Struct<XXH128Hash> implements NativeResource {
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link XXH128Hash#low64} field. */
+        /** @return the value of the {@code low64} field. */
         @NativeType("XXH64_hash_t")
         public long low64() { return XXH128Hash.nlow64(address()); }
-        /** @return the value of the {@link XXH128Hash#high64} field. */
+        /** @return the value of the {@code high64} field. */
         @NativeType("XXH64_hash_t")
         public long high64() { return XXH128Hash.nhigh64(address()); }
 

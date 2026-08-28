@@ -11,17 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Instances of this class may be passed to the {@link CL30#clSetContextDestructorCallback SetContextDestructorCallback} method.
- * 
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     cl_context context,
- *     void *user_data
- * )</code></pre>
- */
+/** Callback function: {@link #invoke (* anonymous)} */
 public abstract class CLContextDestructorCallback extends Callback implements CLContextDestructorCallbackI {
 
     /**
@@ -49,7 +39,7 @@ public abstract class CLContextDestructorCallback extends Callback implements CL
     }
 
     protected CLContextDestructorCallback() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     CLContextDestructorCallback(long functionPointer) {

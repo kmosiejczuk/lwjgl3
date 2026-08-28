@@ -6,37 +6,28 @@
 package org.lwjgl.openal;
 
 import org.lwjgl.system.*;
-import org.lwjgl.system.libffi.*;
+
+import java.lang.invoke.*;
 
 import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.libffi.LibFFI.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * void (*{@link #invoke}) (
- *     ALCenum eventType,
- *     ALCenum deviceType,
- *     ALCdevice *device,
- *     ALCsizei length,
- *     ALCchar const *message,
- *     ALCvoid *userParam
- * )</code></pre>
- */
+/** Callback function: {@link #invoke ALCEVENTPROCTYPESOFT} */
 @FunctionalInterface
 @NativeType("ALCEVENTPROCTYPESOFT")
 public interface SOFTSystemEventProcI extends CallbackI {
 
-    FFICIF CIF = apiCreateCIF(
-        FFI_DEFAULT_ABI,
-        ffi_type_void,
-        ffi_type_sint32, ffi_type_sint32, ffi_type_pointer, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+    Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(
+        MethodHandles.lookup(),
+        apiCreateCIF(
+            ffi_type_void,
+            ffi_type_sint32, ffi_type_sint32, ffi_type_pointer, ffi_type_sint32, ffi_type_pointer, ffi_type_pointer
+        )
     );
 
     @Override
-    default FFICIF getCallInterface() { return CIF; }
+    default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
 
     @Override
     default void callback(long ret, long args) {
@@ -50,6 +41,7 @@ public interface SOFTSystemEventProcI extends CallbackI {
         );
     }
 
+    /** {@code void (* ALCEVENTPROCTYPESOFT) (ALCenum eventType, ALCenum deviceType, ALCdevice * device, ALCsizei length, ALCchar const * message, ALCvoid * userParam)} */
     void invoke(@NativeType("ALCenum") int eventType, @NativeType("ALCenum") int deviceType, @NativeType("ALCdevice *") long device, @NativeType("ALCsizei") int length, @NativeType("ALCchar const *") long message, @NativeType("ALCvoid *") long userParam);
 
 }

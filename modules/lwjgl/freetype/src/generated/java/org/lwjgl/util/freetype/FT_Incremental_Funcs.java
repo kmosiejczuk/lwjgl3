@@ -17,10 +17,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * A table of functions for accessing fonts that load data incrementally. Used in {@link FT_Incremental_Interface}.
- * 
- * <h3>Layout</h3>
- * 
  * <pre><code>
  * struct FT_Incremental_FuncsRec {
  *     {@link FT_Incremental_GetGlyphDataFuncI FT_Incremental_GetGlyphDataFunc} get_glyph_data;

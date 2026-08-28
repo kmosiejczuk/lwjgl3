@@ -11,15 +11,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * <h3>Type</h3>
- * 
- * <pre><code>
- * FMOD_RESULT (*{@link #invoke}) (
- *     struct FMOD_OUTPUT_STATE *output_state,
- *     int *numdrivers
- * )</code></pre>
- */
+/** Callback function: {@link #invoke FMOD_OUTPUT_GETNUMDRIVERS_CALLBACK} */
 public abstract class FMOD_OUTPUT_GETNUMDRIVERS_CALLBACK extends Callback implements FMOD_OUTPUT_GETNUMDRIVERS_CALLBACKI {
 
     /**
@@ -47,7 +39,7 @@ public abstract class FMOD_OUTPUT_GETNUMDRIVERS_CALLBACK extends Callback implem
     }
 
     protected FMOD_OUTPUT_GETNUMDRIVERS_CALLBACK() {
-        super(CIF);
+        super(DESCRIPTOR);
     }
 
     FMOD_OUTPUT_GETNUMDRIVERS_CALLBACK(long functionPointer) {

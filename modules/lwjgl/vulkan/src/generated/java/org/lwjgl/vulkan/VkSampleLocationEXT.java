@@ -16,25 +16,11 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.MemoryStack.*;
 
 /**
- * Structure specifying the coordinates of a sample location.
- * 
- * <h5>Description</h5>
- * 
- * <p>The domain space of the sample location coordinates has an upper-left origin within the pixel in framebuffer space.</p>
- * 
- * <p>The values specified in a {@link VkSampleLocationEXT} structure are always clamped to the implementation-dependent sample location coordinate range <code>[sampleLocationCoordinateRange[0],sampleLocationCoordinateRange[1]]</code> that <b>can</b> be queried using {@link VkPhysicalDeviceSampleLocationsPropertiesEXT}.</p>
- * 
- * <h5>See Also</h5>
- * 
- * <p>{@link VkSampleLocationsInfoEXT}</p>
- * 
- * <h3>Layout</h3>
- * 
- * <pre><code>
+ * <pre>{@code
  * struct VkSampleLocationEXT {
- *     float {@link #x};
- *     float {@link #y};
- * }</code></pre>
+ *     float x;
+ *     float y;
+ * }}</pre>
  */
 public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements NativeResource {
 
@@ -84,14 +70,14 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
     @Override
     public int sizeof() { return SIZEOF; }
 
-    /** the horizontal coordinate of the sample’s location. */
+    /** @return the value of the {@code x} field. */
     public float x() { return nx(address()); }
-    /** the vertical coordinate of the sample’s location. */
+    /** @return the value of the {@code y} field. */
     public float y() { return ny(address()); }
 
-    /** Sets the specified value to the {@link #x} field. */
+    /** Sets the specified value to the {@code x} field. */
     public VkSampleLocationEXT x(float value) { nx(address(), value); return this; }
-    /** Sets the specified value to the {@link #y} field. */
+    /** Sets the specified value to the {@code y} field. */
     public VkSampleLocationEXT y(float value) { ny(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
@@ -188,25 +174,6 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
         return address == NULL ? null : new Buffer(address, capacity);
     }
 
-    // -----------------------------------
-
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT mallocStack() { return malloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT callocStack() { return calloc(stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT mallocStack(MemoryStack stack) { return malloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT callocStack(MemoryStack stack) { return calloc(stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT.Buffer mallocStack(int capacity) { return malloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT.Buffer callocStack(int capacity) { return calloc(capacity, stackGet()); }
-    /** Deprecated for removal in 3.4.0. Use {@link #malloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT.Buffer mallocStack(int capacity, MemoryStack stack) { return malloc(capacity, stack); }
-    /** Deprecated for removal in 3.4.0. Use {@link #calloc(int, MemoryStack)} instead. */
-    @Deprecated public static VkSampleLocationEXT.Buffer callocStack(int capacity, MemoryStack stack) { return calloc(capacity, stack); }
-
     /**
      * Returns a new {@code VkSampleLocationEXT} instance allocated on the specified {@link MemoryStack}.
      *
@@ -300,14 +267,14 @@ public class VkSampleLocationEXT extends Struct<VkSampleLocationEXT> implements 
             return ELEMENT_FACTORY;
         }
 
-        /** @return the value of the {@link VkSampleLocationEXT#x} field. */
+        /** @return the value of the {@code x} field. */
         public float x() { return VkSampleLocationEXT.nx(address()); }
-        /** @return the value of the {@link VkSampleLocationEXT#y} field. */
+        /** @return the value of the {@code y} field. */
         public float y() { return VkSampleLocationEXT.ny(address()); }
 
-        /** Sets the specified value to the {@link VkSampleLocationEXT#x} field. */
+        /** Sets the specified value to the {@code x} field. */
         public VkSampleLocationEXT.Buffer x(float value) { VkSampleLocationEXT.nx(address(), value); return this; }
-        /** Sets the specified value to the {@link VkSampleLocationEXT#y} field. */
+        /** Sets the specified value to the {@code y} field. */
         public VkSampleLocationEXT.Buffer y(float value) { VkSampleLocationEXT.ny(address(), value); return this; }
 
     }
