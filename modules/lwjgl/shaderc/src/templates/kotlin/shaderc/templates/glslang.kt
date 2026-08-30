@@ -163,7 +163,8 @@ val glslang = "GLSLang".nativeClass(Module.SHADERC, prefix = "GLSLANG", prefixMe
         "SHADER_DEFAULT_BIT".enum("0"),
         "SHADER_AUTO_MAP_BINDINGS".enum("(1 << 0)"),
         "SHADER_AUTO_MAP_LOCATIONS".enum("(1 << 1)"),
-        "SHADER_VULKAN_RULES_RELAXED".enum("(1 << 2)")
+        "SHADER_VULKAN_RULES_RELAXED".enum("(1 << 2)"),
+        "SHADER_BINDINGS_PER_RESOURCE_TYPE".enum("(1 << 3)")
     )
 
     EnumConstant(
@@ -454,32 +455,5 @@ val glslang = "GLSLang".nativeClass(Module.SHADERC, prefix = "GLSLANG", prefixMe
         "glsl_resolver_delete",
 
         glslang_resolver_t.p("resolver")
-    )
-
-    // resource_limits_c.h
-
-    glslang_resource_t.p(
-        "resource",
-
-        void()
-    )
-
-    glslang_resource_t.const.p(
-        "default_resource",
-
-        void()
-    )
-
-    "const char *".handle(
-        "default_resource_string",
-
-        void()
-    )
-
-    void(
-        "decode_resource_limits",
-
-        glslang_resource_t.p("resources"),
-        charUTF8.p("config")
     )
 }
