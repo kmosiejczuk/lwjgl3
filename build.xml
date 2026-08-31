@@ -851,7 +851,6 @@
         <mkdir dir="${bin.samples}"/>
         <do-compile-tests>
             <compilerarg line="-source 8 -target 8"/>
-            <compilerarg line='--boot-class-path "${env.JAVA8_HOME}/jre/lib/rt.jar"' if:set="set-boot-class-path"/>
             <src path="modules/samples/src/test/java"/>
         </do-compile-tests>
 
