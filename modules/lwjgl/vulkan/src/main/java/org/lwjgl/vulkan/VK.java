@@ -90,7 +90,7 @@ public final class VK {
                     }
                 }
                 break;
-            case LINUX:
+            case OPENBSD:
                 VK = Library.loadNative(VK.class, "org.lwjgl.vulkan", Configuration.VULKAN_LIBRARY_NAME, "libvulkan.so");
                 break;
             default:
