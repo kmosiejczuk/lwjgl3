@@ -90,6 +90,9 @@ public final class VK {
                     }
                 }
                 break;
+            case LINUX:
+                VK = Library.loadNative(VK.class, "org.lwjgl.vulkan", Configuration.VULKAN_LIBRARY_NAME, "libvulkan.so");
+                break;
             default:
                 throw new IllegalStateException();
         }
