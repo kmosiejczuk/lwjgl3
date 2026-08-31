@@ -4,13 +4,12 @@
  */
 
 #include <stddef.h>
-#include <string.h>
-#include <inttypes.h>
+#include <stdint.h>
 
 #define DISABLE_WARNINGS() \
-    _Pragma("GCC diagnostic push")
-    _Pragma("GCC diagnostic ignored \"-Wunused-parameter\"")
-    _Pragma("GCC diagnostic ignored \"-Wsign-compare\"")
+    _Pragma("GCC diagnostic push") \
+    _Pragma("GCC diagnostic ignored \"-Wall\"") \
+    _Pragma("GCC diagnostic ignored \"-Wextra\"")
 
 #define ENABLE_WARNINGS() \
     _Pragma("GCC diagnostic pop")
