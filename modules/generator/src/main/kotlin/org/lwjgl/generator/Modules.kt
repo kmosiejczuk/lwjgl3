@@ -380,7 +380,7 @@ enum class Module(
         """,
         library = JNILibrary.create(
             "LibNFD",
-            libraryName = "(Platform.get() == Platform.FREEBSD || Platform.get() == Platform.LINUX) && Configuration.NFD_LINUX_PORTAL.get(false) ? \"lwjgl_nfd_portal\" : \"lwjgl_nfd\"",
+            libraryName = "(Platform.get() == Platform.OPENBSD || Platform.get() == Platform.FREEBSD || Platform.get() == Platform.LINUX) && Configuration.NFD_LINUX_PORTAL.get(false) ? \"lwjgl_nfd_portal\" : \"lwjgl_nfd\"",
             setupAllocator = true
         )
     ),

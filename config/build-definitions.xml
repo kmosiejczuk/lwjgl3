@@ -222,7 +222,6 @@ This script is included in /build.xml and /config/update-dependencies.xml.
 
     <presetdef name="lwjgl.javac">
         <javac sourcepath="" debug="yes" source="8" target="8" encoding="UTF-8" includeantruntime="false">
-            <compilerarg line='--boot-class-path "${env.JAVA8_HOME}/jre/lib/rt.jar"' if:set="set-boot-class-path"/>
             <compilerarg line="-proc:full" if:set="jdk11"/>
             <compilerarg value="-Xlint:all" unless:set="jdk21"/>
             <compilerarg line="-Xlint:all,-options" if:set="jdk21"/>

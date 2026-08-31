@@ -504,6 +504,8 @@ public class Configuration<T> {
                 return new String[] {"libEGL.so.1"};
             case MACOSX:
                 return new String[] {"EGL"};
+            case OPENBSD:
+                return new String[] {"libEGL.so"};
             case WINDOWS:
                 return new String[] {"libEGL", "EGL"};
         }
@@ -655,6 +657,8 @@ public class Configuration<T> {
                 return new String[] {"libGLX.so.0", "libGL.so.1", "libGL.so"};
             case MACOSX:
                 return new String[] {"/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"};
+            case OPENBSD:
+                return new String[] {"libGL.so"};
             case WINDOWS:
                 return new String[] {"opengl32"};
         }
@@ -748,6 +752,8 @@ public class Configuration<T> {
                 return new String[] {"libGLESv2.so.2"};
             case MACOSX:
                 return new String[] {"GLESv2"};
+            case OPENBSD:
+                return new String[] {"libGLESv2.so"};
             case WINDOWS:
                 return new String[] {"libGLESv2", "GLESv2"};
         }
