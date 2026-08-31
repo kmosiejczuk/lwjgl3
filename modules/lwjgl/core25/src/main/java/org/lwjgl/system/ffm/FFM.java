@@ -95,6 +95,7 @@ public final class FFM {
                 .exports(ModuleExportInfo.of(PackageDesc.of("org.lwjgl.system.libffi"), 0))
                 .exports(ModuleExportInfo.of(PackageDesc.of("org.lwjgl.system.linux"), 0))
                 .exports(ModuleExportInfo.of(PackageDesc.of("org.lwjgl.system.macosx"), 0))
+                .exports(ModuleExportInfo.of(PackageDesc.of("org.lwjgl.system.openbsd"), 0))
                 .exports(ModuleExportInfo.of(PackageDesc.of("org.lwjgl.system.windows"), 0));
 
             if (Boolean.getBoolean("unsafe")) {
