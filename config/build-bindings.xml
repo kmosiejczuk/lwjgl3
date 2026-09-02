@@ -28,12 +28,12 @@ This script is included in /config/build-definitions.xml.
     <property name="binding.harfbuzz" value="true"/>
     <property name="binding.hwloc" value="true"/>
     <property name="binding.jawt" value="true"/>
-    <property name="binding.jemalloc" value="true"/>
+    <property name="binding.jemalloc" value="false"/>
     <property name="binding.ktx" value="true"/>
     <property name="binding.llvm" value="true"/>
     <property name="binding.lmdb" value="true"/>
     <property name="binding.lz4" value="true"/>
-    <property name="binding.meshoptimizer" value="true"/>
+    <property name="binding.meshoptimizer" value="false"/>
     <property name="binding.msdfgen" value="true"/>
     <property name="binding.nanovg" value="true"/>
     <property name="binding.nfd" value="true"/>
@@ -65,7 +65,7 @@ This script is included in /config/build-definitions.xml.
     <condition property="binding.vma" value="true" else="false"><istrue value="${binding.vulkan}"/></condition>
     <property name="binding.xxhash" value="true"/>
     <property name="binding.yoga" value="true"/>
-    <property name="binding.zstd" value="false"/>
+    <property name="binding.zstd" value="true"/>
 
     <!-- TODO: automate -->
     <property name="java-only.binding.egl" value="true"/>
