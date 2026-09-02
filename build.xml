@@ -1235,7 +1235,7 @@
                 </not>
             </condition>
 
-            <parallel threadsPerProcessor="4" failonany="true">
+            <parallel threadsPerProcessor="1" failonany="true">
                 <get-release platform="freebsd" arch="x64" file="lib@{native-library}.so" if:set="auto-natives"/>
                 <get-release platform="freebsd" arch="x64" file="lib@{native-library}.so.git" if:set="git-revision"/>
 
