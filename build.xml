@@ -1240,6 +1240,9 @@
                 <get-release platform="openbsd" arch="x64" file="lib@{native-library}.so" if:set="auto-natives"/>
                 <get-release platform="openbsd" arch="x64" file="lib@{native-library}.so.git" if:set="git-revision"/>
 
+                <get-release platform="openbsd" arch="arm64" file="lib@{native-library}.so" if:set="auto-natives"/>
+                <get-release platform="openbsd" arch="arm64" file="lib@{native-library}.so.git" if:set="git-revision"/>
+
                 <get-release platform="windows" arch="x64" file="@{native-library}.dll" if:set="auto-natives"/>
                 <get-release platform="windows" arch="x64" file="@{native-library}.dll.git" if:set="git-revision"/>
 
@@ -1317,6 +1320,9 @@
                         <macos-arm64-content/>
                     </natives-jar>
                     <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/x64" type="so">
+                         <openbsd-content/>
+                    </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/arm64" type="so">
                          <openbsd-content/>
                     </natives-jar>
                     <natives-jar name="@{name}" title="@{title}" platform="windows" path="windows/x64" type="dll">
@@ -1610,6 +1616,10 @@
                 <get-release platform="openbsd" arch="x64" file="libassimp.so.git"/>
                 <get-release platform="openbsd" arch="x64" file="libdraco.so"/>
 
+                <get-release platform="openbsd" arch="arm64" file="libassimp.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libassimp.so.git"/>
+                <get-release platform="openbsd" arch="arm64" file="libdraco.so"/>
+
                 <get-release platform="windows" arch="x64" file="assimp.dll"/>
                 <get-release platform="windows" arch="x64" file="assimp.dll.git"/>
                 <get-release platform="windows" arch="x64" file="draco.dll"/>
@@ -1653,6 +1663,9 @@
 
                 <get-release platform="openbsd" arch="x64" file="libbgfx.so"/>
                 <get-release platform="openbsd" arch="x64" file="libbgfx.so.git"/>
+
+                <get-release platform="openbsd" arch="arm64" file="libbgfx.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libbgfx.so.git"/>
 
                 <get-release platform="windows" arch="x64" file="bgfx.dll"/>
                 <get-release platform="windows" arch="x64" file="bgfx.dll.git"/>
@@ -1707,6 +1720,9 @@
 
                 <get-release platform="openbsd" arch="x64" file="libglfw.so"/>
                 <get-release platform="openbsd" arch="x64" file="libglfw.so.git"/>
+
+                <get-release platform="openbsd" arch="arm64" file="libglfw.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libglfw.so.git"/>
 
                 <get-release platform="windows" arch="x64" file="glfw.dll"/>
                 <get-release platform="windows" arch="x64" file="glfw.dll.git"/>
@@ -1774,7 +1790,7 @@
                 <get-release platform="macos" arch="arm64" file="liblwjgl_meow.dylib"/>
 
                 <get-release platform="openbsd" arch="x64" file="liblwjgl_meow.so"/>
-
+                <get-release platform="openbsd" arch="arm64" file="liblwjgl_meow.so"/>
                 <get-release platform="windows" arch="x64" file="lwjgl_meow.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_meow.dll"/>
                 <get-release platform="windows" arch="arm64" file="lwjgl_meow.dll"/>
@@ -1803,6 +1819,7 @@
                 <get-release platform="linux" arch="riscv64" file="liblwjgl_nfd_portal.so"/>
 
                 <get-release platform="openbsd" arch="x64" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="openbsd" arch="arm64" file="liblwjgl_nfd_portal.so"/>
             </natives>
         </release-module>
 
@@ -1841,6 +1858,9 @@
 
                 <get-release platform="openbsd" arch="x64" file="libopenal.so"/>
                 <get-release platform="openbsd" arch="x64" file="libopenal.so.git"/>
+
+                <get-release platform="openbsd" arch="arm64" file="libopenal.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libopenal.so.git"/>
 
                 <get-release platform="windows" arch="x64" file="OpenAL.dll"/>
                 <get-release platform="windows" arch="x64" file="OpenAL.dll.git"/>
@@ -1948,6 +1968,7 @@
                 <get-release platform="macos" arch="arm64" file="liblwjgl_remotery.dylib"/>
 
                 <get-release platform="openbsd" arch="x64" file="liblwjgl_remotery.so"/>
+                <get-release platform="openbsd" arch="arm64" file="liblwjgl_remotery.so"/>
 
                 <get-release platform="windows" arch="x64" file="lwjgl_remotery.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_remotery.dll"/>
@@ -1998,7 +2019,7 @@
                 <get-release platform="macos" arch="x64" file="liblwjgl_tootle.dylib"/>
 
                 <get-release platform="openbsd" arch="x64" file="liblwjgl_tootle.so"/>
-
+                <get-release platform="openbsd" arch="arm64" file="liblwjgl_tootle.so"/>
                 <get-release platform="windows" arch="x64" file="lwjgl_tootle.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_tootle.dll"/>
             </natives>
