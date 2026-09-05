@@ -1217,6 +1217,7 @@
         <element name="macos-content" optional="true"/>
         <element name="macos-arm64-content" optional="true"/>
         <element name="openbsd-content" optional="true"/>
+        <element name="openbsd-arm64-content" optional="true"/>
         <element name="windows-content" optional="true"/>
         <element name="windows-x86-content" optional="true"/>
         <element name="windows-arm64-content" optional="true"/>
@@ -1262,6 +1263,9 @@
 
                 <get-release platform="openbsd" arch="x64" file="lib@{native-library}.so" if:set="auto-natives"/>
                 <get-release platform="openbsd" arch="x64" file="lib@{native-library}.so.git" if:set="git-revision"/>
+
+                <get-release platform="openbsd" arch="arm64" file="lib@{native-library}.so" if:set="auto-natives"/>
+                <get-release platform="openbsd" arch="arm64" file="lib@{native-library}.so.git" if:set="git-revision"/>
 
                 <get-release platform="windows" arch="x64" file="@{native-library}.dll" if:set="auto-natives"/>
                 <get-release platform="windows" arch="x64" file="@{native-library}.dll.git" if:set="git-revision"/>
@@ -1342,6 +1346,9 @@
                     <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/x64" type="so">
                          <openbsd-content/>
                     </natives-jar>
+                    <natives-jar name="@{name}" title="@{title}" platform="openbsd-arm64" path="openbsd/arm64" type="so">
+                         <openbsd-content/>
+                    </natives-jar>
                     <natives-jar name="@{name}" title="@{title}" platform="windows" path="windows/x64" type="dll">
                         <windows-content/>
                     </natives-jar>
@@ -1370,6 +1377,7 @@
         <element name="macos" optional="true"/>
         <element name="macos-arm64" optional="true"/>
         <element name="openbsd" optional="true"/>
+        <element name="openbsd-arm64" optional="true"/>
         <element name="windows" optional="true"/>
         <element name="windows-x86" optional="true"/>
         <element name="windows-arm64" optional="true"/>
@@ -1401,6 +1409,7 @@
                 <macos-content><macos/></macos-content>
                 <macos-arm64-content><macos-arm64/></macos-arm64-content>
                 <openbsd-content><openbsd/></openbsd-content>
+                <openbsd-arm64-content><openbsd-arm64/></openbsd-arm64-content>
                 <windows-content><windows/></windows-content>
                 <windows-x86-content><windows-x86/></windows-x86-content>
                 <windows-arm64-content><windows-arm64/></windows-arm64-content>
@@ -1705,6 +1714,10 @@
                 <get-release platform="openbsd" arch="x64" file="libassimp.so.git"/>
                 <get-release platform="openbsd" arch="x64" file="libdraco.so"/>
 
+                <get-release platform="openbsd" arch="arm64" file="libassimp.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libassimp.so.git"/>
+                <get-release platform="openbsd" arch="arm64" file="libdraco.so"/>
+
                 <get-release platform="windows" arch="x64" file="assimp.dll"/>
                 <get-release platform="windows" arch="x64" file="assimp.dll.git"/>
                 <get-release platform="windows" arch="x64" file="draco.dll"/>
@@ -1748,6 +1761,9 @@
 
                 <get-release platform="openbsd" arch="x64" file="libbgfx.so"/>
                 <get-release platform="openbsd" arch="x64" file="libbgfx.so.git"/>
+
+                <get-release platform="openbsd" arch="arm64" file="libbgfx.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libbgfx.so.git"/>
 
                 <get-release platform="windows" arch="x64" file="bgfx.dll"/>
                 <get-release platform="windows" arch="x64" file="bgfx.dll.git"/>
@@ -1799,6 +1815,9 @@
 
                 <get-release platform="openbsd" arch="x64" file="libglfw.so"/>
                 <get-release platform="openbsd" arch="x64" file="libglfw.so.git"/>
+
+                <get-release platform="openbsd" arch="arm64" file="libglfw.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libglfw.so.git"/>
 
                 <get-release platform="windows" arch="x64" file="glfw.dll"/>
                 <get-release platform="windows" arch="x64" file="glfw.dll.git"/>
@@ -1873,6 +1892,7 @@
                 <get-release platform="linux" arch="riscv64" file="liblwjgl_nfd_portal.so"/>
 
                 <get-release platform="openbsd" arch="x64" file="liblwjgl_nfd_portal.so"/>
+                <get-release platform="openbsd" arch="arm64" file="liblwjgl_nfd_portal.so"/>
             </natives>
         </release-module>
 
@@ -1911,6 +1931,9 @@
 
                 <get-release platform="openbsd" arch="x64" file="libopenal.so"/>
                 <get-release platform="openbsd" arch="x64" file="libopenal.so.git"/>
+
+                <get-release platform="openbsd" arch="arm64" file="libopenal.so"/>
+                <get-release platform="openbsd" arch="arm64" file="libopenal.so.git"/>
 
                 <get-release platform="windows" arch="x64" file="OpenAL.dll"/>
                 <get-release platform="windows" arch="x64" file="OpenAL.dll.git"/>
@@ -1985,6 +2008,8 @@
                 <get-release platform="macos" arch="arm64" file="liblwjgl_remotery.dylib"/>
 
                 <get-release platform="openbsd" arch="x64" file="liblwjgl_remotery.so"/>
+
+                <get-release platform="openbsd" arch="arm64" file="liblwjgl_remotery.so"/>
 
                 <get-release platform="windows" arch="x64" file="lwjgl_remotery.dll"/>
                 <get-release platform="windows" arch="x86" file="lwjgl_remotery.dll"/>
