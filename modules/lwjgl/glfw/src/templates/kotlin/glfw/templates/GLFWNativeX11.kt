@@ -6,9 +6,9 @@ package glfw.templates
 
 import org.lwjgl.generator.*
 import glfw.*
-import core.linux.*
+import core.openbsd.*
 
-val GLFWNativeX11 = "GLFWNativeX11".nativeClass(Module.GLFW, nativeSubPath = "linux", prefix = "GLFW", binding = GLFW_BINDING_DELEGATE) {
+val GLFWNativeX11 = "GLFWNativeX11".nativeClass(Module.GLFW, nativeSubPath = "openbsd", prefix = "GLFW", binding = GLFW_BINDING_DELEGATE) {
     Display.p(
         "GetX11Display",
         void()

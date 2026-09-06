@@ -8,7 +8,7 @@ import org.lwjgl.generator.*
 import glfw.*
 import opengl.*
 
-val GLFWNativeGLX = "GLFWNativeGLX".nativeClass(Module.GLFW, nativeSubPath = "linux", prefix = "GLFW", binding = GLFW_BINDING_DELEGATE) {
+val GLFWNativeGLX = "GLFWNativeGLX".nativeClass(Module.GLFW, nativeSubPath = "openbsd", prefix = "GLFW", binding = GLFW_BINDING_DELEGATE) {
     javaImport(
         "org.jspecify.annotations.*",
         "static org.lwjgl.system.MemoryUtil.*"

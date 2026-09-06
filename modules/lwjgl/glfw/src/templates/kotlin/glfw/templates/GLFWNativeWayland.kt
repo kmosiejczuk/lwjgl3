@@ -6,9 +6,9 @@ package glfw.templates
 
 import org.lwjgl.generator.*
 import glfw.*
-import core.linux.*
+import core.openbsd.*
 
-val GLFWNativeWayland = "GLFWNativeWayland".nativeClass(Module.GLFW, nativeSubPath = "linux", prefix = "GLFW", binding = GLFW_BINDING_DELEGATE) {
+val GLFWNativeWayland = "GLFWNativeWayland".nativeClass(Module.GLFW, nativeSubPath = "openbsd", prefix = "GLFW", binding = GLFW_BINDING_DELEGATE) {
     wl_display.p(
         "GetWaylandDisplay",
         void()
