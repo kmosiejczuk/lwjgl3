@@ -206,11 +206,6 @@
 
         <!-- LLVM -->
         <build_simple module="llvm"/>
-	<build module="llvm" simple="true">
-	    <link>
-		<arg value="-lc"/>
-	    </link>
-	</build>
 
         <!-- LMDB -->
         <build module="lmdb" simple="true" if:true="${binding.lmdb}">
