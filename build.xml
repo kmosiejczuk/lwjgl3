@@ -1780,10 +1780,10 @@
         <release-module name="fmod" title="FMOD" if:true="${binding.fmod}"/>
 
         <!-- FreeType -->
-        <release-module name="freetype" native-library="freetype" title="FreeType" if:true="${binding.freetype}"/>
+        <release-module name="freetype" native-library="lwjgl_freetype" title="FreeType" if:true="${binding.freetype}"/>
 
         <!-- GLFW -->
-        <release-module name="glfw" title="GLFW" if:true="${binding.glfw}">
+        <release-module name="glfw" native-library="lwjgl_glfw" title="GLFW" if:true="${binding.glfw}">
             <natives>
                 <get-release platform="freebsd" arch="x64" file="libglfw.so"/>
                 <get-release platform="freebsd" arch="x64" file="libglfw.so.git"/>
@@ -1831,7 +1831,7 @@
         </release-module>
 
         <!-- HarfBuzz -->
-        <release-module name="harfbuzz" native-library="harfbuzz" title="HarfBuzz" if:true="${binding.harfbuzz}"/>
+        <release-module name="harfbuzz" native-library="lwjgl_harfbuzz" title="HarfBuzz" if:true="${binding.harfbuzz}"/>
 
         <!-- hwloc -->
         <release-module name="hwloc" native-library="hwloc" title="hwloc" if:true="${binding.hwloc}"/>
@@ -1903,7 +1903,7 @@
         <release-module name="odbc" title="ODBC" if:true="${binding.odbc}"/>
 
         <!-- OpenAL -->
-        <release-module name="openal" title="OpenAL" if:true="${binding.openal}">
+        <release-module name="openal" native-library="lwjgl_openal" title="OpenAL" if:true="${binding.openal}">
             <natives>
                 <get-release platform="freebsd" arch="x64" file="libopenal.so"/>
                 <get-release platform="freebsd" arch="x64" file="libopenal.so.git"/>
