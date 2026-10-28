@@ -1806,10 +1806,10 @@
         <release-module name="fmod" title="FMOD" if:true="${binding.fmod}"/>
 
         <!-- FreeType -->
-        <release-module name="freetype" native-library="freetype" title="FreeType" if:true="${binding.freetype}"/>
+        <release-module name="freetype" native-library="lwjgl_freetype" title="FreeType" if:true="${binding.freetype}"/>
 
         <!-- GLFW -->
-        <release-module name="glfw" title="GLFW" if:true="${binding.glfw}">
+        <release-module name="glfw" native-library="lwjgl_glfw" title="GLFW" if:true="${binding.glfw}">
             <natives>
                 <get-release platform="freebsd" arch="x64" file="libglfw.so"/>
                 <get-release platform="freebsd" arch="x64" file="libglfw.so.git"/>
