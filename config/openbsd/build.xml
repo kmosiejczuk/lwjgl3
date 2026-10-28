@@ -173,6 +173,15 @@
             </link>
         </build>
 
+	<!-- Freetype -->
+	<build module="freetype" simple="true">
+            <link>
+                <arg value="-L/usr/X11R6/lib"/>
+                <arg value="-lc"/>
+                <arg value="-lfreetype"/>
+            </link>
+	</build>
+
 	<!-- GLFW -->
 	<build module="glfw" simple="true">
             <link>
