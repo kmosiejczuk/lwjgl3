@@ -23,6 +23,7 @@ import static org.lwjgl.system.APIUtil.*;
 import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.system.SegmentStack.*;
 import static org.lwjgl.system.ffm.FFM.*;
+import static org.lwjgl.system.ffm.MemoryUtilFFM.*;
 
 /** FFM port of the GLFW events demo. */
 public final class FFMEvents {
@@ -84,15 +85,15 @@ public final class FFMEvents {
         var HEIGHT = 480;
 
         try (var s = stackPush()) {
-            var pi = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 1);
-            var pj = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 1);
+            var pi = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 0);
+            var pj = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 0);
 
-            var px = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 1);
-            var py = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 1);
+            var px = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 0.0f);
+            var py = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 0.0f);
 
             var primaryMonitor = glfw.GetPrimaryMonitor();
 
-            var count_p     = s.allocateFrom(ValueLayout.JAVA_INT, 1);
+            var count_p     = s.allocateFrom(ValueLayout.JAVA_INT, 0);
             var monitors_pp = glfw.GetMonitors(count_p);
             if (MemorySegment.NULL.equals(monitors_pp)) {
                 throw new NullPointerException();
@@ -154,13 +155,13 @@ public final class FFMEvents {
 
         System.out.format("%nWindow opened:%n--------------%n");
         try (var s = stackPush()) {
-            var pi = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 1);
-            var pj = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 1);
-            var pk = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 1);
-            var pl = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 1);
+            var pi = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 0);
+            var pj = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 0);
+            var pk = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 0);
+            var pl = s.allocateFrom(ValueLayout.JAVA_INT_UNALIGNED, 0);
 
-            var px = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 1);
-            var py = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 1);
+            var px = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 0.0f);
+            var py = s.allocateFrom(ValueLayout.JAVA_FLOAT_UNALIGNED, 0.0f);
 
             glfw.GetWindowSize(window, pi, pj);
             System.out.format("\tSize: %d x %d%n", memGetInt(pi, 0L), memGetInt(pj, 0L));
@@ -179,9 +180,9 @@ public final class FFMEvents {
         try (var s = MemoryStack.stackPush()) {
             // TODO: migrate to FFM API
 
-            var w = s.mallocInt(1);
-            var h = s.mallocInt(1);
-            var       comp = s.mallocInt(1);
+            var w    = s.mallocInt(1);
+            var h    = s.mallocInt(1);
+            var comp = s.mallocInt(1);
 
             // Cursor
 

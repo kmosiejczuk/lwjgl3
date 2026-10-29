@@ -69,8 +69,6 @@ public class VK12 extends VK11 {
         VK_STRUCTURE_TYPE_DEVICE_MEMORY_OPAQUE_CAPTURE_ADDRESS_INFO               = 1000257004,
         VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HOST_QUERY_RESET_FEATURES               = 1000261000;
 
-    public static final int VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE = 4;
-
     public static final int VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT = 0x20000;
 
     public static final int VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT = 0x10;
@@ -82,6 +80,8 @@ public class VK12 extends VK11 {
     public static final int
         VK_ERROR_FRAGMENTATION                  = -1000161000,
         VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS = -1000257000;
+
+    public static final int VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE = 4;
 
     public static final int VK_DESCRIPTOR_POOL_CREATE_UPDATE_AFTER_BIND_BIT = 0x2;
 
@@ -125,7 +125,9 @@ public class VK12 extends VK11 {
         VK_DRIVER_ID_IMAGINATION_OPEN_SOURCE_MESA  = 25,
         VK_DRIVER_ID_MESA_HONEYKRISP               = 26,
         VK_DRIVER_ID_VULKAN_SC_EMULATION_ON_VULKAN = 27,
-        VK_DRIVER_ID_MESA_KOSMICKRISP              = 28;
+        VK_DRIVER_ID_MESA_KOSMICKRISP              = 28,
+        VK_DRIVER_ID_MESA_GFXSTREAM                = 29,
+        VK_DRIVER_ID_APE_SOFT                      = 30;
 
     public static final int
         VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_32_BIT_ONLY = 0,

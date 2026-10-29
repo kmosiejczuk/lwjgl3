@@ -367,9 +367,13 @@
             <update-dependency module="glfw" artifact="libglfw.dylib"/>
             <update-dependency module="glfw" artifact="libglfw_async.dylib"/>
             <update-dependency module="harfbuzz" artifact="libharfbuzz.dylib"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-gpu.dylib"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-raster.dylib"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-vector.dylib"/>
             <update-dependency module="hwloc" artifact="libhwloc.dylib"/>
             <update-dependency module="jemalloc" artifact="libjemalloc.dylib"/>
             <update-dependency module="ktx" artifact="libktx.dylib"/>
+            <update-dependency module="mimalloc" artifact="libmimalloc.dylib"/>
             <update-dependency module="openal" artifact="libopenal.dylib"/>
             <update-dependency module="opus" artifact="libopus.dylib"/>
             <update-dependency module="sdl" artifact="libSDL3.dylib"/>

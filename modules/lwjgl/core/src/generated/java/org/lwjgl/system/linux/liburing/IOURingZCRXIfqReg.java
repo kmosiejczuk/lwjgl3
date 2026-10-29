@@ -27,7 +27,7 @@ import static org.lwjgl.system.MemoryStack.*;
  *     __u64 region_ptr;
  *     {@link IOURingZCRXOffsets struct io_uring_zcrx_offsets} offsets;
  *     __u32 zcrx_id;
- *     __u32 __resv2;
+ *     __u32 rx_buf_len;
  *     __u64 __resv[3];
  * }</code></pre>
  */
@@ -50,10 +50,12 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
         REGION_PTR,
         OFFSETS,
         ZCRX_ID,
-        __RESV2,
+        RX_BUF_LEN,
         __RESV;
 
     static {
+        IOURingZCRXOffsets.createSafe(NULL);
+
         Layout layout = __struct(
             __member(4),
             __member(4),
@@ -78,7 +80,7 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
         REGION_PTR = layout.offsetof(5);
         OFFSETS = layout.offsetof(6);
         ZCRX_ID = layout.offsetof(7);
-        __RESV2 = layout.offsetof(8);
+        RX_BUF_LEN = layout.offsetof(8);
         __RESV = layout.offsetof(9);
     }
 
@@ -128,6 +130,9 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
     /** @return the value of the {@code zcrx_id} field. */
     @NativeType("__u32")
     public int zcrx_id() { return nzcrx_id(address()); }
+    /** @return the value of the {@code rx_buf_len} field. */
+    @NativeType("__u32")
+    public int rx_buf_len() { return nrx_buf_len(address()); }
 
     /** Sets the specified value to the {@code if_idx} field. */
     public IOURingZCRXIfqReg if_idx(@NativeType("__u32") int value) { nif_idx(address(), value); return this; }
@@ -147,6 +152,8 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
     public IOURingZCRXIfqReg offsets(java.util.function.Consumer<IOURingZCRXOffsets> consumer) { consumer.accept(offsets()); return this; }
     /** Sets the specified value to the {@code zcrx_id} field. */
     public IOURingZCRXIfqReg zcrx_id(@NativeType("__u32") int value) { nzcrx_id(address(), value); return this; }
+    /** Sets the specified value to the {@code rx_buf_len} field. */
+    public IOURingZCRXIfqReg rx_buf_len(@NativeType("__u32") int value) { nrx_buf_len(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public IOURingZCRXIfqReg set(
@@ -157,7 +164,8 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
         long area_ptr,
         long region_ptr,
         IOURingZCRXOffsets offsets,
-        int zcrx_id
+        int zcrx_id,
+        int rx_buf_len
     ) {
         if_idx(if_idx);
         if_rxq(if_rxq);
@@ -167,6 +175,7 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
         region_ptr(region_ptr);
         offsets(offsets);
         zcrx_id(zcrx_id);
+        rx_buf_len(rx_buf_len);
 
         return this;
     }
@@ -310,9 +319,10 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
     public static IOURingZCRXOffsets noffsets(long struct) { return IOURingZCRXOffsets.create(struct + IOURingZCRXIfqReg.OFFSETS); }
     /** Unsafe version of {@link #zcrx_id}. */
     public static int nzcrx_id(long struct) { return memGetInt(struct + IOURingZCRXIfqReg.ZCRX_ID); }
-    public static int n__resv2(long struct) { return memGetInt(struct + IOURingZCRXIfqReg.__RESV2); }
-    public static LongBuffer n__resv(long struct) { return memLongBuffer(struct + IOURingZCRXIfqReg.__RESV, 3); }
-    public static long n__resv(long struct, int index) {
+    /** Unsafe version of {@link #rx_buf_len}. */
+    public static int nrx_buf_len(long struct) { return memGetInt(struct + IOURingZCRXIfqReg.RX_BUF_LEN); }
+    static LongBuffer n__resv(long struct) { return memLongBuffer(struct + IOURingZCRXIfqReg.__RESV, 3); }
+    static long n__resv(long struct, int index) {
         return memGetLong(struct + IOURingZCRXIfqReg.__RESV + check(index, 3) * 8);
     }
 
@@ -332,12 +342,13 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
     public static void noffsets(long struct, IOURingZCRXOffsets value) { memCopy(value.address(), struct + IOURingZCRXIfqReg.OFFSETS, IOURingZCRXOffsets.SIZEOF); }
     /** Unsafe version of {@link #zcrx_id(int) zcrx_id}. */
     public static void nzcrx_id(long struct, int value) { memPutInt(struct + IOURingZCRXIfqReg.ZCRX_ID, value); }
-    public static void n__resv2(long struct, int value) { memPutInt(struct + IOURingZCRXIfqReg.__RESV2, value); }
-    public static void n__resv(long struct, LongBuffer value) {
+    /** Unsafe version of {@link #rx_buf_len(int) rx_buf_len}. */
+    public static void nrx_buf_len(long struct, int value) { memPutInt(struct + IOURingZCRXIfqReg.RX_BUF_LEN, value); }
+    static void n__resv(long struct, LongBuffer value) {
         if (CHECKS) { checkGT(value, 3); }
         memCopy(memAddress(value), struct + IOURingZCRXIfqReg.__RESV, value.remaining() * 8);
     }
-    public static void n__resv(long struct, int index, long value) {
+    static void n__resv(long struct, int index, long value) {
         memPutLong(struct + IOURingZCRXIfqReg.__RESV + check(index, 3) * 8, value);
     }
 
@@ -408,6 +419,9 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
         /** @return the value of the {@code zcrx_id} field. */
         @NativeType("__u32")
         public int zcrx_id() { return IOURingZCRXIfqReg.nzcrx_id(address()); }
+        /** @return the value of the {@code rx_buf_len} field. */
+        @NativeType("__u32")
+        public int rx_buf_len() { return IOURingZCRXIfqReg.nrx_buf_len(address()); }
 
         /** Sets the specified value to the {@code if_idx} field. */
         public IOURingZCRXIfqReg.Buffer if_idx(@NativeType("__u32") int value) { IOURingZCRXIfqReg.nif_idx(address(), value); return this; }
@@ -427,6 +441,8 @@ public class IOURingZCRXIfqReg extends Struct<IOURingZCRXIfqReg> implements Nati
         public IOURingZCRXIfqReg.Buffer offsets(java.util.function.Consumer<IOURingZCRXOffsets> consumer) { consumer.accept(offsets()); return this; }
         /** Sets the specified value to the {@code zcrx_id} field. */
         public IOURingZCRXIfqReg.Buffer zcrx_id(@NativeType("__u32") int value) { IOURingZCRXIfqReg.nzcrx_id(address(), value); return this; }
+        /** Sets the specified value to the {@code rx_buf_len} field. */
+        public IOURingZCRXIfqReg.Buffer rx_buf_len(@NativeType("__u32") int value) { IOURingZCRXIfqReg.nrx_buf_len(address(), value); return this; }
 
     }
 

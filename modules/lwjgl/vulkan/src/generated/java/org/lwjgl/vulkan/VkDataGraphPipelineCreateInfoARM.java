@@ -21,7 +21,7 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct VkDataGraphPipelineCreateInfoARM {
  *     VkStructureType sType;
  *     void const * pNext;
- *     VkPipelineCreateFlags2KHR flags;
+ *     VkPipelineCreateFlags2 flags;
  *     VkPipelineLayout layout;
  *     uint32_t resourceInfoCount;
  *     {@link VkDataGraphPipelineResourceInfoARM VkDataGraphPipelineResourceInfoARM} const * pResourceInfos;
@@ -94,7 +94,7 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
     @NativeType("void const *")
     public long pNext() { return npNext(address()); }
     /** @return the value of the {@code flags} field. */
-    @NativeType("VkPipelineCreateFlags2KHR")
+    @NativeType("VkPipelineCreateFlags2")
     public long flags() { return nflags(address()); }
     /** @return the value of the {@code layout} field. */
     @NativeType("VkPipelineLayout")
@@ -104,7 +104,7 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
     public int resourceInfoCount() { return nresourceInfoCount(address()); }
     /** @return a {@link VkDataGraphPipelineResourceInfoARM.Buffer} view of the struct array pointed to by the {@code pResourceInfos} field. */
     @NativeType("VkDataGraphPipelineResourceInfoARM const *")
-    public VkDataGraphPipelineResourceInfoARM.Buffer pResourceInfos() { return npResourceInfos(address()); }
+    public VkDataGraphPipelineResourceInfoARM.@Nullable Buffer pResourceInfos() { return npResourceInfos(address()); }
 
     /** Sets the specified value to the {@code sType} field. */
     public VkDataGraphPipelineCreateInfoARM sType(@NativeType("VkStructureType") int value) { nsType(address(), value); return this; }
@@ -118,8 +118,14 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
     public VkDataGraphPipelineCreateInfoARM pNext(VkDataGraphPipelineCompilerControlCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDataGraphPipelineIdentifierCreateInfoARM} value to the {@code pNext} chain. */
     public VkDataGraphPipelineCreateInfoARM pNext(VkDataGraphPipelineIdentifierCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkDataGraphPipelineNeuralStatisticsCreateInfoARM} value to the {@code pNext} chain. */
+    public VkDataGraphPipelineCreateInfoARM pNext(VkDataGraphPipelineNeuralStatisticsCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkDataGraphPipelineOpticalFlowCreateInfoARM} value to the {@code pNext} chain. */
+    public VkDataGraphPipelineCreateInfoARM pNext(VkDataGraphPipelineOpticalFlowCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDataGraphPipelineShaderModuleCreateInfoARM} value to the {@code pNext} chain. */
     public VkDataGraphPipelineCreateInfoARM pNext(VkDataGraphPipelineShaderModuleCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkDataGraphPipelineSingleNodeCreateInfoARM} value to the {@code pNext} chain. */
+    public VkDataGraphPipelineCreateInfoARM pNext(VkDataGraphPipelineSingleNodeCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkDataGraphProcessingEngineCreateInfoARM} value to the {@code pNext} chain. */
     public VkDataGraphPipelineCreateInfoARM pNext(VkDataGraphProcessingEngineCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkPipelineCreationFeedbackCreateInfo} value to the {@code pNext} chain. */
@@ -129,11 +135,11 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
     /** Prepends the specified {@link VkShaderModuleCreateInfo} value to the {@code pNext} chain. */
     public VkDataGraphPipelineCreateInfoARM pNext(VkShaderModuleCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Sets the specified value to the {@code flags} field. */
-    public VkDataGraphPipelineCreateInfoARM flags(@NativeType("VkPipelineCreateFlags2KHR") long value) { nflags(address(), value); return this; }
+    public VkDataGraphPipelineCreateInfoARM flags(@NativeType("VkPipelineCreateFlags2") long value) { nflags(address(), value); return this; }
     /** Sets the specified value to the {@code layout} field. */
     public VkDataGraphPipelineCreateInfoARM layout(@NativeType("VkPipelineLayout") long value) { nlayout(address(), value); return this; }
     /** Sets the address of the specified {@link VkDataGraphPipelineResourceInfoARM.Buffer} to the {@code pResourceInfos} field. */
-    public VkDataGraphPipelineCreateInfoARM pResourceInfos(@NativeType("VkDataGraphPipelineResourceInfoARM const *") VkDataGraphPipelineResourceInfoARM.Buffer value) { npResourceInfos(address(), value); return this; }
+    public VkDataGraphPipelineCreateInfoARM pResourceInfos(@NativeType("VkDataGraphPipelineResourceInfoARM const *") VkDataGraphPipelineResourceInfoARM.@Nullable Buffer value) { npResourceInfos(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkDataGraphPipelineCreateInfoARM set(
@@ -141,7 +147,7 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
         long pNext,
         long flags,
         long layout,
-        VkDataGraphPipelineResourceInfoARM.Buffer pResourceInfos
+        VkDataGraphPipelineResourceInfoARM.@Nullable Buffer pResourceInfos
     ) {
         sType(sType);
         pNext(pNext);
@@ -286,7 +292,7 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
     /** Unsafe version of {@link #resourceInfoCount}. */
     public static int nresourceInfoCount(long struct) { return memGetInt(struct + VkDataGraphPipelineCreateInfoARM.RESOURCEINFOCOUNT); }
     /** Unsafe version of {@link #pResourceInfos}. */
-    public static VkDataGraphPipelineResourceInfoARM.Buffer npResourceInfos(long struct) { return VkDataGraphPipelineResourceInfoARM.create(memGetAddress(struct + VkDataGraphPipelineCreateInfoARM.PRESOURCEINFOS), nresourceInfoCount(struct)); }
+    public static VkDataGraphPipelineResourceInfoARM.@Nullable Buffer npResourceInfos(long struct) { return VkDataGraphPipelineResourceInfoARM.createSafe(memGetAddress(struct + VkDataGraphPipelineCreateInfoARM.PRESOURCEINFOS), nresourceInfoCount(struct)); }
 
     /** Unsafe version of {@link #sType(int) sType}. */
     public static void nsType(long struct, int value) { memPutInt(struct + VkDataGraphPipelineCreateInfoARM.STYPE, value); }
@@ -299,7 +305,7 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
     /** Sets the specified value to the {@code resourceInfoCount} field of the specified {@code struct}. */
     public static void nresourceInfoCount(long struct, int value) { memPutInt(struct + VkDataGraphPipelineCreateInfoARM.RESOURCEINFOCOUNT, value); }
     /** Unsafe version of {@link #pResourceInfos(VkDataGraphPipelineResourceInfoARM.Buffer) pResourceInfos}. */
-    public static void npResourceInfos(long struct, VkDataGraphPipelineResourceInfoARM.Buffer value) { memPutAddress(struct + VkDataGraphPipelineCreateInfoARM.PRESOURCEINFOS, value.address()); nresourceInfoCount(struct, value.remaining()); }
+    public static void npResourceInfos(long struct, VkDataGraphPipelineResourceInfoARM.@Nullable Buffer value) { memPutAddress(struct + VkDataGraphPipelineCreateInfoARM.PRESOURCEINFOS, memAddressSafe(value)); nresourceInfoCount(struct, value == null ? 0 : value.remaining()); }
 
     /**
      * Validates pointer members that should not be {@code NULL}.
@@ -307,7 +313,9 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
      * @param struct the struct to validate
      */
     public static void validate(long struct) {
-        check(memGetAddress(struct + VkDataGraphPipelineCreateInfoARM.PRESOURCEINFOS));
+        if (nresourceInfoCount(struct) != 0) {
+            check(memGetAddress(struct + VkDataGraphPipelineCreateInfoARM.PRESOURCEINFOS));
+        }
     }
 
     // -----------------------------------
@@ -360,7 +368,7 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
         @NativeType("void const *")
         public long pNext() { return VkDataGraphPipelineCreateInfoARM.npNext(address()); }
         /** @return the value of the {@code flags} field. */
-        @NativeType("VkPipelineCreateFlags2KHR")
+        @NativeType("VkPipelineCreateFlags2")
         public long flags() { return VkDataGraphPipelineCreateInfoARM.nflags(address()); }
         /** @return the value of the {@code layout} field. */
         @NativeType("VkPipelineLayout")
@@ -370,7 +378,7 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
         public int resourceInfoCount() { return VkDataGraphPipelineCreateInfoARM.nresourceInfoCount(address()); }
         /** @return a {@link VkDataGraphPipelineResourceInfoARM.Buffer} view of the struct array pointed to by the {@code pResourceInfos} field. */
         @NativeType("VkDataGraphPipelineResourceInfoARM const *")
-        public VkDataGraphPipelineResourceInfoARM.Buffer pResourceInfos() { return VkDataGraphPipelineCreateInfoARM.npResourceInfos(address()); }
+        public VkDataGraphPipelineResourceInfoARM.@Nullable Buffer pResourceInfos() { return VkDataGraphPipelineCreateInfoARM.npResourceInfos(address()); }
 
         /** Sets the specified value to the {@code sType} field. */
         public VkDataGraphPipelineCreateInfoARM.Buffer sType(@NativeType("VkStructureType") int value) { VkDataGraphPipelineCreateInfoARM.nsType(address(), value); return this; }
@@ -384,8 +392,14 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
         public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkDataGraphPipelineCompilerControlCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDataGraphPipelineIdentifierCreateInfoARM} value to the {@code pNext} chain. */
         public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkDataGraphPipelineIdentifierCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkDataGraphPipelineNeuralStatisticsCreateInfoARM} value to the {@code pNext} chain. */
+        public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkDataGraphPipelineNeuralStatisticsCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkDataGraphPipelineOpticalFlowCreateInfoARM} value to the {@code pNext} chain. */
+        public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkDataGraphPipelineOpticalFlowCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDataGraphPipelineShaderModuleCreateInfoARM} value to the {@code pNext} chain. */
         public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkDataGraphPipelineShaderModuleCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkDataGraphPipelineSingleNodeCreateInfoARM} value to the {@code pNext} chain. */
+        public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkDataGraphPipelineSingleNodeCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkDataGraphProcessingEngineCreateInfoARM} value to the {@code pNext} chain. */
         public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkDataGraphProcessingEngineCreateInfoARM value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkPipelineCreationFeedbackCreateInfo} value to the {@code pNext} chain. */
@@ -395,11 +409,11 @@ public class VkDataGraphPipelineCreateInfoARM extends Struct<VkDataGraphPipeline
         /** Prepends the specified {@link VkShaderModuleCreateInfo} value to the {@code pNext} chain. */
         public VkDataGraphPipelineCreateInfoARM.Buffer pNext(VkShaderModuleCreateInfo value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Sets the specified value to the {@code flags} field. */
-        public VkDataGraphPipelineCreateInfoARM.Buffer flags(@NativeType("VkPipelineCreateFlags2KHR") long value) { VkDataGraphPipelineCreateInfoARM.nflags(address(), value); return this; }
+        public VkDataGraphPipelineCreateInfoARM.Buffer flags(@NativeType("VkPipelineCreateFlags2") long value) { VkDataGraphPipelineCreateInfoARM.nflags(address(), value); return this; }
         /** Sets the specified value to the {@code layout} field. */
         public VkDataGraphPipelineCreateInfoARM.Buffer layout(@NativeType("VkPipelineLayout") long value) { VkDataGraphPipelineCreateInfoARM.nlayout(address(), value); return this; }
         /** Sets the address of the specified {@link VkDataGraphPipelineResourceInfoARM.Buffer} to the {@code pResourceInfos} field. */
-        public VkDataGraphPipelineCreateInfoARM.Buffer pResourceInfos(@NativeType("VkDataGraphPipelineResourceInfoARM const *") VkDataGraphPipelineResourceInfoARM.Buffer value) { VkDataGraphPipelineCreateInfoARM.npResourceInfos(address(), value); return this; }
+        public VkDataGraphPipelineCreateInfoARM.Buffer pResourceInfos(@NativeType("VkDataGraphPipelineResourceInfoARM const *") VkDataGraphPipelineResourceInfoARM.@Nullable Buffer value) { VkDataGraphPipelineCreateInfoARM.npResourceInfos(address(), value); return this; }
 
     }
 

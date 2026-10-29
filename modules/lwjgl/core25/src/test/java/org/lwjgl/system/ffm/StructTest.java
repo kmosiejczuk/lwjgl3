@@ -39,6 +39,7 @@ public class StructTest {
         ffmConfig(
             StructTest.class,
             ffmConfigBuilder(MethodHandles.lookup())
+                .withChecks(true)
                 .withNullableAnnotation(MyNullable.class)
                 .build());
     }
@@ -421,7 +422,7 @@ public class StructTest {
     public void testLayoutCustomPackAligment() {
         interface PackUtil {
             static <T> StructBinder<T> struct(Class<T> structClass, long byteAlignment) {
-                return FFM.ffmStruct(structClass)
+                return ffmStruct(structClass)
                     .pack(byteAlignment)
                     .m("a", int8_t)
                     .m("b", int16_t)
@@ -432,100 +433,241 @@ public class StructTest {
                     .m("d", int64_t.withByteAlignment(32L))
                     .m("e", int8_t)
                     .m("f", int64_t)
+                    .m("b0", int8_t)
+                    .m("f32", float32)
+                    .m("b1", int8_t)
+                    .m("f64", float64)
+                    .m("b2", int8_t)
+                    .m("p", uintptr_t)
+                    .m("tail", int8_t)
                     .build();
             }
         }
 
+        interface Base {
+            byte a();
+            short b();
+            long c();
+            long d();
+            byte e();
+            long f();
+            float f32();
+            double f64();
+            @FFMPointer long p();
+            byte tail();
+
+            Base a(byte value);
+            Base b(short value);
+            Base c(long value);
+            Base d(long value);
+            Base e(byte value);
+            Base f(long value);
+            Base f32(float value);
+            Base f64(double value);
+            Base p(@FFMNullable @FFMPointer long value);
+            Base tail(byte value);
+
+            static <T extends Base> void test(StructBinder<T> binder) {
+                try (var arena = Arena.ofConfined()) {
+                    var segment = binder.allocateSegment(arena);
+                    var packed  = binder.get(segment);
+
+                    assertEquals(packed.a(), 0);
+                    assertEquals(packed.b(), (short)0);
+                    assertEquals(packed.c(), 0L);
+                    assertEquals(packed.d(), 0L);
+                    assertEquals(packed.e(), 0);
+                    assertEquals(packed.f(), 0L);
+                    assertEquals(packed.f32(), 0.0f);
+                    assertEquals(packed.f64(), 0.0);
+                    assertEquals(packed.p(), 0L);
+                    assertEquals(packed.tail(), 0);
+
+                    packed
+                        .a((byte)0x7F)
+                        .b((short)0x7FFF)
+                        .c(0x7FFFFFFFFFFFFFFFL)
+                        .d(0x7FFFFFFFFFFFFFFFL)
+                        .e((byte)0x7F)
+                        .f(0x7FFFFFFFFFFFFFFFL)
+                        .f32(3.14f)
+                        .f64(2.718281828459045)
+                        .p(0x7FFFFFFFFFFFFFFFL)
+                        .tail((byte)0x7F);
+
+                    assertEquals(packed.a(), (byte)0x7F);
+                    assertEquals(packed.b(), (short)0x7FFF);
+                    assertEquals(packed.c(), 0x7FFFFFFFFFFFFFFFL);
+                    assertEquals(packed.d(), 0x7FFFFFFFFFFFFFFFL);
+                    assertEquals(packed.e(), (byte)0x7F);
+                    assertEquals(packed.f(), 0x7FFFFFFFFFFFFFFFL);
+                    assertEquals(packed.f32(), 3.14f);
+                    assertEquals(packed.f64(), 2.718281828459045);
+                    assertEquals(packed.p(), 0x7FFFFFFFFFFFFFFFL);
+                    assertEquals(packed.tail(), (byte)0x7F);
+                }
+            }
+        }
+
+        var PS = ValueLayout.ADDRESS.byteSize();
+
         {
-            interface Packed1 {
+            interface Packed1 extends Base {
                 StructBinder<Packed1> $ = PackUtil.struct(Packed1.class, 1L);
             }
 
             var layout  = Packed1.$.layout();
             var members = layout.memberLayouts();
 
-            assertEquals(members.size(), 6);
-
-            check(layout, members, 0, 1L, 0L, "a");
-            check(layout, members, 1, 2L, 1L, "b");
-            check(layout, members, 2, 8L, 3L, "c");
-            check(layout, members, 3, 8L, 11L, "d");
-            check(layout, members, 4, 1L, 19L, "e");
-            check(layout, members, 5, 8L, 20L, "f");
-
             assertEquals(Packed1.$.alignof(), 1L);
-            assertEquals(Packed1.$.sizeof(), 28L);
+            assertEquals(members.size(), 13);
+
+            var i = 0;
+            check(layout, members, i++, 1L, 0L, "a");
+            check(layout, members, i++, 2L, 1L, "b");
+            check(layout, members, i++, 8L, 3L, "c");
+            check(layout, members, i++, 8L, 11L, "d");
+            check(layout, members, i++, 1L, 19L, "e");
+            check(layout, members, i++, 8L, 20L, "f");
+            check(layout, members, i++, 1L, 28L, "b0");
+            check(layout, members, i++, 4L, 29L, "f32");
+            check(layout, members, i++, 1L, 33L, "b1");
+            check(layout, members, i++, 8L, 34L, "f64");
+            check(layout, members, i++, 1L, 42L, "b2");
+            check(layout, members, i++, PS, 43L, "p");
+            check(layout, members, i, 1L, 43L + PS, "tail");
+
+            assertEquals(Packed1.$.sizeof(), 44L + PS);
+
+            Base.test(Packed1.$);
         }
 
         {
-            interface Packed2 {
+            interface Packed2 extends Base {
                 StructBinder<Packed2> $ = PackUtil.struct(Packed2.class, 2L);
             }
 
             var layout  = Packed2.$.layout();
             var members = layout.memberLayouts();
 
-            assertEquals(members.size(), 8);
-
-            check(layout, members, 0, 1L, 0L, "a");
-            check(layout, members, 1, 1L, 1L);
-            check(layout, members, 2, 2L, 2L, "b");
-            check(layout, members, 3, 8L, 4L, "c");
-            check(layout, members, 4, 8L, 12L, "d");
-            check(layout, members, 5, 1L, 20L, "e");
-            check(layout, members, 6, 1L, 21L);
-            check(layout, members, 7, 8L, 22L, "f");
-
             assertEquals(Packed2.$.alignof(), 2L);
-            assertEquals(Packed2.$.sizeof(), 30L);
+            assertEquals(members.size(), 19);
+
+            var i = 0;
+            check(layout, members, i++, 1L, 0L, "a");
+            check(layout, members, i++, 1L, 1L);
+            check(layout, members, i++, 2L, 2L, "b");
+            check(layout, members, i++, 8L, 4L, "c");
+            check(layout, members, i++, 8L, 12L, "d");
+            check(layout, members, i++, 1L, 20L, "e");
+            check(layout, members, i++, 1L, 21L);
+            check(layout, members, i++, 8L, 22L, "f");
+            check(layout, members, i++, 1L, 30L, "b0");
+            check(layout, members, i++, 1L, 31L);
+            check(layout, members, i++, 4L, 32L, "f32");
+            check(layout, members, i++, 1L, 36L, "b1");
+            check(layout, members, i++, 1L, 37L);
+            check(layout, members, i++, 8L, 38L, "f64");
+            check(layout, members, i++, 1L, 46L, "b2");
+            check(layout, members, i++, 1L, 47L);
+            check(layout, members, i++, PS, 48L, "p");
+            check(layout, members, i++, 1L, 48L + PS, "tail");
+            check(layout, members, i, 1L, 49L + PS);
+
+            assertEquals(Packed2.$.sizeof(), 50L + PS);
+
+            Base.test(Packed2.$);
         }
 
         {
-            interface Packed4 {
+            interface Packed4 extends Base {
                 StructBinder<Packed4> $ = PackUtil.struct(Packed4.class, 4L);
             }
 
             var layout  = Packed4.$.layout();
             var members = layout.memberLayouts();
 
-            assertEquals(members.size(), 8);
-
-            check(layout, members, 0, 1L, 0L, "a");
-            check(layout, members, 1, 1L, 1L);
-            check(layout, members, 2, 2L, 2L, "b");
-            check(layout, members, 3, 8L, 4L, "c");
-            check(layout, members, 4, 8L, 12L, "d");
-            check(layout, members, 5, 1L, 20L, "e");
-            check(layout, members, 6, 3L, 21L);
-            check(layout, members, 7, 8L, 24L, "f");
-
             assertEquals(Packed4.$.alignof(), 4L);
-            assertEquals(Packed4.$.sizeof(), 32L);
+            assertEquals(members.size(), 19);
+
+            var i = 0;
+            check(layout, members, i++, 1L, 0L, "a");
+            check(layout, members, i++, 1L, 1L);
+            check(layout, members, i++, 2L, 2L, "b");
+            check(layout, members, i++, 8L, 4L, "c");
+            check(layout, members, i++, 8L, 12L, "d");
+            check(layout, members, i++, 1L, 20L, "e");
+            check(layout, members, i++, 3L, 21L);
+            check(layout, members, i++, 8L, 24L, "f");
+            check(layout, members, i++, 1L, 32L, "b0");
+            check(layout, members, i++, 3L, 33L);
+            check(layout, members, i++, 4L, 36L, "f32");
+            check(layout, members, i++, 1L, 40L, "b1");
+            check(layout, members, i++, 3L, 41L);
+            check(layout, members, i++, 8L, 44L, "f64");
+            check(layout, members, i++, 1L, 52L, "b2");
+            check(layout, members, i++, 3L, 53L);
+            check(layout, members, i++, PS, 56L, "p");
+            check(layout, members, i++, 1L, 56L + PS, "tail");
+            check(layout, members, i, 3L, 57L + PS);
+
+
+            assertEquals(Packed4.$.sizeof(), 60L + PS);
+
+            Base.test(Packed4.$);
         }
 
         {
-            interface Packed8 {
+            interface Packed8 extends Base {
                 StructBinder<Packed8> $ = PackUtil.struct(Packed8.class, 8L);
             }
 
             var layout  = Packed8.$.layout();
             var members = layout.memberLayouts();
 
-            assertEquals(members.size(), 9);
-
-            check(layout, members, 0, 1L, 0L, "a");
-            check(layout, members, 1, 1L, 1L);
-            check(layout, members, 2, 2L, 2L, "b");
-            check(layout, members, 3, 4L, 4L);
-            check(layout, members, 4, 8L, 8L, "c");
-            check(layout, members, 5, 8L, 16L, "d");
-            check(layout, members, 6, 1L, 24L, "e");
-            check(layout, members, 7, 7L, 25L);
-            check(layout, members, 8, 8L, 32L, "f");
-
             assertEquals(Packed8.$.alignof(), 8L);
-            assertEquals(Packed8.$.sizeof(), 40L);
+            assertEquals(members.size(), 20);
+
+            var i = 0;
+            check(layout, members, i++, 1L, 0L, "a");
+            check(layout, members, i++, 1L, 1L);
+            check(layout, members, i++, 2L, 2L, "b");
+            check(layout, members, i++, 4L, 4L);
+            check(layout, members, i++, 8L, 8L, "c");
+            check(layout, members, i++, 8L, 16L, "d");
+            check(layout, members, i++, 1L, 24L, "e");
+            check(layout, members, i++, 7L, 25L);
+            check(layout, members, i++, 8L, 32L, "f");
+            check(layout, members, i++, 1L, 40L, "b0");
+            check(layout, members, i++, 3L, 41L);
+            check(layout, members, i++, 4L, 44L, "f32");
+            check(layout, members, i++, 1L, 48L, "b1");
+            check(layout, members, i++, 7L, 49L);
+            check(layout, members, i++, 8L, 56L, "f64");
+            check(layout, members, i++, 1L, 64L, "b2");
+            check(layout, members, i++, PS - 1, 65L);
+            check(layout, members, i++, PS, 64L + PS, "p");
+            check(layout, members, i++, 1L, 64L + PS + PS, "tail");
+            check(layout, members, i, PS - 1, 65L + PS + PS);
+
+            assertEquals(Packed8.$.sizeof(), 64L + PS + PS + PS);
+
+            Base.test(Packed8.$);
         }
+    }
+
+    public void testLayoutCustomPackAligmentUnion() {
+        interface U {
+            UnionBinder<U> $ = ffmUnion(U.class)
+                .pack(1L)
+                .m("a", int64_t)
+                .m("b", int8_t)
+                .build();
+        }
+
+        assertEquals(U.$.alignof(), 1L);
+        assertEquals(U.$.layout().byteAlignment(), 1L);
+        assertEquals(U.$.sizeof(), 8L);
     }
 
     public void testFFMInterop() {
@@ -856,6 +998,119 @@ public class StructTest {
         }
     }
 
+    public void testAnonymousGroups() {
+        interface AmbiguousPromotedMember {
+            StructBinder<AmbiguousPromotedMember> $ = ffmStruct(AmbiguousPromotedMember.class)
+                .struct(s -> s
+                    .m("same", uint32_t))
+                .struct(s -> s
+                    .m("same", uint32_t))
+                .build();
+        }
+        assertThrows(() -> Objects.requireNonNull(AmbiguousPromotedMember.$));
+
+        interface UnambiguousPromotedMember {
+            StructBinder<UnambiguousPromotedMember> $ = ffmStruct(UnambiguousPromotedMember.class)
+                .struct("first", s -> s
+                    .m("same", uint32_t))
+                .struct("second", s -> s
+                    .m("same", uint32_t))
+                .build();
+        }
+        Objects.requireNonNull(UnambiguousPromotedMember.$);
+
+        interface CacheDesc {
+            StructBinder<CacheDesc> $ = ffmStruct(CacheDesc.class)
+                .m("Level", uint8_t)
+                .m("Associativity", uint8_t)
+                .m("LineSize", uint16_t)
+                .m("Size", uint32_t)
+                .m("Type", uint32_t)
+                .build();
+
+            byte Level();
+            byte Associativity();
+            short LineSize();
+            int Size();
+            int Type();
+
+            CacheDesc Level(byte value);
+            CacheDesc Associativity(byte value);
+            CacheDesc LineSize(short value);
+            CacheDesc Size(int value);
+            CacheDesc Type(int value);
+        }
+
+        interface Info {
+            StructBinder<Info> $ = ffmStruct(Info.class)
+                .m("ProcessorMask", uintptr_t)
+                .m("Relationship", uint32_t)
+                .union(u -> u
+                    .struct("ProcessorCore", s -> s
+                        .m("Flags", uint8_t)
+                    )
+                    .struct("NumaNode", s -> s
+                        .m("NodeNumber", uint32_t)
+                    )
+                    .m("Cache", CacheDesc.$)
+                    .m("Reserved", uint64_t.array(2))
+                )
+                .build();
+
+            int Relationship();
+            @FFMName("ProcessorCore.Flags") byte Flags();
+            @FFMName("NumaNode.NodeNumber") int NumaNode();
+            CacheDesc Cache();
+
+            @FFMName("Cache.Level") byte Cache_Level();
+            @FFMName("Cache.Associativity") byte Cache_Associativity();
+            @FFMName("Cache.LineSize") short Cache_LineSize();
+            @FFMName("Cache.Size") int Cache_Size();
+            @FFMName("Cache.Type") int Cache_Type();
+
+            Info Relationship(int value);
+        }
+
+        try (var arena = Arena.ofConfined()) {
+            var info  = Info.$.allocate(arena);
+            var cache = info.Cache();
+
+            var cacheOffset = Info.$.layout().byteOffset(groupElement(3/*there is padding at index 2*/), groupElement("Cache"));
+
+            assertEquals(
+                CacheDesc.$.addressOf(cache),
+                Info.$.addressOf(info) + cacheOffset
+            );
+
+            info.Relationship(2);
+            cache
+                .Level((byte)1)
+                .Associativity((byte)2)
+                .LineSize((short)64)
+                .Size(32)
+                .Type(0);
+
+            assertEquals(info.Relationship(), 2);
+
+            assertEquals(info.Flags(), (byte)1);
+            assertEquals(info.NumaNode(), ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN
+                ? Integer.reverseBytes(0x0102_4000)
+                : 0x0102_4000);
+
+            assertEquals(info.Cache().Level(), (byte)1);
+            assertEquals(info.Cache().Associativity(), (byte)2);
+            assertEquals(info.Cache().LineSize(), (short)64);
+            assertEquals(info.Cache().Size(), 32);
+            assertEquals(info.Cache().Type(), 0);
+
+            assertEquals(info.Cache_Level(), (byte)1);
+            assertEquals(info.Cache_Associativity(), (byte)2);
+            assertEquals(info.Cache_LineSize(), (short)64);
+            assertEquals(info.Cache_Size(), 32);
+            assertEquals(info.Cache_Type(), 0);
+        }
+    }
+
     public void testRecursive() {
         interface addrinfo {
             StructBinder<addrinfo> $ = ffmStruct(addrinfo.class)
@@ -875,8 +1130,8 @@ public class StructTest {
             int ai_protocol();
             int ai_addrlen();
             @FFMPointer long ai_addr();
-            @Nullable String ai_canonname();
-            @Nullable addrinfo ai_next(); // recursive access
+            @MyNullable String ai_canonname();
+            @MyNullable addrinfo ai_next(); // recursive access
 
             addrinfo ai_flags(int value);
             addrinfo ai_family(int value);
@@ -884,8 +1139,8 @@ public class StructTest {
             addrinfo ai_protocol(int value);
             addrinfo ai_addrlen(int value);
             addrinfo ai_addr(@FFMNullable @FFMPointer long value);
-            addrinfo ai_canonname(@Nullable MemorySegment value);
-            addrinfo ai_next(@Nullable addrinfo value); // recursive access
+            addrinfo ai_canonname(@MyNullable MemorySegment value);
+            addrinfo ai_next(@MyNullable addrinfo value); // recursive access
         }
 
         Objects.requireNonNull(addrinfo.$.layout());
@@ -1979,8 +2234,8 @@ public class StructTest {
             @FFMCharset(FFMCharset.Type.UTF8)
             interface S {
                 StructBinder<S> $ = ffmStruct(S.class)
-                    .m("a", int8_t.array(256))
-                    .m("b", int8_t.array(256))
+                    .m("a", int8_t.array(8))
+                    .m("b", int8_t.array(8))
                     .build();
 
                 String a();
@@ -1996,6 +2251,8 @@ public class StructTest {
             assertEquals(s.b(), "");
 
             assertEquals(s.toString(), "S[a=, b=]");
+
+            assertThrows(BufferOverflowException.class, () -> s.a("hello world!"));
 
             s
                 .a("hello")
@@ -2215,8 +2472,6 @@ public class StructTest {
                     .m("address", uint64_t)
                     .build();
 
-                @SuppressWarnings("override")
-                long address();
                 Invalid address(long value);
             }
             assertThrows(() -> Objects.requireNonNull(Invalid.$));
@@ -2336,6 +2591,34 @@ public class StructTest {
 
             assertEquals(s.a(), 0xFEEDBEEF);
             assertEquals(s.b(), 0xBAADF00D);
+        }
+    }
+
+    public void testNullable() {
+        interface S {
+            StructBinder<S> $ = ffmStruct(S.class)
+                .m("a", int32_t.p())
+                .m("b", int32_t.p())
+                .build();
+
+            MemorySegment a();
+            @MyNullable MemorySegment b();
+
+            S a(@FFMNullable MemorySegment a);
+            S b(@MyNullable MemorySegment b);
+        }
+
+        try (var arena = Arena.ofConfined()) {
+            var s = S.$.allocate(arena);
+
+            assertEqualsSegment(s.a(), MemorySegment.NULL);
+            assertNull(s.b());
+
+            assertThrows(NullPointerException.class, () -> s.a(null));
+            s
+                .a(MemorySegment.NULL)
+                .b(null)
+                .b(MemorySegment.NULL);
         }
     }
 

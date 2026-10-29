@@ -110,6 +110,7 @@ static size_t params_cq_size(const struct io_uring_params *p, unsigned cqes)
 int io_uring_mmap(int fd, struct io_uring_params *p, struct io_uring_sq *sq,
 		  struct io_uring_cq *cq)
 {
+	size_t sqes_sz;
 	int ret;
 
 	sq->ring_sz = p->sq_off.array + p->sq_entries * sizeof(unsigned);
@@ -139,7 +140,14 @@ int io_uring_mmap(int fd, struct io_uring_params *p, struct io_uring_sq *sq,
 		}
 	}
 
-	sq->sqes = __sys_mmap(0, params_sqes_size(p, p->sq_entries),
+	sqes_sz = params_sqes_size(p, p->sq_entries);
+	sq->sqes_sz = (unsigned int) sqes_sz;
+	if (sq->sqes_sz != sqes_sz) {
+		ret = -EINVAL;
+		goto err;
+	}
+
+	sq->sqes = __sys_mmap(0, sq->sqes_sz,
 			      PROT_READ | PROT_WRITE, MAP_SHARED | MAP_POPULATE,
 			      fd, IORING_OFF_SQES);
 	if (IS_ERR(sq->sqes)) {
@@ -162,8 +170,16 @@ err:
 __cold int io_uring_queue_mmap(int fd, struct io_uring_params *p,
 			       struct io_uring *ring)
 {
+	int ret;
+
 	memset(ring, 0, sizeof(*ring));
-	return io_uring_mmap(fd, p, &ring->sq, &ring->cq);
+	ret = io_uring_mmap(fd, p, &ring->sq, &ring->cq);
+	if (!ret) {
+		ring->flags = p->flags;
+		ring->features = p->features;
+		ring->ring_fd = ring->enter_ring_fd = fd;
+	}
+	return ret;
 }
 
 static size_t io_uring_sqes_size(const struct io_uring *ring)
@@ -204,6 +220,13 @@ __cold int io_uring_ring_dontfork(struct io_uring *ring)
 	return 0;
 }
 
+#ifndef MAP_HUGE_SHIFT
+#define MAP_HUGE_SHIFT	26
+#endif
+#ifndef MAP_HUGE_2MB
+#define MAP_HUGE_2MB	(21U << MAP_HUGE_SHIFT)
+#endif
+
 /* FIXME */
 static size_t huge_page_size = 2 * 1024 * 1024;
 
@@ -228,12 +251,12 @@ static int io_uring_alloc_huge(unsigned entries, struct io_uring_params *p,
 		return ret;
 
 	sqes_mem = params_sqes_size(p, sq_entries);
-	if (!(p->flags & IORING_SETUP_NO_SQARRAY))
-		sqes_mem += sq_entries * sizeof(unsigned);
 	sqes_mem = (sqes_mem + page_size - 1) & ~(page_size - 1);
 
 	ring_mem = KRING_SIZE;
 	ring_mem += params_cq_size(p, cq_entries);
+	if (!(p->flags & IORING_SETUP_NO_SQARRAY))
+		ring_mem += sq_entries * sizeof(unsigned);
 	mem_used = sqes_mem + ring_mem;
 	mem_used = (mem_used + page_size - 1) & ~(page_size - 1);
 
@@ -257,7 +280,7 @@ static int io_uring_alloc_huge(unsigned entries, struct io_uring_params *p,
 			buf_size = page_size;
 		else {
 			buf_size = huge_page_size;
-			map_hugetlb = MAP_HUGETLB;
+			map_hugetlb = MAP_HUGETLB | MAP_HUGE_2MB;
 		}
 		sqes_size = buf_size;
 		ptr = __sys_mmap(NULL, sqes_size, PROT_READ|PROT_WRITE,
@@ -268,6 +291,7 @@ static int io_uring_alloc_huge(unsigned entries, struct io_uring_params *p,
 	}
 
 	sq->sqes = ptr;
+	sq->sqes_sz = (unsigned int) sqes_size;
 	if (mem_used <= buf_size) {
 		sq->ring_ptr = (void *) sq->sqes + sqes_mem;
 		/* clear ring sizes, we have just one mmap() to undo */
@@ -279,7 +303,7 @@ static int io_uring_alloc_huge(unsigned entries, struct io_uring_params *p,
 			buf_size = page_size;
 		else {
 			buf_size = huge_page_size;
-			map_hugetlb = MAP_HUGETLB;
+			map_hugetlb = MAP_HUGETLB | MAP_HUGE_2MB;
 		}
 		ptr = __sys_mmap(NULL, buf_size, PROT_READ|PROT_WRITE,
 					MAP_SHARED|MAP_ANONYMOUS|map_hugetlb,
@@ -331,7 +355,7 @@ int __io_uring_queue_init_params(unsigned entries, struct io_uring *ring,
 	if (fd < 0) {
 		if ((p->flags & IORING_SETUP_NO_MMAP) &&
 		    !(ring->int_flags & INT_FLAG_APP_MEM)) {
-			__sys_munmap(ring->sq.sqes, ret);
+			__sys_munmap(ring->sq.sqes, ring->sq.sqes_sz);
 			io_uring_unmap_rings(&ring->sq, &ring->cq);
 		}
 		return fd;
@@ -446,7 +470,7 @@ __cold void io_uring_queue_exit(struct io_uring *ring)
 	struct io_uring_cq *cq = &ring->cq;
 
 	if (!(ring->int_flags & INT_FLAG_APP_MEM)) {
-		__sys_munmap(sq->sqes, io_uring_sqes_size(ring));
+		__sys_munmap(sq->sqes, sq->sqes_sz);
 		io_uring_unmap_rings(sq, cq);
 	}
 
@@ -509,10 +533,14 @@ static size_t rings_size(struct io_uring_params *p, unsigned entries,
 	 * CQ ring size is number of pages that we need for the
 	 * struct io_uring_cqe entries, which may be 16b (default) or
 	 * 32b if the ring is setup with IORING_SETUP_CQE32. We also need
-	 * room for the head/tail parts.
+	 * room for the head/tail parts, and the SQ array which the kernel
+	 * places at the tail of the rings region, unless the ring is setup
+	 * with IORING_SETUP_NO_SQARRAY.
 	 */
 	cq_size = params_cq_size(p, cq_entries);
 	cq_size += KRING_SIZE;
+	if (!(p->flags & IORING_SETUP_NO_SQARRAY))
+		cq_size += entries * sizeof(unsigned);
 	cq_size = (cq_size + page_size - 1) & ~(page_size - 1);
 	pages = (size_t) cq_size / page_size;
 

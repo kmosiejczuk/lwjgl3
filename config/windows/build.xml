@@ -314,6 +314,9 @@ EXPORTS
 
         <!-- rpmalloc -->
         <build module="rpmalloc" simple="true" if:true="${binding.rpmalloc}">
+            <compileargs>
+                <arg line="/std:c11 /experimental:c11atomics"/>
+            </compileargs>
             <linkargs>
                 <arg value="Advapi32.lib"/>
             </linkargs>
@@ -421,9 +424,13 @@ EXPORTS
             <update-dependency module="freetype" artifact="freetype.dll"/>
             <update-dependency module="glfw" artifact="glfw.dll"/>
             <update-dependency module="harfbuzz" artifact="harfbuzz.dll"/>
+                <update-dependency module="harfbuzz" artifact="harfbuzz-gpu.dll"/>
+                <update-dependency module="harfbuzz" artifact="harfbuzz-raster.dll"/>
+                <update-dependency module="harfbuzz" artifact="harfbuzz-vector.dll"/>
             <update-dependency module="hwloc" artifact="hwloc.dll"/>
             <update-dependency module="jemalloc" artifact="jemalloc.dll"/>
             <update-dependency module="ktx" artifact="ktx.dll" unless:set="build.arch.x86"/>
+            <update-dependency module="mimalloc" artifact="mimalloc.dll"/>
             <update-dependency module="openal" artifact="OpenAL.dll"/>
             <update-dependency module="openxr" artifact="openxr-loader.dll"/>
             <update-dependency module="opus" artifact="opus.dll"/>

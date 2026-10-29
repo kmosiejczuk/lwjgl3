@@ -113,6 +113,45 @@ public class SDL_Event extends Struct<SDL_Event> implements NativeResource {
         PADDING;
 
     static {
+        SDL_CommonEvent.createSafe(NULL);
+        SDL_DisplayEvent.createSafe(NULL);
+        SDL_WindowEvent.createSafe(NULL);
+        SDL_KeyboardDeviceEvent.createSafe(NULL);
+        SDL_KeyboardEvent.createSafe(NULL);
+        SDL_TextEditingEvent.createSafe(NULL);
+        SDL_TextEditingCandidatesEvent.createSafe(NULL);
+        SDL_TextInputEvent.createSafe(NULL);
+        SDL_MouseDeviceEvent.createSafe(NULL);
+        SDL_MouseMotionEvent.createSafe(NULL);
+        SDL_MouseButtonEvent.createSafe(NULL);
+        SDL_MouseWheelEvent.createSafe(NULL);
+        SDL_JoyDeviceEvent.createSafe(NULL);
+        SDL_JoyAxisEvent.createSafe(NULL);
+        SDL_JoyBallEvent.createSafe(NULL);
+        SDL_JoyHatEvent.createSafe(NULL);
+        SDL_JoyButtonEvent.createSafe(NULL);
+        SDL_JoyBatteryEvent.createSafe(NULL);
+        SDL_GamepadDeviceEvent.createSafe(NULL);
+        SDL_GamepadAxisEvent.createSafe(NULL);
+        SDL_GamepadButtonEvent.createSafe(NULL);
+        SDL_GamepadTouchpadEvent.createSafe(NULL);
+        SDL_GamepadSensorEvent.createSafe(NULL);
+        SDL_AudioDeviceEvent.createSafe(NULL);
+        SDL_CameraDeviceEvent.createSafe(NULL);
+        SDL_SensorEvent.createSafe(NULL);
+        SDL_QuitEvent.createSafe(NULL);
+        SDL_UserEvent.createSafe(NULL);
+        SDL_TouchFingerEvent.createSafe(NULL);
+        SDL_PinchFingerEvent.createSafe(NULL);
+        SDL_PenProximityEvent.createSafe(NULL);
+        SDL_PenTouchEvent.createSafe(NULL);
+        SDL_PenMotionEvent.createSafe(NULL);
+        SDL_PenButtonEvent.createSafe(NULL);
+        SDL_PenAxisEvent.createSafe(NULL);
+        SDL_RenderEvent.createSafe(NULL);
+        SDL_DropEvent.createSafe(NULL);
+        SDL_ClipboardEvent.createSafe(NULL);
+
         Layout layout = __union(
             __member(4),
             __member(SDL_CommonEvent.SIZEOF, SDL_CommonEvent.ALIGNOF),
@@ -659,8 +698,8 @@ public class SDL_Event extends Struct<SDL_Event> implements NativeResource {
     public static SDL_DropEvent ndrop(long struct) { return SDL_DropEvent.create(struct + SDL_Event.DROP); }
     /** Unsafe version of {@link #clipboard}. */
     public static SDL_ClipboardEvent nclipboard(long struct) { return SDL_ClipboardEvent.create(struct + SDL_Event.CLIPBOARD); }
-    public static ByteBuffer npadding(long struct) { return memByteBuffer(struct + SDL_Event.PADDING, 128); }
-    public static byte npadding(long struct, int index) {
+    static ByteBuffer npadding(long struct) { return memByteBuffer(struct + SDL_Event.PADDING, 128); }
+    static byte npadding(long struct, int index) {
         return memGetByte(struct + SDL_Event.PADDING + check(index, 128) * 1);
     }
 
@@ -742,11 +781,11 @@ public class SDL_Event extends Struct<SDL_Event> implements NativeResource {
     public static void ndrop(long struct, SDL_DropEvent value) { memCopy(value.address(), struct + SDL_Event.DROP, SDL_DropEvent.SIZEOF); }
     /** Unsafe version of {@link #clipboard(SDL_ClipboardEvent) clipboard}. */
     public static void nclipboard(long struct, SDL_ClipboardEvent value) { memCopy(value.address(), struct + SDL_Event.CLIPBOARD, SDL_ClipboardEvent.SIZEOF); }
-    public static void npadding(long struct, ByteBuffer value) {
+    static void npadding(long struct, ByteBuffer value) {
         if (CHECKS) { checkGT(value, 128); }
         memCopy(memAddress(value), struct + SDL_Event.PADDING, value.remaining() * 1);
     }
-    public static void npadding(long struct, int index, byte value) {
+    static void npadding(long struct, int index, byte value) {
         memPutByte(struct + SDL_Event.PADDING + check(index, 128) * 1, value);
     }
 

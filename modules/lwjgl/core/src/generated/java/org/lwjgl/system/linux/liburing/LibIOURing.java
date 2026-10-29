@@ -62,7 +62,8 @@ public class LibIOURing {
         IORING_SETUP_NO_SQARRAY         = 1 << 16,
         IORING_SETUP_HYBRID_IOPOLL      = 1 << 17,
         IORING_SETUP_CQE_MIXED          = 1 << 18,
-        IORING_SETUP_SQE_MIXED          = 1 << 19;
+        IORING_SETUP_SQE_MIXED          = 1 << 19,
+        IORING_SETUP_SQ_REWIND          = 1 << 20;
 
     public static final byte
         IORING_OP_NOP              = 0,
@@ -146,6 +147,7 @@ public class LibIOURing {
         IORING_LINK_TIMEOUT_UPDATE   = 1 << 4,
         IORING_TIMEOUT_ETIME_SUCCESS = 1 << 5,
         IORING_TIMEOUT_MULTISHOT     = 1 << 6,
+        IORING_TIMEOUT_IMMEDIATE_ARG = 1 << 7,
         IORING_TIMEOUT_CLOCK_MASK    = IORING_TIMEOUT_BOOTTIME | IORING_TIMEOUT_REALTIME,
         IORING_TIMEOUT_UPDATE_MASK   = IORING_TIMEOUT_UPDATE | IORING_LINK_TIMEOUT_UPDATE;
 
@@ -287,7 +289,9 @@ public class LibIOURing {
         IORING_REGISTER_RESIZE_RINGS        = 33,
         IORING_REGISTER_MEM_REGION          = 34,
         IORING_REGISTER_QUERY               = 35,
-        IORING_REGISTER_LAST                = 36,
+        IORING_REGISTER_ZCRX_CTRL           = 36,
+        IORING_REGISTER_BPF_FILTER          = 37,
+        IORING_REGISTER_LAST                = 38,
         IORING_REGISTER_USE_REGISTERED_RING = 1 << 31;
 
     public static final int
@@ -340,7 +344,11 @@ public class LibIOURing {
 
     public static final int IORING_ZCRX_AREA_DMABUF = 1;
 
-    public static final int IORING_QUERY_OPCODES = 0;
+    public static final int
+        IORING_ZCRX_REG_IMPORT = 1,
+        IORING_ZCRX_REG_NODEV  = 2;
+
+    public static final int IORING_ZCRX_FEATURE_RX_PAGE_SIZE = 1 << 0;
 
     protected LibIOURing() {
         throw new UnsupportedOperationException();

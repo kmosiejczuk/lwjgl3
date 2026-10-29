@@ -94,42 +94,6 @@ public class VK10 {
         VK_STRUCTURE_TYPE_LOADER_DEVICE_CREATE_INFO                 = 48;
 
     public static final int
-        VK_ACCESS_INDIRECT_COMMAND_READ_BIT          = 0x1,
-        VK_ACCESS_INDEX_READ_BIT                     = 0x2,
-        VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT          = 0x4,
-        VK_ACCESS_UNIFORM_READ_BIT                   = 0x8,
-        VK_ACCESS_INPUT_ATTACHMENT_READ_BIT          = 0x10,
-        VK_ACCESS_SHADER_READ_BIT                    = 0x20,
-        VK_ACCESS_SHADER_WRITE_BIT                   = 0x40,
-        VK_ACCESS_COLOR_ATTACHMENT_READ_BIT          = 0x80,
-        VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT         = 0x100,
-        VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT  = 0x200,
-        VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT = 0x400,
-        VK_ACCESS_TRANSFER_READ_BIT                  = 0x800,
-        VK_ACCESS_TRANSFER_WRITE_BIT                 = 0x1000,
-        VK_ACCESS_HOST_READ_BIT                      = 0x2000,
-        VK_ACCESS_HOST_WRITE_BIT                     = 0x4000,
-        VK_ACCESS_MEMORY_READ_BIT                    = 0x8000,
-        VK_ACCESS_MEMORY_WRITE_BIT                   = 0x10000;
-
-    public static final int
-        VK_IMAGE_LAYOUT_UNDEFINED                        = 0,
-        VK_IMAGE_LAYOUT_GENERAL                          = 1,
-        VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL         = 2,
-        VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL = 3,
-        VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL  = 4,
-        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL         = 5,
-        VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL             = 6,
-        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL             = 7,
-        VK_IMAGE_LAYOUT_PREINITIALIZED                   = 8;
-
-    public static final int
-        VK_IMAGE_ASPECT_COLOR_BIT    = 0x1,
-        VK_IMAGE_ASPECT_DEPTH_BIT    = 0x2,
-        VK_IMAGE_ASPECT_STENCIL_BIT  = 0x4,
-        VK_IMAGE_ASPECT_METADATA_BIT = 0x8;
-
-    public static final int
         VK_OBJECT_TYPE_UNKNOWN               = 0,
         VK_OBJECT_TYPE_INSTANCE              = 1,
         VK_OBJECT_TYPE_PHYSICAL_DEVICE       = 2,
@@ -165,16 +129,8 @@ public class VK10 {
         VK_VENDOR_ID_CODEPLAY = 0x10004,
         VK_VENDOR_ID_MESA     = 0x10005,
         VK_VENDOR_ID_POCL     = 0x10006,
-        VK_VENDOR_ID_MOBILEYE = 0x10007;
-
-    public static final int
-        VK_SYSTEM_ALLOCATION_SCOPE_COMMAND  = 0,
-        VK_SYSTEM_ALLOCATION_SCOPE_OBJECT   = 1,
-        VK_SYSTEM_ALLOCATION_SCOPE_CACHE    = 2,
-        VK_SYSTEM_ALLOCATION_SCOPE_DEVICE   = 3,
-        VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE = 4;
-
-    public static final int VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE = 0;
+        VK_VENDOR_ID_MOBILEYE = 0x10007,
+        VK_VENDOR_ID_APE      = 0x10008;
 
     public static final int
         VK_FORMAT_UNDEFINED                  = 0,
@@ -386,15 +342,6 @@ public class VK10 {
         VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT  = 0x10;
 
     public static final int
-        VK_SAMPLE_COUNT_1_BIT  = 0x1,
-        VK_SAMPLE_COUNT_2_BIT  = 0x2,
-        VK_SAMPLE_COUNT_4_BIT  = 0x4,
-        VK_SAMPLE_COUNT_8_BIT  = 0x8,
-        VK_SAMPLE_COUNT_16_BIT = 0x10,
-        VK_SAMPLE_COUNT_32_BIT = 0x20,
-        VK_SAMPLE_COUNT_64_BIT = 0x40;
-
-    public static final int
         VK_IMAGE_TILING_OPTIMAL = 0,
         VK_IMAGE_TILING_LINEAR  = 1;
 
@@ -412,6 +359,8 @@ public class VK10 {
         VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT = 0x20,
         VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT     = 0x40,
         VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT         = 0x80;
+
+    public static final int VK_INTERNAL_ALLOCATION_TYPE_EXECUTABLE = 0;
 
     public static final int VK_MEMORY_HEAP_DEVICE_LOCAL_BIT = 0x1;
 
@@ -436,6 +385,32 @@ public class VK10 {
         VK_QUEUE_SPARSE_BINDING_BIT = 0x8;
 
     public static final int
+        VK_SAMPLE_COUNT_1_BIT  = 0x1,
+        VK_SAMPLE_COUNT_2_BIT  = 0x2,
+        VK_SAMPLE_COUNT_4_BIT  = 0x4,
+        VK_SAMPLE_COUNT_8_BIT  = 0x8,
+        VK_SAMPLE_COUNT_16_BIT = 0x10,
+        VK_SAMPLE_COUNT_32_BIT = 0x20,
+        VK_SAMPLE_COUNT_64_BIT = 0x40;
+
+    public static final int
+        VK_SYSTEM_ALLOCATION_SCOPE_COMMAND  = 0,
+        VK_SYSTEM_ALLOCATION_SCOPE_OBJECT   = 1,
+        VK_SYSTEM_ALLOCATION_SCOPE_CACHE    = 2,
+        VK_SYSTEM_ALLOCATION_SCOPE_DEVICE   = 3,
+        VK_SYSTEM_ALLOCATION_SCOPE_INSTANCE = 4;
+
+    public static final int
+        VK_SHADER_STAGE_VERTEX_BIT                  = 0x1,
+        VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT    = 0x2,
+        VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT = 0x4,
+        VK_SHADER_STAGE_GEOMETRY_BIT                = 0x8,
+        VK_SHADER_STAGE_FRAGMENT_BIT                = 0x10,
+        VK_SHADER_STAGE_ALL_GRAPHICS                = 0x0000001F,
+        VK_SHADER_STAGE_COMPUTE_BIT                 = 0x20,
+        VK_SHADER_STAGE_ALL                         = 0x7FFFFFFF;
+
+    public static final int
         VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT                    = 0x1,
         VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT                  = 0x2,
         VK_PIPELINE_STAGE_VERTEX_INPUT_BIT                   = 0x4,
@@ -454,19 +429,20 @@ public class VK10 {
         VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT                   = 0x8000,
         VK_PIPELINE_STAGE_ALL_COMMANDS_BIT                   = 0x10000;
 
-    public static final int VK_SPARSE_MEMORY_BIND_METADATA_BIT = 0x1;
+    public static final int
+        VK_IMAGE_ASPECT_COLOR_BIT    = 0x1,
+        VK_IMAGE_ASPECT_DEPTH_BIT    = 0x2,
+        VK_IMAGE_ASPECT_STENCIL_BIT  = 0x4,
+        VK_IMAGE_ASPECT_METADATA_BIT = 0x8;
 
     public static final int
         VK_SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT         = 0x1,
         VK_SPARSE_IMAGE_FORMAT_ALIGNED_MIP_SIZE_BIT       = 0x2,
         VK_SPARSE_IMAGE_FORMAT_NONSTANDARD_BLOCK_SIZE_BIT = 0x4;
 
-    public static final int VK_FENCE_CREATE_SIGNALED_BIT = 0x1;
+    public static final int VK_SPARSE_MEMORY_BIND_METADATA_BIT = 0x1;
 
-    public static final int
-        VK_QUERY_TYPE_OCCLUSION           = 0,
-        VK_QUERY_TYPE_PIPELINE_STATISTICS = 1,
-        VK_QUERY_TYPE_TIMESTAMP           = 2;
+    public static final int VK_FENCE_CREATE_SIGNALED_BIT = 0x1;
 
     public static final int
         VK_QUERY_PIPELINE_STATISTIC_INPUT_ASSEMBLY_VERTICES_BIT                    = 0x1,
@@ -486,6 +462,11 @@ public class VK10 {
         VK_QUERY_RESULT_WAIT_BIT              = 0x2,
         VK_QUERY_RESULT_WITH_AVAILABILITY_BIT = 0x4,
         VK_QUERY_RESULT_PARTIAL_BIT           = 0x8;
+
+    public static final int
+        VK_QUERY_TYPE_OCCLUSION           = 0,
+        VK_QUERY_TYPE_PIPELINE_STATISTICS = 1,
+        VK_QUERY_TYPE_TIMESTAMP           = 2;
 
     public static final int
         VK_BUFFER_CREATE_SPARSE_BINDING_BIT   = 0x1,
@@ -508,6 +489,17 @@ public class VK10 {
         VK_SHARING_MODE_CONCURRENT = 1;
 
     public static final int
+        VK_IMAGE_LAYOUT_UNDEFINED                        = 0,
+        VK_IMAGE_LAYOUT_GENERAL                          = 1,
+        VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL         = 2,
+        VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL = 3,
+        VK_IMAGE_LAYOUT_DEPTH_STENCIL_READ_ONLY_OPTIMAL  = 4,
+        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL         = 5,
+        VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL             = 6,
+        VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL             = 7,
+        VK_IMAGE_LAYOUT_PREINITIALIZED                   = 8;
+
+    public static final int
         VK_COMPONENT_SWIZZLE_IDENTITY = 0,
         VK_COMPONENT_SWIZZLE_ZERO     = 1,
         VK_COMPONENT_SWIZZLE_ONE      = 2,
@@ -525,6 +517,25 @@ public class VK10 {
         VK_IMAGE_VIEW_TYPE_2D_ARRAY   = 5,
         VK_IMAGE_VIEW_TYPE_CUBE_ARRAY = 6;
 
+    public static final int
+        VK_ACCESS_INDIRECT_COMMAND_READ_BIT          = 0x1,
+        VK_ACCESS_INDEX_READ_BIT                     = 0x2,
+        VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT          = 0x4,
+        VK_ACCESS_UNIFORM_READ_BIT                   = 0x8,
+        VK_ACCESS_INPUT_ATTACHMENT_READ_BIT          = 0x10,
+        VK_ACCESS_SHADER_READ_BIT                    = 0x20,
+        VK_ACCESS_SHADER_WRITE_BIT                   = 0x40,
+        VK_ACCESS_COLOR_ATTACHMENT_READ_BIT          = 0x80,
+        VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT         = 0x100,
+        VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT  = 0x200,
+        VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT = 0x400,
+        VK_ACCESS_TRANSFER_READ_BIT                  = 0x800,
+        VK_ACCESS_TRANSFER_WRITE_BIT                 = 0x1000,
+        VK_ACCESS_HOST_READ_BIT                      = 0x2000,
+        VK_ACCESS_HOST_WRITE_BIT                     = 0x4000,
+        VK_ACCESS_MEMORY_READ_BIT                    = 0x8000,
+        VK_ACCESS_MEMORY_WRITE_BIT                   = 0x10000;
+
     public static final int VK_DEPENDENCY_BY_REGION_BIT = 0x1;
 
     public static final int
@@ -537,14 +548,14 @@ public class VK10 {
         VK_COMMAND_BUFFER_LEVEL_PRIMARY   = 0,
         VK_COMMAND_BUFFER_LEVEL_SECONDARY = 1;
 
+    public static final int VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT = 0x1;
+
     public static final int
         VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT      = 0x1,
         VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT = 0x2,
         VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT     = 0x4;
 
     public static final int VK_QUERY_CONTROL_PRECISE_BIT = 0x1;
-
-    public static final int VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT = 0x1;
 
     public static final int
         VK_INDEX_TYPE_UINT16 = 0,
@@ -556,16 +567,6 @@ public class VK10 {
         VK_PIPELINE_CREATE_DISABLE_OPTIMIZATION_BIT = 0x1,
         VK_PIPELINE_CREATE_ALLOW_DERIVATIVES_BIT    = 0x2,
         VK_PIPELINE_CREATE_DERIVATIVE_BIT           = 0x4;
-
-    public static final int
-        VK_SHADER_STAGE_VERTEX_BIT                  = 0x1,
-        VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT    = 0x2,
-        VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT = 0x4,
-        VK_SHADER_STAGE_GEOMETRY_BIT                = 0x8,
-        VK_SHADER_STAGE_FRAGMENT_BIT                = 0x10,
-        VK_SHADER_STAGE_ALL_GRAPHICS                = 0x0000001F,
-        VK_SHADER_STAGE_COMPUTE_BIT                 = 0x20,
-        VK_SHADER_STAGE_ALL                         = 0x7FFFFFFF;
 
     public static final int
         VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK = 0,
@@ -586,10 +587,6 @@ public class VK10 {
         VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER = 3;
 
     public static final int
-        VK_SAMPLER_MIPMAP_MODE_NEAREST = 0,
-        VK_SAMPLER_MIPMAP_MODE_LINEAR  = 1;
-
-    public static final int
         VK_COMPARE_OP_NEVER            = 0,
         VK_COMPARE_OP_LESS             = 1,
         VK_COMPARE_OP_EQUAL            = 2,
@@ -598,6 +595,10 @@ public class VK10 {
         VK_COMPARE_OP_NOT_EQUAL        = 5,
         VK_COMPARE_OP_GREATER_OR_EQUAL = 6,
         VK_COMPARE_OP_ALWAYS           = 7;
+
+    public static final int
+        VK_SAMPLER_MIPMAP_MODE_NEAREST = 0,
+        VK_SAMPLER_MIPMAP_MODE_LINEAR  = 1;
 
     public static final int VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT = 0x1;
 
@@ -674,38 +675,6 @@ public class VK10 {
         VK_FRONT_FACE_CLOCKWISE         = 1;
 
     public static final int
-        VK_VERTEX_INPUT_RATE_VERTEX   = 0,
-        VK_VERTEX_INPUT_RATE_INSTANCE = 1;
-
-    public static final int
-        VK_PRIMITIVE_TOPOLOGY_POINT_LIST                    = 0,
-        VK_PRIMITIVE_TOPOLOGY_LINE_LIST                     = 1,
-        VK_PRIMITIVE_TOPOLOGY_LINE_STRIP                    = 2,
-        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST                 = 3,
-        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP                = 4,
-        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN                  = 5,
-        VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY      = 6,
-        VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY     = 7,
-        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY  = 8,
-        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY = 9,
-        VK_PRIMITIVE_TOPOLOGY_PATCH_LIST                    = 10;
-
-    public static final int
-        VK_POLYGON_MODE_FILL  = 0,
-        VK_POLYGON_MODE_LINE  = 1,
-        VK_POLYGON_MODE_POINT = 2;
-
-    public static final int
-        VK_STENCIL_OP_KEEP                = 0,
-        VK_STENCIL_OP_ZERO                = 1,
-        VK_STENCIL_OP_REPLACE             = 2,
-        VK_STENCIL_OP_INCREMENT_AND_CLAMP = 3,
-        VK_STENCIL_OP_DECREMENT_AND_CLAMP = 4,
-        VK_STENCIL_OP_INVERT              = 5,
-        VK_STENCIL_OP_INCREMENT_AND_WRAP  = 6,
-        VK_STENCIL_OP_DECREMENT_AND_WRAP  = 7;
-
-    public static final int
         VK_LOGIC_OP_CLEAR         = 0,
         VK_LOGIC_OP_AND           = 1,
         VK_LOGIC_OP_AND_REVERSE   = 2,
@@ -722,6 +691,38 @@ public class VK10 {
         VK_LOGIC_OP_OR_INVERTED   = 13,
         VK_LOGIC_OP_NAND          = 14,
         VK_LOGIC_OP_SET           = 15;
+
+    public static final int
+        VK_STENCIL_OP_KEEP                = 0,
+        VK_STENCIL_OP_ZERO                = 1,
+        VK_STENCIL_OP_REPLACE             = 2,
+        VK_STENCIL_OP_INCREMENT_AND_CLAMP = 3,
+        VK_STENCIL_OP_DECREMENT_AND_CLAMP = 4,
+        VK_STENCIL_OP_INVERT              = 5,
+        VK_STENCIL_OP_INCREMENT_AND_WRAP  = 6,
+        VK_STENCIL_OP_DECREMENT_AND_WRAP  = 7;
+
+    public static final int
+        VK_VERTEX_INPUT_RATE_VERTEX   = 0,
+        VK_VERTEX_INPUT_RATE_INSTANCE = 1;
+
+    public static final int
+        VK_POLYGON_MODE_FILL  = 0,
+        VK_POLYGON_MODE_LINE  = 1,
+        VK_POLYGON_MODE_POINT = 2;
+
+    public static final int
+        VK_PRIMITIVE_TOPOLOGY_POINT_LIST                    = 0,
+        VK_PRIMITIVE_TOPOLOGY_LINE_LIST                     = 1,
+        VK_PRIMITIVE_TOPOLOGY_LINE_STRIP                    = 2,
+        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST                 = 3,
+        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP                = 4,
+        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN                  = 5,
+        VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY      = 6,
+        VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY     = 7,
+        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY  = 8,
+        VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY = 9,
+        VK_PRIMITIVE_TOPOLOGY_PATCH_LIST                    = 10;
 
     public static final int VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT = 0x1;
 
@@ -746,7 +747,7 @@ public class VK10 {
 
     public static final int VK_API_VERSION_1_0 = VK_MAKE_API_VERSION(0, 1, 0, 0);
 
-    public static final int VK_HEADER_VERSION = 342;
+    public static final int VK_HEADER_VERSION = 356;
 
     public static final long VK_NULL_HANDLE = 0x0L;
 

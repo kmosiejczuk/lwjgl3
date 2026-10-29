@@ -25,6 +25,14 @@ public class LibURing {
 
     public static final long LIBURING_UDATA_TIMEOUT = -1L;
 
+    public static final int
+        BPF_FILTER_DENY_REST = 1,
+        BPF_FILTER_SZ_STRICT = 2;
+
+    public static final int BPF_CMD_FILTER = 1;
+
+    public static final int QUERY_OPCODES = 0;
+
     protected LibURing() {
         throw new UnsupportedOperationException();
     }
@@ -628,6 +636,16 @@ public class LibURing {
         return nio_uring_register_ifq(ring.address(), reg.address());
     }
 
+    // --- [ io_uring_register_zcrx_ctrl ] ---
+
+    /** {@code int io_uring_register_zcrx_ctrl(struct io_uring * ring, struct zcrx_ctrl * ctrl)} */
+    public static native int nio_uring_register_zcrx_ctrl(long ring, long ctrl);
+
+    /** {@code int io_uring_register_zcrx_ctrl(struct io_uring * ring, struct zcrx_ctrl * ctrl)} */
+    public static int io_uring_register_zcrx_ctrl(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct zcrx_ctrl *") IOURingZCRXCtrl ctrl) {
+        return nio_uring_register_zcrx_ctrl(ring.address(), ctrl.address());
+    }
+
     // --- [ io_uring_register_clock ] ---
 
     /** {@code int io_uring_register_clock(struct io_uring * ring, struct io_uring_clock_register * arg)} */
@@ -636,6 +654,36 @@ public class LibURing {
     /** {@code int io_uring_register_clock(struct io_uring * ring, struct io_uring_clock_register * arg)} */
     public static int io_uring_register_clock(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct io_uring_clock_register *") IOURingClockRegister arg) {
         return nio_uring_register_clock(ring.address(), arg.address());
+    }
+
+    // --- [ io_uring_register_bpf_filter ] ---
+
+    /** {@code int io_uring_register_bpf_filter(struct io_uring * ring, struct io_uring_bpf * bpf)} */
+    public static native int nio_uring_register_bpf_filter(long ring, long bpf);
+
+    /** {@code int io_uring_register_bpf_filter(struct io_uring * ring, struct io_uring_bpf * bpf)} */
+    public static int io_uring_register_bpf_filter(@NativeType("struct io_uring *") IOURing ring, @NativeType("struct io_uring_bpf *") IOURingBPF bpf) {
+        return nio_uring_register_bpf_filter(ring.address(), bpf.address());
+    }
+
+    // --- [ io_uring_register_bpf_filter_task ] ---
+
+    /** {@code int io_uring_register_bpf_filter_task(struct io_uring_bpf * bpf)} */
+    public static native int nio_uring_register_bpf_filter_task(long bpf);
+
+    /** {@code int io_uring_register_bpf_filter_task(struct io_uring_bpf * bpf)} */
+    public static int io_uring_register_bpf_filter_task(@NativeType("struct io_uring_bpf *") IOURingBPF bpf) {
+        return nio_uring_register_bpf_filter_task(bpf.address());
+    }
+
+    // --- [ io_uring_register_query ] ---
+
+    /** {@code int io_uring_register_query(struct io_uring_query_hdr * query)} */
+    public static native int nio_uring_register_query(long query);
+
+    /** {@code int io_uring_register_query(struct io_uring_query_hdr * query)} */
+    public static int io_uring_register_query(@NativeType("struct io_uring_query_hdr *") IOURingQueryHdr query) {
+        return nio_uring_register_query(query.address());
     }
 
     // --- [ io_uring_get_events ] ---
@@ -1234,11 +1282,11 @@ public class LibURing {
 
     // --- [ io_uring_prep_files_update ] ---
 
-    /** {@code void io_uring_prep_files_update(struct io_uring_sqe * sqe, int const * fds, unsigned nr_fds, int offset)} */
+    /** {@code void io_uring_prep_files_update(struct io_uring_sqe * sqe, int * fds, unsigned nr_fds, int offset)} */
     public static native void nio_uring_prep_files_update(long sqe, long fds, int nr_fds, int offset);
 
-    /** {@code void io_uring_prep_files_update(struct io_uring_sqe * sqe, int const * fds, unsigned nr_fds, int offset)} */
-    public static void io_uring_prep_files_update(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("int const *") IntBuffer fds, int offset) {
+    /** {@code void io_uring_prep_files_update(struct io_uring_sqe * sqe, int * fds, unsigned nr_fds, int offset)} */
+    public static void io_uring_prep_files_update(@NativeType("struct io_uring_sqe *") IOURingSQE sqe, @NativeType("int *") IntBuffer fds, int offset) {
         nio_uring_prep_files_update(sqe.address(), memAddress(fds), fds.remaining(), offset);
     }
 

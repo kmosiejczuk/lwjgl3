@@ -399,11 +399,37 @@ JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_
     return (jint)io_uring_register_ifq(ring, reg);
 }
 
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1register_1zcrx_1ctrl(JNIEnv *__env, jclass clazz, jlong ringAddress, jlong ctrlAddress) {
+    struct io_uring *ring = (struct io_uring *)(uintptr_t)ringAddress;
+    struct zcrx_ctrl *ctrl = (struct zcrx_ctrl *)(uintptr_t)ctrlAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)io_uring_register_zcrx_ctrl(ring, ctrl);
+}
+
 JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1register_1clock(JNIEnv *__env, jclass clazz, jlong ringAddress, jlong argAddress) {
     struct io_uring *ring = (struct io_uring *)(uintptr_t)ringAddress;
     struct io_uring_clock_register *arg = (struct io_uring_clock_register *)(uintptr_t)argAddress;
     UNUSED_PARAMS(__env, clazz)
     return (jint)io_uring_register_clock(ring, arg);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1register_1bpf_1filter(JNIEnv *__env, jclass clazz, jlong ringAddress, jlong bpfAddress) {
+    struct io_uring *ring = (struct io_uring *)(uintptr_t)ringAddress;
+    struct io_uring_bpf *bpf = (struct io_uring_bpf *)(uintptr_t)bpfAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)io_uring_register_bpf_filter(ring, bpf);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1register_1bpf_1filter_1task(JNIEnv *__env, jclass clazz, jlong bpfAddress) {
+    struct io_uring_bpf *bpf = (struct io_uring_bpf *)(uintptr_t)bpfAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)io_uring_register_bpf_filter_task(bpf);
+}
+
+JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1register_1query(JNIEnv *__env, jclass clazz, jlong queryAddress) {
+    struct io_uring_query_hdr *query = (struct io_uring_query_hdr *)(uintptr_t)queryAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jint)io_uring_register_query(query);
 }
 
 JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1get_1events(JNIEnv *__env, jclass clazz, jlong ringAddress) {
@@ -780,7 +806,7 @@ JNIEXPORT void JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_
 
 JNIEXPORT void JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1prep_1files_1update(JNIEnv *__env, jclass clazz, jlong sqeAddress, jlong fdsAddress, jint nr_fds, jint offset) {
     struct io_uring_sqe *sqe = (struct io_uring_sqe *)(uintptr_t)sqeAddress;
-    int const *fds = (int const *)(uintptr_t)fdsAddress;
+    int *fds = (int *)(uintptr_t)fdsAddress;
     UNUSED_PARAMS(__env, clazz)
     io_uring_prep_files_update(sqe, fds, (unsigned)nr_fds, offset);
 }

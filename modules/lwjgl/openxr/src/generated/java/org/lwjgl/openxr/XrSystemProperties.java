@@ -48,6 +48,9 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         TRACKINGPROPERTIES;
 
     static {
+        XrSystemGraphicsProperties.createSafe(NULL);
+        XrSystemTrackingProperties.createSafe(NULL);
+
         Layout layout = __struct(
             __member(4),
             __member(POINTER_SIZE),
@@ -131,16 +134,28 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public XrSystemProperties next(XrSystemBodyTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemBodyTrackingPropertiesHTC} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemBodyTrackingPropertiesHTC value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemBoundaryVisibilityPropertiesMETA} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemBoundaryVisibilityPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemColocationDiscoveryPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemColocationDiscoveryPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemColorSpacePropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemColorSpacePropertiesFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemDeviceAnchorPersistencePropertiesANDROID} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemDeviceAnchorPersistencePropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemDynamicObjectKeyboardPropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemDynamicObjectKeyboardPropertiesBD value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemDynamicObjectMousePropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemDynamicObjectMousePropertiesBD value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemDynamicObjectTrackingPropertiesBD} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemDynamicObjectTrackingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemEnvironmentDepthPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemEnvironmentDepthPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemEnvironmentRaycastPropertiesMETA} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemEnvironmentRaycastPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemEyeGazeInteractionPropertiesEXT} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemEyeGazeInteractionPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemEyeTrackingPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemEyeTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemEyeTrackingPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemEyeTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemFaceTrackingProperties2FB} value to the {@code next} chain. */
@@ -149,6 +164,8 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public XrSystemProperties next(XrSystemFaceTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemFaceTrackingPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemFaceTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemFaceTrackingVisemesPropertiesMETA} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemFaceTrackingVisemesPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemFacialExpressionPropertiesML} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemFacialExpressionPropertiesML value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemFacialSimulationPropertiesBD} value to the {@code next} chain. */
@@ -161,14 +178,24 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public XrSystemProperties next(XrSystemFoveatedRenderingPropertiesVARJO value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemFoveationEyeTrackedPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemFoveationEyeTrackedPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemGeospatialAnchorPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemGeospatialAnchorPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemGeospatialPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemGeospatialPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemHandTrackingMeshPropertiesMSFT} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemHandTrackingMeshPropertiesMSFT value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemHandTrackingPropertiesEXT} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemHandTrackingPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemHapticParametricPropertiesEXT} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemHapticParametricPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemHeadsetIdPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemHeadsetIdPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemImageTrackingPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemImageTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemKeyboardTrackingPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemKeyboardTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemLightEstimationPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemLightEstimationPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemMarkerTrackingPropertiesANDROID} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemMarkerTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemMarkerTrackingPropertiesVARJO} value to the {@code next} chain. */
@@ -179,6 +206,8 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public XrSystemProperties next(XrSystemPassthroughCameraStatePropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemPassthroughColorLutPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemPassthroughColorLutPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemPassthroughLayerPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemPassthroughLayerPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemPassthroughProperties2FB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemPassthroughProperties2FB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemPassthroughPropertiesFB} value to the {@code next} chain. */
@@ -187,10 +216,16 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
     public XrSystemProperties next(XrSystemPlaneDetectionPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemPropertiesBodyTrackingCalibrationMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemPropertiesBodyTrackingCalibrationMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemPropertiesBodyTrackingFidelityMETA} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemPropertiesBodyTrackingFidelityMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemPropertiesBodyTrackingFullBodyMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemPropertiesBodyTrackingFullBodyMETA value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemQrCodeTrackingPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemQrCodeTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemRenderModelPropertiesFB} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemRenderModelPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSystemSceneMeshingPropertiesANDROID} value to the {@code next} chain. */
+    public XrSystemProperties next(XrSystemSceneMeshingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemSimultaneousHandsAndControllersPropertiesMETA} value to the {@code next} chain. */
     public XrSystemProperties next(XrSystemSimultaneousHandsAndControllersPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSystemSpaceDiscoveryPropertiesMETA} value to the {@code next} chain. */
@@ -462,16 +497,28 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         public XrSystemProperties.Buffer next(XrSystemBodyTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemBodyTrackingPropertiesHTC} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemBodyTrackingPropertiesHTC value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemBoundaryVisibilityPropertiesMETA} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemBoundaryVisibilityPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemColocationDiscoveryPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemColocationDiscoveryPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemColorSpacePropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemColorSpacePropertiesFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemDeviceAnchorPersistencePropertiesANDROID} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemDeviceAnchorPersistencePropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemDynamicObjectKeyboardPropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemDynamicObjectKeyboardPropertiesBD value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemDynamicObjectMousePropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemDynamicObjectMousePropertiesBD value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemDynamicObjectTrackingPropertiesBD} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemDynamicObjectTrackingPropertiesBD value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemEnvironmentDepthPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemEnvironmentDepthPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemEnvironmentRaycastPropertiesMETA} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemEnvironmentRaycastPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemEyeGazeInteractionPropertiesEXT} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemEyeGazeInteractionPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemEyeTrackingPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemEyeTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemEyeTrackingPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemEyeTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemFaceTrackingProperties2FB} value to the {@code next} chain. */
@@ -480,6 +527,8 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         public XrSystemProperties.Buffer next(XrSystemFaceTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemFaceTrackingPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemFaceTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemFaceTrackingVisemesPropertiesMETA} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemFaceTrackingVisemesPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemFacialExpressionPropertiesML} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemFacialExpressionPropertiesML value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemFacialSimulationPropertiesBD} value to the {@code next} chain. */
@@ -492,14 +541,24 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         public XrSystemProperties.Buffer next(XrSystemFoveatedRenderingPropertiesVARJO value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemFoveationEyeTrackedPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemFoveationEyeTrackedPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemGeospatialAnchorPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemGeospatialAnchorPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemGeospatialPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemGeospatialPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemHandTrackingMeshPropertiesMSFT} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemHandTrackingMeshPropertiesMSFT value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemHandTrackingPropertiesEXT} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemHandTrackingPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemHapticParametricPropertiesEXT} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemHapticParametricPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemHeadsetIdPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemHeadsetIdPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemImageTrackingPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemImageTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemKeyboardTrackingPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemKeyboardTrackingPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemLightEstimationPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemLightEstimationPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemMarkerTrackingPropertiesANDROID} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemMarkerTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemMarkerTrackingPropertiesVARJO} value to the {@code next} chain. */
@@ -510,6 +569,8 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         public XrSystemProperties.Buffer next(XrSystemPassthroughCameraStatePropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemPassthroughColorLutPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemPassthroughColorLutPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemPassthroughLayerPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemPassthroughLayerPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemPassthroughProperties2FB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemPassthroughProperties2FB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemPassthroughPropertiesFB} value to the {@code next} chain. */
@@ -518,10 +579,16 @@ public class XrSystemProperties extends Struct<XrSystemProperties> implements Na
         public XrSystemProperties.Buffer next(XrSystemPlaneDetectionPropertiesEXT value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemPropertiesBodyTrackingCalibrationMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemPropertiesBodyTrackingCalibrationMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemPropertiesBodyTrackingFidelityMETA} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemPropertiesBodyTrackingFidelityMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemPropertiesBodyTrackingFullBodyMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemPropertiesBodyTrackingFullBodyMETA value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemQrCodeTrackingPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemQrCodeTrackingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemRenderModelPropertiesFB} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemRenderModelPropertiesFB value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSystemSceneMeshingPropertiesANDROID} value to the {@code next} chain. */
+        public XrSystemProperties.Buffer next(XrSystemSceneMeshingPropertiesANDROID value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemSimultaneousHandsAndControllersPropertiesMETA} value to the {@code next} chain. */
         public XrSystemProperties.Buffer next(XrSystemSimultaneousHandsAndControllersPropertiesMETA value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSystemSpaceDiscoveryPropertiesMETA} value to the {@code next} chain. */

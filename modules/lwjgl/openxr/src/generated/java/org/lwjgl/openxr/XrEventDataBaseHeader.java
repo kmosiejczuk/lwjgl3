@@ -323,8 +323,18 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrEventDataRecommendedResolutionChangedANDROID} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataRecommendedResolutionChangedANDROID value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrEventDataUserPresenceChangedEXT} instance to {@code XrEventDataBaseHeader}. */
     public static XrEventDataBaseHeader create(XrEventDataUserPresenceChangedEXT value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataBoundaryVisibilityChangedMETA} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataBoundaryVisibilityChangedMETA value) {
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
@@ -363,8 +373,23 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrEventDataImageTrackingLostANDROID} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataImageTrackingLostANDROID value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrEventDataSpatialDiscoveryRecommendedEXT} instance to {@code XrEventDataBaseHeader}. */
     public static XrEventDataBaseHeader create(XrEventDataSpatialDiscoveryRecommendedEXT value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataGeospatialTrackerStateChangedANDROID} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataGeospatialTrackerStateChangedANDROID value) {
+        return new XrEventDataBaseHeader(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrEventDataViewConfigurationViewsChangedEXT} instance to {@code XrEventDataBaseHeader}. */
+    public static XrEventDataBaseHeader create(XrEventDataViewConfigurationViewsChangedEXT value) {
         return new XrEventDataBaseHeader(value.address(), __getContainer(value));
     }
 
@@ -601,8 +626,18 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrEventDataRecommendedResolutionChangedANDROID.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataRecommendedResolutionChangedANDROID.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrEventDataUserPresenceChangedEXT.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
     public static XrEventDataBaseHeader.Buffer create(XrEventDataUserPresenceChangedEXT.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataBoundaryVisibilityChangedMETA.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataBoundaryVisibilityChangedMETA.Buffer value) {
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
@@ -641,8 +676,23 @@ public class XrEventDataBaseHeader extends Struct<XrEventDataBaseHeader> impleme
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrEventDataImageTrackingLostANDROID.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataImageTrackingLostANDROID.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrEventDataSpatialDiscoveryRecommendedEXT.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
     public static XrEventDataBaseHeader.Buffer create(XrEventDataSpatialDiscoveryRecommendedEXT.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataGeospatialTrackerStateChangedANDROID.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataGeospatialTrackerStateChangedANDROID.Buffer value) {
+        return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrEventDataViewConfigurationViewsChangedEXT.Buffer} instance to {@code XrEventDataBaseHeader.Buffer}. */
+    public static XrEventDataBaseHeader.Buffer create(XrEventDataViewConfigurationViewsChangedEXT.Buffer value) {
         return new XrEventDataBaseHeader.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 

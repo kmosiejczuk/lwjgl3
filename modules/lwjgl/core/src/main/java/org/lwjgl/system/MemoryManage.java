@@ -31,24 +31,40 @@ final class MemoryManage {
         }
 
         if (!"system".equals(allocator)) {
-            String className;
-            if (allocator == null || "jemalloc".equals(allocator)) {
-                className = "org.lwjgl.system.jemalloc.JEmallocAllocator";
-            } else if ("rpmalloc".equals(allocator)) {
-                className = "org.lwjgl.system.rpmalloc.RPmallocAllocator";
+            List<String> allocatorClasses = new ArrayList<>();
+
+            if (allocator == null) {
+                allocatorClasses.add("org.lwjgl.system.mimalloc.mimalloc$Allocator");
+                allocatorClasses.add("org.lwjgl.system.rpmalloc.RPmalloc$Allocator");
+                allocatorClasses.add("org.lwjgl.system.jemalloc.JEmalloc$Allocator");
             } else {
-                className = allocator.toString();
+                if ("mimalloc".equals(allocator)) {
+                    allocatorClasses.add("org.lwjgl.system.mimalloc.mimalloc$Allocator");
+                } else if ("rpmalloc".equals(allocator)) {
+                    allocatorClasses.add("org.lwjgl.system.rpmalloc.RPmalloc$Allocator");
+                } else if ("jemalloc".equals(allocator)) {
+                    allocatorClasses.add("org.lwjgl.system.jemalloc.JEmalloc$Allocator");
+                } else {
+                    allocatorClasses.add(allocator.toString());
+                }
             }
 
-            try {
-                Class<?> allocatorClass = Class.forName(className);
-                return (MemoryAllocator)allocatorClass.getConstructor().newInstance();
-            } catch (Throwable t) {
-                if (Checks.DEBUG && (allocator != null || !(t instanceof ClassNotFoundException))) {
-                    t.printStackTrace(DEBUG_STREAM);
+            for (String allocatorClass : allocatorClasses) {
+                try {
+                    return (MemoryAllocator)Class.forName(allocatorClass)
+                        .getDeclaredConstructor()
+                        .newInstance();
+                } catch (Throwable t) {
+                    if (Checks.DEBUG && (allocator != null || !(t instanceof ClassNotFoundException))) {
+                        t.printStackTrace(DEBUG_STREAM);
+                        if (t.getCause() != null) {
+                            t.getCause().printStackTrace(DEBUG_STREAM);
+                        }
+                    }
+                    apiLog(String.format("Warning: Failed to instantiate memory allocator: %s", allocatorClass));
                 }
-                apiLog(String.format("Warning: Failed to instantiate memory allocator: %s. Using the system default.", className));
             }
+            apiLogMore("Using the system default.");
         }
 
         return new StdlibAllocator();
@@ -142,7 +158,7 @@ final class MemoryManage {
 
         @FunctionalInterface
         public interface CallbackPP extends CallbackI {
-            Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(MethodHandles.lookup(), apiCreateCIF(ffi_type_pointer, ffi_type_pointer));
+            Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(CallbackPP.class, MethodHandles.lookup(), apiCreateCIF(ffi_type_pointer, ffi_type_pointer));
             @Override default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
             @Override default void callback(long ret, long args) {
                 long size = memGetAddress(memGetAddress(args));
@@ -153,7 +169,7 @@ final class MemoryManage {
 
         @FunctionalInterface
         public interface CallbackPPP extends CallbackI {
-            Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(MethodHandles.lookup(), apiCreateCIF(ffi_type_pointer, ffi_type_pointer, ffi_type_pointer));
+            Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(CallbackPPP.class, MethodHandles.lookup(), apiCreateCIF(ffi_type_pointer, ffi_type_pointer, ffi_type_pointer));
             @Override default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
             @Override default void callback(long ret, long args) {
                 long num  = memGetAddress(memGetAddress(args));
@@ -165,7 +181,7 @@ final class MemoryManage {
 
         @FunctionalInterface
         public interface CallbackIV extends CallbackI {
-            Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(MethodHandles.lookup(), apiCreateCIF(ffi_type_void, ffi_type_pointer));
+            Callback.Descriptor DESCRIPTOR = new Callback.Descriptor(CallbackIV.class, MethodHandles.lookup(), apiCreateCIF(ffi_type_void, ffi_type_pointer));
             @Override default Callback.Descriptor getDescriptor() { return DESCRIPTOR; }
             @Override default void callback(long ret, long args) {
                 long ptr = memGetAddress(memGetAddress(args));

@@ -16,7 +16,7 @@ import static org.lwjgl.system.Checks.*;
  * <p>The default charset is {@link Type#ISO_8859_1}. When this annotation is applied to a class, it changes the default charset for that class. The charset
  * can further be customized per function, by applying this annotation to specific return values and parameters.</p>
  */
-@Target({ElementType.TYPE, ElementType.METHOD, ElementType.PARAMETER})
+@Target({ElementType.TYPE, ElementType.TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FFMCharset {
 
@@ -37,10 +37,6 @@ public @interface FFMCharset {
         UTF16(
             DEBUG ? ValueLayout.JAVA_SHORT : ValueLayout.JAVA_SHORT_UNALIGNED,
             ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN ? "UTF_16LE" : "UTF_16BE"
-        ),
-        UTF32(
-            DEBUG ? ValueLayout.JAVA_INT : ValueLayout.JAVA_INT_UNALIGNED,
-            ByteOrder.nativeOrder() == ByteOrder.LITTLE_ENDIAN ? "UTF_32LE" : "UTF_32BE"
         );
 
         public final ValueLayout layout;

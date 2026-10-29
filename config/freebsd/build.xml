@@ -339,7 +339,7 @@
         <build module="tinyexr" simple="true" linker="clang++" if:true="${binding.tinyexr}">
             <beforeCompile>
                 <compile lang="c++">
-                    <arg value="-I${src.main.rel}"/>
+                     <arg value="-I${src.main.rel}"/>
                     <arg value="-I${module.lwjgl.rel}/core/src/main/c/dependencies/miniz"/>
                     <fileset dir="." includes="${src.main}/*.cc"/>
                     <fileset dir="." includes="${src.generated}/*.cpp"/>
@@ -418,9 +418,13 @@
             <update-dependency module="freetype" artifact="libfreetype.so"/>
             <update-dependency module="glfw" artifact="libglfw.so"/>
             <update-dependency module="harfbuzz" artifact="libharfbuzz.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-gpu.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-raster.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-vector.so"/>
             <update-dependency module="hwloc" artifact="libhwloc.so"/>
             <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
             <update-dependency module="ktx" artifact="libktx.so"/>
+            <update-dependency module="mimalloc" artifact="libmimalloc.so"/>
             <update-dependency module="openal" artifact="libopenal.so"/>
             <update-dependency module="openxr" artifact="libopenxr_loader.so"/>
             <update-dependency module="opus" artifact="libopus.so"/>

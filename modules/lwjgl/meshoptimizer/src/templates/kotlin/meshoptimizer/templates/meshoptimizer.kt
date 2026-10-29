@@ -13,7 +13,7 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
 
     cpp = true
 
-    IntConstant("MESHOPTIMIZER_VERSION".."1000").noPrefix()
+    IntConstant("MESHOPTIMIZER_VERSION".."1020").noPrefix()
 
     size_t(
         "generateVertexRemap",
@@ -67,6 +67,29 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
         Check("index_count")..nullable..unsigned_int.const.p("indices"),
         size_t("index_count"),
         Unsafe..unsigned_int.const.p("remap")
+    )
+
+    size_t(
+        "filterIndexBuffer",
+
+        unsigned_int.p("destination"),
+        unsigned_int.const.p("indices"),
+        AutoSize("indices", "destination")..size_t("index_count"),
+        Check("vertex_count * vertex_stride")..void.const.p("vertices"),
+        size_t("vertex_count"),
+        size_t("vertex_size"),
+        size_t("vertex_stride")
+    )
+
+    size_t(
+        "filterIndexBufferMulti",
+
+        unsigned_int.p("destination"),
+        unsigned_int.const.p("indices"),
+        AutoSize("indices", "destination")..size_t("index_count"),
+        size_t("vertex_count"),
+        meshopt_Stream.const.p("streams"),
+        AutoSize("streams")..size_t("stream_count")
     )
 
     void(
@@ -258,6 +281,48 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
     )
 
     size_t(
+        "encodeMeshlet",
+
+        unsigned_char.p("buffer"),
+        AutoSize("buffer")..size_t("buffer_size"),
+        nullable..unsigned_int.const.p("vertices"),
+        AutoSize("vertices")..size_t("vertex_count"),
+        unsigned_char.const.p("triangles"),
+        AutoSize("triangles")..size_t("triangle_count")
+    )
+
+    size_t(
+        "encodeMeshletBound",
+
+        size_t("max_vertices"),
+        size_t("max_triangles")
+    )
+
+    int(
+        "decodeMeshlet",
+
+        Check("vertex_count * vertex_size")..nullable..void.p("vertices"),
+        size_t("vertex_count"),
+        size_t("vertex_size"),
+        Check("triangle_count * triangle_size")..void.p("triangles"),
+        size_t("triangle_count"),
+        size_t("triangle_size"),
+        unsigned_char.const.p("buffer"),
+        AutoSize("buffer")..size_t("buffer_size")
+    )
+
+    int(
+        "decodeMeshletRaw",
+
+        nullable..unsigned_int.p("vertices"),
+        AutoSize("vertices")..size_t("vertex_count"),
+        unsigned_int.p("triangles"),
+        AutoSize("triangles")..size_t("triangle_count"),
+        unsigned_char.const.p("buffer"),
+        AutoSize("buffer")..size_t("buffer_size")
+    )
+
+    size_t(
         "encodeVertexBuffer",
 
         unsigned_char.p("buffer"),
@@ -395,12 +460,14 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
         "SimplifyErrorAbsolute".enum("1 << 2"),
         "SimplifyPrune".enum("1 << 3"),
         "SimplifyRegularize".enum("1 << 4"),
-        "SimplifyPermissive".enum("1 << 5")
+        "SimplifyPermissive".enum("1 << 5"),
+        "SimplifyRegularizeLight".enum("1 << 6")
     )
 
     EnumConstant(
         "SimplifyVertex_Lock".enum("1 << 0"),
-        "SimplifyVertex_Protect".enum("1 << 1")
+        "SimplifyVertex_Protect".enum("1 << 1"),
+        "SimplifyVertex_Priority".enum("1 << 2")
     )
 
     size_t(
@@ -657,6 +724,16 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
         AutoSize("meshlet_vertices")..size_t("vertex_count")
     )
 
+    void(
+        "optimizeMeshletLevel",
+
+        unsigned_int.p("meshlet_vertices"),
+        AutoSize("meshlet_vertices")..size_t("vertex_count"),
+        unsigned_char.p("meshlet_triangles"),
+        AutoSizeDiv("3", "meshlet_triangles")..size_t("triangle_count"),
+        int("level")
+    )
+
     meshopt_Bounds(
         "computeClusterBounds",
 
@@ -686,6 +763,15 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
         size_t("positions_stride"),
         Check("count * (radii_stride >>> 2)")..nullable..float.const.p("radii"),
         size_t("radii_stride")
+    )
+
+    size_t(
+        "extractMeshletIndices",
+
+        Unsafe..unsigned_int.p("vertices"),
+        unsigned_char.p("triangles"),
+        unsigned_int.const.p("indices"),
+        AutoSize("indices", "triangles")..size_t("index_count")
     )
 
     size_t(
@@ -732,6 +818,91 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
         size_t("cluster_size")
     )
 
+    size_t(
+        "opacityMapMeasure",
+
+        Unsafe..unsigned_char.p("levels"),
+        Unsafe..unsigned_int.p("sources"),
+        Unsafe..int.p("omm_indices"),
+        unsigned_int.const.p("indices"),
+        AutoSize("indices")..size_t("index_count"),
+        Check("vertex_count * vertex_uvs_stride")..float.const.p("vertex_uvs"),
+        size_t("vertex_count"),
+        size_t("vertex_uvs_stride"),
+        unsigned_int("texture_width"),
+        unsigned_int("texture_height"),
+        int("max_level"),
+        float("target_edge")
+    )
+
+    void(
+        "opacityMapRasterize",
+
+        Unsafe..unsigned_char.p("result"),
+        int("level"),
+        int("states"),
+        Check(2)..float.const.p("uv0"),
+        Check(2)..float.const.p("uv1"),
+        Check(2)..float.const.p("uv2"),
+        Check("texture_pitch * texture_height")..unsigned_char.const.p("texture_data"),
+        size_t("texture_stride"),
+        size_t("texture_pitch"),
+        unsigned_int("texture_width"),
+        unsigned_int("texture_height")
+    )
+
+    size_t(
+        "opacityMapEntrySize",
+
+        int("level"),
+        int("states")
+    )
+
+    size_t(
+        "opacityMapCompact",
+
+        unsigned_char.p("data"),
+        AutoSize("data")..size_t("data_size"),
+        unsigned_char.p("levels"),
+        unsigned_int.p("offsets"),
+        AutoSize("levels", "offsets")..size_t("omm_count"),
+        int.p("omm_indices"),
+        AutoSize("omm_indices")..size_t("triangle_count"),
+        int("states")
+    )
+
+    /**
+     * Experimental: Tangent space generator
+     * Computes per-corner tangent vectors; for each corner, computes normalized tangent vector (xyz) and orientation (w, +/-1).
+     * Bitangent can be reconstructed via cross(normal, tangent.xyz) * tangent.w.
+     * To apply tangents to the mesh, either deindex and reindex it with the tangent stream, or copy tangents to existing vertex data while duplicating
+     * vertices with different tangent vectors (e.g. on UV mirror seams).
+     * Input can be indexed or unindexed (indices=NULL); this does not affect the resulting tangents, but indexed inputs are ~30% faster to process.
+     *
+     * result must contain enough space for the output tangent data (index_count*4 elements)
+     * indices can be NULL if the input is unindexed
+     * vertex_positions should have float3 position in the first 12 bytes of each vertex
+     * vertex_normals should have unit float3 normal in the first 12 bytes of each vertex
+     * vertex_uvs should have float2 texture coordinate in the first 8 bytes of each vertex
+     */
+    //void generateTangents(float* result, const unsigned int* indices, size_t index_count, const float* vertex_positions, size_t vertex_count, size_t vertex_positions_stride, const float* vertex_normals, size_t vertex_normals_stride, const float* vertex_uvs, size_t vertex_uvs_stride, unsigned int options);
+
+    void(
+        "generateTangents",
+
+        Check("index_count * 4")..float.p("result"),
+        Check("index_count")..nullable..unsigned_int.const.p("indices"),
+        size_t("index_count"),
+        Check("vertex_count * (vertex_positions_stride >>> 2)")..float.const.p("vertex_positions"),
+        size_t("vertex_count"),
+        size_t("vertex_positions_stride"),
+        Check("vertex_count * (vertex_normals_stride >>> 2)")..float.const.p("vertex_normals"),
+        size_t("vertex_normals_stride"),
+        Check("vertex_count * (vertex_uvs_stride >>> 2)")..float.const.p("vertex_uvs"),
+        size_t("vertex_uvs_stride"),
+        unsigned_int("options")
+    )
+
     NativeName("meshopt_quantizeUnorm")..internal..int(
         "quantizeUnorm_ref",
 
@@ -763,6 +934,15 @@ val meshoptimizer = "MeshOptimizer".nativeClass(Module.MESHOPTIMIZER, prefix = "
         "dequantizeHalf_ref",
 
         unsigned_short("h")
+    )
+
+    int(
+        "computePositionExponent",
+
+        Check(3)..float.const.p("minv"),
+        Check(3)..float.const.p("maxv"),
+        int("min_exp"),
+        int("max_bits")
     )
 
     void(

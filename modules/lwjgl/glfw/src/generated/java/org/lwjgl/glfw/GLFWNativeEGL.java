@@ -147,7 +147,6 @@ public class GLFWNativeEGL {
         if (path == null) {
             apiLog("GLFW OpenGL ES path override not set: Could not resolve the shared library path.");
             return;
-
         }
 
         setGLESPath(path);
@@ -177,9 +176,18 @@ public class GLFWNativeEGL {
 
         long a = memGetAddress(override);
         if (a != NULL) {
-            nmemFree(a);
+            getAllocator().free(a);
+            a = NULL;
         }
-        memPutAddress(override, path == null ? NULL : memAddress(memUTF8(path)));
+
+        if (path != null) {
+            int length = memLengthUTF8(path, true);
+
+            a = getAllocator().malloc(length);
+            memUTF8(path, true, memByteBuffer(a, length));
+        }
+
+        memPutAddress(override, a);
         return true;
     }
 

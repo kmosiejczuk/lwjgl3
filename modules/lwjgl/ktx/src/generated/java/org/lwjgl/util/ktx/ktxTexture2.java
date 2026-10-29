@@ -90,6 +90,8 @@ public class ktxTexture2 extends Struct<ktxTexture2> implements NativeResource {
         _PRIVATE;
 
     static {
+        ktxOrientation.createSafe(NULL);
+
         Layout layout = __struct(
             __member(4),
             __member(POINTER_SIZE),
@@ -430,7 +432,7 @@ public class ktxTexture2 extends Struct<ktxTexture2> implements NativeResource {
     public static int ntimescale(long struct) { return memGetInt(struct + ktxTexture2.TIMESCALE); }
     /** Unsafe version of {@link #loopcount}. */
     public static int nloopcount(long struct) { return memGetInt(struct + ktxTexture2.LOOPCOUNT); }
-    public static PointerBuffer n_private(long struct, int capacity) { return memPointerBuffer(memGetAddress(struct + ktxTexture2._PRIVATE), capacity); }
+    static PointerBuffer n_private(long struct, int capacity) { return memPointerBuffer(memGetAddress(struct + ktxTexture2._PRIVATE), capacity); }
 
     // -----------------------------------
 

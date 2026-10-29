@@ -194,6 +194,16 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
         return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
     }
 
+    /** Upcasts the specified {@code XrEnvironmentRaycasterCreateCompletionMETA} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrEnvironmentRaycasterCreateCompletionMETA value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrCreateTrackableImageDatabaseCompletionANDROID} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrCreateTrackableImageDatabaseCompletionANDROID value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
     /** Upcasts the specified {@code XrCreateSpatialContextCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
     public static XrFutureCompletionBaseHeaderEXT create(XrCreateSpatialContextCompletionEXT value) {
         return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
@@ -216,6 +226,16 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
 
     /** Upcasts the specified {@code XrUnpersistSpatialEntityCompletionEXT} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
     public static XrFutureCompletionBaseHeaderEXT create(XrUnpersistSpatialEntityCompletionEXT value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrVPSAvailabilityCheckCompletionANDROID} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrVPSAvailabilityCheckCompletionANDROID value) {
+        return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
+    }
+
+    /** Upcasts the specified {@code XrSurfaceAnchorCreateCompletionANDROID} instance to {@code XrFutureCompletionBaseHeaderEXT}. */
+    public static XrFutureCompletionBaseHeaderEXT create(XrSurfaceAnchorCreateCompletionANDROID value) {
         return new XrFutureCompletionBaseHeaderEXT(value.address(), __getContainer(value));
     }
 
@@ -312,6 +332,16 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
         return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 
+    /** Upcasts the specified {@code XrEnvironmentRaycasterCreateCompletionMETA.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrEnvironmentRaycasterCreateCompletionMETA.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrCreateTrackableImageDatabaseCompletionANDROID.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrCreateTrackableImageDatabaseCompletionANDROID.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
     /** Upcasts the specified {@code XrCreateSpatialContextCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
     public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrCreateSpatialContextCompletionEXT.Buffer value) {
         return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
@@ -334,6 +364,16 @@ public class XrFutureCompletionBaseHeaderEXT extends Struct<XrFutureCompletionBa
 
     /** Upcasts the specified {@code XrUnpersistSpatialEntityCompletionEXT.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
     public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrUnpersistSpatialEntityCompletionEXT.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrVPSAvailabilityCheckCompletionANDROID.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrVPSAvailabilityCheckCompletionANDROID.Buffer value) {
+        return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
+    }
+
+    /** Upcasts the specified {@code XrSurfaceAnchorCreateCompletionANDROID.Buffer} instance to {@code XrFutureCompletionBaseHeaderEXT.Buffer}. */
+    public static XrFutureCompletionBaseHeaderEXT.Buffer create(XrSurfaceAnchorCreateCompletionANDROID.Buffer value) {
         return new XrFutureCompletionBaseHeaderEXT.Buffer(value.address(), __getContainer(value), -1, 0, value.remaining(), value.remaining());
     }
 

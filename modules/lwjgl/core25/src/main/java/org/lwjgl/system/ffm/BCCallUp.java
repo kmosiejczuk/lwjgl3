@@ -5,7 +5,6 @@
 package org.lwjgl.system.ffm;
 
 import org.jspecify.annotations.*;
-import org.lwjgl.system.*;
 import org.lwjgl.system.libffi.*;
 
 import java.lang.classfile.*;
@@ -25,6 +24,7 @@ import static org.lwjgl.system.libffi.LibFFI.*;
 final class BCCallUp extends BCCall {
 
     // TODO: remove in LWJGL 4, used for interop with LWJGL 3 upcalls only
+    private static final int FF_ACCEPTS_STRUCT_BY_VALUE = 1 << 30;
     private static final int FF_RETURNS_STRUCT_BY_VALUE = 1 << 31;
 
     private final Class<?> upcallInterface;
@@ -76,17 +76,24 @@ final class BCCallUp extends BCCall {
             var parameter = parameters[i];
             var type      = parameter.getType();
             if (isPointerType(parameter, type)) {
-                if (BITS32 && type == long.class) {
-                    featureFlags |= FF_TYPE_CONVERSION.mask;
+                if (type == long.class) {
+                    if (BITS32) {
+                        featureFlags |= FF_TYPE_CONVERSION.mask;
+                    }
+                    if (parameter.isAnnotationPresent(FFMCLong.class)) {
+                        throw new IllegalStateException("Cannot use both FFMCLong and FFMPointer");
+                    }
                 }
+            } else if (CLONG32 && type == long.class && parameter.isAnnotationPresent(FFMCLong.class)) {
+                featureFlags |= FF_TYPE_CONVERSION.mask;
+                argLayouts.add(ValueLayout.JAVA_INT);
+                continue;
             } else if (type == String.class) {
                 featureFlags |= FF_TYPE_CONVERSION.mask;
             } else if (type == boolean.class) {
                 var booleanInt = parameter.getAnnotation(FFMBooleanInt.class);
                 if (booleanInt != null) {
                     featureFlags |= FF_TYPE_CONVERSION.mask;
-                    argLayouts.add(booleanInt.value().layout);
-                    continue;
                 } else if (cif != null) {
                     // LWJGL 3 interop
                     var layout = memoryLayoutFrom(FFIType.create(cif.arg_types().get(i)));
@@ -102,14 +109,13 @@ final class BCCallUp extends BCCall {
                 continue;
             } else if (org.lwjgl.system.Struct.class.isAssignableFrom(type)) {
                 // LWJGL 3 interop
-                if (parameter != parameters[parameters.length - 1]) {
-                    // LWJGL 3 does not support upcall group parameters passed by value, only results
-                    throw new IllegalStateException("Group result parameter must be the last parameter");
+                Objects.requireNonNull(cif);
+                if (i == parameters.length - 1 && method.getReturnType() == void.class && cif.rtype().type() == FFI_TYPE_STRUCT) {
+                    featureFlags |= FF_RETURNS_STRUCT_BY_VALUE;
+                } else {
+                    featureFlags |= FF_ACCEPTS_STRUCT_BY_VALUE;
+                    argLayouts.add(memoryLayoutFrom(FFIType.create(cif.arg_types().get(i))));
                 }
-                if (method.getReturnType() != void.class) {
-                    throw new IllegalStateException("Group result parameter requires a void return type");
-                }
-                featureFlags |= FF_RETURNS_STRUCT_BY_VALUE;
                 continue;
             }
 
@@ -125,12 +131,16 @@ final class BCCallUp extends BCCall {
             } else if (type == boolean.class) {
                 if (method.isAnnotationPresent(FFMBooleanInt.class)) {
                     featureFlags |= FF_TYPE_CONVERSION.mask;
+                    resLayout = valueLayout(method, type);
                 } else if (cif != null) {
                     // LWJGL 3 interop
-                    resLayout = memoryLayoutFrom(cif.rtype());
                     featureFlags |= FF_TYPE_CONVERSION.mask;
+                    resLayout = memoryLayoutFrom(cif.rtype());
                 }
-            } else if (BITS32 && type == long.class && method.isAnnotationPresent(FFMPointer.class)) {
+            } else if (type == long.class && (
+                (BITS32 && method.isAnnotationPresent(FFMPointer.class)) ||
+                (CLONG32 && method.isAnnotationPresent(FFMCLong.class))
+            )) {
                 featureFlags |= FF_TYPE_CONVERSION.mask;
                 resLayout = ValueLayout.JAVA_INT;
             } else if (needsBinder(type)) {
@@ -150,7 +160,7 @@ final class BCCallUp extends BCCall {
                     resLayout = ValueLayout.ADDRESS.withTargetLayout(groupLayout);
                 }
             } else {
-                resLayout = valueLayout(method, method.getReturnType());
+                resLayout = valueLayout(method, type);
             }
         } else if ((featureFlags & FF_RETURNS_STRUCT_BY_VALUE) != 0) {
             // LWJGL 3 interop
@@ -282,7 +292,7 @@ final class BCCallUp extends BCCall {
 
                         var type = parameter.getType();
 
-                        if (org.lwjgl.system.Struct.class.isAssignableFrom(type)) {
+                        if (p == methodTypeDesc.parameterCount() - 1 && (featureFlags & FF_RETURNS_STRUCT_BY_VALUE) != 0) {
                             // LWJGL 3 interop (this is the last __result parameter)
                             continue;
                         }
@@ -290,6 +300,7 @@ final class BCCallUp extends BCCall {
                         var slot = cb.parameterSlot(p + paramOffset);
                         if (type == String.class) {
                             cb.aload(slot);
+                            var charsetType = getCharsetType(parameter);
                             if (isNullable(config, parameter)) {
                                 cb
                                     .invokeinterface(CD_MemorySegment, "address", MTD_long)
@@ -297,9 +308,9 @@ final class BCCallUp extends BCCall {
                                     .lcmp()
                                     .ifThenElse(Opcode.IFEQ,
                                         CodeBuilder::aconst_null,
-                                        bcb -> buildGetString(bcb.aload(slot), method));
+                                        bcb -> buildGetString(bcb.aload(slot), charsetType));
                             } else {
-                                buildGetString(cb, method);
+                                buildGetString(cb, charsetType);
                             }
                         } else if (type == boolean.class) {
                             cb.iload(slot);
@@ -307,10 +318,17 @@ final class BCCallUp extends BCCall {
                             if (booleanInt != null && !booleanInt.binary()) {
                                 cb.ifThenElse(Opcode.IFEQ, CodeBuilder::iconst_0, CodeBuilder::iconst_1);
                             }
-                        } else if (BITS32 && type == long.class && parameter.isAnnotationPresent(FFMPointer.class)) {
-                            // TODO: test
-                            cb.iload(slot);
-                            buildPointer32to64(cb);
+                        } else if (type == long.class) {
+                            if (BITS32 && parameter.isAnnotationPresent(FFMPointer.class)) {
+                                cb.iload(slot);
+                                buildPointer32to64(cb);
+                            } else if (CLONG32 && parameter.isAnnotationPresent(FFMCLong.class)) {
+                                cb
+                                    .iload(slot)
+                                    .i2l();
+                            } else {
+                                cb.lload(slot);
+                            }
                         } else if (needsBinder(type)) {
                             cb
                                 .ldc(condyCDataAt(CD_GroupBinder, featureFlagOffsets[FF_BINDER.ordinal()] + binders.get(type)))
@@ -318,6 +336,13 @@ final class BCCallUp extends BCCall {
                                 .invokeinterface(CD_GroupBinder, "get", MTD_Object_MemorySegment)
                             /*.checkcast(type.describeConstable().orElseThrow())*/
                             ;
+                        } else if (org.lwjgl.system.Struct.class.isAssignableFrom(type)) {
+                            // LWJGL 3 interop (convert bridge's MemorySegment parameter to LWJGL 3 struct instance)
+                            var groupDesc = methodTypeDesc.parameterType(p);
+                            cb
+                                .aload(slot)
+                                .invokeinterface(CD_MemorySegment, "address", MTD_long)
+                                .invokestatic(groupDesc, "create", MethodTypeDesc.of(groupDesc, CD_long));
                         } else {
                             // FFMBooleanInt is handled implicitly, boolean parameters use iload anyway
                             cb.loadLocal(TypeKind.from(methodTypeDesc.parameterType(p)), slot);
@@ -326,8 +351,7 @@ final class BCCallUp extends BCCall {
 
                     if ((featureFlags & FF_RETURNS_STRUCT_BY_VALUE) != 0) {
                         // LWJGL 3 interop
-                        var groupType = parameters[parameters.length - 1].getType();
-                        var groupDesc = groupType.describeConstable().orElseThrow();
+                        var groupDesc = methodTypeDesc.parameterType(parameters.length - 1);
                         cb
                             .aload(cb.parameterSlot(1)) // __result
                             .invokeinterface(CD_MemorySegment, "address", MTD_long)
@@ -343,9 +367,13 @@ final class BCCallUp extends BCCall {
                         var type = method.getReturnType();
                         if (type != void.class) {
                             // Return result if non-void, transform if necessary
-                            if (BITS32 && type == long.class && method.isAnnotationPresent(FFMPointer.class)) {
-                                // TODO: test
-                                buildPointer64to32(cb);
+                            if (type == long.class) {
+                                if (
+                                    (BITS32 && method.isAnnotationPresent(FFMPointer.class)) ||
+                                    (CLONG32 && method.isAnnotationPresent(FFMCLong.class))
+                                ) {
+                                    cb.l2i();
+                                }
                             } else if (needsBinder(type)) {
                                 cb
                                     .ldc(condyCDataAt(CD_GroupBinder, featureFlagOffsets[FF_BINDER.ordinal()] + binders.get(type)))

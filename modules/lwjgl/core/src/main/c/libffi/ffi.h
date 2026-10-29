@@ -86,9 +86,11 @@ extern "C" {
 #define FFI_TYPE_STRUCT     13
 #define FFI_TYPE_POINTER    14
 #define FFI_TYPE_COMPLEX    15
+#define FFI_TYPE_UINT128    16
+#define FFI_TYPE_SINT128    17
 
 /* This should always refer to the last type code (for sanity checks).  */
-#define FFI_TYPE_LAST       FFI_TYPE_COMPLEX
+#define FFI_TYPE_LAST       FFI_TYPE_SINT128
 
 #include <ffitarget.h>
 
@@ -236,6 +238,11 @@ FFI_EXTERN ffi_type ffi_type_complex_float;
 FFI_EXTERN ffi_type ffi_type_complex_double;
 FFI_EXTERN ffi_type ffi_type_complex_longdouble;
 #endif
+
+#ifdef FFI_TARGET_HAS_INT128
+FFI_EXTERN ffi_type ffi_type_uint128;
+FFI_EXTERN ffi_type ffi_type_sint128;
+#endif
 #endif /* LIBFFI_HIDE_BASIC_TYPES */
 
 typedef enum {
@@ -325,8 +332,8 @@ size_t ffi_java_raw_size (ffi_cif *cif) __attribute__((deprecated));
 
 /* ---- Version API ------------------------------------------------------ */
 
-#define FFI_VERSION_STRING "3.5.0"
-#define FFI_VERSION_NUMBER 30500
+#define FFI_VERSION_STRING "3.7.0"
+#define FFI_VERSION_NUMBER 30700
 
 #ifndef LIBFFI_ASM
 /* Return a version string. */
@@ -353,6 +360,11 @@ typedef struct {
   void *trampoline_table;
   void *trampoline_table_entry;
 #else
+  /* Anonymous unions are C11 (a GNU extension in C99); __extension__ keeps
+     the field names without tripping -Wpedantic under -std=c99 (#795).  */
+#ifdef __GNUC__
+  __extension__
+#endif
   union {
     char tramp[FFI_TRAMPOLINE_SIZE];
     void *ftramp;
@@ -520,6 +532,32 @@ void ffi_call(ffi_cif *cif,
 	      void (*fn)(void),
 	      void *rvalue,
 	      void **avalue);
+
+/* Reusable call plans.
+
+   A plan captures a signature's argument placement once so that repeated
+   calls skip the per-call work that ffi_call would otherwise redo.  Build one
+   with ffi_call_plan_alloc, invoke it as many times as you like, and release
+   it with ffi_call_plan_free.
+
+   The plan is opaque and caller-owned.  The cif must outlive the plan.
+   ffi_call_plan_alloc returns NULL only on allocation failure; a signature
+   with no fast path is still valid and ffi_call_plan_invoke falls back to
+   ffi_call for it.  A plan is immutable once built, so it may be shared and
+   invoked concurrently from multiple threads.  */
+typedef struct ffi_call_plan ffi_call_plan;
+
+FFI_API
+ffi_call_plan *ffi_call_plan_alloc (ffi_cif *cif);
+
+FFI_API
+void ffi_call_plan_invoke (ffi_call_plan *plan,
+			   void (*fn)(void),
+			   void *rvalue,
+			   void **avalue);
+
+FFI_API
+void ffi_call_plan_free (ffi_call_plan *plan);
 
 FFI_API
 ffi_status ffi_get_struct_offsets (ffi_abi abi, ffi_type *struct_type,

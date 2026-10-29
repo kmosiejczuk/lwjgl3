@@ -14,8 +14,6 @@ val LibIOURing = "LibIOURing".nativeClass(Module.CORE_LINUX_LIBURING, nativeSubP
 #ifdef LWJGL_LINUX
     _Pragma("GCC diagnostic ignored \"-Wsign-compare\"")
 #endif
-#include "liburing/compat.h"
-#include "liburing/io_uring.h"
 #include "syscall.h"
 ENABLE_WARNINGS()""")
 
@@ -69,7 +67,8 @@ ENABLE_WARNINGS()""")
         "SETUP_NO_SQARRAY".enum("1 << 16"),
         "SETUP_HYBRID_IOPOLL".enum("1 << 17"),
         "SETUP_CQE_MIXED".enum("1 << 18"),
-        "SETUP_SQE_MIXED".enum("1 << 19")
+        "SETUP_SQE_MIXED".enum("1 << 19"),
+        "SETUP_SQ_REWIND".enum("1 << 20")
     )
 
     EnumConstantByte(
@@ -158,6 +157,7 @@ ENABLE_WARNINGS()""")
         "LINK_TIMEOUT_UPDATE".enum("1 << 4"),
         "TIMEOUT_ETIME_SUCCESS".enum("1 << 5"),
         "TIMEOUT_MULTISHOT".enum("1 << 6"),
+        "TIMEOUT_IMMEDIATE_ARG".enum("1 << 7"),
         "TIMEOUT_CLOCK_MASK".enum("IORING_TIMEOUT_BOOTTIME | IORING_TIMEOUT_REALTIME"),
         "TIMEOUT_UPDATE_MASK".enum("IORING_TIMEOUT_UPDATE | IORING_LINK_TIMEOUT_UPDATE")
     )
@@ -320,6 +320,8 @@ ENABLE_WARNINGS()""")
         "REGISTER_RESIZE_RINGS".enum,
         "REGISTER_MEM_REGION".enum,
         "REGISTER_QUERY".enum,
+        "REGISTER_ZCRX_CTRL".enum,
+        "REGISTER_BPF_FILTER".enum,
 
         "REGISTER_LAST".enum,
 
@@ -395,10 +397,13 @@ ENABLE_WARNINGS()""")
         "ZCRX_AREA_DMABUF".enum("1")
     )
 
-    // query.h
+    EnumConstant(
+        "ZCRX_REG_IMPORT".enum("1"),
+        "ZCRX_REG_NODEV".enum
+    )
 
     EnumConstant(
-        "QUERY_OPCODES".enum("0")
+        "ZCRX_FEATURE_RX_PAGE_SIZE".enum("1 << 0")
     )
 
     NativeName("__sys_io_uring_setup")..int(

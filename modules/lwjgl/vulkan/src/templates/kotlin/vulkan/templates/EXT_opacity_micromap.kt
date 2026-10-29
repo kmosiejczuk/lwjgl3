@@ -74,6 +74,27 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
     )
 
     EnumConstant(
+        "OPACITY_MICROMAP_FORMAT_2_STATE_EXT".."1",
+        "OPACITY_MICROMAP_FORMAT_4_STATE_EXT".."2"
+    )
+
+    EnumConstant(
+        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT".."-1",
+        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT".."-2",
+        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT".."-3",
+        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT".."-4"
+    )
+
+    EnumConstantLong(
+        "PIPELINE_CREATE_2_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT".enum(0x01000000L)
+    )
+
+    EnumConstantLong(
+        "BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT".enum(0x00800000L),
+        "BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT".enum(0x01000000L)
+    )
+
+    EnumConstant(
         "MICROMAP_TYPE_OPACITY_MICROMAP_EXT".."0"
     )
 
@@ -84,14 +105,6 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
     )
 
     EnumConstant(
-        "BUILD_MICROMAP_MODE_BUILD_EXT".."0"
-    )
-
-    EnumConstant(
-        "MICROMAP_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_EXT".enum(0x00000001)
-    )
-
-    EnumConstant(
         "COPY_MICROMAP_MODE_CLONE_EXT".."0",
         "COPY_MICROMAP_MODE_SERIALIZE_EXT".."1",
         "COPY_MICROMAP_MODE_DESERIALIZE_EXT".."2",
@@ -99,15 +112,11 @@ val EXT_opacity_micromap = "EXTOpacityMicromap".nativeClassVK("EXT_opacity_micro
     )
 
     EnumConstant(
-        "OPACITY_MICROMAP_FORMAT_2_STATE_EXT".."1",
-        "OPACITY_MICROMAP_FORMAT_4_STATE_EXT".."2"
+        "MICROMAP_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT_EXT".enum(0x00000001)
     )
 
     EnumConstant(
-        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT".."-1",
-        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT".."-2",
-        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT".."-3",
-        "OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT".."-4"
+        "BUILD_MICROMAP_MODE_BUILD_EXT".."0"
     )
 
     VkResult(

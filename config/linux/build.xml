@@ -186,6 +186,7 @@
                 <arg value="-I${src.main.rel}/libffi/riscv64" if:set="build.arch.riscv64"/>
                 <arg value="-I${src.main.rel}/libffi/x86" if:set="build.arch.x64|x86"/>
                 <arg value="-DX86_64" if:set="build.arch.x64"/> <!-- for libffi/x86/ffitarget.h -->
+                <arg value="-DPOWERPC" if:set="build.arch.ppc64le"/> <!-- for libffi/ppc64le/ffitarget.h -->
                 <arg value="-I${src.main.rel}/${platform}/liburing"/>
                 <arg value="-I${src.main.rel}/${platform}/liburing/include"/>
                 <fileset dir=".">
@@ -462,9 +463,13 @@
             <update-dependency module="freetype" artifact="libfreetype.so"/>
             <update-dependency module="glfw" artifact="libglfw.so"/>
             <update-dependency module="harfbuzz" artifact="libharfbuzz.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-gpu.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-raster.so"/>
+                <update-dependency module="harfbuzz" artifact="libharfbuzz-vector.so"/>
             <update-dependency module="hwloc" artifact="libhwloc.so"/>
             <update-dependency module="jemalloc" artifact="libjemalloc.so"/>
             <update-dependency module="ktx" artifact="libktx.so"/>
+            <update-dependency module="mimalloc" artifact="libmimalloc.so"/>
             <update-dependency module="openal" artifact="libopenal.so"/>
             <update-dependency module="openxr" artifact="libopenxr_loader.so"/>
             <update-dependency module="opus" artifact="libopus.so"/>

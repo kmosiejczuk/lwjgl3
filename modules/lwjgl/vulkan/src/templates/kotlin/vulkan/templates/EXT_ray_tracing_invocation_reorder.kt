@@ -10,7 +10,7 @@ import vulkan.*
 
 val EXT_ray_tracing_invocation_reorder = "EXTRayTracingInvocationReorder".nativeClassVK("EXT_ray_tracing_invocation_reorder", type = "device", postfix = "EXT") {
     IntConstant(
-        "EXT_RAY_TRACING_INVOCATION_REORDER_SPEC_VERSION".."1"
+        "EXT_RAY_TRACING_INVOCATION_REORDER_SPEC_VERSION".."2"
     )
 
     StringConstant(
@@ -20,5 +20,10 @@ val EXT_ray_tracing_invocation_reorder = "EXTRayTracingInvocationReorder".native
     EnumConstant(
         "STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_EXT".."1000581000",
         "STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_EXT".."1000581001"
+    )
+
+    EnumConstant(
+        "RAY_TRACING_INVOCATION_REORDER_MODE_NONE_EXT".."0",
+        "RAY_TRACING_INVOCATION_REORDER_MODE_REORDER_EXT".."1"
     )
 }

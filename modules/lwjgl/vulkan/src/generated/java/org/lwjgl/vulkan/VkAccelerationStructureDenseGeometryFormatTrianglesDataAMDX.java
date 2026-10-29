@@ -50,6 +50,8 @@ public class VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX extends
         FORMAT;
 
     static {
+        VkDeviceOrHostAddressConstKHR.createSafe(NULL);
+
         Layout layout = __struct(
             __member(4),
             __member(POINTER_SIZE),
@@ -133,6 +135,8 @@ public class VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX extends
     public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX pNext(@NativeType("void const *") long value) { npNext(address(), value); return this; }
     /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapEXT} value to the {@code pNext} chain. */
     public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX pNext(VkAccelerationStructureTrianglesOpacityMicromapEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapKHR} value to the {@code pNext} chain. */
+    public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX pNext(VkAccelerationStructureTrianglesOpacityMicromapKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@code compressedData} field. */
     public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX compressedData(VkDeviceOrHostAddressConstKHR value) { ncompressedData(address(), value); return this; }
     /** Passes the {@code compressedData} field to the specified {@link java.util.function.Consumer Consumer}. */
@@ -414,6 +418,8 @@ public class VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX extends
         public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.Buffer pNext(@NativeType("void const *") long value) { VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.npNext(address(), value); return this; }
         /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapEXT} value to the {@code pNext} chain. */
         public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.Buffer pNext(VkAccelerationStructureTrianglesOpacityMicromapEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkAccelerationStructureTrianglesOpacityMicromapKHR} value to the {@code pNext} chain. */
+        public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.Buffer pNext(VkAccelerationStructureTrianglesOpacityMicromapKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Copies the specified {@link VkDeviceOrHostAddressConstKHR} to the {@code compressedData} field. */
         public VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.Buffer compressedData(VkDeviceOrHostAddressConstKHR value) { VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX.ncompressedData(address(), value); return this; }
         /** Passes the {@code compressedData} field to the specified {@link java.util.function.Consumer Consumer}. */

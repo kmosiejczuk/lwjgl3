@@ -147,16 +147,38 @@ public class Configuration<T> {
     public static final Configuration<String> LIBRARY_NAME = new Configuration<>("org.lwjgl.libname", StateInit.STRING);
 
     /**
+     * Overrides the default {@link MemoryUtil} backend.
+     *
+     * <p>Supported values:</p>
+     * <ul>
+     * <li><em>unsafe</em> - A backend implementation based on {@code jdk.internal.misc.Unsafe}. This is the default backend on JDK 25+ when the JVM is
+     * launched with {@code --add-exports java.base/jdk.internal.misc=ALL-UNNAMED} (or {@code =org.lwjgl} when the module path is used).</li>
+     * <li><em>legacy</em> - A backend implementation based on {@code sun.misc.Unsafe}. This is the default backend on JDK 8-24 and on JDK 25+ if
+     * {@code jdk.internal.misc} is not exported. On JDK 25+ the JVM must be launched with {@code --add-modules jdk.unsupported}.</li>
+     * <li><em>ffm</em> - A backend implementation based on {@code java.lang.foreign} that does not use {@code Unsafe}. May be used on JDK 25+ when no other
+     * backend is available. Performance with this backend may be negatively impacted.</li>
+     * <li><em>&lt;classpath&gt;</em> - A class that implements the {@link MemoryBackend MemoryBackend} interface. It will be instantiated using
+     * reflection.</li>
+     * </ul>
+     *
+     * <p>When set programmatically, it can also be a {@code MemoryBackend} instance.</p>
+     *
+     * <p style="font-family: monospace">
+     * Property: <b>org.lwjgl.system.memoryBackend</b><br>
+     * &nbsp; &nbsp; Type: String or a {@code MemoryBackend} instance<br>
+     * &nbsp; &nbsp;Usage: Static</p>
+     */
+    public static final Configuration<Object> MEMORY_BACKEND = new Configuration<>("org.lwjgl.system.memoryBackend", StateInit.STRING);
+
+    /**
      * Sets the allocator used for the {@link MemoryUtil} explicit memory management API
      * ({@link MemoryUtil#memAlloc memAlloc}/{@link MemoryUtil#memFree memFree}/etc).
      *
      * <p>Supported values:</p>
      * <ul>
      * <li><em>jemalloc</em> - The allocator provided by the jemalloc library.</li>
-     * <li><em>rpmalloc</em> - The allocator provided by the rpmalloc library.<br>
-     * <div style="margin-left: 26px; border-left: 1px solid gray; padding-left: 14px;"><p>LWJGL calls {@code rpmalloc_initialize} once, when the allocator is
-     * created. It never calls {@code rpmalloc_finalize}. The user is responsible for calling {@code rpmalloc_thread_initialize} and
-     * {@code rpmalloc_thread_finalize} when appropriate.</p></div></li>
+     * <li><em>mimalloc</em> - The allocator provided by the mimalloc library.</li>
+     * <li><em>rpmalloc</em> - The allocator provided by the rpmalloc library.</li>
      * <li><em>system</em> - The default system memory allocator</li>
      * <li><em>&lt;classpath&gt;</em> - A class that implements the {@link MemoryAllocator MemoryAllocator} interface. It will be instantiated using reflection.</li>
      * </ul>
@@ -573,6 +595,15 @@ public class Configuration<T> {
      */
     public static final Configuration<Object> HARFBUZZ_LIBRARY_NAME = new Configuration<>("org.lwjgl.harfbuzz.libname", StateInit.STRING);
 
+    /** Similar to {@link #LIBRARY_NAME} for the HarfBuzz gpu library (<b>org.lwjgl.harfbuzz.gpu.libname</b>). */
+    public static final Configuration<String> HARFBUZZ_GPU_LIBRARY_NAME = new Configuration<>("org.lwjgl.harfbuzz.gpu.libname", StateInit.STRING);
+
+    /** Similar to {@link #LIBRARY_NAME} for the HarfBuzz raster library (<b>org.lwjgl.harfbuzz.raster.libname</b>). */
+    public static final Configuration<String> HARFBUZZ_RASTER_LIBRARY_NAME = new Configuration<>("org.lwjgl.harfbuzz.raster.libname", StateInit.STRING);
+
+    /** Similar to {@link #LIBRARY_NAME} for the HarfBuzz vector library (<b>org.lwjgl.harfbuzz.vector.libname</b>). */
+    public static final Configuration<String> HARFBUZZ_VECTOR_LIBRARY_NAME = new Configuration<>("org.lwjgl.harfbuzz.vector.libname", StateInit.STRING);
+
     // -- HWLOC
 
     /** Similar to {@link #LIBRARY_NAME} for the hwloc library (<b>org.lwjgl.hwloc.libname</b>). */
@@ -603,6 +634,11 @@ public class Configuration<T> {
 
     /** Similar to {@link #LIBRARY_NAME} for the LLVM/LTO library (<b>org.lwjgl.llvm.clang.libname</b>). */
     public static final Configuration<String> LLVM_LTO_LIBRARY_NAME = new Configuration<>("org.lwjgl.llvm.lto.libname", StateInit.STRING);
+
+    // -- MIMALLOC
+
+    /** Similar to {@link #LIBRARY_NAME} for the mimalloc library (<b>org.lwjgl.system.mimalloc.libname</b>). */
+    public static final Configuration<String> MIMALLOC_LIBRARY_NAME = new Configuration<>("org.lwjgl.system.mimalloc.libname", StateInit.STRING);
 
     // -- NativeFileDialog
     /**
