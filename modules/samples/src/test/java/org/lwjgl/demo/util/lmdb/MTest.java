@@ -94,7 +94,7 @@ public final class MTest {
         long env = pp.get(0);
         E(mdb_env_set_maxreaders(env, 1));
         E(mdb_env_set_mapsize(env, 10485760));
-        E(mdb_env_open(env, dir.getPath(), MDB_FIXEDMAP /*|MDB_NOSYNC*/, 0664));
+        E(mdb_env_open(env, dir.getPath(), 0 /*| MDB_NOSYNC | MDB_NOLOCK | MDB_NOMEMINIT*/, 0664));
 
         E(mdb_txn_begin(env, NULL, 0, pp));
         long txn = pp.get(0);

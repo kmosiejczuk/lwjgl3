@@ -134,17 +134,13 @@ public class XR10 {
         XR_FORM_FACTOR_HANDHELD_DISPLAY     = 2;
 
     public static final int
-        XR_VIEW_CONFIGURATION_TYPE_PRIMARY_MONO   = 1,
-        XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO = 2;
-
-    public static final int
         XR_ENVIRONMENT_BLEND_MODE_OPAQUE      = 1,
         XR_ENVIRONMENT_BLEND_MODE_ADDITIVE    = 2,
         XR_ENVIRONMENT_BLEND_MODE_ALPHA_BLEND = 3;
 
     public static final int
-        XR_SPACE_VELOCITY_LINEAR_VALID_BIT  = 0x1,
-        XR_SPACE_VELOCITY_ANGULAR_VALID_BIT = 0x2;
+        XR_VIEW_CONFIGURATION_TYPE_PRIMARY_MONO   = 1,
+        XR_VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO = 2;
 
     public static final int
         XR_REFERENCE_SPACE_TYPE_VIEW  = 1,
@@ -156,6 +152,10 @@ public class XR10 {
         XR_SPACE_LOCATION_POSITION_VALID_BIT      = 0x2,
         XR_SPACE_LOCATION_ORIENTATION_TRACKED_BIT = 0x4,
         XR_SPACE_LOCATION_POSITION_TRACKED_BIT    = 0x8;
+
+    public static final int
+        XR_SPACE_VELOCITY_LINEAR_VALID_BIT  = 0x1,
+        XR_SPACE_VELOCITY_ANGULAR_VALID_BIT = 0x2;
 
     public static final int
         XR_SWAPCHAIN_CREATE_PROTECTED_CONTENT_BIT = 0x1,
@@ -176,6 +176,11 @@ public class XR10 {
         XR_COMPOSITION_LAYER_UNPREMULTIPLIED_ALPHA_BIT        = 0x4;
 
     public static final int
+        XR_EYE_VISIBILITY_BOTH  = 0,
+        XR_EYE_VISIBILITY_LEFT  = 1,
+        XR_EYE_VISIBILITY_RIGHT = 2;
+
+    public static final int
         XR_VIEW_STATE_ORIENTATION_VALID_BIT   = 0x1,
         XR_VIEW_STATE_POSITION_VALID_BIT      = 0x2,
         XR_VIEW_STATE_ORIENTATION_TRACKED_BIT = 0x4,
@@ -192,11 +197,6 @@ public class XR10 {
         XR_INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT           = 0x1,
         XR_INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT = 0x2,
         XR_INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT           = 0x4;
-
-    public static final int
-        XR_EYE_VISIBILITY_BOTH  = 0,
-        XR_EYE_VISIBILITY_LEFT  = 1,
-        XR_EYE_VISIBILITY_RIGHT = 2;
 
     public static final int
         XR_SESSION_STATE_UNKNOWN      = 0,
@@ -218,7 +218,7 @@ public class XR10 {
         XR_OBJECT_TYPE_ACTION_SET = 5,
         XR_OBJECT_TYPE_ACTION     = 6;
 
-    public static final long XR_CURRENT_API_VERSION = XR_MAKE_VERSION(1, 1, 61);
+    public static final long XR_CURRENT_API_VERSION = XR_MAKE_VERSION(1, 1, 62);
 
     public static final long XR_API_VERSION_1_0 = XR_MAKE_VERSION(1, 0, XR_VERSION_PATCH(XR_CURRENT_API_VERSION));
 

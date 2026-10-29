@@ -10,6 +10,7 @@ val MDB_env = "MDB_env".opaque
 
 val mdb_mode_t = typedef(int, "mdb_mode_t") // TODO: mode_t on Linux
 val mdb_filehandle_t = typedef(opaque_p, "mdb_filehandle_t") // TODO: int on Linux
+val mdb_size_t = typedef(size_t, "mdb_size_t")
 
 val MDB_dbi = typedef(unsigned_int, "MDB_dbi")
 
@@ -27,17 +28,17 @@ val MDB_cursor_op = "MDB_cursor_op".enumType
 val MDB_stat = struct(Module.LMDB, "MDBStat", nativeName = "MDB_stat", mutable = false) {
     unsigned_int("ms_psize")
     unsigned_int("ms_depth")
-    size_t("ms_branch_pages")
-    size_t("ms_leaf_pages")
-    size_t("ms_overflow_pages")
-    size_t("ms_entries")
+    mdb_size_t("ms_branch_pages")
+    mdb_size_t("ms_leaf_pages")
+    mdb_size_t("ms_overflow_pages")
+    mdb_size_t("ms_entries")
 }
 
 val MDB_envinfo = struct(Module.LMDB, "MDBEnvInfo", nativeName = "MDB_envinfo", mutable = false) {
     opaque_p("me_mapaddr")
-    size_t("me_mapsize")
-    size_t("me_last_pgno")
-    size_t("me_last_txnid")
+    mdb_size_t("me_mapsize")
+    mdb_size_t("me_last_pgno")
+    mdb_size_t("me_last_txnid")
     unsigned_int("me_maxreaders")
     unsigned_int("me_numreaders")
 }
@@ -62,6 +63,33 @@ val MDB_rel_func = Module.LMDB.callback {
         opaque_p("relctx"),
 
         nativeType = "MDB_rel_func *"
+    ) {
+    }
+}
+
+val MDB_enc_func = Module.LMDB.callback {
+    void(
+        "MDBEncFunc",
+
+        MDB_val.const.p("src"),
+        MDB_val.p("dst"),
+        Check(3)..MDB_val.const.p("key"),
+        intb("encdec"),
+
+        nativeType = "MDB_enc_func *"
+    ) {
+    }
+}
+
+val MDB_sum_func = Module.LMDB.callback {
+    void(
+        "MDBSumFunc",
+
+        MDB_val.const.p("src"),
+        MDB_val.p("dst"),
+        nullable..MDB_val.const.p("key"),
+
+        nativeType = "MDB_sum_func *"
     ) {
     }
 }

@@ -18,8 +18,8 @@ val XrSpatialAnchorMSFT = XR_DEFINE_HANDLE("XrSpatialAnchorMSFT")
 val XrSpatialGraphNodeBindingMSFT = XR_DEFINE_HANDLE("XrSpatialGraphNodeBindingMSFT")
 val XrHandTrackerEXT = XR_DEFINE_HANDLE("XrHandTrackerEXT")
 val XrBodyTrackerFB = XR_DEFINE_HANDLE("XrBodyTrackerFB")
-val XrSceneObserverMSFT = XR_DEFINE_HANDLE("XrSceneObserverMSFT")
 val XrSceneMSFT = XR_DEFINE_HANDLE("XrSceneMSFT")
+val XrSceneObserverMSFT = XR_DEFINE_HANDLE("XrSceneObserverMSFT")
 val XrFacialTrackerHTC = XR_DEFINE_HANDLE("XrFacialTrackerHTC")
 val XrFoveationProfileFB = XR_DEFINE_HANDLE("XrFoveationProfileFB")
 val XrTriangleMeshFB = XR_DEFINE_HANDLE("XrTriangleMeshFB")
@@ -76,18 +76,25 @@ val XrPerfSettingsDomainEXT = "XrPerfSettingsDomainEXT".enumType
 val XrPerfSettingsSubDomainEXT = "XrPerfSettingsSubDomainEXT".enumType
 val XrPerfSettingsLevelEXT = "XrPerfSettingsLevelEXT".enumType
 val XrPerfSettingsNotificationLevelEXT = "XrPerfSettingsNotificationLevelEXT".enumType
+val XrDebugUtilsMessageTypeFlagBitsEXT = "XrDebugUtilsMessageTypeFlagBitsEXT".enumType
+val XrDebugUtilsMessageSeverityFlagBitsEXT = "XrDebugUtilsMessageSeverityFlagBitsEXT".enumType
 val XrVisibilityMaskTypeKHR = "XrVisibilityMaskTypeKHR".enumType
+val XrOverlayMainSessionFlagBitsEXTX = "XrOverlayMainSessionFlagBitsEXTX".enumType
+val XrOverlaySessionCreateFlagBitsEXTX = "XrOverlaySessionCreateFlagBitsEXTX".enumType
+val XrCompositionLayerImageLayoutFlagBitsFB = "XrCompositionLayerImageLayoutFlagBitsFB".enumType
 val XrBlendFactorFB = "XrBlendFactorFB".enumType
+val XrCompositionLayerSecureContentFlagBitsFB = "XrCompositionLayerSecureContentFlagBitsFB".enumType
 val XrSpatialGraphNodeTypeMSFT = "XrSpatialGraphNodeTypeMSFT".enumType
 val XrHandEXT = "XrHandEXT".enumType
 val XrHandJointEXT = "XrHandJointEXT".enumType
 val XrHandJointSetEXT = "XrHandJointSetEXT".enumType
 val XrHandPoseTypeMSFT = "XrHandPoseTypeMSFT".enumType
 val XrReprojectionModeMSFT = "XrReprojectionModeMSFT".enumType
-val XrCompositionLayerSecureContentFlagBitsFB = "XrCompositionLayerSecureContentFlagBitsFB".enumType
 val XrBodyJointFB = "XrBodyJointFB".enumType
 val XrBodyJointSetFB = "XrBodyJointSetFB".enumType
 val XrHandJointsMotionRangeEXT = "XrHandJointsMotionRangeEXT".enumType
+val XrVulkanInstanceCreateFlagBitsKHR = "XrVulkanInstanceCreateFlagBitsKHR".enumType
+val XrVulkanDeviceCreateFlagBitsKHR = "XrVulkanDeviceCreateFlagBitsKHR".enumType
 val XrSceneComputeFeatureMSFT = "XrSceneComputeFeatureMSFT".enumType
 val XrSceneComputeConsistencyMSFT = "XrSceneComputeConsistencyMSFT".enumType
 val XrMeshComputeLodMSFT = "XrMeshComputeLodMSFT".enumType
@@ -99,11 +106,23 @@ val XrEyeExpressionHTC = "XrEyeExpressionHTC".enumType
 val XrLipExpressionHTC = "XrLipExpressionHTC".enumType
 val XrFacialTrackingTypeHTC = "XrFacialTrackingTypeHTC".enumType
 val XrColorSpaceFB = "XrColorSpaceFB".enumType
+val XrHandTrackingAimFlagBitsFB = "XrHandTrackingAimFlagBitsFB".enumType
 val XrSpaceComponentTypeFB = "XrSpaceComponentTypeFB".enumType
+val XrSwapchainCreateFoveationFlagBitsFB = "XrSwapchainCreateFoveationFlagBitsFB".enumType
+val XrSwapchainStateFoveationFlagBitsFB = "XrSwapchainStateFoveationFlagBitsFB".enumType
 val XrFoveationLevelFB = "XrFoveationLevelFB".enumType
 val XrFoveationDynamicFB = "XrFoveationDynamicFB".enumType
+val XrKeyboardTrackingQueryFlagBitsFB = "XrKeyboardTrackingQueryFlagBitsFB".enumType
+val XrKeyboardTrackingFlagBitsFB = "XrKeyboardTrackingFlagBitsFB".enumType
+val XrTriangleMeshFlagBitsFB = "XrTriangleMeshFlagBitsFB".enumType
 val XrWindingOrderFB = "XrWindingOrderFB".enumType
 val XrPassthroughLayerPurposeFB = "XrPassthroughLayerPurposeFB".enumType
+val XrPassthroughFlagBitsFB = "XrPassthroughFlagBitsFB".enumType
+val XrPassthroughCapabilityFlagBitsFB = "XrPassthroughCapabilityFlagBitsFB".enumType
+val XrPassthroughStateChangedFlagBitsFB = "XrPassthroughStateChangedFlagBitsFB".enumType
+val XrRenderModelFlagBitsFB = "XrRenderModelFlagBitsFB".enumType
+val XrFrameEndInfoFlagBitsML = "XrFrameEndInfoFlagBitsML".enumType
+val XrGlobalDimmerFrameEndInfoFlagBitsML = "XrGlobalDimmerFrameEndInfoFlagBitsML".enumType
 val XrMarkerDetectorProfileML = "XrMarkerDetectorProfileML".enumType
 val XrMarkerTypeML = "XrMarkerTypeML".enumType
 val XrMarkerArucoDictML = "XrMarkerArucoDictML".enumType
@@ -127,20 +146,27 @@ val XrHandForearmJointULTRALEAP = "XrHandForearmJointULTRALEAP".enumType
 val XrSpaceQueryActionFB = "XrSpaceQueryActionFB".enumType
 val XrSpaceStorageLocationFB = "XrSpaceStorageLocationFB".enumType
 val XrSpacePersistenceModeFB = "XrSpacePersistenceModeFB".enumType
+val XrCompositionLayerSpaceWarpInfoFlagBitsFB = "XrCompositionLayerSpaceWarpInfoFlagBitsFB".enumType
 val XrSemanticLabelsSupportFlagBitsFB = "XrSemanticLabelsSupportFlagBitsFB".enumType
+val XrDigitalLensControlFlagBitsALMALENCE = "XrDigitalLensControlFlagBitsALMALENCE".enumType
 val XrFoveationEyeTrackedProfileCreateFlagBitsMETA = "XrFoveationEyeTrackedProfileCreateFlagBitsMETA".enumType
 val XrFoveationEyeTrackedStateFlagBitsMETA = "XrFoveationEyeTrackedStateFlagBitsMETA".enumType
 val XrFaceExpressionFB = "XrFaceExpressionFB".enumType
 val XrFaceExpressionSetFB = "XrFaceExpressionSetFB".enumType
 val XrFaceConfidenceFB = "XrFaceConfidenceFB".enumType
 val XrEyePositionFB = "XrEyePositionFB".enumType
+val XrCompositionLayerSettingsFlagBitsFB = "XrCompositionLayerSettingsFlagBitsFB".enumType
+val XrFrameSynthesisInfoFlagBitsEXT = "XrFrameSynthesisInfoFlagBitsEXT".enumType
 val XrCompareOpFB = "XrCompareOpFB".enumType
 val XrLocalDimmingModeMETA = "XrLocalDimmingModeMETA".enumType
 val XrPassthroughPreferenceFlagBitsMETA = "XrPassthroughPreferenceFlagBitsMETA".enumType
 val XrVirtualKeyboardLocationTypeMETA = "XrVirtualKeyboardLocationTypeMETA".enumType
 val XrVirtualKeyboardInputSourceMETA = "XrVirtualKeyboardInputSourceMETA".enumType
+val XrVirtualKeyboardInputStateFlagBitsMETA = "XrVirtualKeyboardInputStateFlagBitsMETA".enumType
 val XrExternalCameraAttachedToDeviceOCULUS = "XrExternalCameraAttachedToDeviceOCULUS".enumType
+val XrExternalCameraStatusFlagBitsOCULUS = "XrExternalCameraStatusFlagBitsOCULUS".enumType
 val XrPerformanceMetricsCounterUnitMETA = "XrPerformanceMetricsCounterUnitMETA".enumType
+val XrPerformanceMetricsCounterFlagBitsMETA = "XrPerformanceMetricsCounterFlagBitsMETA".enumType
 val XrPassthroughColorLutChannelsMETA = "XrPassthroughColorLutChannelsMETA".enumType
 val XrFullBodyJointMETA = "XrFullBodyJointMETA".enumType
 val XrBodyTrackingCalibrationStateMETA = "XrBodyTrackingCalibrationStateMETA".enumType
@@ -157,6 +183,7 @@ val XrHandGestureTypeQCOM = "XrHandGestureTypeQCOM".enumType
 val XrPassthroughFormHTC = "XrPassthroughFormHTC".enumType
 val XrFoveationModeHTC = "XrFoveationModeHTC".enumType
 val XrFoveationLevelHTC = "XrFoveationLevelHTC".enumType
+val XrFoveationDynamicFlagBitsHTC = "XrFoveationDynamicFlagBitsHTC".enumType
 val XrBodyJointHTC = "XrBodyJointHTC".enumType
 val XrBodyJointSetHTC = "XrBodyJointSetHTC".enumType
 val XrBodyJointConfidenceHTC = "XrBodyJointConfidenceHTC".enumType
@@ -174,6 +201,7 @@ val XrPersistenceLocationBD = "XrPersistenceLocationBD".enumType
 val XrSpatialMeshLodBD = "XrSpatialMeshLodBD".enumType
 val XrSpatialMeshConfigFlagBitsBD = "XrSpatialMeshConfigFlagBitsBD".enumType
 val XrBodyTrackingPostureBD = "XrBodyTrackingPostureBD".enumType
+val XrSpaceAccelerationFlagBitsBD = "XrSpaceAccelerationFlagBitsBD".enumType
 val XrBodyTrackingStatusBD = "XrBodyTrackingStatusBD".enumType
 val XrBodyTrackingMessageBD = "XrBodyTrackingMessageBD".enumType
 val XrPlaneOrientationBD = "XrPlaneOrientationBD".enumType
@@ -184,10 +212,15 @@ val XrSoundFieldChannelMaskSurroundBD = "XrSoundFieldChannelMaskSurroundBD".enum
 val XrSoundFieldChannelMaskAmbixBD = "XrSoundFieldChannelMaskAmbixBD".enumType
 val XrSoundFieldChannelMaskFumaBD = "XrSoundFieldChannelMaskFumaBD".enumType
 val XrSoundObstacleMaterialTypeBD = "XrSoundObstacleMaterialTypeBD".enumType
+val XrSoundObstacleFlagBitsBD = "XrSoundObstacleFlagBitsBD".enumType
+val XrSoundObjectFlagBitsBD = "XrSoundObjectFlagBitsBD".enumType
+val XrSoundFieldFlagBitsBD = "XrSoundFieldFlagBitsBD".enumType
 val XrHandTrackingDataSourceEXT = "XrHandTrackingDataSourceEXT".enumType
+val XrPlaneDetectionCapabilityFlagBitsEXT = "XrPlaneDetectionCapabilityFlagBitsEXT".enumType
 val XrPlaneDetectorOrientationEXT = "XrPlaneDetectorOrientationEXT".enumType
 val XrPlaneDetectorSemanticTypeEXT = "XrPlaneDetectorSemanticTypeEXT".enumType
 val XrPlaneDetectionStateEXT = "XrPlaneDetectionStateEXT".enumType
+val XrPlaneDetectorFlagBitsEXT = "XrPlaneDetectorFlagBitsEXT".enumType
 val XrTrackingStateANDROID = "XrTrackingStateANDROID".enumType
 val XrTrackableTypeANDROID = "XrTrackableTypeANDROID".enumType
 val XrPlaneTypeANDROID = "XrPlaneTypeANDROID".enumType
@@ -210,6 +243,7 @@ val XrWorldMeshDetectorLodML = "XrWorldMeshDetectorLodML".enumType
 val XrWorldMeshBlockStatusML = "XrWorldMeshBlockStatusML".enumType
 val XrWorldMeshBlockResultML = "XrWorldMeshBlockResultML".enumType
 val XrFacialBlendShapeML = "XrFacialBlendShapeML".enumType
+val XrFacialExpressionBlendShapePropertiesFlagBitsML = "XrFacialExpressionBlendShapePropertiesFlagBitsML".enumType
 val XrBoundaryVisibilityMETA = "XrBoundaryVisibilityMETA".enumType
 val XrFaceTrackingVisemeMETA = "XrFaceTrackingVisemeMETA".enumType
 val XrSemanticLabelMETA = "XrSemanticLabelMETA".enumType
@@ -239,6 +273,7 @@ val XrSpatialPersistenceScopeEXT = "XrSpatialPersistenceScopeEXT".enumType
 val XrSpatialPersistenceContextResultEXT = "XrSpatialPersistenceContextResultEXT".enumType
 val XrSpatialPersistenceStateEXT = "XrSpatialPersistenceStateEXT".enumType
 val XrHapticParametricStreamFrameTypeEXT = "XrHapticParametricStreamFrameTypeEXT".enumType
+val XrColorSpaceSONY = "XrColorSpaceSONY".enumType
 val XrSpatialObjectSemanticLabelANDROID = "XrSpatialObjectSemanticLabelANDROID".enumType
 val XrGoogleCloudAuthErrorANDROID = "XrGoogleCloudAuthErrorANDROID".enumType
 val XrGeospatialTrackerStateANDROID = "XrGeospatialTrackerStateANDROID".enumType
@@ -2383,13 +2418,14 @@ val XrHapticPcmVibrationFB = struct(Module.OPENXR, "XrHapticPcmVibrationFB", par
     uint32_t.p("samplesConsumed")
 }
 
-val XrDevicePcmSampleRateStateFB = struct(Module.OPENXR, "XrDevicePcmSampleRateStateFB") {
+val _XrDevicePcmSampleRateStateFB = struct(Module.OPENXR, "XrDevicePcmSampleRateStateFB")
+val XrDevicePcmSampleRateGetInfoFB = struct(Module.OPENXR, "XrDevicePcmSampleRateGetInfoFB", alias = _XrDevicePcmSampleRateStateFB) {
     Expression("#TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB")..XrStructureType("type")
     nullable..opaque_p("next")
     float("sampleRate")
 }
 
-val XrDevicePcmSampleRateGetInfoFB = struct(Module.OPENXR, "XrDevicePcmSampleRateGetInfoFB", alias = XrDevicePcmSampleRateStateFB) {
+val XrDevicePcmSampleRateStateFB = struct(Module.OPENXR, "XrDevicePcmSampleRateStateFB") {
     Expression("#TYPE_DEVICE_PCM_SAMPLE_RATE_STATE_FB")..XrStructureType("type")
     nullable..opaque_p("next")
     float("sampleRate")
@@ -5261,6 +5297,18 @@ val XrSystemHapticParametricPropertiesEXT = struct(Module.OPENXR, "XrSystemHapti
     Expression("#TYPE_SYSTEM_HAPTIC_PARAMETRIC_PROPERTIES_EXT")..XrStructureType("type").mutable()
     nullable..opaque_p("next").mutable()
     XrBool32("supportsParametricHaptics")
+}
+
+val XrColorSpacesEnumerateInfoSONY = struct(Module.OPENXR, "XrColorSpacesEnumerateInfoSONY") {
+    Expression("#TYPE_COLOR_SPACES_ENUMERATE_INFO_SONY")..XrStructureType("type")
+    nullable..opaque_const_p("next")
+    int64_t("format")
+}
+
+val XrSwapchainCreateInfoColorSpaceSONY = struct(Module.OPENXR, "XrSwapchainCreateInfoColorSpaceSONY") {
+    Expression("#TYPE_SWAPCHAIN_CREATE_INFO_COLOR_SPACE_SONY")..XrStructureType("type")
+    nullable..opaque_const_p("next")
+    XrColorSpaceSONY("colorSpace")
 }
 
 val XrSpatialEntityPersistInfoEXT = struct(Module.OPENXR, "XrSpatialEntityPersistInfoEXT") {

@@ -893,6 +893,10 @@ public class XRCapabilities {
     public final long
         xrSetTrackingOptimizationSettingsHintQCOM;
 
+    // SONY_swapchain_color_space
+    public final long
+        xrEnumerateColorSpacesSONY;
+
     // VARJO_environment_depth_estimation
     public final long
         xrSetEnvironmentDepthEstimationVARJO;
@@ -1364,6 +1368,8 @@ public class XRCapabilities {
     public final boolean XR_QCOM_hand_tracking_gesture;
     /** When true, {@code QCOM_tracking_optimization_settings} is supported. */
     public final boolean XR_QCOM_tracking_optimization_settings;
+    /** When true, {@code SONY_swapchain_color_space} is supported. */
+    public final boolean XR_SONY_swapchain_color_space;
     /** When true, {@code ULTRALEAP_hand_tracking_forearm} is supported. */
     public final boolean XR_ULTRALEAP_hand_tracking_forearm;
     /** When true, {@code VALVE_analog_threshold} is supported. */
@@ -1388,7 +1394,7 @@ public class XRCapabilities {
     XRCapabilities(FunctionProvider provider, long apiVersion, Set<String> ext) {
         this.apiVersion = apiVersion;
 
-        long[] caps = new long[500];
+        long[] caps = new long[501];
 
         OpenXR10 = check_XR10(provider, caps, ext);
         OpenXR11 = check_XR11(provider, caps, ext);
@@ -1616,6 +1622,7 @@ public class XRCapabilities {
         XR_OPPO_controller_interaction = ext.contains("XR_OPPO_controller_interaction");
         XR_QCOM_hand_tracking_gesture = check_QCOM_hand_tracking_gesture(provider, caps, ext);
         XR_QCOM_tracking_optimization_settings = check_QCOM_tracking_optimization_settings(provider, caps, ext);
+        XR_SONY_swapchain_color_space = check_SONY_swapchain_color_space(provider, caps, ext);
         XR_ULTRALEAP_hand_tracking_forearm = ext.contains("XR_ULTRALEAP_hand_tracking_forearm");
         XR_VALVE_analog_threshold = ext.contains("XR_VALVE_analog_threshold");
         XR_VARJO_composition_layer_depth_test = ext.contains("XR_VARJO_composition_layer_depth_test");
@@ -2120,13 +2127,14 @@ public class XRCapabilities {
         xrEnumerateExternalCamerasOCULUS = caps[490];
         xrGetHandGestureQCOM = caps[491];
         xrSetTrackingOptimizationSettingsHintQCOM = caps[492];
-        xrSetEnvironmentDepthEstimationVARJO = caps[493];
-        xrSetMarkerTrackingVARJO = caps[494];
-        xrSetMarkerTrackingTimeoutVARJO = caps[495];
-        xrSetMarkerTrackingPredictionVARJO = caps[496];
-        xrGetMarkerSizeVARJO = caps[497];
-        xrCreateMarkerSpaceVARJO = caps[498];
-        xrSetViewOffsetVARJO = caps[499];
+        xrEnumerateColorSpacesSONY = caps[493];
+        xrSetEnvironmentDepthEstimationVARJO = caps[494];
+        xrSetMarkerTrackingVARJO = caps[495];
+        xrSetMarkerTrackingTimeoutVARJO = caps[496];
+        xrSetMarkerTrackingPredictionVARJO = caps[497];
+        xrGetMarkerSizeVARJO = caps[498];
+        xrCreateMarkerSpaceVARJO = caps[499];
+        xrSetViewOffsetVARJO = caps[500];
     }
 
     private static boolean check_XR10(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
@@ -3735,13 +3743,25 @@ public class XRCapabilities {
         ) || reportMissing("XR", "XR_QCOM_tracking_optimization_settings");
     }
 
+    private static boolean check_SONY_swapchain_color_space(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
+        if (!ext.contains("XR_SONY_swapchain_color_space")) {
+            return false;
+        }
+
+        return checkFunctions(provider, caps, new int[] {
+            493
+        },
+            "xrEnumerateColorSpacesSONY"
+        ) || reportMissing("XR", "XR_SONY_swapchain_color_space");
+    }
+
     private static boolean check_VARJO_environment_depth_estimation(FunctionProvider provider, long[] caps, java.util.Set<String> ext) {
         if (!ext.contains("XR_VARJO_environment_depth_estimation")) {
             return false;
         }
 
         return checkFunctions(provider, caps, new int[] {
-            493
+            494
         },
             "xrSetEnvironmentDepthEstimationVARJO"
         ) || reportMissing("XR", "XR_VARJO_environment_depth_estimation");
@@ -3753,7 +3773,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            494, 495, 496, 497, 498
+            495, 496, 497, 498, 499
         },
             "xrSetMarkerTrackingVARJO", "xrSetMarkerTrackingTimeoutVARJO", "xrSetMarkerTrackingPredictionVARJO", "xrGetMarkerSizeVARJO", 
             "xrCreateMarkerSpaceVARJO"
@@ -3766,7 +3786,7 @@ public class XRCapabilities {
         }
 
         return checkFunctions(provider, caps, new int[] {
-            499
+            500
         },
             "xrSetViewOffsetVARJO"
         ) || reportMissing("XR", "XR_VARJO_view_offset");

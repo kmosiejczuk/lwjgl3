@@ -100,10 +100,7 @@ enum class Module(
     BGFX(
         "lwjgl-bgfx", "LWJGL - bgfx bindings",
         "A cross-platform, graphics API agnostic rendering library. It provides a high performance, low level abstraction for common platform graphics APIs like OpenGL, Direct3D and Apple Metal.",
-        Platforms.FREEBSD,
-        Platforms.LINUX, Platforms.LINUX_ARM64, Platforms.LINUX_ARM32, Platforms.LINUX_PPC64LE, Platforms.LINUX_RISCV64,
-        Platforms.MACOS, Platforms.MACOS_ARM64,
-        Platforms.WINDOWS, Platforms.WINDOWS_X86
+        *Platforms.ALL
     ),
     EGL(
         "lwjgl-egl", "LWJGL - EGL bindings",

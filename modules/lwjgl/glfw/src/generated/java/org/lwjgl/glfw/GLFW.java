@@ -162,8 +162,8 @@ public class GLFW {
 
     public static final int
         GLFW_VERSION_MAJOR    = 3,
-        GLFW_VERSION_MINOR    = 4,
-        GLFW_VERSION_REVISION = 0;
+        GLFW_VERSION_MINOR    = 5,
+        GLFW_VERSION_REVISION = 1;
 
     public static final int
         GLFW_TRUE  = 1,

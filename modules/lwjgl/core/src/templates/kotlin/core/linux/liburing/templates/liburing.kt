@@ -1814,14 +1814,14 @@ ENABLE_WARNINGS()""")
         io_uring.p("ring")
     )
 
-    int(
+    ssize_t(
         "mlock_size",
 
         unsigned("entries"),
         unsigned("flags")
     )
 
-    int(
+    ssize_t(
         "mlock_size_params",
 
         unsigned("entries"),

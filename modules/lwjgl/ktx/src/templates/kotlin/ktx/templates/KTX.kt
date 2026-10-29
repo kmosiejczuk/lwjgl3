@@ -188,7 +188,7 @@ val ktx = "KTX".nativeClass(Module.KTX, prefix = "KTX", binding = KTX_BINDING) {
         "TTF_BC7_RGBA".enum,
         "TTF_PVRTC1_4_RGB".enum("8"),
         "TTF_PVRTC1_4_RGBA".enum,
-        "TTF_ASTC_4x4_RGBA".enum,
+        "TTF_ASTC_LDR_4x4_RGBA".enum,
         "TTF_PVRTC2_4_RGB".enum("18"),
         "TTF_PVRTC2_4_RGBA".enum,
         "TTF_ETC2_EAC_R11".enum,
@@ -199,16 +199,19 @@ val ktx = "KTX".nativeClass(Module.KTX, prefix = "KTX", binding = KTX_BINDING) {
         "TTF_RGBA4444".enum,
         "TTF_ETC".enum("22"),
         "TTF_BC1_OR_3".enum,
-        "TTF_RGBA_HALF".enum("25"),
+        "TTF_RGB_HALF".enum,
+        "TTF_RGBA_HALF".enum,
+        "TTF_RGB_9E5".enum,
         "TTF_ASTC_HDR_4x4_RGBA".enum("29"),
         "TTF_ASTC_HDR_6x6_RGBA".enum,
-        "TTF_BC6HU".enum,
+        "TTF_BC6HU_RGB".enum,
         "TTF_NOSELECTION".enum(0x7fffffff)
     )
 
     EnumConstant(
         "TF_PVRTC_DECODE_TO_NEXT_POW2".enum("2"),
         "TF_TRANSCODE_ALPHA_DATA_TO_OPAQUE_FORMATS".enum("4"),
+        "TF_NO_ETC1S_CHROMA_FILTERING".enum("64"),
         "TF_HIGH_QUALITY".enum("32")
     )
 
@@ -342,6 +345,16 @@ val ktx = "KTX".nativeClass(Module.KTX, prefix = "KTX", binding = KTX_BINDING) {
         ktxTexture1.p("This")
     )
 
+    IgnoreMissing..ktx_error_code_e(
+        "Texture1_GetImageOffset",
+
+        ktxTexture1.p("This"),
+        ktx_uint32_t("level"),
+        ktx_uint32_t("layer"),
+        ktx_uint32_t("faceSlice"),
+        Check(1)..ktx_size_t.p("pOffset")
+    )
+
     ktx_bool_t(
         "Texture1_IsHDR",
 
@@ -358,6 +371,19 @@ val ktx = "KTX".nativeClass(Module.KTX, prefix = "KTX", binding = KTX_BINDING) {
         "Texture1_IsTranscodable",
 
         ktxTexture1.p("This")
+    )
+
+    ktx_size_t(
+        "Texture1_GetDataSizeUncompressed",
+
+        ktxTexture1.p("This")
+    )
+
+    ktx_size_t(
+        "Texture1_GetImageSize",
+
+        ktxTexture1.p("This"),
+        ktx_uint32_t("level")
     )
 
     IgnoreMissing..ktx_error_code_e(
@@ -579,6 +605,19 @@ val ktx = "KTX".nativeClass(Module.KTX, prefix = "KTX", binding = KTX_BINDING) {
         "Texture2_IsTranscodable",
 
         ktxTexture2.p("This")
+    )
+
+    ktx_size_t(
+        "Texture2_GetDataSizeUncompressed",
+
+        ktxTexture2.p("This")
+    )
+
+    ktx_size_t(
+        "Texture2_GetImageSize",
+
+        ktxTexture2.p("This"),
+        ktx_uint32_t("level")
     )
 
 //    ktx_error_code_e ktxTexture2_SetTransferFunction(ktxTexture2* This, khr_df_transfer_e tf);

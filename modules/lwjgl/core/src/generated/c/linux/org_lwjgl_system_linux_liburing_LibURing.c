@@ -1422,15 +1422,15 @@ JNIEXPORT jlong JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring
     return (jlong)(uintptr_t)io_uring_get_sqe128(ring);
 }
 
-JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_io_1uring_1mlock_1size(JNIEnv *__env, jclass clazz, jint entries, jint flags) {
+JNIEXPORT jlong JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_io_1uring_1mlock_1size(JNIEnv *__env, jclass clazz, jint entries, jint flags) {
     UNUSED_PARAMS(__env, clazz)
-    return (jint)io_uring_mlock_size((unsigned)entries, (unsigned)flags);
+    return (jlong)io_uring_mlock_size((unsigned)entries, (unsigned)flags);
 }
 
-JNIEXPORT jint JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1mlock_1size_1params(JNIEnv *__env, jclass clazz, jint entries, jlong pAddress) {
+JNIEXPORT jlong JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_nio_1uring_1mlock_1size_1params(JNIEnv *__env, jclass clazz, jint entries, jlong pAddress) {
     struct io_uring_params *p = (struct io_uring_params *)(uintptr_t)pAddress;
     UNUSED_PARAMS(__env, clazz)
-    return (jint)io_uring_mlock_size_params((unsigned)entries, p);
+    return (jlong)io_uring_mlock_size_params((unsigned)entries, p);
 }
 
 JNIEXPORT jlong JNICALL Java_org_lwjgl_system_linux_liburing_LibURing_io_1uring_1memory_1size(JNIEnv *__env, jclass clazz, jint entries, jint flags) {

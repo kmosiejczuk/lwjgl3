@@ -8,6 +8,7 @@ import org.lwjgl.generator.*
 
 val hb_ot_name_id_t = typedef(unsigned_int, "hb_ot_name_id_t")
 
+val hb_ot_bits_tag_t = "hb_ot_bits_tag_t".enumType
 val hb_ot_color_palette_flags_t = "hb_ot_color_palette_flags_t".enumType
 val hb_ot_layout_baseline_tag_t = "hb_ot_layout_baseline_tag_t".enumType
 val hb_ot_layout_glyph_class_t = "hb_ot_layout_glyph_class_t".enumType
@@ -16,6 +17,7 @@ val hb_ot_math_glyph_part_flags_t = "hb_ot_math_glyph_part_flags_t".enumType
 val hb_ot_math_kern_t = "hb_ot_math_kern_t".enumType
 val hb_ot_meta_tag_t = "hb_ot_meta_tag_t".enumType
 val hb_ot_metrics_tag_t = "hb_ot_metrics_tag_t".enumType
+val hb_ot_number_tag_t = "hb_ot_number_tag_t".enumType
 val hb_ot_var_axis_flags_t = "hb_ot_var_axis_flags_t".enumType
 
 val hb_ot_name_entry_t = struct(Module.HARFBUZZ, "hb_ot_name_entry_t") {

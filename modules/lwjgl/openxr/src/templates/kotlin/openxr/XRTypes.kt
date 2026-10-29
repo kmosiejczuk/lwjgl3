@@ -18,20 +18,29 @@ val XrActionSet = XR_DEFINE_HANDLE("XrActionSet")
 // Enum types
 val XrResult = "XrResult".enumType
 val XrStructureType = "XrStructureType".enumType
+val XrInstanceCreateFlagBits = "XrInstanceCreateFlagBits".enumType
 val XrFormFactor = "XrFormFactor".enumType
-val XrViewConfigurationType = "XrViewConfigurationType".enumType
 val XrEnvironmentBlendMode = "XrEnvironmentBlendMode".enumType
+val XrSessionCreateFlagBits = "XrSessionCreateFlagBits".enumType
+val XrViewConfigurationType = "XrViewConfigurationType".enumType
 val XrReferenceSpaceType = "XrReferenceSpaceType".enumType
-val XrActionType = "XrActionType".enumType
+val XrSpaceLocationFlagBits = "XrSpaceLocationFlagBits".enumType
+val XrSpaceVelocityFlagBits = "XrSpaceVelocityFlagBits".enumType
+val XrSwapchainCreateFlagBits = "XrSwapchainCreateFlagBits".enumType
+val XrSwapchainUsageFlagBits = "XrSwapchainUsageFlagBits".enumType
+val XrCompositionLayerFlagBits = "XrCompositionLayerFlagBits".enumType
 val XrEyeVisibility = "XrEyeVisibility".enumType
+val XrViewStateFlagBits = "XrViewStateFlagBits".enumType
+val XrActionType = "XrActionType".enumType
+val XrInputSourceLocalizedNameFlagBits = "XrInputSourceLocalizedNameFlagBits".enumType
 val XrSessionState = "XrSessionState".enumType
 val XrObjectType = "XrObjectType".enumType
 
 // Bitmask types
 val XrInstanceCreateFlags = typedef(XrFlags64, "XrInstanceCreateFlags")
 val XrSessionCreateFlags = typedef(XrFlags64, "XrSessionCreateFlags")
-val XrSpaceVelocityFlags = typedef(XrFlags64, "XrSpaceVelocityFlags")
 val XrSpaceLocationFlags = typedef(XrFlags64, "XrSpaceLocationFlags")
+val XrSpaceVelocityFlags = typedef(XrFlags64, "XrSpaceVelocityFlags")
 val XrSwapchainCreateFlags = typedef(XrFlags64, "XrSwapchainCreateFlags")
 val XrSwapchainUsageFlags = typedef(XrFlags64, "XrSwapchainUsageFlags")
 val XrCompositionLayerFlags = typedef(XrFlags64, "XrCompositionLayerFlags")
@@ -135,25 +144,17 @@ val XrSessionCreateInfo = struct(Module.OPENXR, "XrSessionCreateInfo") {
     XrSystemId("systemId")
 }
 
-val XrVector3f = struct(Module.OPENXR, "XrVector3f") {
-    float("x")
-    float("y")
-    float("z")
-}
-
-val XrSpaceVelocity = struct(Module.OPENXR, "XrSpaceVelocity") {
-    Expression("#TYPE_SPACE_VELOCITY")..XrStructureType("type")
-    nullable..opaque_p("next")
-    XrSpaceVelocityFlags("velocityFlags")
-    XrVector3f("linearVelocity")
-    XrVector3f("angularVelocity")
-}
-
 val XrQuaternionf = struct(Module.OPENXR, "XrQuaternionf") {
     float("x")
     float("y")
     float("z")
     float("w")
+}
+
+val XrVector3f = struct(Module.OPENXR, "XrVector3f") {
+    float("x")
+    float("y")
+    float("z")
 }
 
 val XrPosef = struct(Module.OPENXR, "XrPosef") {
@@ -166,11 +167,6 @@ val XrReferenceSpaceCreateInfo = struct(Module.OPENXR, "XrReferenceSpaceCreateIn
     nullable..opaque_const_p("next")
     XrReferenceSpaceType("referenceSpaceType")
     XrPosef("poseInReferenceSpace")
-}
-
-val XrExtent2Df = struct(Module.OPENXR, "XrExtent2Df") {
-    float("width")
-    float("height")
 }
 
 val XrActionSpaceCreateInfo = struct(Module.OPENXR, "XrActionSpaceCreateInfo") {
@@ -189,6 +185,19 @@ val XrSpaceLocation = struct(Module.OPENXR, "XrSpaceLocation") {
     )..nullable..opaque_p("next")
     XrSpaceLocationFlags("locationFlags")
     XrPosef("pose")
+}
+
+val XrSpaceVelocity = struct(Module.OPENXR, "XrSpaceVelocity") {
+    Expression("#TYPE_SPACE_VELOCITY")..XrStructureType("type")
+    nullable..opaque_p("next")
+    XrSpaceVelocityFlags("velocityFlags")
+    XrVector3f("linearVelocity")
+    XrVector3f("angularVelocity")
+}
+
+val XrExtent2Df = struct(Module.OPENXR, "XrExtent2Df") {
+    float("width")
+    float("height")
 }
 
 val XrViewConfigurationProperties = struct(Module.OPENXR, "XrViewConfigurationProperties") {
@@ -215,7 +224,7 @@ val XrViewConfigurationView = struct(Module.OPENXR, "XrViewConfigurationView") {
 val XrSwapchainCreateInfo = struct(Module.OPENXR, "XrSwapchainCreateInfo") {
     Expression("#TYPE_SWAPCHAIN_CREATE_INFO")..XrStructureType("type")
     PointerSetter(
-        "XrSecondaryViewConfigurationSwapchainCreateInfoMSFT", "XrSwapchainCreateInfoFoveationFB", "XrVulkanSwapchainCreateInfoMETA", "XrVulkanSwapchainFormatListCreateInfoKHR",
+        "XrSecondaryViewConfigurationSwapchainCreateInfoMSFT", "XrSwapchainCreateInfoColorSpaceSONY", "XrSwapchainCreateInfoFoveationFB", "XrVulkanSwapchainCreateInfoMETA", "XrVulkanSwapchainFormatListCreateInfoKHR",
         prepend = true
     )..nullable..opaque_const_p("next")
     XrSwapchainCreateFlags("createFlags")
@@ -259,11 +268,6 @@ val XrSessionBeginInfo = struct(Module.OPENXR, "XrSessionBeginInfo") {
     XrViewConfigurationType("primaryViewConfigurationType")
 }
 
-val XrFrameWaitInfo = struct(Module.OPENXR, "XrFrameWaitInfo") {
-    Expression("#TYPE_FRAME_WAIT_INFO")..XrStructureType("type")
-    nullable..opaque_const_p("next")
-}
-
 val XrFrameState = struct(Module.OPENXR, "XrFrameState") {
     Expression("#TYPE_FRAME_STATE")..XrStructureType("type")
     PointerSetter(
@@ -273,6 +277,11 @@ val XrFrameState = struct(Module.OPENXR, "XrFrameState") {
     XrTime("predictedDisplayTime")
     XrDuration("predictedDisplayPeriod")
     XrBool32("shouldRender")
+}
+
+val XrFrameWaitInfo = struct(Module.OPENXR, "XrFrameWaitInfo") {
+    Expression("#TYPE_FRAME_WAIT_INFO")..XrStructureType("type")
+    nullable..opaque_const_p("next")
 }
 
 val XrFrameBeginInfo = struct(Module.OPENXR, "XrFrameBeginInfo") {
@@ -302,6 +311,12 @@ val XrFrameEndInfo = struct(Module.OPENXR, "XrFrameEndInfo") {
     nullable..XrCompositionLayerBaseHeader.const.p.const.p("layers")
 }
 
+val XrViewState = struct(Module.OPENXR, "XrViewState") {
+    Expression("#TYPE_VIEW_STATE")..XrStructureType("type")
+    nullable..opaque_p("next")
+    XrViewStateFlags("viewStateFlags")
+}
+
 val XrViewLocateInfo = struct(Module.OPENXR, "XrViewLocateInfo") {
     Expression("#TYPE_VIEW_LOCATE_INFO")..XrStructureType("type")
     PointerSetter(
@@ -311,12 +326,6 @@ val XrViewLocateInfo = struct(Module.OPENXR, "XrViewLocateInfo") {
     XrViewConfigurationType("viewConfigurationType")
     XrTime("displayTime")
     XrSpace("space")
-}
-
-val XrViewState = struct(Module.OPENXR, "XrViewState") {
-    Expression("#TYPE_VIEW_STATE")..XrStructureType("type")
-    nullable..opaque_p("next")
-    XrViewStateFlags("viewStateFlags")
 }
 
 val XrFovf = struct(Module.OPENXR, "XrFovf") {
@@ -458,16 +467,16 @@ val XrInputSourceLocalizedNameGetInfo = struct(Module.OPENXR, "XrInputSourceLoca
     XrInputSourceLocalizedNameFlags("whichComponents")
 }
 
+val XrHapticBaseHeader = struct(Module.OPENXR, "XrHapticBaseHeader") {
+    XrStructureType("type")
+    nullable..opaque_const_p("next")
+}
+
 val XrHapticActionInfo = struct(Module.OPENXR, "XrHapticActionInfo") {
     Expression("#TYPE_HAPTIC_ACTION_INFO")..XrStructureType("type")
     nullable..opaque_const_p("next")
     XrAction("action")
     XrPath("subactionPath")
-}
-
-val XrHapticBaseHeader = struct(Module.OPENXR, "XrHapticBaseHeader") {
-    XrStructureType("type")
-    nullable..opaque_const_p("next")
 }
 
 val _XrBaseInStructure = struct(Module.OPENXR, "XrBaseInStructure")

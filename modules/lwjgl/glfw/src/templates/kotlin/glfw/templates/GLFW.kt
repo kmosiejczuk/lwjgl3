@@ -10,8 +10,8 @@ import glfw.*
 val GLFW = "GLFW".nativeClass(Module.GLFW, prefix = "GLFW", binding = GLFW_BINDING) {
     IntConstant(
         "VERSION_MAJOR".."3",
-        "VERSION_MINOR".."4",
-        "VERSION_REVISION".."0"
+        "VERSION_MINOR".."5",
+        "VERSION_REVISION".."1"
     )
 
     IntConstant(

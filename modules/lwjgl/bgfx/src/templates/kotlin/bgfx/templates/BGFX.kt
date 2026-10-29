@@ -9,7 +9,7 @@ import org.lwjgl.generator.*
 
 val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx_", binding = BGFX_BINDING) {
     IntConstant(
-        "API_VERSION".."149"
+        "API_VERSION".."156"
     )
 
     ShortConstant(
@@ -237,26 +237,6 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         | BGFX_BUFFER_COMPUTE_READ
         | BGFX_BUFFER_COMPUTE_WRITE)
         """
-    )
-
-    ShortConstant(
-        "BUFFER_COMPUTE_FORMAT_8x1"..0x0001.s,
-        "BUFFER_COMPUTE_FORMAT_8x2"..0x0002.s,
-        "BUFFER_COMPUTE_FORMAT_8x4"..0x0003.s,
-        "BUFFER_COMPUTE_FORMAT_16x1"..0x0004.s,
-        "BUFFER_COMPUTE_FORMAT_16x2"..0x0005.s,
-        "BUFFER_COMPUTE_FORMAT_16x4"..0x0006.s,
-        "BUFFER_COMPUTE_FORMAT_32x1"..0x0007.s,
-        "BUFFER_COMPUTE_FORMAT_32x2"..0x0008.s,
-        "BUFFER_COMPUTE_FORMAT_32x4"..0x0009.s,
-        "BUFFER_COMPUTE_FORMAT_SHIFT".."0",
-        "BUFFER_COMPUTE_FORMAT_MASK"..0x000f.s,
-
-        "BUFFER_COMPUTE_TYPE_INT"..0x0010.s,
-        "BUFFER_COMPUTE_TYPE_UINT"..0x0020.s,
-        "BUFFER_COMPUTE_TYPE_FLOAT"..0x0030.s,
-        "BUFFER_COMPUTE_TYPE_SHIFT".."4",
-        "BUFFER_COMPUTE_TYPE_MASK"..0x0030.s
     )
 
     LongConstant(
@@ -562,8 +542,16 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "ATTRIB_TEXCOORD5".enum,
         "ATTRIB_TEXCOORD6".enum,
         "ATTRIB_TEXCOORD7".enum,
+        "ATTRIB_TEXCOORD8".enum,
+        "ATTRIB_TEXCOORD9".enum,
+        "ATTRIB_TEXCOORD10".enum,
+        "ATTRIB_TEXCOORD11".enum,
+        "ATTRIB_TEXCOORD12".enum,
+        "ATTRIB_TEXCOORD13".enum,
+        "ATTRIB_TEXCOORD14".enum,
+        "ATTRIB_TEXCOORD15".enum,
 
-        "ATTRIB_COUNT".enum("BGFX_ATTRIB_TEXCOORD7 + 1")
+        "ATTRIB_COUNT".enum
     )
 
     EnumConstant(
@@ -574,8 +562,10 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "ATTRIB_TYPE_UINT16".enum,
         "ATTRIB_TYPE_HALF".enum,
         "ATTRIB_TYPE_FLOAT".enum,
+        "ATTRIB_TYPE_INT32".enum,
+        "ATTRIB_TYPE_UINT32".enum,
 
-        "ATTRIB_TYPE_COUNT".enum("BGFX_ATTRIB_TYPE_FLOAT + 1")
+        "ATTRIB_TYPE_COUNT".enum
     )
 
     EnumConstant(
@@ -583,8 +573,11 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "TEXTURE_FORMAT_BC2".enum,
         "TEXTURE_FORMAT_BC3".enum,
         "TEXTURE_FORMAT_BC4".enum,
+        "TEXTURE_FORMAT_BC4S".enum,
         "TEXTURE_FORMAT_BC5".enum,
+        "TEXTURE_FORMAT_BC5S".enum,
         "TEXTURE_FORMAT_BC6H".enum,
+        "TEXTURE_FORMAT_BC6HU".enum,
         "TEXTURE_FORMAT_BC7".enum,
         "TEXTURE_FORMAT_ETC1".enum,
         "TEXTURE_FORMAT_ETC2".enum,
@@ -671,6 +664,7 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "TEXTURE_FORMAT_BGR5A1".enum,
         "TEXTURE_FORMAT_RGB5A1".enum,
         "TEXTURE_FORMAT_RGB10A2".enum,
+        "TEXTURE_FORMAT_RGB10A2U".enum,
         "TEXTURE_FORMAT_RG11B10F".enum,
 
         "TEXTURE_FORMAT_UNKNOWN_DEPTH".enum,
@@ -682,9 +676,10 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "TEXTURE_FORMAT_D16F".enum,
         "TEXTURE_FORMAT_D24F".enum,
         "TEXTURE_FORMAT_D32F".enum,
+        "TEXTURE_FORMAT_D32FS8".enum,
         "TEXTURE_FORMAT_D0S8".enum,
 
-        "TEXTURE_FORMAT_COUNT".enum("BGFX_TEXTURE_FORMAT_D0S8 + 1")
+        "TEXTURE_FORMAT_COUNT".enum
     )
 
     EnumConstant(
@@ -1449,6 +1444,16 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         MapToInt..uint16_t("_pitch")
     )
 
+    void(
+        "clear_texture",
+
+        bgfx_texture_handle_t("_handle"),
+        MapToInt..uint8_t("_mip"),
+        MapToInt..uint8_t("_numMips"),
+        MapToInt..uint16_t("_layer"),
+        MapToInt..uint16_t("_numLayers")
+    )
+
     uint32_t(
         "read_texture",
 
@@ -1631,8 +1636,8 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "set_view_rect",
 
         MapToInt..bgfx_view_id_t("_id"),
-        MapToInt..uint16_t("_x"),
-        MapToInt..uint16_t("_y"),
+        MapToInt..int16_t("_x"),
+        MapToInt..int16_t("_y"),
         MapToInt..uint16_t("_width"),
         MapToInt..uint16_t("_height")
     )
@@ -1641,8 +1646,8 @@ val BGFX = "BGFX".nativeClass(Module.BGFX, prefix = "BGFX", prefixMethod = "bgfx
         "set_view_rect_ratio",
 
         MapToInt..bgfx_view_id_t("_id"),
-        MapToInt..uint16_t("_x"),
-        MapToInt..uint16_t("_y"),
+        MapToInt..int16_t("_x"),
+        MapToInt..int16_t("_y"),
         bgfx_backbuffer_ratio_t("_ratio")
     )
 

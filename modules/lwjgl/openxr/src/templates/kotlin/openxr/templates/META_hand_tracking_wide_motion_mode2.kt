@@ -18,6 +18,6 @@ val META_hand_tracking_wide_motion_mode2 = "METAHandTrackingWideMotionMode2".nat
     )
 
     EnumConstant(
-        "HAND_TRACKING_DATA_SOURCE_UNOBSTRUCTED_WIDE_MOTION_META".."1000686000"
+        "HAND_TRACKING_DATA_SOURCE_UNOBSTRUCTED_WIDE_MOTION_META".."1000695000"
     )
 }

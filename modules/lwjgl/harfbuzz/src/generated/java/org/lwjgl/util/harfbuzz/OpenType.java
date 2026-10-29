@@ -30,6 +30,8 @@ public class OpenType {
 
         /** Function address. */
         public static final long
+            fetch_bits                                    = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_fetch_bits"),
+            fetch_number                                  = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_fetch_number"),
             color_has_palettes                            = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_color_has_palettes"),
             color_palette_get_count                       = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_color_palette_get_count"),
             color_palette_get_name_id                     = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_color_palette_get_name_id"),
@@ -129,6 +131,24 @@ public class OpenType {
             var_normalize_coords                          = apiGetFunctionAddress(HarfBuzz.getLibrary(), "hb_ot_var_normalize_coords");
 
     }
+
+    public static final int
+        HB_OT_BITS_TAG_FS_TYPE           = HB_TAG ('f','s','t','p'),
+        HB_OT_BITS_TAG_FS_SELECTION      = HB_TAG ('f','s','s','l'),
+        HB_OT_BITS_TAG_MAC_STYLE         = HB_TAG ('m','c','s','t'),
+        HB_OT_BITS_TAG_IS_FIXED_PITCH    = HB_TAG ('f','x','p','t'),
+        HB_OT_BITS_TAG_UNICODE_RANGE_1   = HB_TAG ('u','r','n','1'),
+        HB_OT_BITS_TAG_UNICODE_RANGE_2   = HB_TAG ('u','r','n','2'),
+        HB_OT_BITS_TAG_UNICODE_RANGE_3   = HB_TAG ('u','r','n','3'),
+        HB_OT_BITS_TAG_UNICODE_RANGE_4   = HB_TAG ('u','r','n','4'),
+        HB_OT_BITS_TAG_CODE_PAGE_RANGE_1 = HB_TAG ('c','p','r','1'),
+        HB_OT_BITS_TAG_CODE_PAGE_RANGE_2 = HB_TAG ('c','p','r','2');
+
+    public static final int
+        HB_OT_NUMBER_TAG_FONT_X_MIN = HB_TAG ('x','m','i','n'),
+        HB_OT_NUMBER_TAG_FONT_Y_MIN = HB_TAG ('y','m','i','n'),
+        HB_OT_NUMBER_TAG_FONT_X_MAX = HB_TAG ('x','m','a','x'),
+        HB_OT_NUMBER_TAG_FONT_Y_MAX = HB_TAG ('y','m','a','x');
 
     public static final int
         HB_OT_COLOR_PALETTE_FLAG_DEFAULT                      = 0x0,
@@ -317,6 +337,30 @@ public class OpenType {
 
     protected OpenType() {
         throw new UnsupportedOperationException();
+    }
+
+    // --- [ hb_ot_fetch_bits ] ---
+
+    /** {@code uint32_t hb_ot_fetch_bits(hb_face_t * face, hb_ot_bits_tag_t tag)} */
+    @NativeType("uint32_t")
+    public static int hb_ot_fetch_bits(@NativeType("hb_face_t *") long face, @NativeType("hb_ot_bits_tag_t") int tag) {
+        long __functionAddress = Functions.fetch_bits;
+        if (CHECKS) {
+            check(face);
+        }
+        return invokePI(face, tag, __functionAddress);
+    }
+
+    // --- [ hb_ot_fetch_number ] ---
+
+    /** {@code int32_t hb_ot_fetch_number(hb_face_t * face, hb_ot_number_tag_t tag)} */
+    @NativeType("int32_t")
+    public static int hb_ot_fetch_number(@NativeType("hb_face_t *") long face, @NativeType("hb_ot_number_tag_t") int tag) {
+        long __functionAddress = Functions.fetch_number;
+        if (CHECKS) {
+            check(face);
+        }
+        return invokePI(face, tag, __functionAddress);
     }
 
     // --- [ hb_ot_color_has_palettes ] ---

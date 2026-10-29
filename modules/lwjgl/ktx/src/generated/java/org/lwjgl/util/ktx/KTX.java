@@ -30,94 +30,99 @@ public class KTX {
 
         /** Function address. */
         public static final long
-            LoadOpenGL                     = apiGetFunctionAddressOptional(KTX, "ktxLoadOpenGL"),
-            Texture_CreateFromNamedFile    = apiGetFunctionAddress(KTX, "ktxTexture_CreateFromNamedFile"),
-            Texture_CreateFromMemory       = apiGetFunctionAddress(KTX, "ktxTexture_CreateFromMemory"),
-            Texture_CreateFromStream       = apiGetFunctionAddress(KTX, "ktxTexture_CreateFromStream"),
-            Texture_GetData                = apiGetFunctionAddress(KTX, "ktxTexture_GetData"),
-            Texture_GetRowPitch            = apiGetFunctionAddress(KTX, "ktxTexture_GetRowPitch"),
-            Texture_GetElementSize         = apiGetFunctionAddress(KTX, "ktxTexture_GetElementSize"),
-            Texture_GetDataSize            = apiGetFunctionAddress(KTX, "ktxTexture_GetDataSize"),
-            Texture_GLUpload               = apiGetFunctionAddress(KTX, "ktxTexture_GLUpload"),
-            Texture_IterateLevelFaces      = apiGetFunctionAddress(KTX, "ktxTexture_IterateLevelFaces"),
-            Texture1_Create                = apiGetFunctionAddress(KTX, "ktxTexture1_Create"),
-            Texture1_CreateFromNamedFile   = apiGetFunctionAddress(KTX, "ktxTexture1_CreateFromNamedFile"),
-            Texture1_CreateFromMemory      = apiGetFunctionAddress(KTX, "ktxTexture1_CreateFromMemory"),
-            Texture1_CreateFromStream      = apiGetFunctionAddress(KTX, "ktxTexture1_CreateFromStream"),
-            Texture1_Destroy               = apiGetFunctionAddressOptional(KTX, "ktxTexture1_Destroy"),
-            Texture1_IsHDR                 = apiGetFunctionAddress(KTX, "ktxTexture1_IsHDR"),
-            Texture1_NeedsTranscoding      = apiGetFunctionAddress(KTX, "ktxTexture1_NeedsTranscoding"),
-            Texture1_IsTranscodable        = apiGetFunctionAddress(KTX, "ktxTexture1_IsTranscodable"),
-            Texture1_LoadImageData         = apiGetFunctionAddressOptional(KTX, "ktxTexture1_LoadImageData"),
-            Texture1_WriteToNamedFile      = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteToNamedFile"),
-            Texture1_WriteToMemory         = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteToMemory"),
-            Texture1_WriteToStream         = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteToStream"),
-            Texture1_WriteKTX2ToNamedFile  = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteKTX2ToNamedFile"),
-            Texture1_WriteKTX2ToMemory     = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteKTX2ToMemory"),
-            Texture1_WriteKTX2ToStream     = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteKTX2ToStream"),
-            Texture2_Create                = apiGetFunctionAddress(KTX, "ktxTexture2_Create"),
-            Texture2_CreateCopy            = apiGetFunctionAddress(KTX, "ktxTexture2_CreateCopy"),
-            Texture2_CreateFromNamedFile   = apiGetFunctionAddress(KTX, "ktxTexture2_CreateFromNamedFile"),
-            Texture2_CreateFromMemory      = apiGetFunctionAddress(KTX, "ktxTexture2_CreateFromMemory"),
-            Texture2_CreateFromStream      = apiGetFunctionAddress(KTX, "ktxTexture2_CreateFromStream"),
-            Texture2_Destroy               = apiGetFunctionAddressOptional(KTX, "ktxTexture2_Destroy"),
-            Texture2_CompressBasis         = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressBasis"),
-            Texture2_DeflateZstd           = apiGetFunctionAddressOptional(KTX, "ktxTexture2_DeflateZstd"),
-            Texture2_DeflateZLIB           = apiGetFunctionAddress(KTX, "ktxTexture2_DeflateZLIB"),
-            Texture2_GetComponentInfo      = apiGetFunctionAddress(KTX, "ktxTexture2_GetComponentInfo"),
-            Texture2_GetImageOffset        = apiGetFunctionAddressOptional(KTX, "ktxTexture2_GetImageOffset"),
-            Texture2_GetNumComponents      = apiGetFunctionAddress(KTX, "ktxTexture2_GetNumComponents"),
-            Texture2_GetTransferFunction_e = apiGetFunctionAddressOptional(KTX, "ktxTexture2_GetTransferFunction_e"),
-            Texture2_GetOETF_e             = apiGetFunctionAddress(KTX, "ktxTexture2_GetOETF_e"),
-            Texture2_GetOETF               = apiGetFunctionAddress(KTX, "ktxTexture2_GetOETF"),
-            Texture2_GetColorModel_e       = apiGetFunctionAddress(KTX, "ktxTexture2_GetColorModel_e"),
-            Texture2_GetPremultipliedAlpha = apiGetFunctionAddress(KTX, "ktxTexture2_GetPremultipliedAlpha"),
-            Texture2_GetPrimaries_e        = apiGetFunctionAddressOptional(KTX, "ktxTexture2_GetPrimaries_e"),
-            Texture2_IsHDR                 = apiGetFunctionAddress(KTX, "ktxTexture2_IsHDR"),
-            Texture2_NeedsTranscoding      = apiGetFunctionAddress(KTX, "ktxTexture2_NeedsTranscoding"),
-            Texture2_IsTranscodable        = apiGetFunctionAddress(KTX, "ktxTexture2_IsTranscodable"),
-            Texture2_SetTransferFunction   = apiGetFunctionAddress(KTX, "ktxTexture2_SetTransferFunction"),
-            Texture2_SetOETF               = apiGetFunctionAddress(KTX, "ktxTexture2_SetOETF"),
-            Texture2_SetPrimaries          = apiGetFunctionAddress(KTX, "ktxTexture2_SetPrimaries"),
-            Texture2_LoadImageData         = apiGetFunctionAddress(KTX, "ktxTexture2_LoadImageData"),
-            Texture2_LoadDeflatedImageData = apiGetFunctionAddress(KTX, "ktxTexture2_LoadDeflatedImageData"),
-            Texture2_WriteToNamedFile      = apiGetFunctionAddress(KTX, "ktxTexture2_WriteToNamedFile"),
-            Texture2_WriteToMemory         = apiGetFunctionAddress(KTX, "ktxTexture2_WriteToMemory"),
-            Texture2_WriteToStream         = apiGetFunctionAddress(KTX, "ktxTexture2_WriteToStream"),
-            Texture2_CompressAstcEx        = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressAstcEx"),
-            Texture2_DecodeAstc            = apiGetFunctionAddress(KTX, "ktxTexture2_DecodeAstc"),
-            Texture2_CompressAstc          = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressAstc"),
-            Texture2_CompressBasisEx       = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressBasisEx"),
-            Texture2_TranscodeBasis        = apiGetFunctionAddress(KTX, "ktxTexture2_TranscodeBasis"),
-            ErrorString                    = apiGetFunctionAddress(KTX, "ktxErrorString"),
-            SupercompressionSchemeString   = apiGetFunctionAddress(KTX, "ktxSupercompressionSchemeString"),
-            TranscodeFormatString          = apiGetFunctionAddress(KTX, "ktxTranscodeFormatString"),
-            HashList_Create                = apiGetFunctionAddress(KTX, "ktxHashList_Create"),
-            HashList_CreateCopy            = apiGetFunctionAddress(KTX, "ktxHashList_CreateCopy"),
-            HashList_Construct             = apiGetFunctionAddress(KTX, "ktxHashList_Construct"),
-            HashList_ConstructCopy         = apiGetFunctionAddress(KTX, "ktxHashList_ConstructCopy"),
-            HashList_Destroy               = apiGetFunctionAddress(KTX, "ktxHashList_Destroy"),
-            HashList_Destruct              = apiGetFunctionAddress(KTX, "ktxHashList_Destruct"),
-            HashList_AddKVPair             = apiGetFunctionAddress(KTX, "ktxHashList_AddKVPair"),
-            HashList_DeleteEntry           = apiGetFunctionAddress(KTX, "ktxHashList_DeleteEntry"),
-            HashList_DeleteKVPair          = apiGetFunctionAddress(KTX, "ktxHashList_DeleteKVPair"),
-            HashList_FindEntry             = apiGetFunctionAddress(KTX, "ktxHashList_FindEntry"),
-            HashList_FindValue             = apiGetFunctionAddress(KTX, "ktxHashList_FindValue"),
-            HashList_Next                  = apiGetFunctionAddress(KTX, "ktxHashList_Next"),
-            HashList_Sort                  = apiGetFunctionAddress(KTX, "ktxHashList_Sort"),
-            HashList_Serialize             = apiGetFunctionAddress(KTX, "ktxHashList_Serialize"),
-            HashList_Deserialize           = apiGetFunctionAddress(KTX, "ktxHashList_Deserialize"),
-            HashListEntry_GetKey           = apiGetFunctionAddress(KTX, "ktxHashListEntry_GetKey"),
-            HashListEntry_GetValue         = apiGetFunctionAddress(KTX, "ktxHashListEntry_GetValue"),
-            PrintInfoForNamedFile          = apiGetFunctionAddress(KTX, "ktxPrintInfoForNamedFile"),
-            PrintInfoForMemory             = apiGetFunctionAddress(KTX, "ktxPrintInfoForMemory"),
-            PrintKTX1InfoTextForStream     = apiGetFunctionAddress(KTX, "ktxPrintKTX1InfoTextForStream"),
-            PrintKTX2InfoTextForMemory     = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoTextForMemory"),
-            PrintKTX2InfoTextForNamedFile  = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoTextForNamedFile"),
-            PrintKTX2InfoTextForStream     = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoTextForStream"),
-            PrintKTX2InfoJSONForMemory     = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoJSONForMemory"),
-            PrintKTX2InfoJSONForNamedFile  = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoJSONForNamedFile"),
-            PrintKTX2InfoJSONForStream     = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoJSONForStream");
+            LoadOpenGL                       = apiGetFunctionAddressOptional(KTX, "ktxLoadOpenGL"),
+            Texture_CreateFromNamedFile      = apiGetFunctionAddress(KTX, "ktxTexture_CreateFromNamedFile"),
+            Texture_CreateFromMemory         = apiGetFunctionAddress(KTX, "ktxTexture_CreateFromMemory"),
+            Texture_CreateFromStream         = apiGetFunctionAddress(KTX, "ktxTexture_CreateFromStream"),
+            Texture_GetData                  = apiGetFunctionAddress(KTX, "ktxTexture_GetData"),
+            Texture_GetRowPitch              = apiGetFunctionAddress(KTX, "ktxTexture_GetRowPitch"),
+            Texture_GetElementSize           = apiGetFunctionAddress(KTX, "ktxTexture_GetElementSize"),
+            Texture_GetDataSize              = apiGetFunctionAddress(KTX, "ktxTexture_GetDataSize"),
+            Texture_GLUpload                 = apiGetFunctionAddress(KTX, "ktxTexture_GLUpload"),
+            Texture_IterateLevelFaces        = apiGetFunctionAddress(KTX, "ktxTexture_IterateLevelFaces"),
+            Texture1_Create                  = apiGetFunctionAddress(KTX, "ktxTexture1_Create"),
+            Texture1_CreateFromNamedFile     = apiGetFunctionAddress(KTX, "ktxTexture1_CreateFromNamedFile"),
+            Texture1_CreateFromMemory        = apiGetFunctionAddress(KTX, "ktxTexture1_CreateFromMemory"),
+            Texture1_CreateFromStream        = apiGetFunctionAddress(KTX, "ktxTexture1_CreateFromStream"),
+            Texture1_Destroy                 = apiGetFunctionAddressOptional(KTX, "ktxTexture1_Destroy"),
+            Texture1_GetImageOffset          = apiGetFunctionAddressOptional(KTX, "ktxTexture1_GetImageOffset"),
+            Texture1_IsHDR                   = apiGetFunctionAddress(KTX, "ktxTexture1_IsHDR"),
+            Texture1_NeedsTranscoding        = apiGetFunctionAddress(KTX, "ktxTexture1_NeedsTranscoding"),
+            Texture1_IsTranscodable          = apiGetFunctionAddress(KTX, "ktxTexture1_IsTranscodable"),
+            Texture1_GetDataSizeUncompressed = apiGetFunctionAddress(KTX, "ktxTexture1_GetDataSizeUncompressed"),
+            Texture1_GetImageSize            = apiGetFunctionAddress(KTX, "ktxTexture1_GetImageSize"),
+            Texture1_LoadImageData           = apiGetFunctionAddressOptional(KTX, "ktxTexture1_LoadImageData"),
+            Texture1_WriteToNamedFile        = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteToNamedFile"),
+            Texture1_WriteToMemory           = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteToMemory"),
+            Texture1_WriteToStream           = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteToStream"),
+            Texture1_WriteKTX2ToNamedFile    = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteKTX2ToNamedFile"),
+            Texture1_WriteKTX2ToMemory       = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteKTX2ToMemory"),
+            Texture1_WriteKTX2ToStream       = apiGetFunctionAddressOptional(KTX, "ktxTexture1_WriteKTX2ToStream"),
+            Texture2_Create                  = apiGetFunctionAddress(KTX, "ktxTexture2_Create"),
+            Texture2_CreateCopy              = apiGetFunctionAddress(KTX, "ktxTexture2_CreateCopy"),
+            Texture2_CreateFromNamedFile     = apiGetFunctionAddress(KTX, "ktxTexture2_CreateFromNamedFile"),
+            Texture2_CreateFromMemory        = apiGetFunctionAddress(KTX, "ktxTexture2_CreateFromMemory"),
+            Texture2_CreateFromStream        = apiGetFunctionAddress(KTX, "ktxTexture2_CreateFromStream"),
+            Texture2_Destroy                 = apiGetFunctionAddressOptional(KTX, "ktxTexture2_Destroy"),
+            Texture2_CompressBasis           = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressBasis"),
+            Texture2_DeflateZstd             = apiGetFunctionAddressOptional(KTX, "ktxTexture2_DeflateZstd"),
+            Texture2_DeflateZLIB             = apiGetFunctionAddress(KTX, "ktxTexture2_DeflateZLIB"),
+            Texture2_GetComponentInfo        = apiGetFunctionAddress(KTX, "ktxTexture2_GetComponentInfo"),
+            Texture2_GetImageOffset          = apiGetFunctionAddressOptional(KTX, "ktxTexture2_GetImageOffset"),
+            Texture2_GetNumComponents        = apiGetFunctionAddress(KTX, "ktxTexture2_GetNumComponents"),
+            Texture2_GetTransferFunction_e   = apiGetFunctionAddressOptional(KTX, "ktxTexture2_GetTransferFunction_e"),
+            Texture2_GetOETF_e               = apiGetFunctionAddress(KTX, "ktxTexture2_GetOETF_e"),
+            Texture2_GetOETF                 = apiGetFunctionAddress(KTX, "ktxTexture2_GetOETF"),
+            Texture2_GetColorModel_e         = apiGetFunctionAddress(KTX, "ktxTexture2_GetColorModel_e"),
+            Texture2_GetPremultipliedAlpha   = apiGetFunctionAddress(KTX, "ktxTexture2_GetPremultipliedAlpha"),
+            Texture2_GetPrimaries_e          = apiGetFunctionAddressOptional(KTX, "ktxTexture2_GetPrimaries_e"),
+            Texture2_IsHDR                   = apiGetFunctionAddress(KTX, "ktxTexture2_IsHDR"),
+            Texture2_NeedsTranscoding        = apiGetFunctionAddress(KTX, "ktxTexture2_NeedsTranscoding"),
+            Texture2_IsTranscodable          = apiGetFunctionAddress(KTX, "ktxTexture2_IsTranscodable"),
+            Texture2_GetDataSizeUncompressed = apiGetFunctionAddress(KTX, "ktxTexture2_GetDataSizeUncompressed"),
+            Texture2_GetImageSize            = apiGetFunctionAddress(KTX, "ktxTexture2_GetImageSize"),
+            Texture2_SetTransferFunction     = apiGetFunctionAddress(KTX, "ktxTexture2_SetTransferFunction"),
+            Texture2_SetOETF                 = apiGetFunctionAddress(KTX, "ktxTexture2_SetOETF"),
+            Texture2_SetPrimaries            = apiGetFunctionAddress(KTX, "ktxTexture2_SetPrimaries"),
+            Texture2_LoadImageData           = apiGetFunctionAddress(KTX, "ktxTexture2_LoadImageData"),
+            Texture2_LoadDeflatedImageData   = apiGetFunctionAddress(KTX, "ktxTexture2_LoadDeflatedImageData"),
+            Texture2_WriteToNamedFile        = apiGetFunctionAddress(KTX, "ktxTexture2_WriteToNamedFile"),
+            Texture2_WriteToMemory           = apiGetFunctionAddress(KTX, "ktxTexture2_WriteToMemory"),
+            Texture2_WriteToStream           = apiGetFunctionAddress(KTX, "ktxTexture2_WriteToStream"),
+            Texture2_CompressAstcEx          = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressAstcEx"),
+            Texture2_DecodeAstc              = apiGetFunctionAddress(KTX, "ktxTexture2_DecodeAstc"),
+            Texture2_CompressAstc            = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressAstc"),
+            Texture2_CompressBasisEx         = apiGetFunctionAddressOptional(KTX, "ktxTexture2_CompressBasisEx"),
+            Texture2_TranscodeBasis          = apiGetFunctionAddress(KTX, "ktxTexture2_TranscodeBasis"),
+            ErrorString                      = apiGetFunctionAddress(KTX, "ktxErrorString"),
+            SupercompressionSchemeString     = apiGetFunctionAddress(KTX, "ktxSupercompressionSchemeString"),
+            TranscodeFormatString            = apiGetFunctionAddress(KTX, "ktxTranscodeFormatString"),
+            HashList_Create                  = apiGetFunctionAddress(KTX, "ktxHashList_Create"),
+            HashList_CreateCopy              = apiGetFunctionAddress(KTX, "ktxHashList_CreateCopy"),
+            HashList_Construct               = apiGetFunctionAddress(KTX, "ktxHashList_Construct"),
+            HashList_ConstructCopy           = apiGetFunctionAddress(KTX, "ktxHashList_ConstructCopy"),
+            HashList_Destroy                 = apiGetFunctionAddress(KTX, "ktxHashList_Destroy"),
+            HashList_Destruct                = apiGetFunctionAddress(KTX, "ktxHashList_Destruct"),
+            HashList_AddKVPair               = apiGetFunctionAddress(KTX, "ktxHashList_AddKVPair"),
+            HashList_DeleteEntry             = apiGetFunctionAddress(KTX, "ktxHashList_DeleteEntry"),
+            HashList_DeleteKVPair            = apiGetFunctionAddress(KTX, "ktxHashList_DeleteKVPair"),
+            HashList_FindEntry               = apiGetFunctionAddress(KTX, "ktxHashList_FindEntry"),
+            HashList_FindValue               = apiGetFunctionAddress(KTX, "ktxHashList_FindValue"),
+            HashList_Next                    = apiGetFunctionAddress(KTX, "ktxHashList_Next"),
+            HashList_Sort                    = apiGetFunctionAddress(KTX, "ktxHashList_Sort"),
+            HashList_Serialize               = apiGetFunctionAddress(KTX, "ktxHashList_Serialize"),
+            HashList_Deserialize             = apiGetFunctionAddress(KTX, "ktxHashList_Deserialize"),
+            HashListEntry_GetKey             = apiGetFunctionAddress(KTX, "ktxHashListEntry_GetKey"),
+            HashListEntry_GetValue           = apiGetFunctionAddress(KTX, "ktxHashListEntry_GetValue"),
+            PrintInfoForNamedFile            = apiGetFunctionAddress(KTX, "ktxPrintInfoForNamedFile"),
+            PrintInfoForMemory               = apiGetFunctionAddress(KTX, "ktxPrintInfoForMemory"),
+            PrintKTX1InfoTextForStream       = apiGetFunctionAddress(KTX, "ktxPrintKTX1InfoTextForStream"),
+            PrintKTX2InfoTextForMemory       = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoTextForMemory"),
+            PrintKTX2InfoTextForNamedFile    = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoTextForNamedFile"),
+            PrintKTX2InfoTextForStream       = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoTextForStream"),
+            PrintKTX2InfoJSONForMemory       = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoJSONForMemory"),
+            PrintKTX2InfoJSONForNamedFile    = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoJSONForNamedFile"),
+            PrintKTX2InfoJSONForStream       = apiGetFunctionAddress(KTX, "ktxPrintKTX2InfoJSONForStream");
 
     }
 
@@ -297,7 +302,7 @@ public class KTX {
         KTX_TTF_BC7_RGBA          = 6,
         KTX_TTF_PVRTC1_4_RGB      = 8,
         KTX_TTF_PVRTC1_4_RGBA     = 9,
-        KTX_TTF_ASTC_4x4_RGBA     = 10,
+        KTX_TTF_ASTC_LDR_4x4_RGBA = 10,
         KTX_TTF_PVRTC2_4_RGB      = 18,
         KTX_TTF_PVRTC2_4_RGBA     = 19,
         KTX_TTF_ETC2_EAC_R11      = 20,
@@ -308,15 +313,18 @@ public class KTX {
         KTX_TTF_RGBA4444          = 16,
         KTX_TTF_ETC               = 22,
         KTX_TTF_BC1_OR_3          = 23,
+        KTX_TTF_RGB_HALF          = 24,
         KTX_TTF_RGBA_HALF         = 25,
+        KTX_TTF_RGB_9E5           = 26,
         KTX_TTF_ASTC_HDR_4x4_RGBA = 29,
         KTX_TTF_ASTC_HDR_6x6_RGBA = 30,
-        KTX_TTF_BC6HU             = 31,
+        KTX_TTF_BC6HU_RGB         = 31,
         KTX_TTF_NOSELECTION       = 0x7FFFFFFF;
 
     public static final int
         KTX_TF_PVRTC_DECODE_TO_NEXT_POW2              = 2,
         KTX_TF_TRANSCODE_ALPHA_DATA_TO_OPAQUE_FORMATS = 4,
+        KTX_TF_NO_ETC1S_CHROMA_FILTERING              = 64,
         KTX_TF_HIGH_QUALITY                           = 32;
 
     protected KTX() {
@@ -601,6 +609,26 @@ public class KTX {
         nktxTexture1_Destroy(This.address());
     }
 
+    // --- [ ktxTexture1_GetImageOffset ] ---
+
+    /** {@code KTX_error_code ktxTexture1_GetImageOffset(ktxTexture1 * This, ktx_uint32_t level, ktx_uint32_t layer, ktx_uint32_t faceSlice, ktx_size_t * pOffset)} */
+    public static int nktxTexture1_GetImageOffset(long This, int level, int layer, int faceSlice, long pOffset) {
+        long __functionAddress = Functions.Texture1_GetImageOffset;
+        if (CHECKS) {
+            check(__functionAddress);
+        }
+        return callPPI(This, level, layer, faceSlice, pOffset, __functionAddress);
+    }
+
+    /** {@code KTX_error_code ktxTexture1_GetImageOffset(ktxTexture1 * This, ktx_uint32_t level, ktx_uint32_t layer, ktx_uint32_t faceSlice, ktx_size_t * pOffset)} */
+    @NativeType("KTX_error_code")
+    public static int ktxTexture1_GetImageOffset(@NativeType("ktxTexture1 *") ktxTexture1 This, @NativeType("ktx_uint32_t") int level, @NativeType("ktx_uint32_t") int layer, @NativeType("ktx_uint32_t") int faceSlice, @NativeType("ktx_size_t *") PointerBuffer pOffset) {
+        if (CHECKS) {
+            check(pOffset, 1);
+        }
+        return nktxTexture1_GetImageOffset(This.address(), level, layer, faceSlice, memAddress(pOffset));
+    }
+
     // --- [ ktxTexture1_IsHDR ] ---
 
     /** {@code ktx_bool_t ktxTexture1_IsHDR(ktxTexture1 * This)} */
@@ -641,6 +669,34 @@ public class KTX {
     @NativeType("ktx_bool_t")
     public static boolean ktxTexture1_IsTranscodable(@NativeType("ktxTexture1 *") ktxTexture1 This) {
         return nktxTexture1_IsTranscodable(This.address());
+    }
+
+    // --- [ ktxTexture1_GetDataSizeUncompressed ] ---
+
+    /** {@code ktx_size_t ktxTexture1_GetDataSizeUncompressed(ktxTexture1 * This)} */
+    public static long nktxTexture1_GetDataSizeUncompressed(long This) {
+        long __functionAddress = Functions.Texture1_GetDataSizeUncompressed;
+        return callPP(This, __functionAddress);
+    }
+
+    /** {@code ktx_size_t ktxTexture1_GetDataSizeUncompressed(ktxTexture1 * This)} */
+    @NativeType("ktx_size_t")
+    public static long ktxTexture1_GetDataSizeUncompressed(@NativeType("ktxTexture1 *") ktxTexture1 This) {
+        return nktxTexture1_GetDataSizeUncompressed(This.address());
+    }
+
+    // --- [ ktxTexture1_GetImageSize ] ---
+
+    /** {@code ktx_size_t ktxTexture1_GetImageSize(ktxTexture1 * This, ktx_uint32_t level)} */
+    public static long nktxTexture1_GetImageSize(long This, int level) {
+        long __functionAddress = Functions.Texture1_GetImageSize;
+        return callPP(This, level, __functionAddress);
+    }
+
+    /** {@code ktx_size_t ktxTexture1_GetImageSize(ktxTexture1 * This, ktx_uint32_t level)} */
+    @NativeType("ktx_size_t")
+    public static long ktxTexture1_GetImageSize(@NativeType("ktxTexture1 *") ktxTexture1 This, @NativeType("ktx_uint32_t") int level) {
+        return nktxTexture1_GetImageSize(This.address(), level);
     }
 
     // --- [ ktxTexture1_LoadImageData ] ---
@@ -1149,6 +1205,34 @@ public class KTX {
     @NativeType("ktx_bool_t")
     public static boolean ktxTexture2_IsTranscodable(@NativeType("ktxTexture2 *") ktxTexture2 This) {
         return nktxTexture2_IsTranscodable(This.address());
+    }
+
+    // --- [ ktxTexture2_GetDataSizeUncompressed ] ---
+
+    /** {@code ktx_size_t ktxTexture2_GetDataSizeUncompressed(ktxTexture2 * This)} */
+    public static long nktxTexture2_GetDataSizeUncompressed(long This) {
+        long __functionAddress = Functions.Texture2_GetDataSizeUncompressed;
+        return callPP(This, __functionAddress);
+    }
+
+    /** {@code ktx_size_t ktxTexture2_GetDataSizeUncompressed(ktxTexture2 * This)} */
+    @NativeType("ktx_size_t")
+    public static long ktxTexture2_GetDataSizeUncompressed(@NativeType("ktxTexture2 *") ktxTexture2 This) {
+        return nktxTexture2_GetDataSizeUncompressed(This.address());
+    }
+
+    // --- [ ktxTexture2_GetImageSize ] ---
+
+    /** {@code ktx_size_t ktxTexture2_GetImageSize(ktxTexture2 * This, ktx_uint32_t level)} */
+    public static long nktxTexture2_GetImageSize(long This, int level) {
+        long __functionAddress = Functions.Texture2_GetImageSize;
+        return callPP(This, level, __functionAddress);
+    }
+
+    /** {@code ktx_size_t ktxTexture2_GetImageSize(ktxTexture2 * This, ktx_uint32_t level)} */
+    @NativeType("ktx_size_t")
+    public static long ktxTexture2_GetImageSize(@NativeType("ktxTexture2 *") ktxTexture2 This, @NativeType("ktx_uint32_t") int level) {
+        return nktxTexture2_GetImageSize(This.address(), level);
     }
 
     // --- [ ktxTexture2_SetTransferFunction ] ---

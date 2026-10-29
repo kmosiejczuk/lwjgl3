@@ -15,12 +15,7 @@ This script is included in /config/build-definitions.xml.
     <!-- // ========== BINDING FLAGS ======== // -->
 
     <property name="binding.assimp" value="true"/>
-    <condition property="binding.bgfx" value="false" else="true">
-        <and>
-            <isset property="platform.windows"/>
-            <isset property="build.arch.arm"/>
-        </and>
-    </condition>
+    <property name="binding.bgfx" value="true"/>
     <property name="binding.egl" value="true"/>
     <property name="binding.fmod" value="true"/>
     <property name="binding.freetype" value="true"/>

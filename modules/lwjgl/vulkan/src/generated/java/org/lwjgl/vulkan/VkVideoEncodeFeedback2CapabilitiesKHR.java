@@ -97,22 +97,14 @@ public class VkVideoEncodeFeedback2CapabilitiesKHR extends Struct<VkVideoEncodeF
     public VkVideoEncodeFeedback2CapabilitiesKHR sType$Default() { return sType(KHRVideoEncodeFeedback2.VK_STRUCTURE_TYPE_VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR); }
     /** Sets the specified value to the {@code pNext} field. */
     public VkVideoEncodeFeedback2CapabilitiesKHR pNext(@NativeType("void *") long value) { npNext(address(), value); return this; }
-    /** Sets the specified value to the {@code maxPerPartitionFeedbackEntries} field. */
-    public VkVideoEncodeFeedback2CapabilitiesKHR maxPerPartitionFeedbackEntries(@NativeType("uint32_t") int value) { nmaxPerPartitionFeedbackEntries(address(), value); return this; }
-    /** Sets the specified value to the {@code supportedPerPartitionEncodeFeedbackFlags} field. */
-    public VkVideoEncodeFeedback2CapabilitiesKHR supportedPerPartitionEncodeFeedbackFlags(@NativeType("VkVideoEncodePerPartitionFeedbackFlagsKHR") int value) { nsupportedPerPartitionEncodeFeedbackFlags(address(), value); return this; }
 
     /** Initializes this struct with the specified values. */
     public VkVideoEncodeFeedback2CapabilitiesKHR set(
         int sType,
-        long pNext,
-        int maxPerPartitionFeedbackEntries,
-        int supportedPerPartitionEncodeFeedbackFlags
+        long pNext
     ) {
         sType(sType);
         pNext(pNext);
-        maxPerPartitionFeedbackEntries(maxPerPartitionFeedbackEntries);
-        supportedPerPartitionEncodeFeedbackFlags(supportedPerPartitionEncodeFeedbackFlags);
 
         return this;
     }
@@ -253,10 +245,6 @@ public class VkVideoEncodeFeedback2CapabilitiesKHR extends Struct<VkVideoEncodeF
     public static void nsType(long struct, int value) { memPutInt(struct + VkVideoEncodeFeedback2CapabilitiesKHR.STYPE, value); }
     /** Unsafe version of {@link #pNext(long) pNext}. */
     public static void npNext(long struct, long value) { memPutAddress(struct + VkVideoEncodeFeedback2CapabilitiesKHR.PNEXT, value); }
-    /** Unsafe version of {@link #maxPerPartitionFeedbackEntries(int) maxPerPartitionFeedbackEntries}. */
-    public static void nmaxPerPartitionFeedbackEntries(long struct, int value) { memPutInt(struct + VkVideoEncodeFeedback2CapabilitiesKHR.MAXPERPARTITIONFEEDBACKENTRIES, value); }
-    /** Unsafe version of {@link #supportedPerPartitionEncodeFeedbackFlags(int) supportedPerPartitionEncodeFeedbackFlags}. */
-    public static void nsupportedPerPartitionEncodeFeedbackFlags(long struct, int value) { memPutInt(struct + VkVideoEncodeFeedback2CapabilitiesKHR.SUPPORTEDPERPARTITIONENCODEFEEDBACKFLAGS, value); }
 
     // -----------------------------------
 
@@ -320,10 +308,6 @@ public class VkVideoEncodeFeedback2CapabilitiesKHR extends Struct<VkVideoEncodeF
         public VkVideoEncodeFeedback2CapabilitiesKHR.Buffer sType$Default() { return sType(KHRVideoEncodeFeedback2.VK_STRUCTURE_TYPE_VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR); }
         /** Sets the specified value to the {@code pNext} field. */
         public VkVideoEncodeFeedback2CapabilitiesKHR.Buffer pNext(@NativeType("void *") long value) { VkVideoEncodeFeedback2CapabilitiesKHR.npNext(address(), value); return this; }
-        /** Sets the specified value to the {@code maxPerPartitionFeedbackEntries} field. */
-        public VkVideoEncodeFeedback2CapabilitiesKHR.Buffer maxPerPartitionFeedbackEntries(@NativeType("uint32_t") int value) { VkVideoEncodeFeedback2CapabilitiesKHR.nmaxPerPartitionFeedbackEntries(address(), value); return this; }
-        /** Sets the specified value to the {@code supportedPerPartitionEncodeFeedbackFlags} field. */
-        public VkVideoEncodeFeedback2CapabilitiesKHR.Buffer supportedPerPartitionEncodeFeedbackFlags(@NativeType("VkVideoEncodePerPartitionFeedbackFlagsKHR") int value) { VkVideoEncodeFeedback2CapabilitiesKHR.nsupportedPerPartitionEncodeFeedbackFlags(address(), value); return this; }
 
     }
 

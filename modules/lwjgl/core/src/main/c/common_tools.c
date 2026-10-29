@@ -28,8 +28,13 @@ static inline JNIEnv* attachCurrentThreadAsDaemon(void) {
     return env;
 }
 
+// Calling DetachCurrentThread() after the JVM has exited blocks the calling thread indefinitely.
+// See VM_Exit::block_if_vm_exited() in jni_DetachCurrentThread (jni.cpp).
+static volatile uint8_t vmShuttingDown = 0;
+
 static inline void detachCurrentThread(void) {
-    if ((*jvm)->DetachCurrentThread(jvm) != JNI_OK) {
+    // skip detaching if the JVM is shutting down, to avoid deadlocks with native thread joins
+    if (!vmShuttingDown && (*jvm)->DetachCurrentThread(jvm) != JNI_OK) {
         fprintf(stderr, "[LWJGL] Failed to detach native thread from the JVM.");
         fflush(stderr);
     }
@@ -211,6 +216,11 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
     UNUSED_PARAMS(vm, reserved);
     tlsDestroy();
+}
+
+JNIEXPORT void JNICALL Java_org_lwjgl_system_Upcalls_shutdown(JNIEnv *env, jclass clazz) {
+    UNUSED_PARAMS(env, clazz)
+    vmShuttingDown = 1;
 }
 
 // Intentionally empty functions for benchmarking purposes

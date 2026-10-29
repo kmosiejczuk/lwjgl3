@@ -108,6 +108,7 @@ public class BGFX {
             update_texture_2d                                    = apiGetFunctionAddress(BGFX, "bgfx_update_texture_2d"),
             update_texture_3d                                    = apiGetFunctionAddress(BGFX, "bgfx_update_texture_3d"),
             update_texture_cube                                  = apiGetFunctionAddress(BGFX, "bgfx_update_texture_cube"),
+            clear_texture                                        = apiGetFunctionAddress(BGFX, "bgfx_clear_texture"),
             read_texture                                         = apiGetFunctionAddress(BGFX, "bgfx_read_texture"),
             set_texture_name                                     = apiGetFunctionAddress(BGFX, "bgfx_set_texture_name"),
             get_direct_access_ptr                                = apiGetFunctionAddress(BGFX, "bgfx_get_direct_access_ptr"),
@@ -239,7 +240,7 @@ public class BGFX {
         return BGFX;
     }
 
-    public static final int BGFX_API_VERSION = 149;
+    public static final int BGFX_API_VERSION = 156;
 
     public static final short BGFX_INVALID_HANDLE = (short)0xFFFF;
 
@@ -430,24 +431,6 @@ public class BGFX {
         | BGFX_BUFFER_COMPUTE_READ
         | BGFX_BUFFER_COMPUTE_WRITE)
         ;
-
-    public static final short
-        BGFX_BUFFER_COMPUTE_FORMAT_8x1   = 0x1,
-        BGFX_BUFFER_COMPUTE_FORMAT_8x2   = 0x2,
-        BGFX_BUFFER_COMPUTE_FORMAT_8x4   = 0x3,
-        BGFX_BUFFER_COMPUTE_FORMAT_16x1  = 0x4,
-        BGFX_BUFFER_COMPUTE_FORMAT_16x2  = 0x5,
-        BGFX_BUFFER_COMPUTE_FORMAT_16x4  = 0x6,
-        BGFX_BUFFER_COMPUTE_FORMAT_32x1  = 0x7,
-        BGFX_BUFFER_COMPUTE_FORMAT_32x2  = 0x8,
-        BGFX_BUFFER_COMPUTE_FORMAT_32x4  = 0x9,
-        BGFX_BUFFER_COMPUTE_FORMAT_SHIFT = 0,
-        BGFX_BUFFER_COMPUTE_FORMAT_MASK  = 0xF,
-        BGFX_BUFFER_COMPUTE_TYPE_INT     = 0x10,
-        BGFX_BUFFER_COMPUTE_TYPE_UINT    = 0x20,
-        BGFX_BUFFER_COMPUTE_TYPE_FLOAT   = 0x30,
-        BGFX_BUFFER_COMPUTE_TYPE_SHIFT   = 4,
-        BGFX_BUFFER_COMPUTE_TYPE_MASK    = 0x30;
 
     public static final long
         BGFX_TEXTURE_NONE            = 0x0L,
@@ -692,25 +675,33 @@ public class BGFX {
         BGFX_ACCESS_COUNT     = 3;
 
     public static final int
-        BGFX_ATTRIB_POSITION  = 0,
-        BGFX_ATTRIB_NORMAL    = 1,
-        BGFX_ATTRIB_TANGENT   = 2,
-        BGFX_ATTRIB_BITANGENT = 3,
-        BGFX_ATTRIB_COLOR0    = 4,
-        BGFX_ATTRIB_COLOR1    = 5,
-        BGFX_ATTRIB_COLOR2    = 6,
-        BGFX_ATTRIB_COLOR3    = 7,
-        BGFX_ATTRIB_INDICES   = 8,
-        BGFX_ATTRIB_WEIGHT    = 9,
-        BGFX_ATTRIB_TEXCOORD0 = 10,
-        BGFX_ATTRIB_TEXCOORD1 = 11,
-        BGFX_ATTRIB_TEXCOORD2 = 12,
-        BGFX_ATTRIB_TEXCOORD3 = 13,
-        BGFX_ATTRIB_TEXCOORD4 = 14,
-        BGFX_ATTRIB_TEXCOORD5 = 15,
-        BGFX_ATTRIB_TEXCOORD6 = 16,
-        BGFX_ATTRIB_TEXCOORD7 = 17,
-        BGFX_ATTRIB_COUNT     = BGFX_ATTRIB_TEXCOORD7 + 1;
+        BGFX_ATTRIB_POSITION   = 0,
+        BGFX_ATTRIB_NORMAL     = 1,
+        BGFX_ATTRIB_TANGENT    = 2,
+        BGFX_ATTRIB_BITANGENT  = 3,
+        BGFX_ATTRIB_COLOR0     = 4,
+        BGFX_ATTRIB_COLOR1     = 5,
+        BGFX_ATTRIB_COLOR2     = 6,
+        BGFX_ATTRIB_COLOR3     = 7,
+        BGFX_ATTRIB_INDICES    = 8,
+        BGFX_ATTRIB_WEIGHT     = 9,
+        BGFX_ATTRIB_TEXCOORD0  = 10,
+        BGFX_ATTRIB_TEXCOORD1  = 11,
+        BGFX_ATTRIB_TEXCOORD2  = 12,
+        BGFX_ATTRIB_TEXCOORD3  = 13,
+        BGFX_ATTRIB_TEXCOORD4  = 14,
+        BGFX_ATTRIB_TEXCOORD5  = 15,
+        BGFX_ATTRIB_TEXCOORD6  = 16,
+        BGFX_ATTRIB_TEXCOORD7  = 17,
+        BGFX_ATTRIB_TEXCOORD8  = 18,
+        BGFX_ATTRIB_TEXCOORD9  = 19,
+        BGFX_ATTRIB_TEXCOORD10 = 20,
+        BGFX_ATTRIB_TEXCOORD11 = 21,
+        BGFX_ATTRIB_TEXCOORD12 = 22,
+        BGFX_ATTRIB_TEXCOORD13 = 23,
+        BGFX_ATTRIB_TEXCOORD14 = 24,
+        BGFX_ATTRIB_TEXCOORD15 = 25,
+        BGFX_ATTRIB_COUNT      = 26;
 
     public static final int
         BGFX_ATTRIB_TYPE_INT8   = 0,
@@ -720,110 +711,117 @@ public class BGFX {
         BGFX_ATTRIB_TYPE_UINT16 = 4,
         BGFX_ATTRIB_TYPE_HALF   = 5,
         BGFX_ATTRIB_TYPE_FLOAT  = 6,
-        BGFX_ATTRIB_TYPE_COUNT  = BGFX_ATTRIB_TYPE_FLOAT + 1;
+        BGFX_ATTRIB_TYPE_INT32  = 7,
+        BGFX_ATTRIB_TYPE_UINT32 = 8,
+        BGFX_ATTRIB_TYPE_COUNT  = 9;
 
     public static final int
         BGFX_TEXTURE_FORMAT_BC1           = 0,
         BGFX_TEXTURE_FORMAT_BC2           = 1,
         BGFX_TEXTURE_FORMAT_BC3           = 2,
         BGFX_TEXTURE_FORMAT_BC4           = 3,
-        BGFX_TEXTURE_FORMAT_BC5           = 4,
-        BGFX_TEXTURE_FORMAT_BC6H          = 5,
-        BGFX_TEXTURE_FORMAT_BC7           = 6,
-        BGFX_TEXTURE_FORMAT_ETC1          = 7,
-        BGFX_TEXTURE_FORMAT_ETC2          = 8,
-        BGFX_TEXTURE_FORMAT_ETC2A         = 9,
-        BGFX_TEXTURE_FORMAT_ETC2A1        = 10,
-        BGFX_TEXTURE_FORMAT_EACR11        = 11,
-        BGFX_TEXTURE_FORMAT_EACR11S       = 12,
-        BGFX_TEXTURE_FORMAT_EACRG11       = 13,
-        BGFX_TEXTURE_FORMAT_EACRG11S      = 14,
-        BGFX_TEXTURE_FORMAT_PTC12         = 15,
-        BGFX_TEXTURE_FORMAT_PTC14         = 16,
-        BGFX_TEXTURE_FORMAT_PTC12A        = 17,
-        BGFX_TEXTURE_FORMAT_PTC14A        = 18,
-        BGFX_TEXTURE_FORMAT_PTC22         = 19,
-        BGFX_TEXTURE_FORMAT_PTC24         = 20,
-        BGFX_TEXTURE_FORMAT_ATC           = 21,
-        BGFX_TEXTURE_FORMAT_ATCE          = 22,
-        BGFX_TEXTURE_FORMAT_ATCI          = 23,
-        BGFX_TEXTURE_FORMAT_ASTC4x4       = 24,
-        BGFX_TEXTURE_FORMAT_ASTC5X4       = 25,
-        BGFX_TEXTURE_FORMAT_ASTC5x5       = 26,
-        BGFX_TEXTURE_FORMAT_ASTC6X5       = 27,
-        BGFX_TEXTURE_FORMAT_ASTC6x6       = 28,
-        BGFX_TEXTURE_FORMAT_ASTC8x5       = 29,
-        BGFX_TEXTURE_FORMAT_ASTC8x6       = 30,
-        BGFX_TEXTURE_FORMAT_ASTC8X8       = 31,
-        BGFX_TEXTURE_FORMAT_ASTC10x5      = 32,
-        BGFX_TEXTURE_FORMAT_ASTC10X6      = 33,
-        BGFX_TEXTURE_FORMAT_ASTC10X8      = 34,
-        BGFX_TEXTURE_FORMAT_ASTC10X10     = 35,
-        BGFX_TEXTURE_FORMAT_ASTC12X10     = 36,
-        BGFX_TEXTURE_FORMAT_ASTC12X12     = 37,
-        BGFX_TEXTURE_FORMAT_UNKNOWN       = 38,
-        BGFX_TEXTURE_FORMAT_R1            = 39,
-        BGFX_TEXTURE_FORMAT_A8            = 40,
-        BGFX_TEXTURE_FORMAT_R8            = 41,
-        BGFX_TEXTURE_FORMAT_R8I           = 42,
-        BGFX_TEXTURE_FORMAT_R8U           = 43,
-        BGFX_TEXTURE_FORMAT_R8S           = 44,
-        BGFX_TEXTURE_FORMAT_R16           = 45,
-        BGFX_TEXTURE_FORMAT_R16I          = 46,
-        BGFX_TEXTURE_FORMAT_R16U          = 47,
-        BGFX_TEXTURE_FORMAT_R16F          = 48,
-        BGFX_TEXTURE_FORMAT_R16S          = 49,
-        BGFX_TEXTURE_FORMAT_R32I          = 50,
-        BGFX_TEXTURE_FORMAT_R32U          = 51,
-        BGFX_TEXTURE_FORMAT_R32F          = 52,
-        BGFX_TEXTURE_FORMAT_RG8           = 53,
-        BGFX_TEXTURE_FORMAT_RG8I          = 54,
-        BGFX_TEXTURE_FORMAT_RG8U          = 55,
-        BGFX_TEXTURE_FORMAT_RG8S          = 56,
-        BGFX_TEXTURE_FORMAT_RG16          = 57,
-        BGFX_TEXTURE_FORMAT_RG16I         = 58,
-        BGFX_TEXTURE_FORMAT_RG16U         = 59,
-        BGFX_TEXTURE_FORMAT_RG16F         = 60,
-        BGFX_TEXTURE_FORMAT_RG16S         = 61,
-        BGFX_TEXTURE_FORMAT_RG32I         = 62,
-        BGFX_TEXTURE_FORMAT_RG32U         = 63,
-        BGFX_TEXTURE_FORMAT_RG32F         = 64,
-        BGFX_TEXTURE_FORMAT_RGB8          = 65,
-        BGFX_TEXTURE_FORMAT_RGB8I         = 66,
-        BGFX_TEXTURE_FORMAT_RGB8U         = 67,
-        BGFX_TEXTURE_FORMAT_RGB8S         = 68,
-        BGFX_TEXTURE_FORMAT_RGB9E5F       = 69,
-        BGFX_TEXTURE_FORMAT_BGRA8         = 70,
-        BGFX_TEXTURE_FORMAT_RGBA8         = 71,
-        BGFX_TEXTURE_FORMAT_RGBA8I        = 72,
-        BGFX_TEXTURE_FORMAT_RGBA8U        = 73,
-        BGFX_TEXTURE_FORMAT_RGBA8S        = 74,
-        BGFX_TEXTURE_FORMAT_RGBA16        = 75,
-        BGFX_TEXTURE_FORMAT_RGBA16I       = 76,
-        BGFX_TEXTURE_FORMAT_RGBA16U       = 77,
-        BGFX_TEXTURE_FORMAT_RGBA16F       = 78,
-        BGFX_TEXTURE_FORMAT_RGBA16S       = 79,
-        BGFX_TEXTURE_FORMAT_RGBA32I       = 80,
-        BGFX_TEXTURE_FORMAT_RGBA32U       = 81,
-        BGFX_TEXTURE_FORMAT_RGBA32F       = 82,
-        BGFX_TEXTURE_FORMAT_B5G6R5        = 83,
-        BGFX_TEXTURE_FORMAT_R5G6B5        = 84,
-        BGFX_TEXTURE_FORMAT_BGRA4         = 85,
-        BGFX_TEXTURE_FORMAT_RGBA4         = 86,
-        BGFX_TEXTURE_FORMAT_BGR5A1        = 87,
-        BGFX_TEXTURE_FORMAT_RGB5A1        = 88,
-        BGFX_TEXTURE_FORMAT_RGB10A2       = 89,
-        BGFX_TEXTURE_FORMAT_RG11B10F      = 90,
-        BGFX_TEXTURE_FORMAT_UNKNOWN_DEPTH = 91,
-        BGFX_TEXTURE_FORMAT_D16           = 92,
-        BGFX_TEXTURE_FORMAT_D24           = 93,
-        BGFX_TEXTURE_FORMAT_D24S8         = 94,
-        BGFX_TEXTURE_FORMAT_D32           = 95,
-        BGFX_TEXTURE_FORMAT_D16F          = 96,
-        BGFX_TEXTURE_FORMAT_D24F          = 97,
-        BGFX_TEXTURE_FORMAT_D32F          = 98,
-        BGFX_TEXTURE_FORMAT_D0S8          = 99,
-        BGFX_TEXTURE_FORMAT_COUNT         = BGFX_TEXTURE_FORMAT_D0S8 + 1;
+        BGFX_TEXTURE_FORMAT_BC4S          = 4,
+        BGFX_TEXTURE_FORMAT_BC5           = 5,
+        BGFX_TEXTURE_FORMAT_BC5S          = 6,
+        BGFX_TEXTURE_FORMAT_BC6H          = 7,
+        BGFX_TEXTURE_FORMAT_BC6HU         = 8,
+        BGFX_TEXTURE_FORMAT_BC7           = 9,
+        BGFX_TEXTURE_FORMAT_ETC1          = 10,
+        BGFX_TEXTURE_FORMAT_ETC2          = 11,
+        BGFX_TEXTURE_FORMAT_ETC2A         = 12,
+        BGFX_TEXTURE_FORMAT_ETC2A1        = 13,
+        BGFX_TEXTURE_FORMAT_EACR11        = 14,
+        BGFX_TEXTURE_FORMAT_EACR11S       = 15,
+        BGFX_TEXTURE_FORMAT_EACRG11       = 16,
+        BGFX_TEXTURE_FORMAT_EACRG11S      = 17,
+        BGFX_TEXTURE_FORMAT_PTC12         = 18,
+        BGFX_TEXTURE_FORMAT_PTC14         = 19,
+        BGFX_TEXTURE_FORMAT_PTC12A        = 20,
+        BGFX_TEXTURE_FORMAT_PTC14A        = 21,
+        BGFX_TEXTURE_FORMAT_PTC22         = 22,
+        BGFX_TEXTURE_FORMAT_PTC24         = 23,
+        BGFX_TEXTURE_FORMAT_ATC           = 24,
+        BGFX_TEXTURE_FORMAT_ATCE          = 25,
+        BGFX_TEXTURE_FORMAT_ATCI          = 26,
+        BGFX_TEXTURE_FORMAT_ASTC4x4       = 27,
+        BGFX_TEXTURE_FORMAT_ASTC5X4       = 28,
+        BGFX_TEXTURE_FORMAT_ASTC5x5       = 29,
+        BGFX_TEXTURE_FORMAT_ASTC6X5       = 30,
+        BGFX_TEXTURE_FORMAT_ASTC6x6       = 31,
+        BGFX_TEXTURE_FORMAT_ASTC8x5       = 32,
+        BGFX_TEXTURE_FORMAT_ASTC8x6       = 33,
+        BGFX_TEXTURE_FORMAT_ASTC8X8       = 34,
+        BGFX_TEXTURE_FORMAT_ASTC10x5      = 35,
+        BGFX_TEXTURE_FORMAT_ASTC10X6      = 36,
+        BGFX_TEXTURE_FORMAT_ASTC10X8      = 37,
+        BGFX_TEXTURE_FORMAT_ASTC10X10     = 38,
+        BGFX_TEXTURE_FORMAT_ASTC12X10     = 39,
+        BGFX_TEXTURE_FORMAT_ASTC12X12     = 40,
+        BGFX_TEXTURE_FORMAT_UNKNOWN       = 41,
+        BGFX_TEXTURE_FORMAT_R1            = 42,
+        BGFX_TEXTURE_FORMAT_A8            = 43,
+        BGFX_TEXTURE_FORMAT_R8            = 44,
+        BGFX_TEXTURE_FORMAT_R8I           = 45,
+        BGFX_TEXTURE_FORMAT_R8U           = 46,
+        BGFX_TEXTURE_FORMAT_R8S           = 47,
+        BGFX_TEXTURE_FORMAT_R16           = 48,
+        BGFX_TEXTURE_FORMAT_R16I          = 49,
+        BGFX_TEXTURE_FORMAT_R16U          = 50,
+        BGFX_TEXTURE_FORMAT_R16F          = 51,
+        BGFX_TEXTURE_FORMAT_R16S          = 52,
+        BGFX_TEXTURE_FORMAT_R32I          = 53,
+        BGFX_TEXTURE_FORMAT_R32U          = 54,
+        BGFX_TEXTURE_FORMAT_R32F          = 55,
+        BGFX_TEXTURE_FORMAT_RG8           = 56,
+        BGFX_TEXTURE_FORMAT_RG8I          = 57,
+        BGFX_TEXTURE_FORMAT_RG8U          = 58,
+        BGFX_TEXTURE_FORMAT_RG8S          = 59,
+        BGFX_TEXTURE_FORMAT_RG16          = 60,
+        BGFX_TEXTURE_FORMAT_RG16I         = 61,
+        BGFX_TEXTURE_FORMAT_RG16U         = 62,
+        BGFX_TEXTURE_FORMAT_RG16F         = 63,
+        BGFX_TEXTURE_FORMAT_RG16S         = 64,
+        BGFX_TEXTURE_FORMAT_RG32I         = 65,
+        BGFX_TEXTURE_FORMAT_RG32U         = 66,
+        BGFX_TEXTURE_FORMAT_RG32F         = 67,
+        BGFX_TEXTURE_FORMAT_RGB8          = 68,
+        BGFX_TEXTURE_FORMAT_RGB8I         = 69,
+        BGFX_TEXTURE_FORMAT_RGB8U         = 70,
+        BGFX_TEXTURE_FORMAT_RGB8S         = 71,
+        BGFX_TEXTURE_FORMAT_RGB9E5F       = 72,
+        BGFX_TEXTURE_FORMAT_BGRA8         = 73,
+        BGFX_TEXTURE_FORMAT_RGBA8         = 74,
+        BGFX_TEXTURE_FORMAT_RGBA8I        = 75,
+        BGFX_TEXTURE_FORMAT_RGBA8U        = 76,
+        BGFX_TEXTURE_FORMAT_RGBA8S        = 77,
+        BGFX_TEXTURE_FORMAT_RGBA16        = 78,
+        BGFX_TEXTURE_FORMAT_RGBA16I       = 79,
+        BGFX_TEXTURE_FORMAT_RGBA16U       = 80,
+        BGFX_TEXTURE_FORMAT_RGBA16F       = 81,
+        BGFX_TEXTURE_FORMAT_RGBA16S       = 82,
+        BGFX_TEXTURE_FORMAT_RGBA32I       = 83,
+        BGFX_TEXTURE_FORMAT_RGBA32U       = 84,
+        BGFX_TEXTURE_FORMAT_RGBA32F       = 85,
+        BGFX_TEXTURE_FORMAT_B5G6R5        = 86,
+        BGFX_TEXTURE_FORMAT_R5G6B5        = 87,
+        BGFX_TEXTURE_FORMAT_BGRA4         = 88,
+        BGFX_TEXTURE_FORMAT_RGBA4         = 89,
+        BGFX_TEXTURE_FORMAT_BGR5A1        = 90,
+        BGFX_TEXTURE_FORMAT_RGB5A1        = 91,
+        BGFX_TEXTURE_FORMAT_RGB10A2       = 92,
+        BGFX_TEXTURE_FORMAT_RGB10A2U      = 93,
+        BGFX_TEXTURE_FORMAT_RG11B10F      = 94,
+        BGFX_TEXTURE_FORMAT_UNKNOWN_DEPTH = 95,
+        BGFX_TEXTURE_FORMAT_D16           = 96,
+        BGFX_TEXTURE_FORMAT_D24           = 97,
+        BGFX_TEXTURE_FORMAT_D24S8         = 98,
+        BGFX_TEXTURE_FORMAT_D32           = 99,
+        BGFX_TEXTURE_FORMAT_D16F          = 100,
+        BGFX_TEXTURE_FORMAT_D24F          = 101,
+        BGFX_TEXTURE_FORMAT_D32F          = 102,
+        BGFX_TEXTURE_FORMAT_D32FS8        = 103,
+        BGFX_TEXTURE_FORMAT_D0S8          = 104,
+        BGFX_TEXTURE_FORMAT_COUNT         = 105;
 
     public static final int
         BGFX_UNIFORM_TYPE_SAMPLER = 0,
@@ -2203,6 +2201,19 @@ public class BGFX {
         nbgfx_update_texture_cube(_handle, (short)_layer, _side, (byte)_mip, (short)_x, (short)_y, (short)_width, (short)_height, _mem.address(), (short)_pitch);
     }
 
+    // --- [ bgfx_clear_texture ] ---
+
+    /** {@code void bgfx_clear_texture(bgfx_texture_handle_t _handle, uint8_t _mip, uint8_t _numMips, uint16_t _layer, uint16_t _numLayers)} */
+    public static void nbgfx_clear_texture(short _handle, byte _mip, byte _numMips, short _layer, short _numLayers) {
+        long __functionAddress = Functions.clear_texture;
+        invokeCUUCCV(_handle, _mip, _numMips, _layer, _numLayers, __functionAddress);
+    }
+
+    /** {@code void bgfx_clear_texture(bgfx_texture_handle_t _handle, uint8_t _mip, uint8_t _numMips, uint16_t _layer, uint16_t _numLayers)} */
+    public static void bgfx_clear_texture(@NativeType("bgfx_texture_handle_t") short _handle, @NativeType("uint8_t") int _mip, @NativeType("uint8_t") int _numMips, @NativeType("uint16_t") int _layer, @NativeType("uint16_t") int _numLayers) {
+        nbgfx_clear_texture(_handle, (byte)_mip, (byte)_numMips, (short)_layer, (short)_numLayers);
+    }
+
     // --- [ bgfx_read_texture ] ---
 
     /** {@code uint32_t bgfx_read_texture(bgfx_texture_handle_t _handle, void * _data, uint16_t _layer, uint8_t _mip)} */
@@ -2576,27 +2587,27 @@ public class BGFX {
 
     // --- [ bgfx_set_view_rect ] ---
 
-    /** {@code void bgfx_set_view_rect(bgfx_view_id_t _id, uint16_t _x, uint16_t _y, uint16_t _width, uint16_t _height)} */
+    /** {@code void bgfx_set_view_rect(bgfx_view_id_t _id, int16_t _x, int16_t _y, uint16_t _width, uint16_t _height)} */
     public static void nbgfx_set_view_rect(short _id, short _x, short _y, short _width, short _height) {
         long __functionAddress = Functions.set_view_rect;
-        invokeCCCCCV(_id, _x, _y, _width, _height, __functionAddress);
+        invokeCSSCCV(_id, _x, _y, _width, _height, __functionAddress);
     }
 
-    /** {@code void bgfx_set_view_rect(bgfx_view_id_t _id, uint16_t _x, uint16_t _y, uint16_t _width, uint16_t _height)} */
-    public static void bgfx_set_view_rect(@NativeType("bgfx_view_id_t") int _id, @NativeType("uint16_t") int _x, @NativeType("uint16_t") int _y, @NativeType("uint16_t") int _width, @NativeType("uint16_t") int _height) {
+    /** {@code void bgfx_set_view_rect(bgfx_view_id_t _id, int16_t _x, int16_t _y, uint16_t _width, uint16_t _height)} */
+    public static void bgfx_set_view_rect(@NativeType("bgfx_view_id_t") int _id, @NativeType("int16_t") int _x, @NativeType("int16_t") int _y, @NativeType("uint16_t") int _width, @NativeType("uint16_t") int _height) {
         nbgfx_set_view_rect((short)_id, (short)_x, (short)_y, (short)_width, (short)_height);
     }
 
     // --- [ bgfx_set_view_rect_ratio ] ---
 
-    /** {@code void bgfx_set_view_rect_ratio(bgfx_view_id_t _id, uint16_t _x, uint16_t _y, bgfx_backbuffer_ratio_t _ratio)} */
+    /** {@code void bgfx_set_view_rect_ratio(bgfx_view_id_t _id, int16_t _x, int16_t _y, bgfx_backbuffer_ratio_t _ratio)} */
     public static void nbgfx_set_view_rect_ratio(short _id, short _x, short _y, int _ratio) {
         long __functionAddress = Functions.set_view_rect_ratio;
-        invokeCCCV(_id, _x, _y, _ratio, __functionAddress);
+        invokeCSSV(_id, _x, _y, _ratio, __functionAddress);
     }
 
-    /** {@code void bgfx_set_view_rect_ratio(bgfx_view_id_t _id, uint16_t _x, uint16_t _y, bgfx_backbuffer_ratio_t _ratio)} */
-    public static void bgfx_set_view_rect_ratio(@NativeType("bgfx_view_id_t") int _id, @NativeType("uint16_t") int _x, @NativeType("uint16_t") int _y, @NativeType("bgfx_backbuffer_ratio_t") int _ratio) {
+    /** {@code void bgfx_set_view_rect_ratio(bgfx_view_id_t _id, int16_t _x, int16_t _y, bgfx_backbuffer_ratio_t _ratio)} */
+    public static void bgfx_set_view_rect_ratio(@NativeType("bgfx_view_id_t") int _id, @NativeType("int16_t") int _x, @NativeType("int16_t") int _y, @NativeType("bgfx_backbuffer_ratio_t") int _ratio) {
         nbgfx_set_view_rect_ratio((short)_id, (short)_x, (short)_y, _ratio);
     }
 

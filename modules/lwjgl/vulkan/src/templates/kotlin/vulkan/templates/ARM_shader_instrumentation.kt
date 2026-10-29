@@ -80,7 +80,7 @@ val ARM_shader_instrumentation = "ARMShaderInstrumentation".nativeClassVK("ARM_s
         VkDevice("device"),
         VkShaderInstrumentationARM("instrumentation"),
         Check(1)..uint32_t.p("pMetricBlockCount"),
-        Check(1)..void.p("pMetricValues"),
+        Check(1)..nullable..void.p("pMetricValues"),
         VkShaderInstrumentationValuesFlagsARM("flags")
     )
 

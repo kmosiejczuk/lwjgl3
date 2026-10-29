@@ -45,6 +45,7 @@ public class mimalloc {
             reallocf                           = apiGetFunctionAddress(MIMALLOC, "mi_reallocf"),
             usable_size                        = apiGetFunctionAddress(MIMALLOC, "mi_usable_size"),
             good_size                          = apiGetFunctionAddress(MIMALLOC, "mi_good_size"),
+            free_size                          = apiGetFunctionAddress(MIMALLOC, "mi_free_size"),
             free_small                         = apiGetFunctionAddress(MIMALLOC, "mi_free_small"),
             malloc_aligned                     = apiGetFunctionAddress(MIMALLOC, "mi_malloc_aligned"),
             malloc_aligned_at                  = apiGetFunctionAddress(MIMALLOC, "mi_malloc_aligned_at"),
@@ -125,6 +126,7 @@ public class mimalloc {
             arenas_print                       = apiGetFunctionAddress(MIMALLOC, "mi_arenas_print"),
             arena_min_alignment                = apiGetFunctionAddress(MIMALLOC, "mi_arena_min_alignment"),
             arena_min_size                     = apiGetFunctionAddress(MIMALLOC, "mi_arena_min_size"),
+            arena_max_object_size              = apiGetFunctionAddress(MIMALLOC, "mi_arena_max_object_size"),
             arena_area                         = apiGetFunctionAddress(MIMALLOC, "mi_arena_area"),
             reserve_huge_os_pages_at_ex        = apiGetFunctionAddress(MIMALLOC, "mi_reserve_huge_os_pages_at_ex"),
             reserve_os_memory_ex               = apiGetFunctionAddress(MIMALLOC, "mi_reserve_os_memory_ex"),
@@ -146,7 +148,9 @@ public class mimalloc {
             theap_malloc_small                 = apiGetFunctionAddress(MIMALLOC, "mi_theap_malloc_small"),
             theap_zalloc_small                 = apiGetFunctionAddress(MIMALLOC, "mi_theap_zalloc_small"),
             theap_malloc_aligned               = apiGetFunctionAddress(MIMALLOC, "mi_theap_malloc_aligned"),
+            theap_zalloc_aligned               = apiGetFunctionAddress(MIMALLOC, "mi_theap_zalloc_aligned"),
             theap_realloc                      = apiGetFunctionAddress(MIMALLOC, "mi_theap_realloc"),
+            theap_rezalloc                     = apiGetFunctionAddress(MIMALLOC, "mi_theap_rezalloc"),
             theap_guarded_set_sample_rate      = apiGetFunctionAddress(MIMALLOC, "mi_theap_guarded_set_sample_rate"),
             theap_guarded_set_size_bound       = apiGetFunctionAddress(MIMALLOC, "mi_theap_guarded_set_size_bound"),
             manage_memory                      = apiGetFunctionAddress(MIMALLOC, "mi_manage_memory"),
@@ -160,7 +164,8 @@ public class mimalloc {
             option_get_clamp                   = apiGetFunctionAddress(MIMALLOC, "mi_option_get_clamp"),
             option_get_size                    = apiGetFunctionAddress(MIMALLOC, "mi_option_get_size"),
             option_set                         = apiGetFunctionAddress(MIMALLOC, "mi_option_set"),
-            option_set_default                 = apiGetFunctionAddress(MIMALLOC, "mi_option_set_default");
+            option_set_default                 = apiGetFunctionAddress(MIMALLOC, "mi_option_set_default"),
+            aligned_alloc                      = apiGetFunctionAddress(MIMALLOC, "mi_aligned_alloc");
 
     }
 
@@ -169,7 +174,7 @@ public class mimalloc {
         return MIMALLOC;
     }
 
-    public static final int MI_MALLOC_VERSION = 30302;
+    public static final int MI_MALLOC_VERSION = 30500;
 
     public static final int
         MI_SMALL_WSIZE_MAX = 128,
@@ -204,7 +209,7 @@ public class mimalloc {
         mi_option_deprecated_purge_extend_delay   = 25,
         mi_option_disallow_arena_alloc            = 26,
         mi_option_retry_on_oom                    = 27,
-        mi_option_visit_abandoned                 = 28,
+        mi_option_deprecated_visit_abandoned      = 28,
         mi_option_guarded_min                     = 29,
         mi_option_guarded_max                     = 30,
         mi_option_guarded_precise                 = 31,
@@ -442,6 +447,49 @@ public class mimalloc {
     public static long mi_good_size(@NativeType("size_t") long size) {
         long __functionAddress = Functions.good_size;
         return invokePP(size, __functionAddress);
+    }
+
+    // --- [ mi_free_size ] ---
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void nmi_free_size(long p, long size) {
+        long __functionAddress = Functions.free_size;
+        invokePPV(p, size, __functionAddress);
+    }
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void mi_free_size(@NativeType("void *") @Nullable ByteBuffer p) {
+        nmi_free_size(memAddressSafe(p), remainingSafe(p));
+    }
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void mi_free_size(@NativeType("void *") @Nullable ShortBuffer p) {
+        nmi_free_size(memAddressSafe(p), Integer.toUnsignedLong(remainingSafe(p)) << 1);
+    }
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void mi_free_size(@NativeType("void *") @Nullable IntBuffer p) {
+        nmi_free_size(memAddressSafe(p), Integer.toUnsignedLong(remainingSafe(p)) << 2);
+    }
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void mi_free_size(@NativeType("void *") @Nullable LongBuffer p) {
+        nmi_free_size(memAddressSafe(p), Integer.toUnsignedLong(remainingSafe(p)) << 3);
+    }
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void mi_free_size(@NativeType("void *") @Nullable FloatBuffer p) {
+        nmi_free_size(memAddressSafe(p), Integer.toUnsignedLong(remainingSafe(p)) << 2);
+    }
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void mi_free_size(@NativeType("void *") @Nullable DoubleBuffer p) {
+        nmi_free_size(memAddressSafe(p), Integer.toUnsignedLong(remainingSafe(p)) << 3);
+    }
+
+    /** {@code void mi_free_size(void * p, size_t size)} */
+    public static void mi_free_size(@NativeType("void *") @Nullable PointerBuffer p) {
+        nmi_free_size(memAddressSafe(p), Integer.toUnsignedLong(remainingSafe(p)) << POINTER_SHIFT);
     }
 
     // --- [ mi_free_small ] ---
@@ -1660,6 +1708,15 @@ public class mimalloc {
         return invokeP(__functionAddress);
     }
 
+    // --- [ mi_arena_max_object_size ] ---
+
+    /** {@code size_t mi_arena_max_object_size(void)} */
+    @NativeType("size_t")
+    public static long mi_arena_max_object_size() {
+        long __functionAddress = Functions.arena_max_object_size;
+        return invokeP(__functionAddress);
+    }
+
     // --- [ mi_arena_area ] ---
 
     /** {@code void * mi_arena_area(mi_arena_id_t arena_id, size_t * size)} */
@@ -2067,6 +2124,24 @@ public class mimalloc {
         return memByteBufferSafe(__result, (int)size);
     }
 
+    // --- [ mi_theap_zalloc_aligned ] ---
+
+    /** {@code void * mi_theap_zalloc_aligned(mi_theap_t * theap, size_t size, size_t alignment)} */
+    public static long nmi_theap_zalloc_aligned(long theap, long size, long alignment) {
+        long __functionAddress = Functions.theap_zalloc_aligned;
+        if (CHECKS) {
+            check(theap);
+        }
+        return invokePPPP(theap, size, alignment, __functionAddress);
+    }
+
+    /** {@code void * mi_theap_zalloc_aligned(mi_theap_t * theap, size_t size, size_t alignment)} */
+    @NativeType("void *")
+    public static @Nullable ByteBuffer mi_theap_zalloc_aligned(@NativeType("mi_theap_t *") long theap, @NativeType("size_t") long size, @NativeType("size_t") long alignment) {
+        long __result = nmi_theap_zalloc_aligned(theap, size, alignment);
+        return memByteBufferSafe(__result, (int)size);
+    }
+
     // --- [ mi_theap_realloc ] ---
 
     /** {@code void * mi_theap_realloc(mi_theap_t * theap, void * p, size_t newsize)} */
@@ -2082,6 +2157,24 @@ public class mimalloc {
     @NativeType("void *")
     public static @Nullable ByteBuffer mi_theap_realloc(@NativeType("mi_theap_t *") long theap, @NativeType("void *") @Nullable ByteBuffer p, @NativeType("size_t") long newsize) {
         long __result = nmi_theap_realloc(theap, memAddressSafe(p), newsize);
+        return memByteBufferSafe(__result, (int)newsize);
+    }
+
+    // --- [ mi_theap_rezalloc ] ---
+
+    /** {@code void * mi_theap_rezalloc(mi_theap_t * theap, void * p, size_t newsize)} */
+    public static long nmi_theap_rezalloc(long theap, long p, long newsize) {
+        long __functionAddress = Functions.theap_rezalloc;
+        if (CHECKS) {
+            check(theap);
+        }
+        return invokePPPP(theap, p, newsize, __functionAddress);
+    }
+
+    /** {@code void * mi_theap_rezalloc(mi_theap_t * theap, void * p, size_t newsize)} */
+    @NativeType("void *")
+    public static @Nullable ByteBuffer mi_theap_rezalloc(@NativeType("mi_theap_t *") long theap, @NativeType("void *") @Nullable ByteBuffer p, @NativeType("size_t") long newsize) {
+        long __result = nmi_theap_rezalloc(theap, memAddressSafe(p), newsize);
         return memByteBufferSafe(__result, (int)newsize);
     }
 
@@ -2223,12 +2316,27 @@ public class mimalloc {
         invokeNV(option, value, __functionAddress);
     }
 
+    // --- [ mi_aligned_alloc ] ---
+
+    /** {@code void * mi_aligned_alloc(size_t alignment, size_t size)} */
+    private static long nmi_aligned_alloc(long alignment, long size) {
+        long __functionAddress = Functions.aligned_alloc;
+        return invokePPP(alignment, size, __functionAddress);
+    }
+
+    /** {@code void * mi_aligned_alloc(size_t alignment, size_t size)} */
+    @NativeType("void *")
+    private static @Nullable ByteBuffer mi_aligned_alloc(@NativeType("size_t") long alignment, @NativeType("size_t") long size) {
+        long __result = nmi_aligned_alloc(alignment, size);
+        return memByteBufferSafe(__result, (int)size);
+    }
+
     public static final class Allocator implements MemoryAllocator {
         @Override public long getMalloc()                              { return Functions.malloc; }
         @Override public long getCalloc()                              { return Functions.calloc; }
         @Override public long getRealloc()                             { return Functions.realloc; }
         @Override public long getFree()                                { return Functions.free; }
-        @Override public long getAlignedAlloc()                        { return Functions.malloc_aligned; }
+        @Override public long getAlignedAlloc()                        { return Functions.aligned_alloc; }
         @Override public long getAlignedFree()                         { return Functions.free; }
 
         @Override public long malloc(long size)                        { return nmi_malloc(size); }

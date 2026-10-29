@@ -297,6 +297,12 @@ JNIEXPORT void JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1call_1plan_1fre
     ffi_call_plan_free(plan);
 }
 
+JNIEXPORT jlong JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1call_1plan_1size(JNIEnv *__env, jclass clazz, jlong planAddress) {
+    ffi_call_plan *plan = (ffi_call_plan *)(uintptr_t)planAddress;
+    UNUSED_PARAMS(__env, clazz)
+    return (jlong)ffi_call_plan_size(plan);
+}
+
 JNIEXPORT jint JNICALL Java_org_lwjgl_system_libffi_LibFFI_nffi_1get_1struct_1offsets(JNIEnv *__env, jclass clazz, jint abi, jlong struct_typeAddress, jlong offsetsAddress) {
     ffi_type *struct_type = (ffi_type *)(uintptr_t)struct_typeAddress;
     size_t *offsets = (size_t *)(uintptr_t)offsetsAddress;

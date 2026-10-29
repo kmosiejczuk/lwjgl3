@@ -20,9 +20,9 @@ public class LibFFI {
 
     static { Library.initialize(); }
 
-    public static final String FFI_VERSION_STRING = "3.6.0";
+    public static final String FFI_VERSION_STRING = "3.8.0";
 
-    public static final int FFI_VERSION_NUMBER = 0x7788;
+    public static final int FFI_VERSION_NUMBER = 0x7850;
 
     public static final short
         FFI_TYPE_VOID       = 0,
@@ -42,7 +42,8 @@ public class LibFFI {
         FFI_TYPE_POINTER    = 14,
         FFI_TYPE_COMPLEX    = 15,
         FFI_TYPE_UINT128    = 16,
-        FFI_TYPE_SINT128    = 17;
+        FFI_TYPE_SINT128    = 17,
+        FFI_TYPE_VECTOR     = 18;
 
     public static final int
         FFI_FIRST_ABI   = FFI_FIRST_ABI(),
@@ -519,6 +520,20 @@ public class LibFFI {
             check(plan);
         }
         nffi_call_plan_free(plan);
+    }
+
+    // --- [ ffi_call_plan_size ] ---
+
+    /** {@code size_t ffi_call_plan_size(ffi_call_plan * plan)} */
+    public static native long nffi_call_plan_size(long plan);
+
+    /** {@code size_t ffi_call_plan_size(ffi_call_plan * plan)} */
+    @NativeType("size_t")
+    public static long ffi_call_plan_size(@NativeType("ffi_call_plan *") long plan) {
+        if (CHECKS) {
+            check(plan);
+        }
+        return nffi_call_plan_size(plan);
     }
 
     // --- [ ffi_get_struct_offsets ] ---

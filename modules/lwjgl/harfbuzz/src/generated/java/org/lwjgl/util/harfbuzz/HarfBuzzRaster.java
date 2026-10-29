@@ -18,6 +18,10 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class HarfBuzzRaster {
 
+    static {
+        HarfBuzz.getLibrary();
+    }
+
     private static final SharedLibrary HARFBUZZ = Library.loadNative(HarfBuzzRaster.class, "org.lwjgl.harfbuzz", Configuration.HARFBUZZ_RASTER_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("harfbuzz-raster")), true);
 
     /** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */

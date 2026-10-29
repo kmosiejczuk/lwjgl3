@@ -18,20 +18,21 @@ val lmdb = "LMDB".nativeClass(Module.LMDB, prefix = "MDB", prefixMethod = "mdb_"
 ENABLE_WARNINGS()""")
 
     IntConstant(
-        "VERSION_MAJOR".."0",
-        "VERSION_MINOR".."9",
-        "VERSION_PATCH".."35"
+        "VERSION_MAJOR".."1",
+        "VERSION_MINOR".."0",
+        "VERSION_PATCH".."1"
     )
 
     IntConstant("VERSION_FULL".."(MDB_VERSION_MAJOR << 24) | (MDB_VERSION_MINOR << 16) | MDB_VERSION_PATCH")
 
-    StringConstant("VERSION_DATE".."Jan 27, 2026")
+    StringConstant("VERSION_DATE".."Aug 6, 2026")
     StringConstant(
         "VERSION_STRING".expr("String.format(\"LMDB %d.%d.%d: (%s)\", MDB_VERSION_MAJOR, MDB_VERSION_MINOR, MDB_VERSION_PATCH, MDB_VERSION_DATE)")
     )
 
     EnumConstant(
         "FIXEDMAP".enum(0x01),
+        "ENCRYPT".enum(0x2000),
         "NOSUBDIR".enum(0x4000),
         "NOSYNC".enum(0x10000),
         "RDONLY".enum(0x20000),
@@ -41,7 +42,9 @@ ENABLE_WARNINGS()""")
         "NOTLS".enum(0x200000),
         "NOLOCK".enum(0x400000),
         "NORDAHEAD".enum(0x800000),
-        "NOMEMINIT".enum(0x1000000)
+        "NOMEMINIT".enum(0x1000000),
+        "PREVSNAPSHOT".enum(0x2000000),
+        "REMAP_CHUNKS".enum(0x4000000)
     )
 
     EnumConstant(
@@ -112,7 +115,18 @@ ENABLE_WARNINGS()""")
         "BAD_TXN".enum("-30782"),
         "BAD_VALSIZE".enum("-30781"),
         "BAD_DBI".enum("-30780"),
-        "LAST_ERRCODE".enum("MDB_BAD_DBI")
+        "PROBLEM".enum("-30779"),
+        "BAD_CHECKSUM".enum("-30778"),
+        "CRYPTO_FAIL".enum("-30777"),
+        "ENV_ENCRYPTION".enum("-30776"),
+        "TXN_PENDING".enum("-30775"),
+        "CANT_ROLLBACK".enum("-30774"),
+        "DBIS_BUSY".enum("-30773"),
+        "SHORT_WRITE".enum("-30772"),
+        "ENV_BUSY".enum("-30771"),
+        "IS_READONLY".enum("-30770"),
+        "ADDR_BUSY".enum("-30769"),
+        "LAST_ERRCODE".enum("MDB_ADDR_BUSY")
     )
 
     charASCII.p(
@@ -147,7 +161,7 @@ ENABLE_WARNINGS()""")
     int(
         "env_copy",
 
-        MDB_env.p("env"),
+        env_open["env"],
         charUTF8.const.p("path")
     )
 
@@ -162,7 +176,7 @@ ENABLE_WARNINGS()""")
     int(
         "env_copy2",
 
-        MDB_env.p("env"),
+        env_open["env"],
         charUTF8.const.p("path"),
         unsigned_int("flags")
     )
@@ -171,9 +185,32 @@ ENABLE_WARNINGS()""")
         "env_copyfd2",
         "",
 
-        MDB_env_p("env"),
+        env_open["env"],
         mdb_filehandle_t("fd"),
         unsigned_int("flags")
+    )*/
+
+    /*int(
+        "env_incr_dumpfd",
+
+        env_open["env"],
+        mdb_filehandle_t("fd"),
+        size_t("txnid")
+    )*/
+
+    int(
+        "env_incr_dump",
+
+        env_open["env"],
+        charUTF8.const.p("path"),
+        size_t("txnid")
+    )
+
+    /*int(
+        "env_incr_loadfd",
+
+        env_open["env"],
+        mdb_filehandle_t("fd")
     )*/
 
     int(
@@ -237,7 +274,14 @@ ENABLE_WARNINGS()""")
         "env_set_mapsize",
 
         env_open["env"],
-        size_t("size")
+        mdb_size_t("size")
+    )
+
+    int(
+        "env_set_pagesize",
+
+        env_open["env"],
+        int("size")
     )
 
     int(
@@ -289,6 +333,23 @@ ENABLE_WARNINGS()""")
     )*/
 
     int(
+        "env_set_encrypt",
+
+        env_open["env"],
+        MDB_enc_func("func"),
+        MDB_val.const.p("key"),
+        unsigned_int("size")
+    )
+
+    int(
+        "env_set_checksum",
+
+        env_open["env"],
+        MDB_sum_func("func"),
+        unsigned_int("size")
+    )
+
+    int(
         "txn_begin",
 
         env_open["env"],
@@ -303,16 +364,36 @@ ENABLE_WARNINGS()""")
         MDB_txn.p("txn")
     )
 
-    size_t(
+    mdb_size_t(
         "txn_id",
 
         txn_env["txn"]
     )
 
     int(
+        "txn_flags",
+
+        txn_env["txn"],
+        Check(1)..unsigned_int.p("flags")
+    )
+
+    int(
         "txn_commit",
 
         txn_env["txn"]
+    )
+
+    int(
+        "txn_prepare",
+
+        txn_env["txn"]
+    )
+
+    int(
+        "env_rollback",
+
+        env_open["env"],
+        mdb_size_t("txnid")
     )
 
     void(
@@ -466,6 +547,12 @@ ENABLE_WARNINGS()""")
         cursor_close["cursor"]
     )
 
+    intb(
+        "cursor_is_db",
+
+        cursor_close["cursor"]
+    )
+
     int(
         "cursor_get",
 
@@ -495,7 +582,7 @@ ENABLE_WARNINGS()""")
         "cursor_count",
 
         cursor_close["cursor"],
-        Check(1)..size_t.p("countp")
+        Check(1)..mdb_size_t.p("countp")
     )
 
     int(

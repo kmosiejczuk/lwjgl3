@@ -1698,45 +1698,7 @@
         </release-module>
 
         <!-- bgfx -->
-        <release-module name="bgfx" title="bgfx" if:true="${binding.bgfx}">
-            <natives>
-                <get-release platform="freebsd" arch="x64" file="libbgfx.so"/>
-                <get-release platform="freebsd" arch="x64" file="libbgfx.so.git"/>
-
-                <get-release platform="linux" arch="x64" file="libbgfx.so"/>
-                <get-release platform="linux" arch="x64" file="libbgfx.so.git"/>
-
-                <get-release platform="linux" arch="arm64" file="libbgfx.so"/>
-                <get-release platform="linux" arch="arm64" file="libbgfx.so.git"/>
-
-                <get-release platform="linux" arch="arm32" file="libbgfx.so"/>
-                <get-release platform="linux" arch="arm32" file="libbgfx.so.git"/>
-
-                <get-release platform="linux" arch="ppc64le" file="libbgfx.so"/>
-                <get-release platform="linux" arch="ppc64le" file="libbgfx.so.git"/>
-
-                <get-release platform="linux" arch="riscv64" file="libbgfx.so"/>
-                <get-release platform="linux" arch="riscv64" file="libbgfx.so.git"/>
-
-                <get-release platform="macos" arch="x64" file="libbgfx.dylib"/>
-                <get-release platform="macos" arch="x64" file="libbgfx.dylib.git"/>
-
-                <get-release platform="macos" arch="arm64" file="libbgfx.dylib"/>
-                <get-release platform="macos" arch="arm64" file="libbgfx.dylib.git"/>
-
-                <get-release platform="openbsd" arch="x64" file="libbgfx.so"/>
-                <get-release platform="openbsd" arch="x64" file="libbgfx.so.git"/>
-
-                <get-release platform="openbsd" arch="arm64" file="libbgfx.so"/>
-                <get-release platform="openbsd" arch="arm64" file="libbgfx.so.git"/>
-
-                <get-release platform="windows" arch="x64" file="bgfx.dll"/>
-                <get-release platform="windows" arch="x64" file="bgfx.dll.git"/>
-
-                <get-release platform="windows" arch="x86" file="bgfx.dll"/>
-                <get-release platform="windows" arch="x86" file="bgfx.dll.git"/>
-            </natives>
-        </release-module>
+        <release-module name="bgfx" native-library="bgfx" title="bgfx" if:true="${binding.bgfx}"/>
 
         <!-- EGL -->
         <release-module name="egl" title="EGL" if:true="${binding.egl}"/>

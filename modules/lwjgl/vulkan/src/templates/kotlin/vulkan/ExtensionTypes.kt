@@ -314,11 +314,13 @@ val VkDataGraphOpticalFlowGridSizeFlagBitsARM = "VkDataGraphOpticalFlowGridSizeF
 val VkDataGraphOpticalFlowExecuteFlagBitsARM = "VkDataGraphOpticalFlowExecuteFlagBitsARM".enumType
 val VkDataGraphPipelineNodeTypeARM = "VkDataGraphPipelineNodeTypeARM".enumType
 val VkDataGraphPipelineNodeConnectionTypeARM = "VkDataGraphPipelineNodeConnectionTypeARM".enumType
+val VkCooperativeMatrixFlagBitsEXT = "VkCooperativeMatrixFlagBitsEXT".enumType
 val VkFormatFeatureFlagBits4KHR = "VkFormatFeatureFlagBits4KHR".enumType
 val VkImageUsageFlagBits2KHR = "VkImageUsageFlagBits2KHR".enumType
 val VkImageCreateFlagBits2KHR = "VkImageCreateFlagBits2KHR".enumType
 val VkThrottleHintTypeSEC = "VkThrottleHintTypeSEC".enumType
 val VkNeuralAcceleratorStatisticsModeARM = "VkNeuralAcceleratorStatisticsModeARM".enumType
+val VkImageTilingControlEXT = "VkImageTilingControlEXT".enumType
 
 // Bitmask types
 val VkSurfaceTransformFlagsKHR = typedef(VkFlags, "VkSurfaceTransformFlagsKHR")
@@ -490,6 +492,7 @@ val VkDataGraphOpticalFlowGridSizeFlagsARM = typedef(VkFlags, "VkDataGraphOptica
 val VkDataGraphOpticalFlowCreateFlagsARM = typedef(VkFlags, "VkDataGraphOpticalFlowCreateFlagsARM")
 val VkDataGraphOpticalFlowImageUsageFlagsARM = typedef(VkFlags, "VkDataGraphOpticalFlowImageUsageFlagsARM")
 val VkDataGraphOpticalFlowExecuteFlagsARM = typedef(VkFlags, "VkDataGraphOpticalFlowExecuteFlagsARM")
+val VkCooperativeMatrixFlagsEXT = typedef(VkFlags, "VkCooperativeMatrixFlagsEXT")
 val VkUbmSurfaceCreateFlagsSEC = typedef(VkFlags, "VkUbmSurfaceCreateFlagsSEC")
 val VkFormatFeatureFlags4KHR = typedef(VkFlags64, "VkFormatFeatureFlags4KHR")
 val VkImageUsageFlags2KHR = typedef(VkFlags64, "VkImageUsageFlags2KHR")
@@ -3546,7 +3549,7 @@ val VkRayTracingPipelineInterfaceCreateInfoKHR = struct(Module.VULKAN, "VkRayTra
 val VkRayTracingPipelineCreateInfoKHR = struct(Module.VULKAN, "VkRayTracingPipelineCreateInfoKHR") {
     Expression("#STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR")..VkStructureType("sType")
     PointerSetter(
-        "VkPipelineBinaryInfoKHR", "VkPipelineCreateFlags2CreateInfo", "VkPipelineCreateFlags2CreateInfoKHR", "VkPipelineCreationFeedbackCreateInfo", "VkPipelineCreationFeedbackCreateInfoEXT", "VkPipelineRobustnessCreateInfo", "VkPipelineRobustnessCreateInfoEXT", "VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV",
+        "VkPipelineBinaryInfoKHR", "VkPipelineCreateFlags2CreateInfo", "VkPipelineCreateFlags2CreateInfoKHR", "VkPipelineCreationFeedbackCreateInfo", "VkPipelineCreationFeedbackCreateInfoEXT", "VkPipelineRobustnessCreateInfo", "VkPipelineRobustnessCreateInfoEXT", "VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV", "VkValidationFeaturesEXT",
         prepend = true
     )..nullable..opaque_const_p("pNext")
     VkPipelineCreateFlags("flags")
@@ -10722,9 +10725,9 @@ val VkPhysicalDeviceVideoEncodeFeedback2FeaturesKHR = struct(Module.VULKAN, "VkP
     VkBool32("videoEncodeFeedback2")
 }
 
-val VkVideoEncodeFeedback2CapabilitiesKHR = struct(Module.VULKAN, "VkVideoEncodeFeedback2CapabilitiesKHR") {
-    Expression("#STRUCTURE_TYPE_VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR")..VkStructureType("sType")
-    nullable..opaque_p("pNext")
+val VkVideoEncodeFeedback2CapabilitiesKHR = struct(Module.VULKAN, "VkVideoEncodeFeedback2CapabilitiesKHR", mutable = false) {
+    Expression("#STRUCTURE_TYPE_VIDEO_ENCODE_FEEDBACK_2_CAPABILITIES_KHR")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
     uint32_t("maxPerPartitionFeedbackEntries")
     VkVideoEncodePerPartitionFeedbackFlagsKHR("supportedPerPartitionEncodeFeedbackFlags")
 }
@@ -11197,6 +11200,37 @@ val VkQueueFamilyOptimalImageTransferGranularityPropertiesKHR = struct(Module.VU
     VkExtent3D("optimalImageTransferGranularity")
 }
 
+val VkCooperativeMatrixProperties2EXT = struct(Module.VULKAN, "VkCooperativeMatrixProperties2EXT", mutable = false) {
+    Expression("#STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_2_EXT")..VkStructureType("sType").mutable()
+    nullable..opaque_p("pNext").mutable()
+    uint32_t("MGranularity")
+    uint32_t("NGranularity")
+    uint32_t("KGranularity")
+    VkComponentTypeKHR("AType")
+    VkComponentTypeKHR("BType")
+    VkComponentTypeKHR("CType")
+    VkComponentTypeKHR("ResultType")
+}
+
+val VkPhysicalDeviceCooperativeMatrixInfo2EXT = struct(Module.VULKAN, "VkPhysicalDeviceCooperativeMatrixInfo2EXT") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_INFO_2_EXT")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkScopeKHR("scope")
+    uint32_t("invocations")
+    uint32_t("subgroupSize")
+    VkCooperativeMatrixFlagsEXT("flags")
+}
+
+val VkPhysicalDeviceCooperativeMatrixMaintenance1FeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceCooperativeMatrixMaintenance1FeaturesEXT") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_MAINTENANCE_1_FEATURES_EXT")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("cooperativeMatrixProperties2")
+    VkBool32("cooperativeMatrixReductions")
+    VkBool32("cooperativeMatrixConversions")
+    VkBool32("cooperativeMatrixPerElementOperations")
+    VkBool32("cooperativeMatrixGetCoordinate")
+}
+
 val VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceShaderSubgroupPartitionedFeaturesEXT") {
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_PARTITIONED_FEATURES_EXT")..VkStructureType("sType")
     nullable..opaque_p("pNext")
@@ -11307,6 +11341,18 @@ val VkPhysicalDevicePrimitiveRestartIndexFeaturesEXT = struct(Module.VULKAN, "Vk
     Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_RESTART_INDEX_FEATURES_EXT")..VkStructureType("sType")
     nullable..opaque_p("pNext")
     VkBool32("primitiveRestartIndex")
+}
+
+val VkPhysicalDeviceImageTilingControlFeaturesEXT = struct(Module.VULKAN, "VkPhysicalDeviceImageTilingControlFeaturesEXT") {
+    Expression("#STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_TILING_CONTROL_FEATURES_EXT")..VkStructureType("sType")
+    nullable..opaque_p("pNext")
+    VkBool32("imageTilingControl")
+}
+
+val VkImageTilingControlCreateInfoEXT = struct(Module.VULKAN, "VkImageTilingControlCreateInfoEXT") {
+    Expression("#STRUCTURE_TYPE_IMAGE_TILING_CONTROL_CREATE_INFO_EXT")..VkStructureType("sType")
+    nullable..opaque_const_p("pNext")
+    VkImageTilingControlEXT("tilingControl")
 }
 
 val VkPhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV = struct(Module.VULKAN, "VkPhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV") {

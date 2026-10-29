@@ -101,6 +101,8 @@ final class Upcalls {
         }
 
         MemoryUtil.getAllocator();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(Upcalls::shutdown, "LWJGL Upcalls Shutdown Hook"));
     }
 
     private Upcalls() {
@@ -108,13 +110,15 @@ final class Upcalls {
 
     private static native long getCallbackHandler(Method callback);
 
+    private static native void shutdown();
+
     /**
      * Creates a native function that delegates to the specified instance when called.
      *
      * <p>The native function uses the default calling convention.</p>
      *
-     * @param descriptor      the upcall descriptor
-     * @param instance the callback instance
+     * @param descriptor the upcall descriptor
+     * @param instance   the callback instance
      *
      * @return the dynamically generated native function
      */
@@ -163,6 +167,5 @@ final class Upcalls {
         DeleteGlobalRef(closure.user_data());
         ffi_closure_free(closure);
     }
-
 
 }

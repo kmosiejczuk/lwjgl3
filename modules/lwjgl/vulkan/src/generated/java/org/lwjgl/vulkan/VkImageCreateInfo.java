@@ -211,6 +211,8 @@ public class VkImageCreateInfo extends Struct<VkImageCreateInfo> implements Nati
     public VkImageCreateInfo pNext(VkImageStencilUsageCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkImageSwapchainCreateInfoKHR} value to the {@code pNext} chain. */
     public VkImageCreateInfo pNext(VkImageSwapchainCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+    /** Prepends the specified {@link VkImageTilingControlCreateInfoEXT} value to the {@code pNext} chain. */
+    public VkImageCreateInfo pNext(VkImageTilingControlCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkImageUsageFlags2CreateInfoKHR} value to the {@code pNext} chain. */
     public VkImageCreateInfo pNext(VkImageUsageFlags2CreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
     /** Prepends the specified {@link VkImportMetalIOSurfaceInfoEXT} value to the {@code pNext} chain. */
@@ -606,6 +608,8 @@ public class VkImageCreateInfo extends Struct<VkImageCreateInfo> implements Nati
         public VkImageCreateInfo.Buffer pNext(VkImageStencilUsageCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkImageSwapchainCreateInfoKHR} value to the {@code pNext} chain. */
         public VkImageCreateInfo.Buffer pNext(VkImageSwapchainCreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
+        /** Prepends the specified {@link VkImageTilingControlCreateInfoEXT} value to the {@code pNext} chain. */
+        public VkImageCreateInfo.Buffer pNext(VkImageTilingControlCreateInfoEXT value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkImageUsageFlags2CreateInfoKHR} value to the {@code pNext} chain. */
         public VkImageCreateInfo.Buffer pNext(VkImageUsageFlags2CreateInfoKHR value) { return this.pNext(value.pNext(this.pNext()).address()); }
         /** Prepends the specified {@link VkImportMetalIOSurfaceInfoEXT} value to the {@code pNext} chain. */

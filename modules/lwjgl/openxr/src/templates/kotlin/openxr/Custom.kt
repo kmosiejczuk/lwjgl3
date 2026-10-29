@@ -107,7 +107,7 @@ fun templateCustomization() {
 
     XR10.apply {
         LongConstant(
-            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 1, 61)"
+            "CURRENT_API_VERSION".."XR_MAKE_VERSION(1, 1, 62)"
         )
 
         LongConstant(

@@ -10,6 +10,42 @@ import harfbuzz.*
 val hb_ot = "OpenType".nativeClass(Module.HARFBUZZ, prefix = "HB_OT", prefixMethod = "hb_ot_", binding = HARFBUZZ_BINDING_DELEGATE) {
     javaImport("static org.lwjgl.util.harfbuzz.HarfBuzz.*")
 
+    // hb-ot-fetch.h
+
+    EnumConstant(
+        "BITS_TAG_FS_TYPE".enum("HB_TAG ('f','s','t','p')"),
+        "BITS_TAG_FS_SELECTION".enum("HB_TAG ('f','s','s','l')"),
+        "BITS_TAG_MAC_STYLE".enum("HB_TAG ('m','c','s','t')"),
+        "BITS_TAG_IS_FIXED_PITCH".enum("HB_TAG ('f','x','p','t')"),
+        "BITS_TAG_UNICODE_RANGE_1".enum("HB_TAG ('u','r','n','1')"),
+        "BITS_TAG_UNICODE_RANGE_2".enum("HB_TAG ('u','r','n','2')"),
+        "BITS_TAG_UNICODE_RANGE_3".enum("HB_TAG ('u','r','n','3')"),
+        "BITS_TAG_UNICODE_RANGE_4".enum("HB_TAG ('u','r','n','4')"),
+        "BITS_TAG_CODE_PAGE_RANGE_1".enum("HB_TAG ('c','p','r','1')"),
+        "BITS_TAG_CODE_PAGE_RANGE_2".enum("HB_TAG ('c','p','r','2')")
+    )
+
+    EnumConstant(
+        "NUMBER_TAG_FONT_X_MIN".enum("HB_TAG ('x','m','i','n')"),
+        "NUMBER_TAG_FONT_Y_MIN".enum("HB_TAG ('y','m','i','n')"),
+        "NUMBER_TAG_FONT_X_MAX".enum("HB_TAG ('x','m','a','x')"),
+        "NUMBER_TAG_FONT_Y_MAX".enum("HB_TAG ('y','m','a','x')")
+    )
+
+    uint32_t(
+        "fetch_bits",
+
+        hb_face_t.p("face"),
+        hb_ot_bits_tag_t("tag")
+    )
+
+    int32_t(
+        "fetch_number",
+
+        hb_face_t.p("face"),
+        hb_ot_number_tag_t("tag")
+    )
+
     // hb-ot-color.h
 
     EnumConstant(

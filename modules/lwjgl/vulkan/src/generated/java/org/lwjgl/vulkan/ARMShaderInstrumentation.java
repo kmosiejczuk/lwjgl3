@@ -129,12 +129,12 @@ public class ARMShaderInstrumentation {
 
     /** {@code VkResult vkGetShaderInstrumentationValuesARM(VkDevice device, VkShaderInstrumentationARM instrumentation, uint32_t * pMetricBlockCount, void * pMetricValues, VkShaderInstrumentationValuesFlagsARM flags)} */
     @NativeType("VkResult")
-    public static int vkGetShaderInstrumentationValuesARM(VkDevice device, @NativeType("VkShaderInstrumentationARM") long instrumentation, @NativeType("uint32_t *") IntBuffer pMetricBlockCount, @NativeType("void *") ByteBuffer pMetricValues, @NativeType("VkShaderInstrumentationValuesFlagsARM") int flags) {
+    public static int vkGetShaderInstrumentationValuesARM(VkDevice device, @NativeType("VkShaderInstrumentationARM") long instrumentation, @NativeType("uint32_t *") IntBuffer pMetricBlockCount, @NativeType("void *") @Nullable ByteBuffer pMetricValues, @NativeType("VkShaderInstrumentationValuesFlagsARM") int flags) {
         if (CHECKS) {
             check(pMetricBlockCount, 1);
-            check(pMetricValues, 1);
+            checkSafe(pMetricValues, 1);
         }
-        return nvkGetShaderInstrumentationValuesARM(device, instrumentation, memAddress(pMetricBlockCount), memAddress(pMetricValues), flags);
+        return nvkGetShaderInstrumentationValuesARM(device, instrumentation, memAddress(pMetricBlockCount), memAddressSafe(pMetricValues), flags);
     }
 
     // --- [ vkClearShaderInstrumentationMetricsARM ] ---
@@ -173,14 +173,14 @@ public class ARMShaderInstrumentation {
 
     /** {@code VkResult vkGetShaderInstrumentationValuesARM(VkDevice device, VkShaderInstrumentationARM instrumentation, uint32_t * pMetricBlockCount, void * pMetricValues, VkShaderInstrumentationValuesFlagsARM flags)} */
     @NativeType("VkResult")
-    public static int vkGetShaderInstrumentationValuesARM(VkDevice device, @NativeType("VkShaderInstrumentationARM") long instrumentation, @NativeType("uint32_t *") int[] pMetricBlockCount, @NativeType("void *") ByteBuffer pMetricValues, @NativeType("VkShaderInstrumentationValuesFlagsARM") int flags) {
+    public static int vkGetShaderInstrumentationValuesARM(VkDevice device, @NativeType("VkShaderInstrumentationARM") long instrumentation, @NativeType("uint32_t *") int[] pMetricBlockCount, @NativeType("void *") @Nullable ByteBuffer pMetricValues, @NativeType("VkShaderInstrumentationValuesFlagsARM") int flags) {
         long __functionAddress = device.getCapabilities().vkGetShaderInstrumentationValuesARM;
         if (CHECKS) {
             check(__functionAddress);
             check(pMetricBlockCount, 1);
-            check(pMetricValues, 1);
+            checkSafe(pMetricValues, 1);
         }
-        return callPJPPI(device.address(), instrumentation, pMetricBlockCount, memAddress(pMetricValues), flags, __functionAddress);
+        return callPJPPI(device.address(), instrumentation, pMetricBlockCount, memAddressSafe(pMetricValues), flags, __functionAddress);
     }
 
 }

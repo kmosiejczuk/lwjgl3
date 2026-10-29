@@ -12,7 +12,7 @@
     <!-- *********************************** -->
     <property name="kotlinc-version" value="2.4.0"/>
 
-    <property name="jspecify" value="1.0.0"/>
+    <property name="jspecify" value="1.0.1"/>
     <property name="testng" value="7.5"/>
         <property name="jcommander" value="1.78"/>
         <property name="jquery" value="3.5.1"/>

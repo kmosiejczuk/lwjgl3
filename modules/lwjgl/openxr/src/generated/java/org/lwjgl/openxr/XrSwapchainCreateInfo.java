@@ -148,6 +148,8 @@ public class XrSwapchainCreateInfo extends Struct<XrSwapchainCreateInfo> impleme
     public XrSwapchainCreateInfo next(@NativeType("void const *") long value) { nnext(address(), value); return this; }
     /** Prepends the specified {@link XrSecondaryViewConfigurationSwapchainCreateInfoMSFT} value to the {@code next} chain. */
     public XrSwapchainCreateInfo next(XrSecondaryViewConfigurationSwapchainCreateInfoMSFT value) { return this.next(value.next(this.next()).address()); }
+    /** Prepends the specified {@link XrSwapchainCreateInfoColorSpaceSONY} value to the {@code next} chain. */
+    public XrSwapchainCreateInfo next(XrSwapchainCreateInfoColorSpaceSONY value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrSwapchainCreateInfoFoveationFB} value to the {@code next} chain. */
     public XrSwapchainCreateInfo next(XrSwapchainCreateInfoFoveationFB value) { return this.next(value.next(this.next()).address()); }
     /** Prepends the specified {@link XrVulkanSwapchainCreateInfoMETA} value to the {@code next} chain. */
@@ -456,6 +458,8 @@ public class XrSwapchainCreateInfo extends Struct<XrSwapchainCreateInfo> impleme
         public XrSwapchainCreateInfo.Buffer next(@NativeType("void const *") long value) { XrSwapchainCreateInfo.nnext(address(), value); return this; }
         /** Prepends the specified {@link XrSecondaryViewConfigurationSwapchainCreateInfoMSFT} value to the {@code next} chain. */
         public XrSwapchainCreateInfo.Buffer next(XrSecondaryViewConfigurationSwapchainCreateInfoMSFT value) { return this.next(value.next(this.next()).address()); }
+        /** Prepends the specified {@link XrSwapchainCreateInfoColorSpaceSONY} value to the {@code next} chain. */
+        public XrSwapchainCreateInfo.Buffer next(XrSwapchainCreateInfoColorSpaceSONY value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrSwapchainCreateInfoFoveationFB} value to the {@code next} chain. */
         public XrSwapchainCreateInfo.Buffer next(XrSwapchainCreateInfoFoveationFB value) { return this.next(value.next(this.next()).address()); }
         /** Prepends the specified {@link XrVulkanSwapchainCreateInfoMETA} value to the {@code next} chain. */

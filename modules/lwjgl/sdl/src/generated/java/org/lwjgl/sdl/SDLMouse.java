@@ -331,9 +331,6 @@ public class SDLMouse {
     @NativeType("bool")
     public static boolean SDL_SetCursor(@NativeType("SDL_Cursor *") long cursor) {
         long __functionAddress = Functions.SetCursor;
-        if (CHECKS) {
-            check(cursor);
-        }
         return invokePZ(cursor, __functionAddress);
     }
 
@@ -360,9 +357,6 @@ public class SDLMouse {
     /** {@code void SDL_DestroyCursor(SDL_Cursor * cursor)} */
     public static void SDL_DestroyCursor(@NativeType("SDL_Cursor *") long cursor) {
         long __functionAddress = Functions.DestroyCursor;
-        if (CHECKS) {
-            check(cursor);
-        }
         invokePV(cursor, __functionAddress);
     }
 

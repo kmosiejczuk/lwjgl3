@@ -168,7 +168,7 @@ val SDL_mouse = "SDLMouse".nativeClassSDL("SDL_mouse") {
     bool(
         "SetCursor",
 
-        SDL_Cursor.p("cursor")
+        nullable..SDL_Cursor.p("cursor")
     )
 
     SDL_Cursor.p("GetCursor", void())
@@ -177,7 +177,7 @@ val SDL_mouse = "SDLMouse".nativeClassSDL("SDL_mouse") {
     void(
         "DestroyCursor",
 
-        SDL_Cursor.p("cursor")
+        nullable..SDL_Cursor.p("cursor")
     )
 
     bool("ShowCursor", void())

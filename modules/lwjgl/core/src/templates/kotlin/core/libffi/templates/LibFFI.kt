@@ -53,8 +53,8 @@ typedef void (*FFI_CLOSURE_FUN)(ffi_cif*, void*, void**, void*);
 #define FFI_VFP -1
 #endif""")
 
-    StringConstant("VERSION_STRING".."3.6.0")
-    IntConstant("VERSION_NUMBER"..30600)
+    StringConstant("VERSION_STRING".."3.8.0")
+    IntConstant("VERSION_NUMBER"..30800)
 
     ShortConstant(
         "TYPE_VOID".."0",
@@ -74,7 +74,8 @@ typedef void (*FFI_CLOSURE_FUN)(ffi_cif*, void*, void**, void*);
         "TYPE_POINTER".."14",
         "TYPE_COMPLEX".."15",
         "TYPE_UINT128".."16",
-        "TYPE_SINT128".."17"
+        "TYPE_SINT128".."17",
+        "TYPE_VECTOR".."18"
     )
 
     macro(variable=true)..private..short(
@@ -219,6 +220,12 @@ typedef void (*FFI_CLOSURE_FUN)(ffi_cif*, void*, void**, void*);
 
     void(
         "call_plan_free",
+
+        ffi_call_plan.p("plan")
+    )
+
+    size_t(
+        "call_plan_size",
 
         ffi_call_plan.p("plan")
     )

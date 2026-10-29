@@ -22,28 +22,31 @@ public class LMDB {
     static { LibLMDB.initialize(); }
 
     public static final int
-        MDB_VERSION_MAJOR = 0,
-        MDB_VERSION_MINOR = 9,
-        MDB_VERSION_PATCH = 35;
+        MDB_VERSION_MAJOR = 1,
+        MDB_VERSION_MINOR = 0,
+        MDB_VERSION_PATCH = 1;
 
     public static final int MDB_VERSION_FULL = (MDB_VERSION_MAJOR << 24) | (MDB_VERSION_MINOR << 16) | MDB_VERSION_PATCH;
 
-    public static final String MDB_VERSION_DATE = "Jan 27, 2026";
+    public static final String MDB_VERSION_DATE = "Aug 6, 2026";
 
     public static final String MDB_VERSION_STRING = String.format("LMDB %d.%d.%d: (%s)", MDB_VERSION_MAJOR, MDB_VERSION_MINOR, MDB_VERSION_PATCH, MDB_VERSION_DATE);
 
     public static final int
-        MDB_FIXEDMAP   = 0x1,
-        MDB_NOSUBDIR   = 0x4000,
-        MDB_NOSYNC     = 0x10000,
-        MDB_RDONLY     = 0x20000,
-        MDB_NOMETASYNC = 0x40000,
-        MDB_WRITEMAP   = 0x80000,
-        MDB_MAPASYNC   = 0x100000,
-        MDB_NOTLS      = 0x200000,
-        MDB_NOLOCK     = 0x400000,
-        MDB_NORDAHEAD  = 0x800000,
-        MDB_NOMEMINIT  = 0x1000000;
+        MDB_FIXEDMAP     = 0x1,
+        MDB_ENCRYPT      = 0x2000,
+        MDB_NOSUBDIR     = 0x4000,
+        MDB_NOSYNC       = 0x10000,
+        MDB_RDONLY       = 0x20000,
+        MDB_NOMETASYNC   = 0x40000,
+        MDB_WRITEMAP     = 0x80000,
+        MDB_MAPASYNC     = 0x100000,
+        MDB_NOTLS        = 0x200000,
+        MDB_NOLOCK       = 0x400000,
+        MDB_NORDAHEAD    = 0x800000,
+        MDB_NOMEMINIT    = 0x1000000,
+        MDB_PREVSNAPSHOT = 0x2000000,
+        MDB_REMAP_CHUNKS = 0x4000000;
 
     public static final int
         MDB_REVERSEKEY = 0x2,
@@ -108,7 +111,18 @@ public class LMDB {
         MDB_BAD_TXN          = -30782,
         MDB_BAD_VALSIZE      = -30781,
         MDB_BAD_DBI          = -30780,
-        MDB_LAST_ERRCODE     = MDB_BAD_DBI;
+        MDB_PROBLEM          = -30779,
+        MDB_BAD_CHECKSUM     = -30778,
+        MDB_CRYPTO_FAIL      = -30777,
+        MDB_ENV_ENCRYPTION   = -30776,
+        MDB_TXN_PENDING      = -30775,
+        MDB_CANT_ROLLBACK    = -30774,
+        MDB_DBIS_BUSY        = -30773,
+        MDB_SHORT_WRITE      = -30772,
+        MDB_ENV_BUSY         = -30771,
+        MDB_IS_READONLY      = -30770,
+        MDB_ADDR_BUSY        = -30769,
+        MDB_LAST_ERRCODE     = MDB_ADDR_BUSY;
 
     protected LMDB() {
         throw new UnsupportedOperationException();
@@ -243,6 +257,35 @@ public class LMDB {
         }
     }
 
+    // --- [ mdb_env_incr_dump ] ---
+
+    /** {@code int mdb_env_incr_dump(MDB_env * env, char const * path, size_t txnid)} */
+    public static native int nmdb_env_incr_dump(long env, long path, long txnid);
+
+    /** {@code int mdb_env_incr_dump(MDB_env * env, char const * path, size_t txnid)} */
+    public static int mdb_env_incr_dump(@NativeType("MDB_env *") long env, @NativeType("char const *") ByteBuffer path, @NativeType("size_t") long txnid) {
+        if (CHECKS) {
+            check(env);
+            checkNT1(path);
+        }
+        return nmdb_env_incr_dump(env, memAddress(path), txnid);
+    }
+
+    /** {@code int mdb_env_incr_dump(MDB_env * env, char const * path, size_t txnid)} */
+    public static int mdb_env_incr_dump(@NativeType("MDB_env *") long env, @NativeType("char const *") CharSequence path, @NativeType("size_t") long txnid) {
+        if (CHECKS) {
+            check(env);
+        }
+        MemoryStack stack = stackGet(); int stackPointer = stack.getPointer();
+        try {
+            stack.nUTF8(path, true);
+            long pathEncoded = stack.getPointerAddress();
+            return nmdb_env_incr_dump(env, pathEncoded, txnid);
+        } finally {
+            stack.setPointer(stackPointer);
+        }
+    }
+
     // --- [ mdb_env_stat ] ---
 
     /** {@code int mdb_env_stat(MDB_env * env, MDB_stat * stat)} */
@@ -338,15 +381,28 @@ public class LMDB {
 
     // --- [ mdb_env_set_mapsize ] ---
 
-    /** {@code int mdb_env_set_mapsize(MDB_env * env, size_t size)} */
+    /** {@code int mdb_env_set_mapsize(MDB_env * env, mdb_size_t size)} */
     public static native int nmdb_env_set_mapsize(long env, long size);
 
-    /** {@code int mdb_env_set_mapsize(MDB_env * env, size_t size)} */
-    public static int mdb_env_set_mapsize(@NativeType("MDB_env *") long env, @NativeType("size_t") long size) {
+    /** {@code int mdb_env_set_mapsize(MDB_env * env, mdb_size_t size)} */
+    public static int mdb_env_set_mapsize(@NativeType("MDB_env *") long env, @NativeType("mdb_size_t") long size) {
         if (CHECKS) {
             check(env);
         }
         return nmdb_env_set_mapsize(env, size);
+    }
+
+    // --- [ mdb_env_set_pagesize ] ---
+
+    /** {@code int mdb_env_set_pagesize(MDB_env * env, int size)} */
+    public static native int nmdb_env_set_pagesize(long env, int size);
+
+    /** {@code int mdb_env_set_pagesize(MDB_env * env, int size)} */
+    public static int mdb_env_set_pagesize(@NativeType("MDB_env *") long env, int size) {
+        if (CHECKS) {
+            check(env);
+        }
+        return nmdb_env_set_pagesize(env, size);
     }
 
     // --- [ mdb_env_set_maxreaders ] ---
@@ -430,6 +486,32 @@ public class LMDB {
         return nmdb_env_get_userctx(env);
     }
 
+    // --- [ mdb_env_set_encrypt ] ---
+
+    /** {@code int mdb_env_set_encrypt(MDB_env * env, MDB_enc_func * func, MDB_val const * key, unsigned int size)} */
+    public static native int nmdb_env_set_encrypt(long env, long func, long key, int size);
+
+    /** {@code int mdb_env_set_encrypt(MDB_env * env, MDB_enc_func * func, MDB_val const * key, unsigned int size)} */
+    public static int mdb_env_set_encrypt(@NativeType("MDB_env *") long env, @NativeType("MDB_enc_func *") MDBEncFuncI func, @NativeType("MDB_val const *") MDBVal key, @NativeType("unsigned int") int size) {
+        if (CHECKS) {
+            check(env);
+        }
+        return nmdb_env_set_encrypt(env, func.address(), key.address(), size);
+    }
+
+    // --- [ mdb_env_set_checksum ] ---
+
+    /** {@code int mdb_env_set_checksum(MDB_env * env, MDB_sum_func * func, unsigned int size)} */
+    public static native int nmdb_env_set_checksum(long env, long func, int size);
+
+    /** {@code int mdb_env_set_checksum(MDB_env * env, MDB_sum_func * func, unsigned int size)} */
+    public static int mdb_env_set_checksum(@NativeType("MDB_env *") long env, @NativeType("MDB_sum_func *") MDBSumFuncI func, @NativeType("unsigned int") int size) {
+        if (CHECKS) {
+            check(env);
+        }
+        return nmdb_env_set_checksum(env, func.address(), size);
+    }
+
     // --- [ mdb_txn_begin ] ---
 
     /** {@code int mdb_txn_begin(MDB_env * env, MDB_txn * parent, unsigned int flags, MDB_txn ** txn)} */
@@ -460,16 +542,30 @@ public class LMDB {
 
     // --- [ mdb_txn_id ] ---
 
-    /** {@code size_t mdb_txn_id(MDB_txn * txn)} */
+    /** {@code mdb_size_t mdb_txn_id(MDB_txn * txn)} */
     public static native long nmdb_txn_id(long txn);
 
-    /** {@code size_t mdb_txn_id(MDB_txn * txn)} */
-    @NativeType("size_t")
+    /** {@code mdb_size_t mdb_txn_id(MDB_txn * txn)} */
+    @NativeType("mdb_size_t")
     public static long mdb_txn_id(@NativeType("MDB_txn *") long txn) {
         if (CHECKS) {
             check(txn);
         }
         return nmdb_txn_id(txn);
+    }
+
+    // --- [ mdb_txn_flags ] ---
+
+    /** {@code int mdb_txn_flags(MDB_txn * txn, unsigned int * flags)} */
+    public static native int nmdb_txn_flags(long txn, long flags);
+
+    /** {@code int mdb_txn_flags(MDB_txn * txn, unsigned int * flags)} */
+    public static int mdb_txn_flags(@NativeType("MDB_txn *") long txn, @NativeType("unsigned int *") IntBuffer flags) {
+        if (CHECKS) {
+            check(txn);
+            check(flags, 1);
+        }
+        return nmdb_txn_flags(txn, memAddress(flags));
     }
 
     // --- [ mdb_txn_commit ] ---
@@ -483,6 +579,32 @@ public class LMDB {
             check(txn);
         }
         return nmdb_txn_commit(txn);
+    }
+
+    // --- [ mdb_txn_prepare ] ---
+
+    /** {@code int mdb_txn_prepare(MDB_txn * txn)} */
+    public static native int nmdb_txn_prepare(long txn);
+
+    /** {@code int mdb_txn_prepare(MDB_txn * txn)} */
+    public static int mdb_txn_prepare(@NativeType("MDB_txn *") long txn) {
+        if (CHECKS) {
+            check(txn);
+        }
+        return nmdb_txn_prepare(txn);
+    }
+
+    // --- [ mdb_env_rollback ] ---
+
+    /** {@code int mdb_env_rollback(MDB_env * env, mdb_size_t txnid)} */
+    public static native int nmdb_env_rollback(long env, long txnid);
+
+    /** {@code int mdb_env_rollback(MDB_env * env, mdb_size_t txnid)} */
+    public static int mdb_env_rollback(@NativeType("MDB_env *") long env, @NativeType("mdb_size_t") long txnid) {
+        if (CHECKS) {
+            check(env);
+        }
+        return nmdb_env_rollback(env, txnid);
     }
 
     // --- [ mdb_txn_abort ] ---
@@ -769,6 +891,20 @@ public class LMDB {
         return nmdb_cursor_dbi(cursor);
     }
 
+    // --- [ mdb_cursor_is_db ] ---
+
+    /** {@code int mdb_cursor_is_db(MDB_cursor * cursor)} */
+    public static native int nmdb_cursor_is_db(long cursor);
+
+    /** {@code int mdb_cursor_is_db(MDB_cursor * cursor)} */
+    @NativeType("int")
+    public static boolean mdb_cursor_is_db(@NativeType("MDB_cursor *") long cursor) {
+        if (CHECKS) {
+            check(cursor);
+        }
+        return nmdb_cursor_is_db(cursor) != 0;
+    }
+
     // --- [ mdb_cursor_get ] ---
 
     /** {@code int mdb_cursor_get(MDB_cursor * cursor, MDB_val * key, MDB_val * data, MDB_cursor_op op)} */
@@ -810,11 +946,11 @@ public class LMDB {
 
     // --- [ mdb_cursor_count ] ---
 
-    /** {@code int mdb_cursor_count(MDB_cursor * cursor, size_t * countp)} */
+    /** {@code int mdb_cursor_count(MDB_cursor * cursor, mdb_size_t * countp)} */
     public static native int nmdb_cursor_count(long cursor, long countp);
 
-    /** {@code int mdb_cursor_count(MDB_cursor * cursor, size_t * countp)} */
-    public static int mdb_cursor_count(@NativeType("MDB_cursor *") long cursor, @NativeType("size_t *") PointerBuffer countp) {
+    /** {@code int mdb_cursor_count(MDB_cursor * cursor, mdb_size_t * countp)} */
+    public static int mdb_cursor_count(@NativeType("MDB_cursor *") long cursor, @NativeType("mdb_size_t *") PointerBuffer countp) {
         if (CHECKS) {
             check(cursor);
             check(countp, 1);
@@ -913,6 +1049,18 @@ public class LMDB {
             check(readers, 1);
         }
         return nmdb_env_get_maxreaders(env, readers);
+    }
+
+    /** {@code int mdb_txn_flags(MDB_txn * txn, unsigned int * flags)} */
+    public static native int nmdb_txn_flags(long txn, int[] flags);
+
+    /** {@code int mdb_txn_flags(MDB_txn * txn, unsigned int * flags)} */
+    public static int mdb_txn_flags(@NativeType("MDB_txn *") long txn, @NativeType("unsigned int *") int[] flags) {
+        if (CHECKS) {
+            check(txn);
+            check(flags, 1);
+        }
+        return nmdb_txn_flags(txn, flags);
     }
 
     /** {@code int mdb_dbi_open(MDB_txn * txn, char const * name, unsigned int flags, MDB_dbi * dbi)} */

@@ -22,7 +22,7 @@ val ktx_int32_t = typedef(int32_t, "ktx_int32_t")
 val ktx_uint32_t = typedef(uint32_t, "ktx_uint32_t")
 val ktx_int64_t = typedef(int64_t, "ktx_int64_t")
 val ktx_uint64_t = typedef(uint64_t, "ktx_uint64_t")
-val ktx_off_t = typedef(uint64_t, "ktx_off_t")
+val ktx_off_t = typedef(int64_t, "ktx_off_t")
 val ktx_size_t = typedef(size_t, "ktx_size_t")
 
 val ktxHashListEntry = "ktxHashListEntry".opaque

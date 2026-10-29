@@ -20,10 +20,10 @@ import static org.lwjgl.system.MemoryStack.*;
  * struct MDB_stat {
  *     unsigned int ms_psize;
  *     unsigned int ms_depth;
- *     size_t ms_branch_pages;
- *     size_t ms_leaf_pages;
- *     size_t ms_overflow_pages;
- *     size_t ms_entries;
+ *     mdb_size_t ms_branch_pages;
+ *     mdb_size_t ms_leaf_pages;
+ *     mdb_size_t ms_overflow_pages;
+ *     mdb_size_t ms_entries;
  * }}</pre>
  */
 @NativeType("struct MDB_stat")
@@ -94,16 +94,16 @@ public class MDBStat extends Struct<MDBStat> implements NativeResource {
     @NativeType("unsigned int")
     public int ms_depth() { return nms_depth(address()); }
     /** @return the value of the {@code ms_branch_pages} field. */
-    @NativeType("size_t")
+    @NativeType("mdb_size_t")
     public long ms_branch_pages() { return nms_branch_pages(address()); }
     /** @return the value of the {@code ms_leaf_pages} field. */
-    @NativeType("size_t")
+    @NativeType("mdb_size_t")
     public long ms_leaf_pages() { return nms_leaf_pages(address()); }
     /** @return the value of the {@code ms_overflow_pages} field. */
-    @NativeType("size_t")
+    @NativeType("mdb_size_t")
     public long ms_overflow_pages() { return nms_overflow_pages(address()); }
     /** @return the value of the {@code ms_entries} field. */
-    @NativeType("size_t")
+    @NativeType("mdb_size_t")
     public long ms_entries() { return nms_entries(address()); }
 
     // -----------------------------------
@@ -280,16 +280,16 @@ public class MDBStat extends Struct<MDBStat> implements NativeResource {
         @NativeType("unsigned int")
         public int ms_depth() { return MDBStat.nms_depth(address()); }
         /** @return the value of the {@code ms_branch_pages} field. */
-        @NativeType("size_t")
+        @NativeType("mdb_size_t")
         public long ms_branch_pages() { return MDBStat.nms_branch_pages(address()); }
         /** @return the value of the {@code ms_leaf_pages} field. */
-        @NativeType("size_t")
+        @NativeType("mdb_size_t")
         public long ms_leaf_pages() { return MDBStat.nms_leaf_pages(address()); }
         /** @return the value of the {@code ms_overflow_pages} field. */
-        @NativeType("size_t")
+        @NativeType("mdb_size_t")
         public long ms_overflow_pages() { return MDBStat.nms_overflow_pages(address()); }
         /** @return the value of the {@code ms_entries} field. */
-        @NativeType("size_t")
+        @NativeType("mdb_size_t")
         public long ms_entries() { return MDBStat.nms_entries(address()); }
 
     }

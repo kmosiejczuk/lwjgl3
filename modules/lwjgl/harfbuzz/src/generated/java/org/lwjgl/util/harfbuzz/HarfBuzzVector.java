@@ -21,6 +21,10 @@ import static org.lwjgl.util.harfbuzz.HarfBuzz.*;
 
 public class HarfBuzzVector {
 
+    static {
+        HarfBuzz.getLibrary();
+    }
+
     private static final SharedLibrary HARFBUZZ = Library.loadNative(HarfBuzzVector.class, "org.lwjgl.harfbuzz", Configuration.HARFBUZZ_VECTOR_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("harfbuzz-vector")), true);
 
     /** Contains the function pointers loaded from the harfbuzz {@link SharedLibrary}. */

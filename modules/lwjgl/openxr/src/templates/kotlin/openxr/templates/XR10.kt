@@ -126,19 +126,14 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
-        "VIEW_CONFIGURATION_TYPE_PRIMARY_MONO".."1",
-        "VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO".."2"
-    )
-
-    EnumConstant(
         "ENVIRONMENT_BLEND_MODE_OPAQUE".."1",
         "ENVIRONMENT_BLEND_MODE_ADDITIVE".."2",
         "ENVIRONMENT_BLEND_MODE_ALPHA_BLEND".."3"
     )
 
     EnumConstant(
-        "SPACE_VELOCITY_LINEAR_VALID_BIT".enum(0x00000001),
-        "SPACE_VELOCITY_ANGULAR_VALID_BIT".enum(0x00000002)
+        "VIEW_CONFIGURATION_TYPE_PRIMARY_MONO".."1",
+        "VIEW_CONFIGURATION_TYPE_PRIMARY_STEREO".."2"
     )
 
     EnumConstant(
@@ -152,6 +147,11 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         "SPACE_LOCATION_POSITION_VALID_BIT".enum(0x00000002),
         "SPACE_LOCATION_ORIENTATION_TRACKED_BIT".enum(0x00000004),
         "SPACE_LOCATION_POSITION_TRACKED_BIT".enum(0x00000008)
+    )
+
+    EnumConstant(
+        "SPACE_VELOCITY_LINEAR_VALID_BIT".enum(0x00000001),
+        "SPACE_VELOCITY_ANGULAR_VALID_BIT".enum(0x00000002)
     )
 
     EnumConstant(
@@ -176,6 +176,12 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
     )
 
     EnumConstant(
+        "EYE_VISIBILITY_BOTH".."0",
+        "EYE_VISIBILITY_LEFT".."1",
+        "EYE_VISIBILITY_RIGHT".."2"
+    )
+
+    EnumConstant(
         "VIEW_STATE_ORIENTATION_VALID_BIT".enum(0x00000001),
         "VIEW_STATE_POSITION_VALID_BIT".enum(0x00000002),
         "VIEW_STATE_ORIENTATION_TRACKED_BIT".enum(0x00000004),
@@ -194,12 +200,6 @@ val XR10 = "XR10".nativeClass(Module.OPENXR, "XR10", prefix = "XR", binding = XR
         "INPUT_SOURCE_LOCALIZED_NAME_USER_PATH_BIT".enum(0x00000001),
         "INPUT_SOURCE_LOCALIZED_NAME_INTERACTION_PROFILE_BIT".enum(0x00000002),
         "INPUT_SOURCE_LOCALIZED_NAME_COMPONENT_BIT".enum(0x00000004)
-    )
-
-    EnumConstant(
-        "EYE_VISIBILITY_BOTH".."0",
-        "EYE_VISIBILITY_LEFT".."1",
-        "EYE_VISIBILITY_RIGHT".."2"
     )
 
     EnumConstant(

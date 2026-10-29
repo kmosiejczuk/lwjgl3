@@ -2598,16 +2598,18 @@ public class LibURing {
 
     // --- [ io_uring_mlock_size ] ---
 
-    /** {@code int io_uring_mlock_size(unsigned entries, unsigned flags)} */
-    public static native int io_uring_mlock_size(@NativeType("unsigned") int entries, @NativeType("unsigned") int flags);
+    /** {@code ssize_t io_uring_mlock_size(unsigned entries, unsigned flags)} */
+    @NativeType("ssize_t")
+    public static native long io_uring_mlock_size(@NativeType("unsigned") int entries, @NativeType("unsigned") int flags);
 
     // --- [ io_uring_mlock_size_params ] ---
 
-    /** {@code int io_uring_mlock_size_params(unsigned entries, struct io_uring_params * p)} */
-    public static native int nio_uring_mlock_size_params(int entries, long p);
+    /** {@code ssize_t io_uring_mlock_size_params(unsigned entries, struct io_uring_params * p)} */
+    public static native long nio_uring_mlock_size_params(int entries, long p);
 
-    /** {@code int io_uring_mlock_size_params(unsigned entries, struct io_uring_params * p)} */
-    public static int io_uring_mlock_size_params(@NativeType("unsigned") int entries, @NativeType("struct io_uring_params *") IOURingParams p) {
+    /** {@code ssize_t io_uring_mlock_size_params(unsigned entries, struct io_uring_params * p)} */
+    @NativeType("ssize_t")
+    public static long io_uring_mlock_size_params(@NativeType("unsigned") int entries, @NativeType("struct io_uring_params *") IOURingParams p) {
         return nio_uring_mlock_size_params(entries, p.address());
     }
 
