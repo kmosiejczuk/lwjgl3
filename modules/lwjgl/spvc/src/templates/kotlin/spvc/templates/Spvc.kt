@@ -9,7 +9,7 @@ import org.lwjgl.generator.*
 
 val SPVC_BINDING = simpleBinding(
     Module.SPVC,
-    libraryExpression = """Configuration.SPVC_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("spirv-cross"))""",
+    libraryExpression = """Configuration.SPVC_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("spirv-cross-c-shared"))""",
     bundledWithLWJGL = true
 )
 val Spvc = "Spvc".nativeClass(Module.SPVC, prefix = "SPVC_", prefixMethod = "spvc_", binding = SPVC_BINDING) {

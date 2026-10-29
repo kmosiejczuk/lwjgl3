@@ -8,7 +8,7 @@ import org.lwjgl.generator.*
 
 val SHADERC_BINDING = simpleBinding(
     Module.SHADERC,
-    libraryExpression = """Configuration.SHADERC_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("shaderc"))""",
+    libraryExpression = """Configuration.SHADERC_LIBRARY_NAME.get(Platform.mapLibraryNameBundled("shaderc_shared"))""",
     bundledWithLWJGL = true
 )
 
