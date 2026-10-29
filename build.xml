@@ -2026,13 +2026,13 @@
         <release-module name="sdl" native-library="SDL3" title="SDL" if:true="${binding.sdl}"/>
 
         <!-- shaderc -->
-        <release-module name="shaderc" native-library="shaderc" title="Shaderc" if:true="${binding.shaderc}"/>
+        <release-module name="shaderc" native-library="lwjgl_shaderc" title="Shaderc" if:true="${binding.shaderc}"/>
 
         <!-- spng -->
         <release-module name="spng" native-library="lwjgl_spng" title="spng" if:true="${binding.spng}"/>
 
         <!-- SPIRV-Cross -->
-        <release-module name="spvc" native-library="spirv-cross" title="SPIRV-Cross" if:true="${binding.spvc}"/>
+        <release-module name="spvc" native-library="lwjgl_spvc" title="SPIRV-Cross" if:true="${binding.spvc}"/>
 
         <!-- stb -->
         <release-module name="stb" native-library="lwjgl_stb" title="stb" if:true="${binding.stb}"/>

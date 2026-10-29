@@ -351,6 +351,22 @@
 	    </link>
 	</build>
 
+	<!-- shaderc -->
+        <build simple="true" module="shaderc">
+	    <link>
+		<arg value="-L/usr/local/lib"/>
+		<arg value="-lshaderc_shared"/>
+	    </link>
+	</build>
+
+	<!-- spirv-cross -->
+        <build simple="true" module="spvc">
+	    <link>
+		<arg value="-L/usr/local/lib"/>
+		<arg value="-lspirv-cross-c-shared"/>
+	    </link>
+	</build>
+
         <!-- stb -->
         <build module="stb" if:true="${binding.stb}">
             <source>
