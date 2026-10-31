@@ -1641,7 +1641,7 @@
         <parallel threadcount="4" failonany="true">
 
         <!-- Assimp -->
-        <release-module name="assimp" title="assimp" if:true="${binding.assimp}">
+        <release-module name="assimp" native-library="lwjgl_assimp" title="assimp" if:true="${binding.assimp}">
             <natives>
                 <get-release platform="freebsd" arch="x64" file="libassimp.so"/>
                 <get-release platform="freebsd" arch="x64" file="libassimp.so.git"/>
@@ -2040,7 +2040,7 @@
         </release-module>
 
         <!-- Opus -->
-        <release-module name="opus" native-library="opus" title="Opus" if:true="${binding.opus}"/>
+        <release-module name="opus" native-library="lwjgl_opus" title="Opus" if:true="${binding.opus}"/>
 
         <!-- Par -->
         <release-module name="par" native-library="lwjgl_par" title="par" if:true="${binding.par}"/>
