@@ -210,7 +210,6 @@
 	</build>
 
         <!-- LLVM -->
-        <build_simple module="llvm"/>
 	<build module="llvm" simple="true">
 	    <link>
 		<arg value="-lc"/>
