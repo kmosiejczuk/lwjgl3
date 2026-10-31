@@ -173,6 +173,15 @@
             </link>
         </build>
 
+	<!-- assimp -->
+	<build module="assimp" simple="true">
+            <link>
+                <arg value="-lc"/>
+                <arg value="-L/usr/local/lib"/>
+                <arg value="-lassimp"/>
+            </link>
+	</build>
+
 	<!-- Freetype -->
 	<build module="freetype" simple="true">
             <link>
@@ -188,6 +197,15 @@
                 <arg value="-L/usr/local/lib"/>
                 <arg value="-lc"/>
                 <arg value="-lglfw"/>
+            </link>
+	</build>
+
+	<!-- harfbuzz -->
+	<build module="harfbuzz" simple="true">
+            <link>
+                <arg value="-L/usr/local/lib"/>
+                <arg value="-lc"/>
+                <arg value="-lharfbuzz"/>
             </link>
 	</build>
 
@@ -235,7 +253,8 @@
             </beforeCompile>
 	    <link>
                <arg value="-lc"/>
-               <arg value="/usr/local/lib/liblz4.a"/>
+               <arg value="-L/usr/local/lib"/>
+               <arg value="-llz4"/>
 	    </link>
         </build>
 
@@ -303,6 +322,15 @@
             </link>
         </build>
 
+        <!-- OpenAL -->
+        <build simple="true" module="openal">
+	    <link>
+		<arg value="-L/usr/local/lib"/>
+		<arg value="-lopenal"/>
+		<arg value="-lc"/>
+	    </link>
+	</build>
+
         <!-- OpenGL -->
         <build module="opengl">
             <source>
@@ -311,12 +339,28 @@
             </source>
             <link>
                 <arg value="-lc"/>
+                <arg value="-L/usr/X11R6/lib"/>
+                <arg value="-lGL"/>
             </link>
 	</build>
 
 
         <!-- OpenGL ES -->
-        <build_simple module="opengles"/>
+        <build simple="true" module="opengles">
+	    <link>
+		<arg value="-L/usr/X11R6/lib"/>
+		<arg value="-lGLESv2"/>
+		<arg value="-lc"/>
+	    </link>
+	</build>
+
+        <!-- Opus -->
+        <build simple="true" module="opus">
+	    <link>
+		<arg value="-L/usr/local/lib"/>
+		<arg value="-lopus"/>
+	    </link>
+	</build>
 
         <!-- Par -->
         <build simple="true" module="par">
@@ -348,6 +392,14 @@
         <build simple="true" module="rpmalloc">
 	    <link>
 		<arg value="-lc"/>
+	    </link>
+	</build>
+
+	<!-- SDL3 -->
+        <build simple="true" module="sdl">
+	    <link>
+		<arg value="-L/usr/local/lib"/>
+		<arg value="-lSDL3"/>
 	    </link>
 	</build>
 
@@ -455,6 +507,8 @@
             </beforeCompile>
 	    <link>
 		<arg value="-lc"/>
+		<arg value="-L/usr/local/lib"/>
+		<arg value="-lxxhash"/>
 	    </link>
         </build>
 
