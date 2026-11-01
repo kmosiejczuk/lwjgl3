@@ -1638,7 +1638,7 @@
             <delete dir="${bin.lwjgl}/core/META-INF/native-image" quiet="true"/>
         </sequential>
 
-        <parallel threadcount="4" failonany="true">
+        <parallel threadcount="1" failonany="true">
 
         <!-- Assimp -->
         <release-module name="assimp" native-library="lwjgl_assimp" title="assimp" if:true="${binding.assimp}">
