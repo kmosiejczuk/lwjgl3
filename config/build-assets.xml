@@ -22,7 +22,7 @@ This script is included in /build.xml and depends on /build-definitions.xml
 
         <mkdir dir="${test.resources}/demo/nanovg/images" if:true="${binding.nanovg}"/>
 
-        <parallel threadsPerProcessor="4" failonany="true">
+        <parallel threadsPerProcessor="1" failonany="true">
 
         <update-demo-asset path="footsteps.ogg"/>
         <update-demo-asset path="phero.ogg"/>
