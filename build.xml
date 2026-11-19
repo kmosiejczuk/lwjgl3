@@ -1346,7 +1346,7 @@
                     <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/x64" type="so">
                          <openbsd-content/>
                     </natives-jar>
-                    <natives-jar name="@{name}" title="@{title}" platform="openbsd-arm64" path="openbsd/arm64" type="so">
+                    <natives-jar name="@{name}" title="@{title}" platform="openbsd" path="openbsd/arm64" type="so">
                          <openbsd-content/>
                     </natives-jar>
                     <natives-jar name="@{name}" title="@{title}" platform="windows" path="windows/x64" type="dll">
@@ -1377,7 +1377,6 @@
         <element name="macos" optional="true"/>
         <element name="macos-arm64" optional="true"/>
         <element name="openbsd" optional="true"/>
-        <element name="openbsd-arm64" optional="true"/>
         <element name="windows" optional="true"/>
         <element name="windows-x86" optional="true"/>
         <element name="windows-arm64" optional="true"/>
